@@ -24,10 +24,10 @@ namespace wpf_manager.view
         public ManagerMain()
         {
             InitializeComponent();
-            imeLabela.Content = mng.ime +" "+ mng.prezime;
-            rVremeLabela.Content = mng.pocetakRV + " - " + mng.krajRV;
-            adresaLabela.Content = mng.adresa;
-            brojLabela.Content = mng.telefon;
+            imeLabela.Content = mng.Ime +" "+ mng.Prezime;
+            rVremeLabela.Content = mng.PocetakRV + " - " + mng.KrajRV;
+            adresaLabela.Content = mng.Adresa;
+            brojLabela.Content = mng.Telefon;
 
            
         }

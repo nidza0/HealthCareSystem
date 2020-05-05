@@ -32,7 +32,7 @@
 
 
         <Popup x:Name="MenuPopup" Placement="RelativePoint"  StaysOpen="False"  >
-            <StackPanel Background="#232829" HorizontalAlignment="Left" Height="712" VerticalAlignment="Top" Width="325">
+            <StackPanel Background="#232829" HorizontalAlignment="Left" Height="750" VerticalAlignment="Top" Width="325">
                 <Grid Height="712">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*"/>

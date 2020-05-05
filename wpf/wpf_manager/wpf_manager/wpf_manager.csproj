@@ -64,6 +64,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Model\Doctor.cs" />
+    <Compile Include="view\LekarDetails.xaml.cs">
+      <DependentUpon>LekarDetails.xaml</DependentUpon>
+    </Compile>
     <Compile Include="view\LekariPage.xaml.cs">
       <DependentUpon>LekariPage.xaml</DependentUpon>
     </Compile>
@@ -81,12 +84,13 @@
     <Compile Include="view\ManagerMain.xaml.cs">
       <DependentUpon>ManagerMain.xaml</DependentUpon>
     </Compile>
-    <Compile Include="view\MenuPage.xaml.cs">
-      <DependentUpon>MenuPage.xaml</DependentUpon>
-    </Compile>
     <Page Include="images\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="view\LekarDetails.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="view\LekariPage.xaml">
       <SubType>Designer</SubType>
@@ -101,10 +105,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="view\ManagerMain.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="view\MenuPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

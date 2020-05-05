@@ -8,31 +8,31 @@ namespace wpf_manager
 {
     class Manager
     {
-        public string ime { get; set; }
-        public string prezime { get; set; }
-        public string username { get; set; }
-        public string password { get; set; }
+        public string Ime { get; set; }
+        public string Prezime { get; set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
 
-        public string imageUri { get; set; }
+        public string ImageUri { get; set; }
 
-        public string pocetakRV { get; set; }
-        public string krajRV { get; set; }
+        public string PocetakRV { get; set; }
+        public string KrajRV { get; set; }
 
-        public string adresa { get; set; }
+        public string Adresa { get; set; }
         
-        public string telefon { get; set; }
+        public string Telefon { get; set; }
 
         public Manager()
         {
-            this.ime = "Pera";
-            this.prezime = "Detlic";
-            this.username = "pera_detlic";
-            this.password = "pera123";
-            this.imageUri = "C:/Users/vule/Desktop/hci/v3 WPF/manager_wpf/wpf_manager/wpf_manager/mImage.jpg";
-            this.pocetakRV = "10.30";
-            this.krajRV = "12.00";
-            this.adresa = "Pejicevi Salasi";
-            this.telefon = "+381 21 1966 1989";
+            this.Ime = "Pera";
+            this.Prezime = "Detlic";
+            this.Username = "pera_detlic";
+            this.Password = "pera123";
+            this.ImageUri = "C:/Users/vule/Desktop/hci/v3 WPF/manager_wpf/wpf_manager/wpf_manager/mImage.jpg";
+            this.PocetakRV = "10.30";
+            this.KrajRV = "12.00";
+            this.Adresa = "Pejicevi Salasi";
+            this.Telefon = "+381 21 1966 1989";
         }
     }
 }
