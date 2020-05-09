@@ -20,9 +20,8 @@ namespace wpf_manager.view
     /// </summary>
     public partial class LekarDetails : Page
     {
-        public LekarDetails()
+        public LekarDetails(Model.Doctor localDoc)
         {
-            Model.Doctor localDoc = LekariPage.Doctors[LekariPage.selectedDoc - 1];
             InitializeComponent();
             DoctorImage.Source = new BitmapImage(new Uri(localDoc.ImagePath, UriKind.Relative));
             NameLabel.Content = localDoc.Name + " " + localDoc.Surname;
@@ -34,7 +33,15 @@ namespace wpf_manager.view
             datumLabel.Content = localDoc.Birth;
         }
 
-        
+        private void MenuLekari_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/view/LekariPage.xaml", UriKind.Relative));
 
+        }
+
+        private void HomeButton_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("view/ManagerMain.xaml", UriKind.Relative));
+        }
     }
 }

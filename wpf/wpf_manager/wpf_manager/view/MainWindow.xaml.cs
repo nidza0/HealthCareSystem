@@ -19,11 +19,12 @@ namespace wpf_manager.view
     /// </summary>
     public partial class MainWindow : Window
     {
+
         public MainWindow()
-        {
+        {   
+            
             InitializeComponent();
-            
-            
+           
         }
     }
 }

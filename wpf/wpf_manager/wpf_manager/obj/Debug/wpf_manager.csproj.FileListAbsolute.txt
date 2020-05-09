@@ -29,3 +29,36 @@ C:\Users\vule\Desktop\hci\v3 WPF\manager_wpf\wpf_manager\wpf_manager\obj\Debug\w
 C:\Users\vule\Desktop\hci\v3 WPF\manager_wpf\wpf_manager\wpf_manager\obj\Debug\wpf_manager.csproj.CopyComplete
 C:\Users\vule\Desktop\hci\v3 WPF\manager_wpf\wpf_manager\wpf_manager\obj\Debug\wpf_manager.exe
 C:\Users\vule\Desktop\hci\v3 WPF\manager_wpf\wpf_manager\wpf_manager\obj\Debug\wpf_manager.pdb
+C:\Users\vule\Desktop\projekat\HealthCareSystem\wpf\wpf_manager\wpf_manager\bin\Debug\MaterialDesignThemes.Wpf.dll
+C:\Users\vule\Desktop\projekat\HealthCareSystem\wpf\wpf_manager\wpf_manager\bin\Debug\wpf_manager.exe.config
+C:\Users\vule\Desktop\projekat\HealthCareSystem\wpf\wpf_manager\wpf_manager\bin\Debug\wpf_manager.exe
+C:\Users\vule\Desktop\projekat\HealthCareSystem\wpf\wpf_manager\wpf_manager\bin\Debug\wpf_manager.pdb
+C:\Users\vule\Desktop\projekat\HealthCareSystem\wpf\wpf_manager\wpf_manager\bin\Debug\MaterialDesignColors.dll
+C:\Users\vule\Desktop\projekat\HealthCareSystem\wpf\wpf_manager\wpf_manager\bin\Debug\MaterialDesignColors.pdb
+C:\Users\vule\Desktop\projekat\HealthCareSystem\wpf\wpf_manager\wpf_manager\bin\Debug\MaterialDesignThemes.Wpf.pdb
+C:\Users\vule\Desktop\projekat\HealthCareSystem\wpf\wpf_manager\wpf_manager\bin\Debug\MaterialDesignThemes.Wpf.xml
+C:\Users\vule\Desktop\projekat\HealthCareSystem\wpf\wpf_manager\wpf_manager\obj\Debug\images\MainWindow.g.cs
+C:\Users\vule\Desktop\projekat\HealthCareSystem\wpf\wpf_manager\wpf_manager\obj\Debug\view\LekarDetails.g.cs
+C:\Users\vule\Desktop\projekat\HealthCareSystem\wpf\wpf_manager\wpf_manager\obj\Debug\view\LekariPage.g.cs
+C:\Users\vule\Desktop\projekat\HealthCareSystem\wpf\wpf_manager\wpf_manager\obj\Debug\view\LoginPage.g.cs
+C:\Users\vule\Desktop\projekat\HealthCareSystem\wpf\wpf_manager\wpf_manager\obj\Debug\view\MainWindow.g.cs
+C:\Users\vule\Desktop\projekat\HealthCareSystem\wpf\wpf_manager\wpf_manager\obj\Debug\view\ManagerMain.g.cs
+C:\Users\vule\Desktop\projekat\HealthCareSystem\wpf\wpf_manager\wpf_manager\obj\Debug\App.g.cs
+C:\Users\vule\Desktop\projekat\HealthCareSystem\wpf\wpf_manager\wpf_manager\obj\Debug\wpf_manager_MarkupCompile.cache
+C:\Users\vule\Desktop\projekat\HealthCareSystem\wpf\wpf_manager\wpf_manager\obj\Debug\wpf_manager_MarkupCompile.lref
+C:\Users\vule\Desktop\projekat\HealthCareSystem\wpf\wpf_manager\wpf_manager\obj\Debug\App.baml
+C:\Users\vule\Desktop\projekat\HealthCareSystem\wpf\wpf_manager\wpf_manager\obj\Debug\images\MainWindow.baml
+C:\Users\vule\Desktop\projekat\HealthCareSystem\wpf\wpf_manager\wpf_manager\obj\Debug\view\LekarDetails.baml
+C:\Users\vule\Desktop\projekat\HealthCareSystem\wpf\wpf_manager\wpf_manager\obj\Debug\view\LekariPage.baml
+C:\Users\vule\Desktop\projekat\HealthCareSystem\wpf\wpf_manager\wpf_manager\obj\Debug\view\LoginPage.baml
+C:\Users\vule\Desktop\projekat\HealthCareSystem\wpf\wpf_manager\wpf_manager\obj\Debug\view\MainWindow.baml
+C:\Users\vule\Desktop\projekat\HealthCareSystem\wpf\wpf_manager\wpf_manager\obj\Debug\view\ManagerMain.baml
+C:\Users\vule\Desktop\projekat\HealthCareSystem\wpf\wpf_manager\wpf_manager\obj\Debug\wpf_manager.g.resources
+C:\Users\vule\Desktop\projekat\HealthCareSystem\wpf\wpf_manager\wpf_manager\obj\Debug\wpf_manager.Properties.Resources.resources
+C:\Users\vule\Desktop\projekat\HealthCareSystem\wpf\wpf_manager\wpf_manager\obj\Debug\wpf_manager.csproj.GenerateResource.cache
+C:\Users\vule\Desktop\projekat\HealthCareSystem\wpf\wpf_manager\wpf_manager\obj\Debug\wpf_manager.csproj.CopyComplete
+C:\Users\vule\Desktop\projekat\HealthCareSystem\wpf\wpf_manager\wpf_manager\obj\Debug\wpf_manager.exe
+C:\Users\vule\Desktop\projekat\HealthCareSystem\wpf\wpf_manager\wpf_manager\obj\Debug\wpf_manager.pdb
+C:\Users\vule\Desktop\projekat\HealthCareSystem\wpf\wpf_manager\wpf_manager\obj\Debug\wpf_manager.csprojAssemblyReference.cache
+C:\Users\vule\Desktop\projekat\HealthCareSystem\wpf\wpf_manager\wpf_manager\obj\Debug\view\SearchPage.g.cs
+C:\Users\vule\Desktop\projekat\HealthCareSystem\wpf\wpf_manager\wpf_manager\obj\Debug\view\SearchPage.baml

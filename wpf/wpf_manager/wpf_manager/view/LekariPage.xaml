@@ -15,50 +15,7 @@
         </Grid.Background>
 
 
-        <StackPanel x:Name="MosaicPanel" HorizontalAlignment="Left" Height="460" Margin="0,180,0,0" VerticalAlignment="Top" Width="430">
-            <Grid Height="460">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                </Grid.RowDefinitions>
-                <Border BorderBrush="#ec1c70" BorderThickness="3">
-                    <Button Style="{x:Null}">
-                        <Image Source="..\images\doc11.jpg" Stretch="UniformToFill" Height="148" />
-                    </Button>
 
-                </Border>
-                <Border Grid.Row="0" Grid.Column="1"  BorderBrush="#ec1c70" BorderThickness="2">
-                    <Image Source="..\images\doc12.jpg" Stretch="UniformToFill" />
-                </Border>
-                <Border Grid.Row="0" Grid.Column="2"  BorderBrush="#ec1c70" BorderThickness="2">
-                    <Image Source="..\images\doc13.jpg" Stretch="UniformToFill" />
-                </Border>
-                <Border Grid.Row="1" Grid.Column="0"  BorderBrush="#ec1c70" BorderThickness="2">
-                    <Image Source="..\images\doc21.jpg" Stretch="UniformToFill" />
-                </Border>
-                <Border Grid.Row="1" Grid.Column="1"  BorderBrush="#ec1c70" BorderThickness="2">
-                    <Image Source="..\images\doc22.jpg" Stretch="UniformToFill" />
-                </Border>
-                <Border Grid.Row="1" Grid.Column="3"  BorderBrush="#ec1c70" BorderThickness="2">
-                    <Image Source="..\images\doc23.jpg" Stretch="UniformToFill" />
-                </Border>
-                <Border Grid.Row="2" Grid.Column="0" BorderBrush="#ec1c70" BorderThickness="2">
-                    <Image Source="..\images\doc31.jpg" Stretch="UniformToFill" />
-                </Border>
-                <Border Grid.Row="2" Grid.Column="1" BorderBrush="#ec1c70" BorderThickness="2">
-                    <Image Source="..\images\doc32.jpg" Stretch="UniformToFill" />
-                </Border>
-                <Border Grid.Row="2" Grid.Column="2" BorderBrush="#ec1c70" BorderThickness="2">
-                    <Image Source="..\images\doc33.jpg" Stretch="UniformToFill" />
-                </Border>
-            </Grid>
-        </StackPanel>
         <Label Content="Lekari" FontSize="40" FontWeight="Bold" Width="120" Margin="155,34,155,0" VerticalAlignment="Top" Height="59"/>
 
 
@@ -121,14 +78,31 @@
                 </EventTrigger>
             </Button.Triggers>
         </Button>
-
-        <Button Style="{x:Null}" x:Name="MosaicButton" Content="Mozaik" HorizontalAlignment="Left" Margin="0,143,0,0" VerticalAlignment="Top" Width="215" Height="37" BorderBrush="#ec1c70" BorderThickness="3" Background="Transparent" FontSize="17" FontWeight="Bold" Click="MosaicButton_Click"/>
-
-        <Button Style="{x:Null}" x:Name="ListButton" Content="Lista" HorizontalAlignment="Left" Margin="215,143,0,0" VerticalAlignment="Top" Width="215" Height="37" BorderBrush="#ec1c70" BorderThickness="3" Background="Transparent" FontSize="17" FontWeight="Bold" Click="ListButton_Click"/>
-        <DockPanel x:Name="ListPanel"  HorizontalAlignment="Left" Height="460" Margin="0,180,0,0" VerticalAlignment="Top" Width="430" Background="White">
+        <DockPanel x:Name="ListPanel" HorizontalAlignment="Left" Height="478" Margin="0,180,0,0" VerticalAlignment="Top" Width="430" Background="White">
             <Border BorderBrush="#ec1c70" BorderThickness="3" >
-                <DataGrid x:Name="ListDataGrid" ItemsSource="{Binding Doctors}" FontWeight="Bold" AutoGenerateColumns="True" IsReadOnly="True"  AutoGeneratingColumn="ListDataGrid_AutoGeneratingColumn" SelectionMode="Single" MaxHeight="460" ScrollViewer.VerticalScrollBarVisibility="Auto" MouseDoubleClick="ListDataGrid_MouseDoubleClick" ScrollViewer.HorizontalScrollBarVisibility="Hidden" />
+                <DataGrid x:Name="ListDataGrid"  ItemsSource="{Binding Doctors}" FontWeight="Bold" AutoGenerateColumns="True" IsReadOnly="True"  AutoGeneratingColumn="ListDataGrid_AutoGeneratingColumn" SelectionMode="Single" MaxHeight="460" ScrollViewer.VerticalScrollBarVisibility="Auto" MouseDoubleClick="ListDataGrid_MouseDoubleClick" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Margin="0,0,0,-3" Background="White" Foreground="Black" Height="475" VerticalAlignment="Top" />
             </Border>
         </DockPanel>
+
+        <StackPanel x:Name="MosaicPanel"  HorizontalAlignment="Left" Height="460" Margin="0,180,0,0" VerticalAlignment="Top" Width="430">
+            <Grid x:Name="MosaicGrid" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="0,0,0,0" Height="460" Width="400">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="150"/>
+                    <RowDefinition Height="150"/>
+                    <RowDefinition Height="150"/>
+                    <RowDefinition Height="150"/>
+
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+            </Grid>
+        </StackPanel>
+        <Label Content="Lista lekara" FontSize="19" FontWeight="Bold" HorizontalAlignment="Left" Margin="10,142,0,0" VerticalAlignment="Top" Width="108"/>
+        
+        <Button Style="{x:Null}" x:Name="SearchButton" Foreground="Black" FontSize="17" FontWeight="Bold" Background="Transparent" BorderThickness="2" BorderBrush="#ec1c70" Margin="10,0,0,22" HorizontalAlignment="Left" Width="90" Content="Pretraga" Height="46" VerticalAlignment="Bottom" Click="SearchButton_Click"/>
+
     </Grid>
 </Page>

@@ -9,8 +9,6 @@ namespace wpf_manager.Model
     public class Doctor
     {
 
-        private static int idCount = 0;
-
         public string Name { get;set;} 
         public string Surname { get; set;}
         public string ImagePath { get; set; }
@@ -26,7 +24,7 @@ namespace wpf_manager.Model
 
         public string WorkingHours { get; set; }
 
-        public Doctor(string name, string surname, string imagePath, string startWH, string endWH, string depart, string telephone, string title,string birth,string room)
+        public Doctor(string name, string surname, string imagePath, string startWH, string endWH, string depart, string telephone, string title,string birth,string room, int id)
         {
             this.Name = name;
             this.Surname = surname;
@@ -39,7 +37,7 @@ namespace wpf_manager.Model
             this.Title = title;
             this.Birth = birth;
             this.Room = room;
-            this.Id = ++idCount;
+            this.Id = id;
         }
     }
 
