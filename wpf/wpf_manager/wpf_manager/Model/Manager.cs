@@ -24,10 +24,10 @@ namespace wpf_manager
 
         public Manager()
         {
-            this.Ime = "Pera";
-            this.Prezime = "Detlic";
-            this.Username = "pera_detlic";
-            this.Password = "pera123";
+            this.Ime = "Žorž";
+            this.Prezime = "Papadubi";
+            this.Username = "zorz";
+            this.Password = "zorz123";
             this.ImageUri = "C:/Users/vule/Desktop/hci/v3 WPF/manager_wpf/wpf_manager/wpf_manager/mImage.jpg";
             this.PocetakRV = "10.30";
             this.KrajRV = "12.00";

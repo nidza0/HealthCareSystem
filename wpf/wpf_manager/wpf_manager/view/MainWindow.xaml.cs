@@ -20,9 +20,13 @@ namespace wpf_manager.view
     public partial class MainWindow : Window
     {
 
+        public static Model.DoctorsList test;
+
         public MainWindow()
-        {   
-            
+        {
+
+            test = new Model.DoctorsList();
+
             InitializeComponent();
            
         }

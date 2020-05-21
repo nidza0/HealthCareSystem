@@ -34,7 +34,7 @@ namespace wpf_manager.view
             Console.WriteLine(user);
             Console.WriteLine(pass);
 
-            if (/*mng.password.Equals(pass) && mng.username.Equals(user)*/true)
+            if (mng.Password.Equals(pass) && mng.Username.Equals(user))
             {
                 NavigationService.Navigate(new Uri("/view/ManagerMain.xaml", UriKind.Relative));
             }

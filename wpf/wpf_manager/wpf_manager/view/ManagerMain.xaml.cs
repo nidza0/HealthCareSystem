@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -24,17 +25,19 @@ namespace wpf_manager.view
         public ManagerMain()
         {
             InitializeComponent();
-            imeLabela.Content = mng.Ime +" "+ mng.Prezime;
-            rVremeLabela.Content = mng.PocetakRV + " - " + mng.KrajRV;
-            adresaLabela.Content = mng.Adresa;
-            brojLabela.Content = mng.Telefon;
 
-           
+            NameLabel.Content = mng.Ime + " " + mng.Prezime;
+
+            WebBrowser.Navigate("https://mobile.twitter.com/WHO");
+            dynamic activeX = this.WebBrowser.GetType().InvokeMember("ActiveXInstance",BindingFlags.GetProperty | BindingFlags.Instance | BindingFlags.NonPublic,null, this.WebBrowser, new object[] { });
+            activeX.Silent = true;
         }
 
         private void MenuLekari_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new Uri("/view/LekariPage.xaml", UriKind.Relative));
         }
+
+        
     }
 }

@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\vule\Desktop\projekat\HealthCareSystem\wpf\wpf_manager\wpf_manager\App.xaml
-7421335180
+8401596298
 
-132062824776
+15-1826364104
 151267484682
-images\MainWindow.xaml;view\LekarDetails.xaml;view\LekariPage.xaml;view\LoginPage.xaml;view\MainWindow.xaml;view\ManagerMain.xaml;view\SearchPage.xaml;
+images\MainWindow.xaml;view\LekarDetails.xaml;view\LekarFilter.xaml;view\LekariPage.xaml;view\LoginPage.xaml;view\MainWindow.xaml;view\ManagerMain.xaml;view\SearchPage.xaml;
 
 True
 

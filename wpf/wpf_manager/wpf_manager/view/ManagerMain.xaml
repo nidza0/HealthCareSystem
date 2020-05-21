@@ -7,28 +7,21 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
       Background="White"
-      d:DesignHeight="750" d:DesignWidth="430"
+      d:DesignHeight="950" d:DesignWidth="550"
       Title="ManagerMain">
 
     <Grid>
         <Grid.Background>
             <ImageBrush ImageSource="C:\Users\vule\Desktop\hci\v3 WPF\manager_wpf\wpf_manager\wpf_manager\images\background.png" TileMode="FlipX" Stretch="None"/>
         </Grid.Background>
-        <Image HorizontalAlignment="Left" Height="136" VerticalAlignment="Top" Width="286" Margin="144,87,0,0" Stretch="Fill" Source="C:\Users\vule\Desktop\hci\v3 WPF\manager_wpf\wpf_manager\wpf_manager\Zdravo2.png" RenderTransformOrigin="0.5,0.5"/>
+        <Image HorizontalAlignment="Left" Height="171" VerticalAlignment="Top" Width="335" Margin="205,87,0,0" Stretch="Fill" Source="C:\Users\vule\Desktop\hci\v3 WPF\manager_wpf\wpf_manager\wpf_manager\Zdravo2.png" RenderTransformOrigin="0.5,0.5"/>
         <Border BorderThickness="3"
-                BorderBrush="#ec1c70" RenderTransformOrigin="0.5,0.5" Margin="0,87,0,0" HorizontalAlignment="Left" Width="138" Height="136" VerticalAlignment="Top">
+                BorderBrush="#ec1c70" RenderTransformOrigin="0.5,0.5" Margin="10,87,0,0" HorizontalAlignment="Left" Width="195" Height="213" VerticalAlignment="Top">
 
-            <Image HorizontalAlignment="Center" Stretch="UniformToFill" Height="137" Margin="0,0,0,0" VerticalAlignment="Center" Width="135"  Source="C:\Users\vule\Desktop\hci\v3 WPF\manager_wpf\wpf_manager\wpf_manager\images\mImage.jpg"/>
+            <Image HorizontalAlignment="Center" Margin="0,0,0,0" Stretch="UniformToFill" Height="206" VerticalAlignment="Center" Width="206"  Source="C:\Users\vule\Desktop\hci\v3 WPF\manager_wpf\wpf_manager\wpf_manager\images\mImage.jpg"/>
         </Border>
 
-        <Label Content="" Name="imeLabela"  HorizontalAlignment="Left" FontSize="17" Margin="29,409,0,0" VerticalAlignment="Top" RenderTransformOrigin="5.83,1.966" Width="263"></Label>
-        <Label Content="Ime:" FontSize="17" FontWeight="Bold" HorizontalAlignment="Left" Height="36" Margin="29,368,0,0" VerticalAlignment="Top" Foreground="#ec1c70" Width="135"/>
-        <Label Content="Radno vreme:" FontSize="17" FontWeight="Bold" HorizontalAlignment="Left" Height="36" Margin="29,447,0,0" VerticalAlignment="Top" Foreground="#ec1c70" Width="135"/>
-        <Label Content="Adresa stanovanja:" FontSize="17" FontWeight="Bold" HorizontalAlignment="Left" Height="36" Margin="29,526,0,0" VerticalAlignment="Top" Foreground="#ec1c70" Width="221"/>
-        <Label Content="Adresa stanovanja:" FontSize="17" FontWeight="Bold" HorizontalAlignment="Left" Height="36" Margin="29,600,0,0" VerticalAlignment="Top" Foreground="#ec1c70" Width="221"/>
-        <Label Content="" x:Name="rVremeLabela"  HorizontalAlignment="Left" FontSize="17" Margin="29,488,0,0" VerticalAlignment="Top" RenderTransformOrigin="5.83,1.966" Width="263"/>
-        <Label Content="" x:Name="adresaLabela"  HorizontalAlignment="Left" FontSize="17" Margin="29,562,0,0" VerticalAlignment="Top" RenderTransformOrigin="5.83,1.966" Width="263"/>
-        <Label Content="" x:Name="brojLabela"  HorizontalAlignment="Left" FontSize="17" Margin="29,641,0,0" VerticalAlignment="Top" Width="304"/>
+
 
 
         <Popup x:Name="MenuPopup" Placement="RelativePoint"  StaysOpen="False"  >
@@ -85,5 +78,7 @@
                 </EventTrigger>
             </Button.Triggers>
         </Button>
+        <WebBrowser Name="WebBrowser" Margin="0,375,0,15"/>
+        <Label x:Name="NameLabel" FontSize="25" FontWeight="Bold" HorizontalAlignment="Left" Margin="10,305,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.029,-0.244" Width="206" Height="35"/>
     </Grid>
 </Page>

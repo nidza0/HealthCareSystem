@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace wpf_manager.Model
 {
+
+    
     public class Doctor
     {
-
+        public static int idCount = 0;
         public string Name { get;set;} 
         public string Surname { get; set;}
         public string ImagePath { get; set; }
@@ -37,7 +39,7 @@ namespace wpf_manager.Model
             this.Title = title;
             this.Birth = birth;
             this.Room = room;
-            this.Id = id;
+            this.Id = idCount++;
         }
     }
 

@@ -43,5 +43,11 @@ namespace wpf_manager.view
         {
             NavigationService.Navigate(new Uri("view/ManagerMain.xaml", UriKind.Relative));
         }
+
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            if (NavigationService.CanGoBack)
+                NavigationService.GoBack();
+        }
     }
 }

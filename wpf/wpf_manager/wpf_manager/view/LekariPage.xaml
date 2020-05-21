@@ -6,7 +6,7 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:local="clr-namespace:wpf_manager.view"
       mc:Ignorable="d" 
-      d:DesignHeight="750" d:DesignWidth="430"
+      d:DesignHeight="950" d:DesignWidth="550"
       Title="LekariPage">
 
     <Grid>
@@ -60,7 +60,7 @@
             </StackPanel>
         </Popup>
 
-        <Button Style="{x:Null}" x:Name="MenuButton" Foreground="Black" FontSize="17" FontWeight="Bold" Background="Transparent" BorderThickness="2" BorderBrush="#ec1c70" Margin="10,48,0,0" HorizontalAlignment="Left" Width="90" VerticalAlignment="Top" Height="45">
+        <Button Style="{x:Null}" x:Name="MenuButton" Foreground="Black" FontSize="17" FontWeight="Bold" Background="Transparent" BorderThickness="2" BorderBrush="#ec1c70" Margin="10,40,0,0" HorizontalAlignment="Left" Width="90" VerticalAlignment="Top" Height="45">
             Menu
             <Button.Triggers>
                 <EventTrigger RoutedEvent="Button.Click">
@@ -80,7 +80,7 @@
         </Button>
         <DockPanel x:Name="ListPanel" HorizontalAlignment="Left" Height="478" Margin="0,180,0,0" VerticalAlignment="Top" Width="430" Background="White">
             <Border BorderBrush="#ec1c70" BorderThickness="3" >
-                <DataGrid x:Name="ListDataGrid"  ItemsSource="{Binding Doctors}" FontWeight="Bold" AutoGenerateColumns="True" IsReadOnly="True"  AutoGeneratingColumn="ListDataGrid_AutoGeneratingColumn" SelectionMode="Single" MaxHeight="460" ScrollViewer.VerticalScrollBarVisibility="Auto" MouseDoubleClick="ListDataGrid_MouseDoubleClick" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Margin="0,0,0,-3" Background="White" Foreground="Black" Height="475" VerticalAlignment="Top" />
+                <DataGrid x:Name="ListDataGrid" FontWeight="Bold" AutoGenerateColumns="True" IsReadOnly="True"  AutoGeneratingColumn="ListDataGrid_AutoGeneratingColumn" SelectionMode="Single" MaxHeight="460" ScrollViewer.VerticalScrollBarVisibility="Auto" MouseDoubleClick="ListDataGrid_MouseDoubleClick" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Margin="0,0,0,-3" Background="White" Foreground="Black" Height="475" VerticalAlignment="Top" />
             </Border>
         </DockPanel>
 
@@ -101,8 +101,10 @@
             </Grid>
         </StackPanel>
         <Label Content="Lista lekara" FontSize="19" FontWeight="Bold" HorizontalAlignment="Left" Margin="10,142,0,0" VerticalAlignment="Top" Width="108"/>
-        
+
         <Button Style="{x:Null}" x:Name="SearchButton" Foreground="Black" FontSize="17" FontWeight="Bold" Background="Transparent" BorderThickness="2" BorderBrush="#ec1c70" Margin="10,0,0,22" HorizontalAlignment="Left" Width="90" Content="Pretraga" Height="46" VerticalAlignment="Bottom" Click="SearchButton_Click"/>
+        <Button Style="{x:Null}" x:Name="HomeButton" Foreground="Black" FontSize="17" FontWeight="Bold" Background="Transparent" BorderThickness="2" BorderBrush="#ec1c70" Margin="0,40,15,0" HorizontalAlignment="Right" Width="90" VerticalAlignment="Top" Height="45" Content="Početna" Click="HomeButton_Click"/>
+        <Button Style="{x:Null}" x:Name="Back" Foreground="Black" FontSize="17" FontWeight="Bold" Background="Transparent" BorderThickness="2" BorderBrush="#ec1c70" Margin="0,682,15,0" HorizontalAlignment="Right" Width="90" VerticalAlignment="Top" Height="44" Content="Nazad" Click="Back_Click"/>
 
     </Grid>
 </Page>

@@ -32,27 +32,45 @@ namespace wpf_manager.view
             String room = RoomInput.Text;
             String depart = DepartInput.Text;
 
-            int counter = 0;
+            if (name.Equals(""))
+                name = "true";
+            if (surname.Equals(""))
+                surname = "true";
+            if (room.Equals(""))
+                room = "true";
+            if (depart.Equals(""))
+                depart = "true";
 
 
-            Model.Doctor wantedDoc = null;
 
-            foreach(Model.Doctor doc in LekariPage.Doctors)
+            List<Model.Doctor> doctors = new List<Model.Doctor>();
+
+            foreach(Model.Doctor doc in Model.DoctorsList.Doctors)
             {
-                if (doc.Name.Equals(name) &&  doc.Surname.Equals(surname))
+                if ((doc.Name.Equals(name) || name.Equals("true")) && (doc.Surname.Equals(surname)|| surname.Equals("true")) && (doc.Room.Equals(room) || room.Equals("true")) && (doc.Depart.Equals(depart) || depart.Equals("true")))
                 {
-                    wantedDoc = doc;
+                    doctors.Add(doc);
                 }
 
             }
 
-            Console.WriteLine(counter);
+            Console.WriteLine(doctors.Count);
 
-            if (wantedDoc == null)
+            if (doctors.Count == 0)
+            {
                 Console.WriteLine("Nije pronadjen");
+                NameInput.Text = "Nije pronadjen ni jedan lekar";
+            } 
+            else if (doctors.Count == 1)
+                NavigationService.Navigate(new LekarDetails(doctors[0]));
             else
-                NavigationService.Navigate(new LekarDetails(wantedDoc));
+                NavigationService.Navigate(new LekarFilter(doctors));
 
+        }
+
+        private void HomeButton_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("view/ManagerMain.xaml", UriKind.Relative));
         }
     }
 }

@@ -38,6 +38,7 @@
 
         </Grid>
         <Button Style="{x:Null}" x:Name="SearchButton2" Foreground="Black" FontSize="17" FontWeight="Bold" Background="Transparent" BorderThickness="2" BorderBrush="#ec1c70" Margin="170,0,170,38" Content="Pretraga" Height="46" VerticalAlignment="Bottom" Click="SearchButton2_Click"/>
+        <Button Style="{x:Null}" x:Name="HomeButton" Foreground="#ec1c70" FontSize="17" FontWeight="Bold" Background="Transparent" BorderThickness="2" BorderBrush="#ec1c70" Margin="0,40,15,0" HorizontalAlignment="Right" Width="90" VerticalAlignment="Top" Height="45" Content="Početna" Click="HomeButton_Click"/>
 
 
     </Grid>
