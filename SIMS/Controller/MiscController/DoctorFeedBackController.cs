@@ -1,0 +1,62 @@
+// File:    DoctorFeedBackController.cs
+// Author:  nikola
+// Created: 22. maj 2020 17:30:10
+// Purpose: Definition of Class DoctorFeedBackController
+
+using System;
+using System.Collections.Generic;
+using Model.Doctor;
+
+namespace Controller.MiscController
+{
+   public class DoctorFeedBackController : IController<Model.Doctor.DoctorFeedback,long>
+   {
+      public Model.Doctor.DoctorFeedback GetByPatientDoctor(Model.User.Patient patient, Model.User.Doctor doctor)
+      {
+         throw new NotImplementedException();
+      }
+      
+      public IEnumerable<DoctorFeedback> GetByDoctor(Model.User.Doctor doctor)
+      {
+         throw new NotImplementedException();
+      }
+      
+      public double GetAverageRatingByDoctor(Model.User.Doctor doctor)
+      {
+         throw new NotImplementedException();
+      }
+      
+      public IEnumerable<DoctorFeedback> GetRecentRatingsByDoctor(Model.User.Doctor doctor)
+      {
+         throw new NotImplementedException();
+      }
+
+        public IEnumerable<DoctorFeedback> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public DoctorFeedback GetByID(long id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public DoctorFeedback Create(DoctorFeedback entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public DoctorFeedback Update(DoctorFeedback entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Delete(DoctorFeedback entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Service.MiscService.DoctorFeedbackService doctorFeedbackService;
+   
+   }
+}

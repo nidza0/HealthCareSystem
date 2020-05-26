@@ -1,0 +1,290 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F037DD19-70F3-4C12-9102-B1E531E352B5}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>SIMS</RootNamespace>
+    <AssemblyName>SIMS</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Repository\Abstract\HospitalManagement\IHospitalRepository.cs" />
+    <Compile Include="Repository\Abstract\HospitalManagement\IInventoryRepository.cs" />
+    <Compile Include="Repository\Abstract\HospitalManagement\IMedicineRepository.cs" />
+    <Compile Include="Repository\Abstract\HospitalManagement\IRoomRepository.cs" />
+    <Compile Include="Repository\Abstract\HospitalManagement\IStatisticsRepository.cs" />
+    <Compile Include="Repository\Abstract\Medical\IAllergyRepository.cs" />
+    <Compile Include="Repository\Abstract\Medical\IAppointmentRepository.cs" />
+    <Compile Include="Repository\Abstract\Medical\IDiagnosisRepository.cs" />
+    <Compile Include="Repository\Abstract\Medical\IDiseaseRepository.cs" />
+    <Compile Include="Repository\Abstract\Medical\IIngredientRepository.cs" />
+    <Compile Include="Repository\Abstract\Medical\IMedicalRecordRepository.cs" />
+    <Compile Include="Repository\Abstract\Medical\ISymptomRepository.cs" />
+    <Compile Include="Repository\Abstract\Medical\ITherapyRepository.cs" />
+    <Compile Include="Repository\Abstract\Misc\IArticleRepository.cs" />
+    <Compile Include="Repository\Abstract\Misc\IDoctorFeedbackRepository.cs" />
+    <Compile Include="Repository\Abstract\Misc\IFeedbackRepository.cs" />
+    <Compile Include="Repository\Abstract\Misc\ILocationRepository.cs" />
+    <Compile Include="Repository\Abstract\Misc\IMessageRepository.cs" />
+    <Compile Include="Repository\Abstract\Misc\INotificationRepository.cs" />
+    <Compile Include="Repository\Abstract\User\IDoctorRepository.cs" />
+    <Compile Include="Repository\Abstract\User\IManagerRepository.cs" />
+    <Compile Include="Repository\Abstract\User\IPatientRepository.cs" />
+    <Compile Include="Repository\Abstract\User\ISecretaryRepository.cs" />
+    <Compile Include="Repository\Abstract\User\IUserRepository.cs" />
+    <Compile Include="Repository\CSVRepository\Csv\Converter\HospitalManagement\HospitalConverter.cs" />
+    <Compile Include="Repository\CSVRepository\Csv\Converter\HospitalManagement\InventoryConverter.cs" />
+    <Compile Include="Repository\CSVRepository\Csv\Converter\HospitalManagement\MedicineConverter.cs" />
+    <Compile Include="Repository\CSVRepository\Csv\Converter\HospitalManagement\RoomConverter.cs" />
+    <Compile Include="Repository\CSVRepository\Csv\Converter\HospitalManagement\StatisticsConverter.cs" />
+    <Compile Include="Repository\CSVRepository\Csv\Converter\ICSVConverter.cs" />
+    <Compile Include="Repository\CSVRepository\Csv\Converter\Medical\AppointmentConverter.cs" />
+    <Compile Include="Repository\CSVRepository\Csv\Converter\Medical\DiagnosisConverter.cs" />
+    <Compile Include="Repository\CSVRepository\Csv\Converter\Medical\DiseaseConverter.cs" />
+    <Compile Include="Repository\CSVRepository\Csv\Converter\Medical\MedicalRecordConverter.cs" />
+    <Compile Include="Repository\CSVRepository\Csv\Converter\Medical\SymptomConverter.cs" />
+    <Compile Include="Repository\CSVRepository\Csv\Converter\Medical\TherapyConverter.cs" />
+    <Compile Include="Repository\CSVRepository\Csv\Converter\Misc\ArticleConverter.cs" />
+    <Compile Include="Repository\CSVRepository\Csv\Converter\Misc\DoctorFeedbackConverter.cs" />
+    <Compile Include="Repository\CSVRepository\Csv\Converter\Misc\FeedbackConverter.cs" />
+    <Compile Include="Repository\CSVRepository\Csv\Converter\Misc\LocationConverter.cs" />
+    <Compile Include="Repository\CSVRepository\Csv\Converter\Misc\MessageConverter.cs" />
+    <Compile Include="Repository\CSVRepository\Csv\Converter\Misc\NotificationConverter.cs" />
+    <Compile Include="Repository\CSVRepository\Csv\Converter\User\DoctorConverter.cs" />
+    <Compile Include="Repository\CSVRepository\Csv\Converter\User\ManagerConverter.cs" />
+    <Compile Include="Repository\CSVRepository\Csv\Converter\User\PatientConverter.cs" />
+    <Compile Include="Repository\CSVRepository\Csv\Converter\User\SecretaryConverter.cs" />
+    <Compile Include="Repository\CSVRepository\Csv\Converter\User\UserConverter.cs" />
+    <Compile Include="Repository\CSVRepository\Csv\CSVRepository.cs" />
+    <Compile Include="Repository\CSVRepository\Csv\IEagerCSVRepository.cs" />
+    <Compile Include="Repository\CSVRepository\Csv\Stream\CSVStream.cs" />
+    <Compile Include="Repository\CSVRepository\Csv\Stream\ICSVStream.cs" />
+    <Compile Include="Repository\CSVRepository\HospitalManagementRepository\HospitalRepository.cs" />
+    <Compile Include="Repository\CSVRepository\HospitalManagementRepository\InventoryRepository.cs" />
+    <Compile Include="Repository\CSVRepository\HospitalManagementRepository\MedicineRepository.cs" />
+    <Compile Include="Repository\CSVRepository\HospitalManagementRepository\RoomRepository.cs" />
+    <Compile Include="Repository\CSVRepository\HospitalManagementRepository\StatisticsRepository.cs" />
+    <Compile Include="Repository\CSVRepository\MedicalRepository\AllergyRepository.cs" />
+    <Compile Include="Repository\CSVRepository\MedicalRepository\AppointmentRepository.cs" />
+    <Compile Include="Repository\CSVRepository\MedicalRepository\DiagnosisRepository.cs" />
+    <Compile Include="Repository\CSVRepository\MedicalRepository\DiseaseRepository.cs" />
+    <Compile Include="Repository\CSVRepository\MedicalRepository\IngredientRepository.cs" />
+    <Compile Include="Repository\CSVRepository\MedicalRepository\MedicalRecordRepository.cs" />
+    <Compile Include="Repository\CSVRepository\MedicalRepository\SymptomRepository.cs" />
+    <Compile Include="Repository\CSVRepository\MedicalRepository\TherapyRepository.cs" />
+    <Compile Include="Repository\CSVRepository\MiscRepository\ArticleRepository.cs" />
+    <Compile Include="Repository\CSVRepository\MiscRepository\DoctorFeedbackRepository.cs" />
+    <Compile Include="Repository\CSVRepository\MiscRepository\FeedbackRepository.cs" />
+    <Compile Include="Repository\CSVRepository\MiscRepository\LocationRepository.cs" />
+    <Compile Include="Repository\CSVRepository\MiscRepository\MessageRepository.cs" />
+    <Compile Include="Repository\CSVRepository\MiscRepository\NotificationRepository.cs" />
+    <Compile Include="Repository\CSVRepository\UserRepository\DoctorRepository.cs" />
+    <Compile Include="Repository\CSVRepository\UserRepository\ManagerRepository.cs" />
+    <Compile Include="Repository\CSVRepository\UserRepository\PatientRepository.cs" />
+    <Compile Include="Repository\CSVRepository\UserRepository\SecretaryRepository.cs" />
+    <Compile Include="Repository\CSVRepository\UserRepository\UserRepository.cs" />
+    <Compile Include="Repository\IRepository.cs" />
+    <Compile Include="Repository\Sequencer\ComplexSequencer.cs" />
+    <Compile Include="Repository\Sequencer\ISequencer.cs" />
+    <Compile Include="Repository\Sequencer\LongSequencer.cs" />
+    <Compile Include="Service\HospitalManagementService\HospitalService.cs" />
+    <Compile Include="Service\HospitalManagementService\InventoryService.cs" />
+    <Compile Include="Service\HospitalManagementService\MedicineService.cs" />
+    <Compile Include="Service\HospitalManagementService\RoomService.cs" />
+    <Compile Include="Service\HospitalManagementService\StatisticsService.cs" />
+    <Compile Include="Service\IService.cs" />
+    <Compile Include="Service\MedicalService\AppointmentDoctorStrategy.cs" />
+    <Compile Include="Service\MedicalService\AppointmentManagerStrategy.cs" />
+    <Compile Include="Service\MedicalService\AppointmentPatientStrategy.cs" />
+    <Compile Include="Service\MedicalService\AppointmentSecretaryStrategy.cs" />
+    <Compile Include="Service\MedicalService\AppointmentService.cs" />
+    <Compile Include="Service\MedicalService\DiagnosisService.cs" />
+    <Compile Include="Service\MedicalService\DiseaseService.cs" />
+    <Compile Include="Service\MedicalService\IAppointmentStrategy.cs" />
+    <Compile Include="Service\MedicalService\MedicalRecordService.cs" />
+    <Compile Include="Service\MedicalService\TherapyService.cs" />
+    <Compile Include="Service\MiscService\ArticleService.cs" />
+    <Compile Include="Service\MiscService\DoctorFeedbackService.cs" />
+    <Compile Include="Service\MiscService\FeedbackService.cs" />
+    <Compile Include="Service\MiscService\LocationService.cs" />
+    <Compile Include="Service\MiscService\MessageService.cs" />
+    <Compile Include="Service\MiscService\NotificationService.cs" />
+    <Compile Include="Service\UserService\DoctorService.cs" />
+    <Compile Include="Service\UserService\IUserService.cs" />
+    <Compile Include="Service\UserService\ManagerService.cs" />
+    <Compile Include="Service\UserService\PatientService.cs" />
+    <Compile Include="Service\UserService\SecretaryService.cs" />
+    <Compile Include="Specifications\AndSpecification.cs" />
+    <Compile Include="Specifications\CompositeSpecification.cs" />
+    <Compile Include="Specifications\Converter\AppointmentSpecificationConverter.cs" />
+    <Compile Include="Specifications\Converter\DoctorSpecificationConverter.cs" />
+    <Compile Include="Specifications\Converter\MedicineSpecificationConverter.cs" />
+    <Compile Include="Specifications\Converter\TherapySpecificationConverter.cs" />
+    <Compile Include="Specifications\ExpressionSpecification.cs" />
+    <Compile Include="Specifications\ISpecification.cs" />
+    <Compile Include="Specifications\NotSpecification.cs" />
+    <Compile Include="Specifications\OrSpecification.cs" />
+    <Compile Include="Util\AppointmentFilter.cs" />
+    <Compile Include="Util\DoctorFilter.cs" />
+    <Compile Include="Util\IPersonValidation.cs" />
+    <Compile Include="Util\IUserValidation.cs" />
+    <Compile Include="Util\MedicineFilter.cs" />
+    <Compile Include="Util\TherapyFilter.cs" />
+    <Compile Include="Util\TimeInterval.cs" />
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controller\HospitalManagementController\HospitalController.cs" />
+    <Compile Include="Controller\HospitalManagementController\InventoryController.cs" />
+    <Compile Include="Controller\HospitalManagementController\MedicineController.cs" />
+    <Compile Include="Controller\HospitalManagementController\RoomController.cs" />
+    <Compile Include="Controller\HospitalManagementController\StatisticsController.cs" />
+    <Compile Include="Controller\IController.cs" />
+    <Compile Include="Controller\MedicalController\AppointmentController.cs" />
+    <Compile Include="Controller\MedicalController\DiseaseController.cs" />
+    <Compile Include="Controller\MiscController\ArticleController.cs" />
+    <Compile Include="Controller\MiscController\DoctorFeedBackController.cs" />
+    <Compile Include="Controller\MiscController\LocationController.cs" />
+    <Compile Include="Controller\MiscController\MessageController.cs" />
+    <Compile Include="Controller\MiscController\NotificationController.cs" />
+    <Compile Include="Controller\UserController\DoctorController.cs" />
+    <Compile Include="Controller\UserController\ManagerController.cs" />
+    <Compile Include="Controller\UserController\PatientController.cs" />
+    <Compile Include="Controller\UserController\SecretaryController.cs" />
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Model\Doctor\DoctorFeedback.cs" />
+    <Compile Include="Model\Doctor\DocTypeEnum.cs" />
+    <Compile Include="Model\Manager\Inventory.cs" />
+    <Compile Include="Model\Manager\InventoryItem.cs" />
+    <Compile Include="Model\Manager\Stats.cs" />
+    <Compile Include="Model\Manager\StatsDoctor.cs" />
+    <Compile Include="Model\Manager\StatsInventory.cs" />
+    <Compile Include="Model\Manager\StatsRoom.cs" />
+    <Compile Include="Model\Patient\Allergy.cs" />
+    <Compile Include="Model\Patient\Appointment.cs" />
+    <Compile Include="Model\Patient\AppointmentType.cs" />
+    <Compile Include="Model\Patient\BloodType.cs" />
+    <Compile Include="Model\Patient\Diagnosis.cs" />
+    <Compile Include="Model\Patient\Disease.cs" />
+    <Compile Include="Model\Patient\DiseaseType.cs" />
+    <Compile Include="Model\Patient\Ingredient.cs" />
+    <Compile Include="Model\Patient\Item.cs" />
+    <Compile Include="Model\Patient\MedicalRecord.cs" />
+    <Compile Include="Model\Patient\Medicine.cs" />
+    <Compile Include="Model\Patient\MedicineType.cs" />
+    <Compile Include="Model\Patient\Prescription.cs" />
+    <Compile Include="Model\Patient\SpecialistBookingLicence.cs" />
+    <Compile Include="Model\Patient\Symptom.cs" />
+    <Compile Include="Model\Patient\Therapy.cs" />
+    <Compile Include="Model\Patient\TherapyDose.cs" />
+    <Compile Include="Model\Patient\TherapyTime.cs" />
+    <Compile Include="Model\User\Address.cs" />
+    <Compile Include="Model\User\Article.cs" />
+    <Compile Include="Model\User\City.cs" />
+    <Compile Include="Model\User\Content.cs" />
+    <Compile Include="Model\User\Country.cs" />
+    <Compile Include="Model\User\Doctor.cs" />
+    <Compile Include="Model\User\Employee.cs" />
+    <Compile Include="Model\User\Feedback.cs" />
+    <Compile Include="Model\User\Hospital.cs" />
+    <Compile Include="Model\User\Location.cs" />
+    <Compile Include="Model\User\Manager.cs" />
+    <Compile Include="Model\User\Message.cs" />
+    <Compile Include="Model\User\Notification.cs" />
+    <Compile Include="Model\User\Patient.cs" />
+    <Compile Include="Model\User\PatientType.cs" />
+    <Compile Include="Model\User\Person.cs" />
+    <Compile Include="Model\User\Rating.cs" />
+    <Compile Include="Model\User\Room.cs" />
+    <Compile Include="Model\User\RoomType.cs" />
+    <Compile Include="Model\User\Secretary.cs" />
+    <Compile Include="Model\User\Sex.cs" />
+    <Compile Include="Model\User\TimeTable.cs" />
+    <Compile Include="Model\User\User.cs" />
+    <Compile Include="Model\User\UserID.cs" />
+    <Compile Include="Model\User\UserType.cs" />
+    <Compile Include="Model\User\WorkingDaysEnum.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
