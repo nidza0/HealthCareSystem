@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using SIMS.Repository.CSVFileRepository.Csv.Converter.HospitalManagementConverter;
 
 namespace SIMS
 {
@@ -25,6 +26,12 @@ namespace SIMS
         {
             InitializeComponent();
             Patient p = new Patient();
+
+            HospitalConverter converter = new HospitalConverter(",");
+            Hospital hospital = new Hospital("testHospital", 1, "555-333", "besthospital.com", new List<Room>(), new List<Employee>(), new Address("koste sokice 3",new Location(22,new Country("RS","Srbija"),new City("novi sad","21000"))));
+            //Console.WriteLine(converter.ConvertEntityToCSV(hospital));
+            string retVal = converter.ConvertEntityToCSV(hospital);
+            Console.Write(retVal);
         }
     }
 }

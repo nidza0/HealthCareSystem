@@ -11,10 +11,29 @@ namespace SIMS.Model.UserModel
 {
     public class Room
     {
-        private long id;
-        private string roomNumber;
-        private bool occupied;
-        private int floor;
+        private long _id;
+        private string _roomNumber;
+        private bool _occupied;
+        private int _floor;
+        private RoomType _roomType;
+        private InventoryItem _inventoryItem;
+
+        public Room(long id, string roomNumber, bool occupied, int floor, RoomType roomType, InventoryItem inventoryItem)
+        {
+            _id = id;
+            _roomNumber = roomNumber;
+            _occupied = occupied;
+            _floor = floor;
+            _roomType = roomType;
+            _inventoryItem = inventoryItem;
+        }
+
+        public long ID { get => _id; set => _id = value; }
+        public string RoomNumber { get => _roomNumber; set => _roomNumber = value; }
+        public bool Occupied { get => _occupied; set => _occupied = value; }
+        public int Floor { get => _floor; set => _floor = value; }
+        public RoomType RoomType { get => _roomType; set => _roomType = value; }
+        public InventoryItem InventoryItem { get => _inventoryItem; set => _inventoryItem = value; }
 
         public bool Reserve()
         {
@@ -41,8 +60,7 @@ namespace SIMS.Model.UserModel
             throw new NotImplementedException();
         }
 
-        public RoomType roomType;
-        public InventoryItem inventoryItem;
+        
 
     }
 }

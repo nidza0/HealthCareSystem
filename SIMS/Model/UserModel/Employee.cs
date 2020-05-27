@@ -12,6 +12,8 @@ namespace SIMS.Model.UserModel
         public TimeTable timeTable;
         public Hospital hospital;
 
+
+
         /// <summary>
         /// Property for Hospital
         /// </summary>
