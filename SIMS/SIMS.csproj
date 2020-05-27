@@ -177,6 +177,28 @@
     <Compile Include="Util\MedicineFilter.cs" />
     <Compile Include="Util\TherapyFilter.cs" />
     <Compile Include="Util\TimeInterval.cs" />
+    <Compile Include="View\ViewSecretary\CentralFrameNavigator.cs" />
+    <Compile Include="View\ViewSecretary\MainWindowSecretary.xaml.cs">
+      <DependentUpon>MainWindowSecretary.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewSecretary\Pages\AppointmentsPageSecretary.xaml.cs">
+      <DependentUpon>AppointmentsPageSecretary.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewSecretary\Pages\HomePageSecretary.xaml.cs">
+      <DependentUpon>HomePageSecretary.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewSecretary\Pages\NewAppointmentPageSecretary.xaml.cs">
+      <DependentUpon>NewAppointmentPageSecretary.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewSecretary\Pages\NewPatientPageSecretary.xaml.cs">
+      <DependentUpon>NewPatientPageSecretary.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewSecretary\Pages\ProfilePageSecretary.xaml.cs">
+      <DependentUpon>ProfilePageSecretary.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewSecretary\Pages\SettingsPageSecretary.xaml.cs">
+      <DependentUpon>SettingsPageSecretary.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -206,6 +228,46 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\ViewSecretary\MainWindowSecretary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewSecretary\Pages\AppointmentsPageSecretary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewSecretary\Pages\HomePageSecretary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewSecretary\Pages\NewAppointmentPageSecretary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewSecretary\Pages\NewPatientPageSecretary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewSecretary\Pages\ProfilePageSecretary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewSecretary\Pages\SettingsPageSecretary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewSecretary\Resources\Colors.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewSecretary\Resources\Labels.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewSecretary\Resources\Styles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\DoctorModel\DoctorFeedback.cs" />
@@ -285,8 +347,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="View\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

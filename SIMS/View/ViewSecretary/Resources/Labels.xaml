@@ -1,0 +1,52 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                    xmlns:local="clr-namespace:SIMS.View.ViewSecretary.Resources">
+    <sys:String x:Key="CompanyName">Zdravo!</sys:String>
+    <sys:String x:Key="CompanyType">zdravstvena ustanova</sys:String>
+    <sys:String x:Key="NewAppointment">New Appointment</sys:String>
+    <sys:String x:Key="NewPatient">New Patient</sys:String>
+    <sys:String x:Key="Report">Report</sys:String>
+    <sys:String x:Key="Home">Home</sys:String>
+    <sys:String x:Key="Appointments">Appointments</sys:String>
+    <sys:String x:Key="CancelledAppointments">Cancelled Appointments</sys:String>
+    <sys:String x:Key="Doctors">Doctors</sys:String>
+    <sys:String x:Key="Patients">Patients</sys:String>
+    <sys:String x:Key="Profile">Profile</sys:String>
+    <sys:String x:Key="Inbox">Inbox</sys:String>
+    <sys:String x:Key="Settings">Settings</sys:String>
+
+    <!-- New Patient Page -->
+    <sys:String x:Key="StandardPatient">Standard</sys:String>
+    <sys:String x:Key="GuestPatient">Guest</sys:String>
+    <sys:String x:Key="lblGeneralPatientInfo">General Patient Info</sys:String>
+    <sys:String x:Key="lblMorePatientInfo">Additional Patient Info</sys:String>
+    <sys:String x:Key="lblEmergencyContactInfo">Emergency Contact Info</sys:String>
+    <sys:String x:Key="lblUsername">Username *</sys:String>
+    <sys:String x:Key="lblName">Name *</sys:String>
+    <sys:String x:Key="lblMiddleName">Middlename</sys:String>
+    <sys:String x:Key="lblSurname">Surname *</sys:String>
+    <sys:String x:Key="lblGender">Gender</sys:String>
+    <sys:String x:Key="radioMale">Male</sys:String>
+    <sys:String x:Key="radioFemale">Female</sys:String>
+    <sys:String x:Key="radioOther">Other</sys:String>
+    <sys:String x:Key="lblPID">PID</sys:String>
+    <sys:String x:Key="lblDateOfBirth">Date Of Birth</sys:String>
+    <sys:String x:Key="lblCountry">Country</sys:String>
+    <sys:String x:Key="lblCity">City</sys:String>
+    <sys:String x:Key="lblTelephone">Telephone</sys:String>
+    <sys:String x:Key="lblEmail">Email</sys:String>
+    <sys:String x:Key="lblAddress">Address</sys:String>
+    <sys:String x:Key="lblEmergencyName">Emergency Contact's Name</sys:String>
+    <sys:String x:Key="lblEmergencySurname">Emergency Contact's Surname</sys:String>
+    <sys:String x:Key="lblEmergencyTelephone">Emergency Contact's Telephone</sys:String>
+    <sys:String x:Key="lblEmergencyEmail">Emergency Contact's Email</sys:String>
+
+    <sys:String x:Key="lblAppointmentDateAndTime">Date and time</sys:String>
+    <sys:String x:Key="lblAppointmentDoctor">Doctor</sys:String>
+    <sys:String x:Key="lblAppointmentPatient">Patient</sys:String>
+    <sys:String x:Key="lblAppointmentRoom">Room</sys:String>
+
+    <sys:String x:Key="btnOK">OK</sys:String>
+    <sys:String x:Key="btnCancel">Cancel</sys:String>
+</ResourceDictionary>

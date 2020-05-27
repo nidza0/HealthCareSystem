@@ -1,0 +1,35 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:SIMS.View.ViewSecretary.Resources">
+    <Style TargetType="Button" x:Key="StyleOrdinaryButton">
+        <Setter Property="Background" Value="{StaticResource UiSecondaryColor}"></Setter>
+        <Setter Property="Padding" Value="5"></Setter>
+    </Style>
+
+    <Style TargetType="Button" x:Key="StyleOKButton">
+        <Setter Property="Background" Value="{DynamicResource UiPrimaryColor}"></Setter>
+        <Setter Property="Foreground" Value="{DynamicResource FontLightColor}"></Setter>
+        <Setter Property="Padding" Value="5"></Setter>
+    </Style>
+
+    <Style x:Key="InfoHeader" TargetType="Label">
+        <Setter Property="Background" Value="{DynamicResource UiSecondaryColor}"></Setter>
+    </Style>
+
+    <Style x:Key="PanelHeader" TargetType="DockPanel">
+        <Setter Property="Background" Value="{DynamicResource UiPrimaryColor}"></Setter>
+    </Style>
+
+    <Style x:Key="HeaderCloseButton" TargetType="Button">
+        <Setter Property="Background" Value="{DynamicResource UiPrimaryColor}"></Setter>
+        <Setter Property="Foreground" Value="{DynamicResource FontLightColor}"></Setter>
+        <Setter Property="Padding" Value="5"></Setter>
+        <Setter Property="BorderBrush" Value="Transparent"></Setter>
+    </Style>
+
+    <ControlTemplate x:Key="SidebarButtons" TargetType="RadioButton">
+        <Border x:Name="Border">
+            <ContentPresenter></ContentPresenter>
+        </Border>
+    </ControlTemplate>
+</ResourceDictionary>
