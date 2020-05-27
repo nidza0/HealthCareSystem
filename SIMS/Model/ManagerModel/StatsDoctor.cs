@@ -12,20 +12,20 @@ namespace SIMS.Model.ManagerModel
     {
         private double _numberOfAppointments;
         private string _avgAppointmentTime;
-        public Doctor doctor;
+        private Doctor _doctor;
 
 
         public double NumberOfAppointments {get {return _numberOfAppointments ;} set { }}
 
         public string AvgAppointmentTime { get { return _avgAppointmentTime; } set { } }
 
-        public Doctor Doctor { get { return doctor; } set { } }
+        public Doctor Doctor { get { return _doctor; } set { } }
 
         public StatsDoctor(double numberOfAppointments, string avgAppointmentTime, Doctor doctor): base()
         {
             _numberOfAppointments = numberOfAppointments;
             _avgAppointmentTime = avgAppointmentTime;
-            this.doctor = doctor;
+            _doctor = doctor;
         }
 
         public StatsDoctor(long id): base(id)

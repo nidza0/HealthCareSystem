@@ -8,7 +8,7 @@ using System;
 
 namespace SIMS.Model.UserModel
 {
-    public class Location: IIdentifiable<long>
+    public class Location : IIdentifiable<long>
     {
         private long _geonameId;
 

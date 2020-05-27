@@ -15,7 +15,7 @@ namespace SIMS.Model.ManagerModel
         private double _timeOccupied;
         private int _avgAppointmentTime;
 
-        public List<Room> room;
+        private List<Room> _room;
 
         public double Usage { get { return _usage; } set { } }
 
@@ -30,9 +30,9 @@ namespace SIMS.Model.ManagerModel
         {
             get
             {
-                if (room == null)
-                    room = new System.Collections.Generic.List<Room>();
-                return room;
+                if (_room == null)
+                    _room = new System.Collections.Generic.List<Room>();
+                return _room;
             }
             set
             {
@@ -50,7 +50,7 @@ namespace SIMS.Model.ManagerModel
             _usage = usage;
             _timeOccupied = timeOccupied;
             _avgAppointmentTime = avgAppointmentTime;
-            this.room = room;
+            _room = room;
         }
 
         public StatsRoom(long id): base(id)
@@ -67,10 +67,10 @@ namespace SIMS.Model.ManagerModel
         {
             if (newRoom == null)
                 return;
-            if (room == null)
-                room = new System.Collections.Generic.List<Room>();
-            if (!room.Contains(newRoom))
-                room.Add(newRoom);
+            if (_room == null)
+                _room = new System.Collections.Generic.List<Room>();
+            if (!_room.Contains(newRoom))
+                _room.Add(newRoom);
         }
 
         /// <summary>
@@ -81,9 +81,9 @@ namespace SIMS.Model.ManagerModel
         {
             if (oldRoom == null)
                 return;
-            if (room != null)
-                if (room.Contains(oldRoom))
-                    room.Remove(oldRoom);
+            if (_room != null)
+                if (_room.Contains(oldRoom))
+                    _room.Remove(oldRoom);
         }
 
         /// <summary>
@@ -92,8 +92,8 @@ namespace SIMS.Model.ManagerModel
         /// <pdGenerated>Default removeAll</pdGenerated>
         public void RemoveAllRoom()
         {
-            if (room != null)
-                room.Clear();
+            if (_room != null)
+                _room.Clear();
         }
 
     }
