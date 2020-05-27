@@ -3,6 +3,7 @@
 // Created: 19. april 2020 22:03:33
 // Purpose: Definition of Class Hospital
 
+using SIMS.Repository.Abstract;
 using System;
 using System.Collections.Generic;
 using SIMS.Repository.Abstract;
