@@ -5,31 +5,33 @@
 
 using System;
 using System.Collections.Generic;
-using Model.Patient;
+using SIMS.Model.PatientModel;
+using SIMS.Model.UserModel;
+using SIMS.Repository.Abstract.MedicalAbstractRepository;
 
-namespace Service.MedicalService
+namespace SIMS.Service.MedicalService
 {
-   public class DiagnosisService : IService<Model.Patient.Diagnosis,long>
-   {
-      public IEnumerable<Diagnosis> GetAllDiagnosisForPatient(Model.User.Patient patient)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public Model.Patient.Diagnosis GetDiagnosisByMedicine(Model.Patient.Medicine medicine)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public IEnumerable<Diagnosis> GetActiveDiagnosisForPatient()
-      {
-         throw new NotImplementedException();
-      }
-      
-      public IEnumerable<Diagnosis> GetInactiveDiagnosisForPatient(Model.User.Patient patient)
-      {
-         throw new NotImplementedException();
-      }
+    public class DiagnosisService : IService<Diagnosis, long>
+    {
+        public IEnumerable<Diagnosis> GetAllDiagnosisForPatient(Patient patient)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Diagnosis GetDiagnosisByMedicine(Medicine medicine)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Diagnosis> GetActiveDiagnosisForPatient()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Diagnosis> GetInactiveDiagnosisForPatient(Patient patient)
+        {
+            throw new NotImplementedException();
+        }
 
         public IEnumerable<Diagnosis> GetAll()
         {
@@ -56,7 +58,7 @@ namespace Service.MedicalService
             throw new NotImplementedException();
         }
 
-        public Repository.Abstract.Medical.IDiagnosisRepository iDiagnosisRepository;
-   
-   }
+        public IDiagnosisRepository iDiagnosisRepository;
+
+    }
 }

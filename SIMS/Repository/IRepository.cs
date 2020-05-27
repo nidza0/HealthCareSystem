@@ -6,21 +6,21 @@
 using System;
 using System.Collections.Generic;
 
-namespace Repository
+namespace SIMS.Repository
 {
-   public interface IRepository<T,ID>
-   {
-      IEnumerable<T> GetAll();
-      
-      T GetByID(ID id);
-      
-      T Create(T entity);
-      
-      T Update(T entity);
-      
-      void Delete(T entity);
-      
-      IEnumerable<T> Find(Specifications.ISpecification<T> criteria);
-   
-   }
+    public interface IRepository<T, ID>
+    {
+        IEnumerable<T> GetAll();
+
+        T GetByID(ID id);
+
+        T Create(T entity);
+
+        T Update(T entity);
+
+        void Delete(T entity);
+
+        IEnumerable<T> Find(Specifications.ISpecification<T> criteria);
+
+    }
 }

@@ -5,26 +5,28 @@
 
 using System;
 using System.Collections.Generic;
-using Model.Patient;
+using SIMS.Model.PatientModel;
+using SIMS.Model.UserModel;
+using SIMS.Repository.Abstract.MedicalAbstractRepository;
 
-namespace Service.MedicalService
+namespace SIMS.Service.MedicalService
 {
-   public class MedicalRecordService : IService<MedicalRecord, long>
-   {
-      public Model.Patient.Diagnosis AddDiagnosis(Model.User.Patient patient, Model.Patient.Diagnosis diagnosis)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public Model.Patient.MedicalRecord GetPatientMedicalRecord(Model.User.Patient patient)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public Model.Patient.MedicalRecord AddAllergy(Model.Patient.MedicalRecord medicalRecord, Model.Patient.Allergy allergy)
-      {
-         throw new NotImplementedException();
-      }
+    public class MedicalRecordService : IService<MedicalRecord, long>
+    {
+        public Diagnosis AddDiagnosis(Patient patient, Diagnosis diagnosis)
+        {
+            throw new NotImplementedException();
+        }
+
+        public MedicalRecord GetPatientMedicalRecord(Patient patient)
+        {
+            throw new NotImplementedException();
+        }
+
+        public MedicalRecord AddAllergy(MedicalRecord medicalRecord, Allergy allergy)
+        {
+            throw new NotImplementedException();
+        }
 
         public IEnumerable<MedicalRecord> GetAll()
         {
@@ -51,7 +53,7 @@ namespace Service.MedicalService
             throw new NotImplementedException();
         }
 
-        public Repository.Abstract.Medical.IMedicalRecordRepository iMedicalRecordRepository;
-   
-   }
+        public IMedicalRecordRepository iMedicalRecordRepository;
+
+    }
 }

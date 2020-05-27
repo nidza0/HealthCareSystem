@@ -5,19 +5,19 @@
 
 using System;
 
-namespace Util
+namespace SIMS.Util
 {
-   public interface IPersonValidation
-   {
-      bool CheckName(string name);
-      
-      bool CheckUidn(string uidn);
-      
-      bool CheckDateOfBirth(DateTime date);
-      
-      bool CheckEmail(string email);
-      
-      bool CheckPhoneNumber(string phoneNumber);
-   
-   }
+    public interface IPersonValidation
+    {
+        bool CheckName(string name);
+
+        bool CheckUidn(string uidn);
+
+        bool CheckDateOfBirth(DateTime date);
+
+        bool CheckEmail(string email);
+
+        bool CheckPhoneNumber(string phoneNumber);
+
+    }
 }

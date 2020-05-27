@@ -5,13 +5,13 @@
 
 using System;
 
-namespace Repository.Sequencer
+namespace SIMS.Repository.Sequencer
 {
-   public interface ISequencer<T>
-   {
-      void Initialize(T initID);
-      
-      T GenerateID();
-   
-   }
+    public interface ISequencer<T>
+    {
+        void Initialize(T initID);
+
+        T GenerateID();
+
+    }
 }

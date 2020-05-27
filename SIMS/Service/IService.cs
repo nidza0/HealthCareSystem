@@ -6,19 +6,19 @@
 using System;
 using System.Collections.Generic;
 
-namespace Service
+namespace SIMS.Service
 {
-   public interface IService<T,ID>
-   {
-      IEnumerable<T> GetAll();
-      
-      T GetByID(ID id);
-      
-      T Create(T entity);
-      
-      T Update(T entity);
-      
-      void Delete(T entity);
-   
-   }
+    public interface IService<T, ID>
+    {
+        IEnumerable<T> GetAll();
+
+        T GetByID(ID id);
+
+        T Create(T entity);
+
+        T Update(T entity);
+
+        void Delete(T entity);
+
+    }
 }

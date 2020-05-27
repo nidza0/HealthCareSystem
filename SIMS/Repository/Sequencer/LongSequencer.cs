@@ -5,11 +5,11 @@
 
 using System;
 
-namespace Repository.Sequencer
+namespace SIMS.Repository.Sequencer
 {
-   public class LongSequencer : ISequencer<long>
-   {
-      private long nextID;
+    public class LongSequencer : ISequencer<long>
+    {
+        private long nextID;
 
         public long GenerateID()
         {

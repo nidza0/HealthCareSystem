@@ -4,13 +4,13 @@
 // Purpose: Definition of Class ComplexSequencer
 
 using System;
-using Model.User;
+using SIMS.Model.UserModel;
 
-namespace Repository.Sequencer
+namespace SIMS.Repository.Sequencer
 {
-   public class ComplexSequencer : ISequencer<UserID>
-   {
-      private Model.User.UserID nextID;
+    public class ComplexSequencer : ISequencer<UserID>
+    {
+        private UserID nextID;
 
         public UserID GenerateID()
         {

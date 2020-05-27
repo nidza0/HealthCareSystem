@@ -5,16 +5,16 @@
 
 using System;
 
-namespace Specifications
+namespace SIMS.Specifications
 {
-   public class ExpressionSpecification<T> : CompositeSpecification<T>
-   {
-      private Func<T,bool> expression;
-      
-      public ExpressionSpecification(Func<T,bool> expression)
-      {
-         throw new NotImplementedException();
-      }
-   
-   }
+    public class ExpressionSpecification<T> : CompositeSpecification<T>
+    {
+        private Func<T, bool> expression;
+
+        public ExpressionSpecification(Func<T, bool> expression)
+        {
+            throw new NotImplementedException();
+        }
+
+    }
 }
