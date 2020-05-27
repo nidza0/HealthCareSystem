@@ -5,31 +5,34 @@
 
 using System;
 using System.Collections.Generic;
-using Model.Doctor;
+using Controller;
+using SIMS.Model.DoctorModel;
+using SIMS.Model.UserModel;
+using SIMS.Service.MiscService;
 
-namespace Controller.MiscController
+namespace SIMS.Controller.MiscController
 {
-   public class DoctorFeedBackController : IController<Model.Doctor.DoctorFeedback,long>
-   {
-      public Model.Doctor.DoctorFeedback GetByPatientDoctor(Model.User.Patient patient, Model.User.Doctor doctor)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public IEnumerable<DoctorFeedback> GetByDoctor(Model.User.Doctor doctor)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public double GetAverageRatingByDoctor(Model.User.Doctor doctor)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public IEnumerable<DoctorFeedback> GetRecentRatingsByDoctor(Model.User.Doctor doctor)
-      {
-         throw new NotImplementedException();
-      }
+    public class DoctorFeedBackController : IController<DoctorFeedback, long>
+    {
+        public DoctorFeedback GetByPatientDoctor(Patient patient, Doctor doctor)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<DoctorFeedback> GetByDoctor(Doctor doctor)
+        {
+            throw new NotImplementedException();
+        }
+
+        public double GetAverageRatingByDoctor(Doctor doctor)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<DoctorFeedback> GetRecentRatingsByDoctor(Doctor doctor)
+        {
+            throw new NotImplementedException();
+        }
 
         public IEnumerable<DoctorFeedback> GetAll()
         {
@@ -56,7 +59,7 @@ namespace Controller.MiscController
             throw new NotImplementedException();
         }
 
-        public Service.MiscService.DoctorFeedbackService doctorFeedbackService;
-   
-   }
+        public DoctorFeedbackService doctorFeedbackService;
+
+    }
 }

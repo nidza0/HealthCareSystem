@@ -5,21 +5,23 @@
 
 using System;
 using System.Collections.Generic;
-using Model.User;
+using Controller;
+using SIMS.Model.UserModel;
+using SIMS.Service.MiscService;
 
-namespace Controller.MiscController
+namespace SIMS.Controller.MiscController
 {
-   public class LocationController : IController<Model.User.Location,long>
-   {
-      public IEnumerable<Location> GetLocationByCountry(Model.User.Country country)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public IEnumerable<Country> GetAllCountries()
-      {
-         throw new NotImplementedException();
-      }
+    public class LocationController : IController<Location, long>
+    {
+        public IEnumerable<Location> GetLocationByCountry(Country country)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Country> GetAllCountries()
+        {
+            throw new NotImplementedException();
+        }
 
         public IEnumerable<Location> GetAll()
         {
@@ -46,7 +48,7 @@ namespace Controller.MiscController
             throw new NotImplementedException();
         }
 
-        public Service.MiscService.LocationService locationService;
-   
-   }
+        public LocationService locationService;
+
+    }
 }

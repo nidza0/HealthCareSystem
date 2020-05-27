@@ -4,17 +4,18 @@
 // Purpose: Definition of Class HospitalService
 
 using System;
-using Model.User;
 using System.Collections.Generic;
+using SIMS.Model.UserModel;
+using SIMS.Repository.Abstract.HospitalManagementAbstractRepository;
 
-namespace Service.HospitalManagementService
+namespace SIMS.Service.HospitalManagementService
 {
-   public class HospitalService : IService<Hospital, long>
-   {
-      public IEnumerable<Hospital> GetHospitalByLocation(Model.User.Location location)
-      {
-         throw new NotImplementedException();
-      }
+    public class HospitalService : IService<Hospital, long>
+    {
+        public IEnumerable<Hospital> GetHospitalByLocation(Location location)
+        {
+            throw new NotImplementedException();
+        }
 
         public IEnumerable<Hospital> GetAll()
         {
@@ -41,7 +42,7 @@ namespace Service.HospitalManagementService
             throw new NotImplementedException();
         }
 
-        public Repository.Abstract.HospitalManagement.IHospitalRepository iHospitalRepository;
-   
-   }
+        public IHospitalRepository iHospitalRepository;
+
+    }
 }

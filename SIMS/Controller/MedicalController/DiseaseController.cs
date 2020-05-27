@@ -5,21 +5,23 @@
 
 using System;
 using System.Collections.Generic;
-using Model.Patient;
+using Controller;
+using SIMS.Model.PatientModel;
+using SIMS.Service.MedicalService;
 
-namespace Controller.MedicalController
+namespace SIMS.Controller.MedicalController
 {
-   public class DiseaseController : IController<Model.Patient.Disease,long>
-   {
-      public IEnumerable<Disease> GetDiseasesBySymptoms(IEnumerable<Symptom> symptoms)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public IEnumerable<Disease> GetDiseasesByType(Model.Patient.DiseaseType type)
-      {
-         throw new NotImplementedException();
-      }
+    public class DiseaseController : IController<Disease, long>
+    {
+        public IEnumerable<Disease> GetDiseasesBySymptoms(IEnumerable<Symptom> symptoms)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Disease> GetDiseasesByType(DiseaseType type)
+        {
+            throw new NotImplementedException();
+        }
 
         public IEnumerable<Disease> GetAll()
         {
@@ -46,7 +48,7 @@ namespace Controller.MedicalController
             throw new NotImplementedException();
         }
 
-        public Service.MedicalService.DiseaseService diseaseService;
-   
-   }
+        public DiseaseService diseaseService;
+
+    }
 }

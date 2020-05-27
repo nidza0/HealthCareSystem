@@ -4,14 +4,14 @@
 // Purpose: Definition of Class AppointmentPatientStrategy
 
 using System;
-using Model.Patient;
+using SIMS.Model.PatientModel;
 
-namespace Service.MedicalService
+namespace SIMS.Service.MedicalService
 {
-   public class AppointmentPatientStrategy : IAppointmentStrategy
-   {
-      private DateTime bottomHourMargin;
-      private DateTime topDayMargin;
+    public class AppointmentPatientStrategy : IAppointmentStrategy
+    {
+        private DateTime bottomHourMargin;
+        private DateTime topDayMargin;
 
         public void checkDateTimeValid(Appointment appointment)
         {

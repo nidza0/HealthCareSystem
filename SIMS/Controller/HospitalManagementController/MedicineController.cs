@@ -5,38 +5,39 @@
 
 using System;
 using System.Collections.Generic;
-using Model.Patient;
-using Util;
-using Service.HospitalManagementService;
+using Controller;
+using SIMS.Model.PatientModel;
+using SIMS.Service.HospitalManagementService;
+using SIMS.Util;
 
-namespace Controller.HospitalManagementController
+namespace SIMS.Controller.HospitalManagementController
 {
-   public class MedicineController : IController<Medicine, long>
-   {
-      public IEnumerable<Medicine> GetMedicineForDisease(Disease disease)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public IEnumerable<Medicine> GetMedicineByIngredient(Ingredient ingredient)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public IEnumerable<Medicine> GetMedicineByName(string name)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public IEnumerable<Medicine> GetFilteredMedicine(MedicineFilter medicineFilter)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public IEnumerable<Medicine> GetMedicinePendingApproval()
-      {
-         throw new NotImplementedException();
-      }
+    public class MedicineController : IController<Medicine, long>
+    {
+        public IEnumerable<Medicine> GetMedicineForDisease(Disease disease)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Medicine> GetMedicineByIngredient(Ingredient ingredient)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Medicine> GetMedicineByName(string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Medicine> GetFilteredMedicine(MedicineFilter medicineFilter)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Medicine> GetMedicinePendingApproval()
+        {
+            throw new NotImplementedException();
+        }
 
         public IEnumerable<Medicine> GetAll()
         {
@@ -64,6 +65,6 @@ namespace Controller.HospitalManagementController
         }
 
         public MedicineService medicineService;
-   
-   }
+
+    }
 }

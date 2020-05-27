@@ -5,21 +5,22 @@
 
 using System;
 using System.Collections.Generic;
-using Model.Patient;
+using SIMS.Model.PatientModel;
+using SIMS.Repository.Abstract.MedicalAbstractRepository;
 
-namespace Service.MedicalService
+namespace SIMS.Service.MedicalService
 {
-   public class DiseaseService : IService<Model.Patient.Disease,long>
-   {
-      public IEnumerable<Disease> GetDiseasesBySymptoms(IEnumerable<Symptom> symptoms)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public IEnumerable<Disease> GetDiseasesByType(Model.Patient.DiseaseType type)
-      {
-         throw new NotImplementedException();
-      }
+    public class DiseaseService : IService<Disease, long>
+    {
+        public IEnumerable<Disease> GetDiseasesBySymptoms(IEnumerable<Symptom> symptoms)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Disease> GetDiseasesByType(DiseaseType type)
+        {
+            throw new NotImplementedException();
+        }
 
         public IEnumerable<Disease> GetAll()
         {
@@ -46,7 +47,7 @@ namespace Service.MedicalService
             throw new NotImplementedException();
         }
 
-        public Repository.Abstract.Medical.IDiseaseRepository iDiseaseRepository;
-   
-   }
+        public IDiseaseRepository iDiseaseRepository;
+
+    }
 }

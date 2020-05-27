@@ -5,17 +5,17 @@
 
 using System;
 
-namespace Specifications
+namespace SIMS.Specifications
 {
-   public interface ISpecification<T>
-   {
-      Boolean IsSatisfiedBy(T candidate);
-      
-      ISpecification<T> And(ISpecification<T> other);
-      
-      ISpecification<T> Or(ISpecification<T> other);
-      
-      ISpecification<T> Not(ISpecification<T> other);
-   
-   }
+    public interface ISpecification<T>
+    {
+        bool IsSatisfiedBy(T candidate);
+
+        ISpecification<T> And(ISpecification<T> other);
+
+        ISpecification<T> Or(ISpecification<T> other);
+
+        ISpecification<T> Not(ISpecification<T> other);
+
+    }
 }

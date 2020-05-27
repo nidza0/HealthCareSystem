@@ -5,13 +5,13 @@
 
 using System;
 
-namespace Util
+namespace SIMS.Util
 {
-   public interface IUserValidation : IPersonValidation
-   {
-      bool CheckUsername(string username);
-      
-      bool CheckPassword(string password);
-   
-   }
+    public interface IUserValidation : IPersonValidation
+    {
+        bool CheckUsername(string username);
+
+        bool CheckPassword(string password);
+
+    }
 }
