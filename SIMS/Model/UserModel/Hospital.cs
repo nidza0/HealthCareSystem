@@ -4,17 +4,34 @@
 // Purpose: Definition of Class Hospital
 
 using System;
+using System.Collections.Generic;
 
 namespace SIMS.Model.UserModel
 {
     public class Hospital
     {
-        private string name;
-        private long id;
-        private string telephone;
-        private string website;
+        private string _name;
+        private long _id;
+        private string _telephone;
+        private string _website;
 
-        private System.Collections.Generic.List<Room> room;
+        private System.Collections.Generic.List<Room> _room;
+
+        public Hospital(string name, long id, string telephone, string website, List<Room> room, List<Employee> employee, Address address)
+        {
+            _name = name;
+            _id = id;
+            _telephone = telephone;
+            _website = website;
+            _room = room;
+            _employee = employee;
+            _address = address;
+        }
+
+
+
+
+
 
         /// <summary>
         /// Property for collection of Room
@@ -24,9 +41,9 @@ namespace SIMS.Model.UserModel
         {
             get
             {
-                if (room == null)
-                    room = new System.Collections.Generic.List<Room>();
-                return room;
+                if (_room == null)
+                    _room = new System.Collections.Generic.List<Room>();
+                return _room;
             }
             set
             {
@@ -47,10 +64,10 @@ namespace SIMS.Model.UserModel
         {
             if (newRoom == null)
                 return;
-            if (room == null)
-                room = new System.Collections.Generic.List<Room>();
-            if (!room.Contains(newRoom))
-                room.Add(newRoom);
+            if (_room == null)
+                _room = new System.Collections.Generic.List<Room>();
+            if (!_room.Contains(newRoom))
+                _room.Add(newRoom);
         }
 
         /// <summary>
@@ -61,9 +78,9 @@ namespace SIMS.Model.UserModel
         {
             if (oldRoom == null)
                 return;
-            if (room != null)
-                if (room.Contains(oldRoom))
-                    room.Remove(oldRoom);
+            if (_room != null)
+                if (_room.Contains(oldRoom))
+                    _room.Remove(oldRoom);
         }
 
         /// <summary>
@@ -72,11 +89,11 @@ namespace SIMS.Model.UserModel
         /// <pdGenerated>Default removeAll</pdGenerated>
         public void RemoveAllRoom()
         {
-            if (room != null)
-                room.Clear();
+            if (_room != null)
+                _room.Clear();
         }
 
-        public System.Collections.Generic.List<Employee> employee;
+        public System.Collections.Generic.List<Employee> _employee;
 
         /// <summary>
         /// Property for collection of Employee
@@ -86,9 +103,9 @@ namespace SIMS.Model.UserModel
         {
             get
             {
-                if (employee == null)
-                    employee = new System.Collections.Generic.List<Employee>();
-                return employee;
+                if (_employee == null)
+                    _employee = new System.Collections.Generic.List<Employee>();
+                return _employee;
             }
             set
             {
@@ -109,11 +126,11 @@ namespace SIMS.Model.UserModel
         {
             if (newEmployee == null)
                 return;
-            if (employee == null)
-                employee = new System.Collections.Generic.List<Employee>();
-            if (!employee.Contains(newEmployee))
+            if (_employee == null)
+                _employee = new System.Collections.Generic.List<Employee>();
+            if (!_employee.Contains(newEmployee))
             {
-                employee.Add(newEmployee);
+                _employee.Add(newEmployee);
                 newEmployee.Hospital = this;
             }
         }
@@ -126,10 +143,10 @@ namespace SIMS.Model.UserModel
         {
             if (oldEmployee == null)
                 return;
-            if (employee != null)
-                if (employee.Contains(oldEmployee))
+            if (_employee != null)
+                if (_employee.Contains(oldEmployee))
                 {
-                    employee.Remove(oldEmployee);
+                    _employee.Remove(oldEmployee);
                     oldEmployee.Hospital = null;
                 }
         }
@@ -140,18 +157,47 @@ namespace SIMS.Model.UserModel
         /// <pdGenerated>Default removeAll</pdGenerated>
         public void RemoveAllEmployee()
         {
-            if (employee != null)
+            if (_employee != null)
             {
                 System.Collections.ArrayList tmpEmployee = new System.Collections.ArrayList();
-                foreach (Employee oldEmployee in employee)
+                foreach (Employee oldEmployee in _employee)
                     tmpEmployee.Add(oldEmployee);
-                employee.Clear();
+                _employee.Clear();
                 foreach (Employee oldEmployee in tmpEmployee)
                     oldEmployee.Hospital = null;
                 tmpEmployee.Clear();
             }
         }
-        public Address address;
+        public Address _address;
 
+        //Properties
+        public long ID
+        {
+            get { return _id; }
+            set { _id = value; }
+        }
+
+        public string Name
+        {
+            get { return _name; }
+            set { _name = value; }
+        }
+
+        public Address Address {
+            get { return _address; }
+            set { _address = value;  }
+        }
+
+        public string Telephone
+        {
+            get { return _telephone; }
+            set { _telephone = value; }
+        }
+
+        public string Website
+        {
+            get { return _website;  }
+            set { _website = value;  }
+        }
     }
 }
