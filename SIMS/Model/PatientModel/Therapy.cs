@@ -28,7 +28,6 @@ namespace SIMS.Model.PatientModel
         }
 
         public Util.TimeInterval timeInterval;
-        public System.Collections.Generic.List<TherapyDose> therapyDose;
 
         /// <summary>
         /// Property for collection of TherapyDose
