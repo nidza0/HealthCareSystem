@@ -55,6 +55,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Exceptions\InvalidUserIdException.cs" />
+    <Compile Include="Model\UserModel\EmergencyContact.cs" />
     <Compile Include="Repository\Abstract\HospitalManagementAbstractRepository\IHospitalRepository.cs" />
     <Compile Include="Repository\Abstract\HospitalManagementAbstractRepository\IInventoryRepository.cs" />
     <Compile Include="Repository\Abstract\HospitalManagementAbstractRepository\IMedicineRepository.cs" />

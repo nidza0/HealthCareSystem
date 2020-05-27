@@ -32,7 +32,8 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.HospitalManagementConv
                 entity.Telephone,
                 entity.Website,
                 getAddressCSVstring(entity.Address),
-                getRoomIDSCSVstring(entity.Room));
+                getRoomIDSCSVstring(entity.Room),
+                getEmployeeIDSCSVstring(entity.Employee));
 
         private string getAddressCSVstring(Address address)
            => string.Join(_listDelimiter, address.Street, address.Location.ID);

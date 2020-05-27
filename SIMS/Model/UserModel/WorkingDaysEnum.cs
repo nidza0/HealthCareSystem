@@ -9,12 +9,12 @@ namespace SIMS.Model.UserModel
 {
     public enum WorkingDaysEnum
     {
-        monday = 0,
-        tuesday,
-        wednesday,
-        thursday,
-        friday,
-        saturday,
-        sunday
+        MONDAY = 0,
+        TUESDAY,
+        WEDNESDAY,
+        THURSDAY,
+        FRIDAY,
+        SATURDAY,
+        SUNDAY
     }
 }

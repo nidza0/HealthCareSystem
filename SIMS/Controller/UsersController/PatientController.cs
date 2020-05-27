@@ -28,6 +28,10 @@ namespace SIMS.Controller.UsersController
             this.diagnosisService = diagnosisService;
         }
 
+        public IEnumerable<MedicalRecord> GetMedicalRecordByPatient(Patient patient)
+        {
+            throw new NotImplementedException();
+        }
 
         public IEnumerable<Patient> GetPatientByType(PatientType patientType)
         {

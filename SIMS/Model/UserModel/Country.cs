@@ -12,6 +12,7 @@ namespace SIMS.Model.UserModel
     {
         private string _name;
         private string _code;
+        public List<City> _cityList;
 
         public Country(string code, string name)
         {
@@ -25,9 +26,6 @@ namespace SIMS.Model.UserModel
             _name = name;
             _cityList = cityList;
         }
-
-
-        public System.Collections.Generic.List<City> _cityList;
 
     }
 }

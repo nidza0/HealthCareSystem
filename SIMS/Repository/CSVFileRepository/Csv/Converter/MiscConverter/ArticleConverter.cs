@@ -24,17 +24,18 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.MiscConverter
         {
             string[] tokens = csv.Split(_delimiter.ToCharArray());
 
-            //TODO: Create Article
-            throw new NotImplementedException();
+            Article retVal = new Article(tokens[1], tokens[2], tokens[3], new Employee(new UserID(tokens[4])), DateTime.Parse(tokens[5]));
+            retVal.SetId(Convert.ToInt64(tokens[0]));
+            return retVal;
         }
 
         public string ConvertEntityToCSV(Article article)
             => string.Join(_delimiter,
-                article.Id,
-                article.Date.ToString(_dateTimeFormat),
+                article.GetId(),
                 article.Title,
                 article.ShortDescription,
                 article.Text,
-                article.Author.GetId().ToString());
+                article.Author.GetId().ToString(),
+                article.Date.ToString(_dateTimeFormat));
     }
 }

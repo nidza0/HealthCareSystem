@@ -9,39 +9,42 @@ namespace SIMS.Model.UserModel
 {
     public class Employee : User
     {
-        public TimeTable timeTable;
-        public Hospital hospital;
+        private TimeTable _timeTable;
+        private Hospital _hospital;
 
+        public Employee(UserID id) : base(id) { }
 
+        public Employee(TimeTable timeTable, Hospital hospital, string userName, string password, DateTime dateCreated, string name, string surname, string middleName, Sex sex, DateTime dateOfBirth, string uidn, Address address, string homePhone, string cellPhone, string email1, string email2) : base(userName, password, dateCreated, name, surname, middleName, sex, dateOfBirth, uidn, address, homePhone, cellPhone, email1, email2)
+        {
+            _timeTable = timeTable;
+            _hospital = hospital;
+        }
 
-        /// <summary>
-        /// Property for Hospital
-        /// </summary>
-        /// <pdGenerated>Default opposite class property</pdGenerated>
         public Hospital Hospital
         {
             get
             {
-                return hospital;
+                return _hospital;
             }
             set
             {
-                if (hospital == null || !hospital.Equals(value))
+                if (_hospital == null || !_hospital.Equals(value))
                 {
-                    if (hospital != null)
+                    if (_hospital != null)
                     {
-                        Hospital oldHospital = hospital;
-                        hospital = null;
+                        Hospital oldHospital = _hospital;
+                        _hospital = null;
                         oldHospital.RemoveEmployee(this);
                     }
                     if (value != null)
                     {
-                        hospital = value;
-                        hospital.AddEmployee(this);
+                        _hospital = value;
+                        _hospital.AddEmployee(this);
                     }
                 }
             }
         }
 
+        public TimeTable TimeTable { get => _timeTable; }
     }
 }

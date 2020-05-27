@@ -10,7 +10,6 @@ namespace SIMS.Model.UserModel
     public class Address
     {
         private string _address; //street
-
         private Location _location;
 
         public Address(string address, Location location)
