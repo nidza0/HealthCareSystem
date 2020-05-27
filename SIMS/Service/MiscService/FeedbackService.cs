@@ -5,13 +5,14 @@
 
 using System;
 using System.Collections.Generic;
-using Model.User;
+using SIMS.Model.UserModel;
+using SIMS.Repository.Abstract.MiscAbstractRepository;
 
-namespace Service.MiscService
+namespace SIMS.Service.MiscService
 {
-   public class FeedbackService : IService<Model.User.Feedback,long>
-   {
-      public Repository.Abstract.Misc.IFeedbackRepository iFeedbackRepository;
+    public class FeedbackService : IService<Feedback, long>
+    {
+        public IFeedbackRepository iFeedbackRepository;
 
         public Feedback Create(Feedback entity)
         {

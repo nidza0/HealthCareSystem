@@ -5,82 +5,85 @@
 
 using System;
 using System.Collections.Generic;
-using Model.Patient;
-using Model.User;
+using Controller;
+using SIMS.Model.PatientModel;
+using SIMS.Model.UserModel;
+using SIMS.Service.MedicalService;
+using SIMS.Util;
 
-namespace Controller.MedicalController
+namespace SIMS.Controller.MedicalController
 {
-   public class AppointmentController : IController<Model.Patient.Appointment,long>
-   {
-      public Appointment CancelAppointment(Appointment appointment)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public IEnumerable<Appointment> GetPatientAppointments(Model.User.Patient patient)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public IEnumerable<Appointment> GetAppointmentsByTime(Util.TimeInterval timeInterval)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public IEnumerable<Appointment> GetAppointmentsByDoctor(Model.User.Doctor doctor)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public IEnumerable<Appointment> GetCanceledAppointments()
-      {
-         throw new NotImplementedException();
-      }
-      
-      public IEnumerable<Appointment> GetCompletedAppointmentsByPatient(Model.User.Patient patient)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public IEnumerable<Appointment> GetAppointmentsByRoom(Model.User.Room room)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public IEnumerable<Appointment> GetFilteredAppointment(Util.AppointmentFilter appointmentFilter)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public IEnumerable<Appointment> GetUpcomingAppointmentsForPatient(Model.User.Patient patient)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public IEnumerable<Appointment> GetRecentDoctorsForPatient(Model.User.Patient patient)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public IEnumerable<Appointment> GetUpcomingAppointmentsForDoctor(Model.User.Doctor doctor)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public IEnumerable<Appointment> IsAppointmentChangeable(Appointment appointment)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public IEnumerable<Doctor> GetAvailableDoctorsByTime(Util.TimeInterval timeInterval)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public void AutoDeleteCanceledAppointments()
-      {
-         throw new NotImplementedException();
-      }
+    public class AppointmentController : IController<Appointment, long>
+    {
+        public Appointment CancelAppointment(Appointment appointment)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Appointment> GetPatientAppointments(Patient patient)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Appointment> GetAppointmentsByTime(TimeInterval timeInterval)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Appointment> GetAppointmentsByDoctor(Doctor doctor)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Appointment> GetCanceledAppointments()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Appointment> GetCompletedAppointmentsByPatient(Patient patient)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Appointment> GetAppointmentsByRoom(Room room)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Appointment> GetFilteredAppointment(AppointmentFilter appointmentFilter)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Appointment> GetUpcomingAppointmentsForPatient(Patient patient)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Appointment> GetRecentDoctorsForPatient(Patient patient)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Appointment> GetUpcomingAppointmentsForDoctor(Doctor doctor)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Appointment> IsAppointmentChangeable(Appointment appointment)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Doctor> GetAvailableDoctorsByTime(TimeInterval timeInterval)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AutoDeleteCanceledAppointments()
+        {
+            throw new NotImplementedException();
+        }
 
         public IEnumerable<Appointment> GetAll()
         {
@@ -107,7 +110,7 @@ namespace Controller.MedicalController
             throw new NotImplementedException();
         }
 
-        public Service.MedicalService.AppointmentService appointmentService;
-   
-   }
+        public AppointmentService appointmentService;
+
+    }
 }

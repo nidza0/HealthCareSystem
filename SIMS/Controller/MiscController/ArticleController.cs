@@ -5,21 +5,23 @@
 
 using System;
 using System.Collections.Generic;
-using Model.User;
+using Controller;
+using SIMS.Model.UserModel;
+using SIMS.Service.MiscService;
 
-namespace Controller.MiscController
+namespace SIMS.Controller.MiscController
 {
-   public class ArticleController : IController<Model.User.Article,long>
-   {
-      public IEnumerable<Article> GetArticleByAuthor(Model.User.Employee author)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public void ValidateArticle(Model.User.Article article)
-      {
-         throw new NotImplementedException();
-      }
+    public class ArticleController : IController<Article, long>
+    {
+        public IEnumerable<Article> GetArticleByAuthor(Employee author)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ValidateArticle(Article article)
+        {
+            throw new NotImplementedException();
+        }
 
         public IEnumerable<Article> GetAll()
         {
@@ -46,7 +48,7 @@ namespace Controller.MiscController
             throw new NotImplementedException();
         }
 
-        public Service.MiscService.ArticleService articleService;
-   
-   }
+        public ArticleService articleService;
+
+    }
 }

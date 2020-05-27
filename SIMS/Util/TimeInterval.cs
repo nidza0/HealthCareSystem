@@ -5,27 +5,27 @@
 
 using System;
 
-namespace Util
+namespace SIMS.Util
 {
-   public class TimeInterval
-   {
-      private DateTime startTime;
-      private DateTime endTime;
-      
-      public bool IsTimeBetween(DateTime dateTime)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public bool IsOverlappingWith(TimeInterval timeInterval)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public DateTime Duration()
-      {
-         throw new NotImplementedException();
-      }
-   
-   }
+    public class TimeInterval
+    {
+        private DateTime startTime;
+        private DateTime endTime;
+
+        public bool IsTimeBetween(DateTime dateTime)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool IsOverlappingWith(TimeInterval timeInterval)
+        {
+            throw new NotImplementedException();
+        }
+
+        public DateTime Duration()
+        {
+            throw new NotImplementedException();
+        }
+
+    }
 }

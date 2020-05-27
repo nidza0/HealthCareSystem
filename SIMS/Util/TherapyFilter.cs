@@ -5,16 +5,17 @@
 
 using System;
 using System.Collections.Generic;
-using Model.Patient;
+using SIMS.Model.PatientModel;
+using SIMS.Model.UserModel;
 
-namespace Util
+namespace SIMS.Util
 {
-   public class TherapyFilter
-   {
-      private String drugName;
-      private Model.User.Doctor doctor;
-      private TimeInterval timeInterval;
-      private IEnumerable<TherapyTime> time;
-   
-   }
+    public class TherapyFilter
+    {
+        private string drugName;
+        private Doctor doctor;
+        private TimeInterval timeInterval;
+        private IEnumerable<TherapyTime> time;
+
+    }
 }

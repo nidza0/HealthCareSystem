@@ -5,36 +5,37 @@
 
 using System;
 using System.Collections.Generic;
-using Model.Patient;
+using SIMS.Model.PatientModel;
+using SIMS.Repository.Abstract.HospitalManagementAbstractRepository;
 
-namespace Service.HospitalManagementService
+namespace SIMS.Service.HospitalManagementService
 {
-   public class MedicineService : IService<Model.Patient.Medicine,long>
-   {
-      public IEnumerable<Medicine> GetMedicineForDisease(Disease disease)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public IEnumerable<Medicine> GetMedicineByIngredient(Ingredient ingredient)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public IEnumerable<Medicine> GetMedicineByName(string name)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public IEnumerable<Medicine> GetFilteredMedicine(Util.MedicineFilter medicineFilter)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public IEnumerable<Medicine> GetMedicinePendingApproval()
-      {
-         throw new NotImplementedException();
-      }
+    public class MedicineService : IService<Medicine, long>
+    {
+        public IEnumerable<Medicine> GetMedicineForDisease(Disease disease)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Medicine> GetMedicineByIngredient(Ingredient ingredient)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Medicine> GetMedicineByName(string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Medicine> GetFilteredMedicine(Util.MedicineFilter medicineFilter)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Medicine> GetMedicinePendingApproval()
+        {
+            throw new NotImplementedException();
+        }
 
         public IEnumerable<Medicine> GetAll()
         {
@@ -61,7 +62,7 @@ namespace Service.HospitalManagementService
             throw new NotImplementedException();
         }
 
-        public Repository.Abstract.HospitalManagement.IMedicineRepository iMedicineRepository;
-   
-   }
+        public IMedicineRepository iMedicineRepository;
+
+    }
 }

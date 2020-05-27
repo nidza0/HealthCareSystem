@@ -6,65 +6,68 @@
 using System;
 using System.Collections.Generic;
 using Model.Patient;
+using SIMS.Model.PatientModel;
+using SIMS.Model.UserModel;
+using SIMS.Repository.Abstract.MedicalAbstractRepository;
 
-namespace Service.MedicalService
+namespace SIMS.Service.MedicalService
 {
-   public class TherapyService : IService<Model.Patient.Therapy,long>
-   {
-      public Prescription AddPerscription(Model.Patient.Therapy therapy, Prescription perscription)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public IEnumerable<Therapy> GetTherapyByDate(Util.TimeInterval dateRange)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public IEnumerable<Therapy> GetTherapyByMedicine(Model.Patient.Medicine medicine)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public IEnumerable<Therapy> GetTherapyByPatient(Model.User.Patient patient)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public IEnumerable<Therapy> GetFilteredTherapy(Util.TherapyFilter filter)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public IEnumerable<Therapy> GetTherapyByDiagnosis(Model.Patient.Diagnosis diagnosis)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public IEnumerable<Therapy> GetActiveTherapyForPatient(Model.User.Patient patient)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public IEnumerable<Therapy> GetPastTherapyForPatient(Model.User.Patient patient)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public void ConsumeTherapy(Model.Patient.Therapy therapy)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public IEnumerable<Therapy> GetActiveTherapyForDiagnosis(Model.Patient.Diagnosis diagnosis)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public IEnumerable<Therapy> GetPastTherapiesForDiagnosis(Model.Patient.Diagnosis diagnosis)
-      {
-         throw new NotImplementedException();
-      }
+    public class TherapyService : IService<Therapy, long>
+    {
+        public Prescription AddPerscription(Therapy therapy, Prescription perscription)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Therapy> GetTherapyByDate(Util.TimeInterval dateRange)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Therapy> GetTherapyByMedicine(Medicine medicine)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Therapy> GetTherapyByPatient(Patient patient)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Therapy> GetFilteredTherapy(Util.TherapyFilter filter)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Therapy> GetTherapyByDiagnosis(Diagnosis diagnosis)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Therapy> GetActiveTherapyForPatient(Patient patient)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Therapy> GetPastTherapyForPatient(Patient patient)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ConsumeTherapy(Therapy therapy)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Therapy> GetActiveTherapyForDiagnosis(Diagnosis diagnosis)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Therapy> GetPastTherapiesForDiagnosis(Diagnosis diagnosis)
+        {
+            throw new NotImplementedException();
+        }
 
         public IEnumerable<Therapy> GetAll()
         {
@@ -91,7 +94,7 @@ namespace Service.MedicalService
             throw new NotImplementedException();
         }
 
-        public Repository.Abstract.Medical.ITherapyRepository iTherapyRepository;
-   
-   }
+        public ITherapyRepository iTherapyRepository;
+
+    }
 }

@@ -5,21 +5,22 @@
 
 using System;
 using System.Collections.Generic;
-using Model.User;
+using SIMS.Model.UserModel;
+using SIMS.Repository.Abstract.MiscAbstractRepository;
 
-namespace Service.MiscService
+namespace SIMS.Service.MiscService
 {
-   public class MessageService : IService<Model.User.Message,long>
-   {
-      public IEnumerable<Message> GetSent(Model.User.User user)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public IEnumerable<Message> GetRecieved(Model.User.User user)
-      {
-         throw new NotImplementedException();
-      }
+    public class MessageService : IService<Message, long>
+    {
+        public IEnumerable<Message> GetSent(User user)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Message> GetRecieved(User user)
+        {
+            throw new NotImplementedException();
+        }
 
         public IEnumerable<Message> GetAll()
         {
@@ -46,7 +47,7 @@ namespace Service.MiscService
             throw new NotImplementedException();
         }
 
-        public Repository.Abstract.Misc.IMessageRepository iMessageRepository;
-   
-   }
+        public IMessageRepository iMessageRepository;
+
+    }
 }

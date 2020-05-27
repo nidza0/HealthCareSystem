@@ -5,21 +5,22 @@
 
 using System;
 using System.Collections.Generic;
-using Model.User;
+using SIMS.Model.UserModel;
+using SIMS.Repository.Abstract.MiscAbstractRepository;
 
-namespace Service.MiscService
+namespace SIMS.Service.MiscService
 {
-   public class LocationService : IService<Model.User.Location,long>
-   {
-      public IEnumerable<Location> GetLocationByCountry(Model.User.Country country)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public IEnumerable<Country> GetAllCountries()
-      {
-         throw new NotImplementedException();
-      }
+    public class LocationService : IService<Location, long>
+    {
+        public IEnumerable<Location> GetLocationByCountry(Country country)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Country> GetAllCountries()
+        {
+            throw new NotImplementedException();
+        }
 
         public IEnumerable<Location> GetAll()
         {
@@ -46,7 +47,7 @@ namespace Service.MiscService
             throw new NotImplementedException();
         }
 
-        public Repository.Abstract.Misc.ILocationRepository iLocationRepository;
-   
-   }
+        public ILocationRepository iLocationRepository;
+
+    }
 }
