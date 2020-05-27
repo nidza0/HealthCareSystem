@@ -5,22 +5,28 @@
 
 using SIMS.Model.UserModel;
 using System;
+using System.Collections.Generic;
 
 namespace SIMS.Model.ManagerModel
 {
     public class StatsRoom : Stats
     {
-        private double usage;
-        private double timeOccupied;
-        private int avgAppointmentTime;
+        private double _usage;
+        private double _timeOccupied;
+        private int _avgAppointmentTime;
 
-        public System.Collections.Generic.List<Room> room;
+        public List<Room> room;
+
+        public double Usage { get { return _usage; } set { } }
+
+        public double TimeOccupied { get { return _timeOccupied; } set { } }
+
 
         /// <summary>
         /// Property for collection of Model.User.Room
         /// </summary>
         /// <pdGenerated>Default opposite class collection property</pdGenerated>
-        public System.Collections.Generic.List<Room> Room
+        public List<Room> Room
         {
             get
             {
@@ -38,6 +44,20 @@ namespace SIMS.Model.ManagerModel
                 }
             }
         }
+
+        public StatsRoom(double usage, double timeOccupied, int avgAppointmentTime, List<Room> room): base()
+        {
+            _usage = usage;
+            _timeOccupied = timeOccupied;
+            _avgAppointmentTime = avgAppointmentTime;
+            this.room = room;
+        }
+
+        public StatsRoom(long id): base(id)
+        {
+
+        }
+
 
         /// <summary>
         /// Add a new Model.User.Room in the collection

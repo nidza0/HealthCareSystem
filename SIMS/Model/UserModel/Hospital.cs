@@ -3,12 +3,13 @@
 // Created: 19. april 2020 22:03:33
 // Purpose: Definition of Class Hospital
 
+using SIMS.Repository.Abstract;
 using System;
 using System.Collections.Generic;
 
 namespace SIMS.Model.UserModel
 {
-    public class Hospital
+    public class Hospital: IIdentifiable<long>
     {
         private string _name;
         private long _id;
@@ -37,7 +38,7 @@ namespace SIMS.Model.UserModel
         /// Property for collection of Room
         /// </summary>
         /// <pdGenerated>Default opposite class collection property</pdGenerated>
-        public System.Collections.Generic.List<Room> Room
+        public List<Room> Room
         {
             get
             {
@@ -65,7 +66,7 @@ namespace SIMS.Model.UserModel
             if (newRoom == null)
                 return;
             if (_room == null)
-                _room = new System.Collections.Generic.List<Room>();
+                _room = new List<Room>();
             if (!_room.Contains(newRoom))
                 _room.Add(newRoom);
         }
@@ -168,14 +169,20 @@ namespace SIMS.Model.UserModel
                 tmpEmployee.Clear();
             }
         }
+
+        public long GetId()
+        {
+            return _id;
+        }
+
+        public void SetId(long id)
+        {
+            _id = id;
+        }
+
         public Address _address;
 
         //Properties
-        public long ID
-        {
-            get { return _id; }
-            set { _id = value; }
-        }
 
         public string Name
         {

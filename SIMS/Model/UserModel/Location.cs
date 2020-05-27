@@ -3,11 +3,12 @@
 // Created: 19. april 2020 20:30:46
 // Purpose: Definition of Class Location
 
+using SIMS.Repository.Abstract;
 using System;
 
 namespace SIMS.Model.UserModel
 {
-    public class Location
+    public class Location: IIdentifiable<long>
     {
         private long _geonameId;
 
@@ -36,6 +37,16 @@ namespace SIMS.Model.UserModel
         {
             get { return _city; }
             set { _city = value; }
+        }
+
+        public long GetId()
+        {
+            return _geonameId;
+        }
+
+        public void SetId(long id)
+        {
+            _geonameId = id;
         }
     }
 }

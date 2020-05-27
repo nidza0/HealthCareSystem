@@ -13,5 +13,11 @@ namespace SIMS.Model.ManagerModel
     {
         public Room room;
 
+        public Room Room { get { return room; } set { } }
+
+        public InventoryItem(Room room)
+        {
+            this.room = room;
+        }
     }
 }
