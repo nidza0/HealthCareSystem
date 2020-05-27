@@ -34,6 +34,6 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Stream
             .ToList();
 
         public void AppendToFile(T entity)
-            => File.AppendAllText(_path, _converter.ConvertEntityToCSV(entity) + Environment.NewLine)
+            => File.AppendAllText(_path, _converter.ConvertEntityToCSV(entity) + Environment.NewLine);
     }
 }

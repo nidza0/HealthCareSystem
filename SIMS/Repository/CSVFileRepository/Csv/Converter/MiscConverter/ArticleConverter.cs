@@ -25,7 +25,7 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.MiscConverter
             string[] tokens = csv.Split(_delimiter.ToCharArray());
 
             //TODO: Create Article
-            throw new NotImplementedException;
+            throw new NotImplementedException();
         }
 
         public string ConvertEntityToCSV(Article article)
