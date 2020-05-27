@@ -10,14 +10,14 @@ namespace SIMS.Model.PatientModel
 {
     public enum MedicineType
     {
-        Pill,
-        Iv,
-        Liquid,
-        Tablet,
-        TopicalMedicine,
-        Drops,
-        Suppositories,
-        Inhalers,
-        Injections
+        PILL,
+        IV,
+        LIQUID,
+        TABLET,
+        TOPICAL_MEDICINE,
+        DROPS,
+        SUPPOSITORIES,
+        INHALERS,
+        INJECTIONS
     }
 }

@@ -6,10 +6,11 @@
 
 using System;
 using SIMS.Model.ManagerModel;
+using SIMS.Repository.Abstract;
 
 namespace SIMS.Model.UserModel
 {
-    public class Room
+    public class Room: IIdentifiable<long>
     {
         private long _id;
         private string _roomNumber;
@@ -28,7 +29,6 @@ namespace SIMS.Model.UserModel
             _inventoryItem = inventoryItem;
         }
 
-        public long ID { get => _id; set => _id = value; }
         public string RoomNumber { get => _roomNumber; set => _roomNumber = value; }
         public bool Occupied { get => _occupied; set => _occupied = value; }
         public int Floor { get => _floor; set => _floor = value; }
@@ -60,7 +60,14 @@ namespace SIMS.Model.UserModel
             throw new NotImplementedException();
         }
 
-        
+        public long GetId()
+        {
+            return _id;
+        }
 
+        public void SetId(long id)
+        {
+            _id = id;
+        }
     }
 }

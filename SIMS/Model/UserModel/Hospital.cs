@@ -3,29 +3,49 @@
 // Created: 19. april 2020 22:03:33
 // Purpose: Definition of Class Hospital
 
+using SIMS.Repository.Abstract;
 using System;
 using System.Collections.Generic;
+using SIMS.Repository.Abstract;
+
 
 namespace SIMS.Model.UserModel
 {
-    public class Hospital
+    public class Hospital : IIdentifiable<long>
     {
         private string _name;
         private long _id;
         private string _telephone;
         private string _website;
 
-        private System.Collections.Generic.List<Room> _room;
+        public Address _address;
 
-        public Hospital(string name, long id, string telephone, string website, List<Room> room, List<Employee> employee, Address address)
+        private List<Room> _room;
+        private List<Employee> _employee;
+
+        public Hospital(long id)
+        {
+            _id = id;
+        }
+
+        public Hospital(string name, Address address, string telephone, string website, List<Room> room, List<Employee> employee)
         {
             _name = name;
-            _id = id;
             _telephone = telephone;
             _website = website;
             _room = room;
             _employee = employee;
             _address = address;
+        }
+
+        public Hospital(string name, Address address, string telephone, string website)
+        {
+            _name = name;
+            _telephone = telephone;
+            _website = website;
+            _address = address;
+            _room = new List<Room>();
+            _employee = new List<Employee>();
         }
 
 
@@ -37,12 +57,12 @@ namespace SIMS.Model.UserModel
         /// Property for collection of Room
         /// </summary>
         /// <pdGenerated>Default opposite class collection property</pdGenerated>
-        public System.Collections.Generic.List<Room> Room
+        public List<Room> Room
         {
             get
             {
                 if (_room == null)
-                    _room = new System.Collections.Generic.List<Room>();
+                    _room = new List<Room>();
                 return _room;
             }
             set
@@ -65,7 +85,7 @@ namespace SIMS.Model.UserModel
             if (newRoom == null)
                 return;
             if (_room == null)
-                _room = new System.Collections.Generic.List<Room>();
+                _room = new List<Room>();
             if (!_room.Contains(newRoom))
                 _room.Add(newRoom);
         }
@@ -93,18 +113,18 @@ namespace SIMS.Model.UserModel
                 _room.Clear();
         }
 
-        public System.Collections.Generic.List<Employee> _employee;
+ 
 
         /// <summary>
         /// Property for collection of Employee
         /// </summary>
         /// <pdGenerated>Default opposite class collection property</pdGenerated>
-        public System.Collections.Generic.List<Employee> Employee
+        public List<Employee> Employee
         {
             get
             {
                 if (_employee == null)
-                    _employee = new System.Collections.Generic.List<Employee>();
+                    _employee = new List<Employee>();
                 return _employee;
             }
             set
@@ -127,7 +147,7 @@ namespace SIMS.Model.UserModel
             if (newEmployee == null)
                 return;
             if (_employee == null)
-                _employee = new System.Collections.Generic.List<Employee>();
+                _employee = new List<Employee>();
             if (!_employee.Contains(newEmployee))
             {
                 _employee.Add(newEmployee);
@@ -159,7 +179,7 @@ namespace SIMS.Model.UserModel
         {
             if (_employee != null)
             {
-                System.Collections.ArrayList tmpEmployee = new System.Collections.ArrayList();
+                List<Employee> tmpEmployee = new List<Employee>();
                 foreach (Employee oldEmployee in _employee)
                     tmpEmployee.Add(oldEmployee);
                 _employee.Clear();
@@ -168,15 +188,15 @@ namespace SIMS.Model.UserModel
                 tmpEmployee.Clear();
             }
         }
-        public Address _address;
+
+        public long GetId()
+            => _id;
+
+        public void SetId(long id)
+            => _id = id;
+
 
         //Properties
-        public long ID
-        {
-            get { return _id; }
-            set { _id = value; }
-        }
-
         public string Name
         {
             get { return _name; }

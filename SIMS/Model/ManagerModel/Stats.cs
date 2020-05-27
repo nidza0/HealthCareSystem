@@ -3,13 +3,33 @@
 // Created: 18. april 2020 17:15:32
 // Purpose: Definition of Class Stats
 
+using SIMS.Repository.Abstract;
 using System;
 
 namespace SIMS.Model.ManagerModel
 {
-    public abstract class Stats
+    public abstract class Stats: IIdentifiable<long>
     {
-        private long id;
+        private long _id;
 
+        public Stats(long id)
+        {
+            _id = id;
+        }
+
+        public Stats()
+        {
+
+        }
+
+        public long GetId()
+        {
+            return _id;
+        }
+
+        public void SetId(long id)
+        {
+            _id = id;
+        }
     }
 }

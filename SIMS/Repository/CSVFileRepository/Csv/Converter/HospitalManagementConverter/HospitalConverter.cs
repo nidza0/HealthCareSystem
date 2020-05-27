@@ -27,7 +27,7 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.HospitalManagementConv
 
         public string ConvertEntityToCSV(Hospital entity)
             => string.Join(_delimiter,
-                entity.ID,
+                entity.GetId(),
                 entity.Name,
                 entity.Telephone,
                 entity.Website,
@@ -36,10 +36,10 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.HospitalManagementConv
                 getEmployeeIDSCSVstring(entity.Employee));
 
         private string getAddressCSVstring(Address address)
-           => string.Join(_listDelimiter, address.Street, address.Location.ID);
+           => string.Join(_listDelimiter, address.Street, address.Location.GetId());
 
         private string getRoomIDSCSVstring(IEnumerable<Room> roomList)
-            => string.Join(_listDelimiter, roomList.Select(room => room.ID));
+            => string.Join(_listDelimiter, roomList.Select(room => room.GetId()));
 
         private string getEmployeeIDSCSVstring(IEnumerable<Employee> employeeList)
             => string.Join(_listDelimiter, employeeList.Select(employee => employee.GetId()));
