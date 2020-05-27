@@ -36,6 +36,7 @@ namespace Controller.HospitalManagementController
         public Hospital Update(Hospital entity)
         {
             throw new NotImplementedException();
+//pera smrad
         }
 
         public void Delete(Hospital entity)
