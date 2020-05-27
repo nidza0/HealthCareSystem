@@ -5,41 +5,45 @@
 
 using System;
 using System.Collections.Generic;
-using Model.Manager;
+using Controller;
+using SIMS.Model.ManagerModel;
+using SIMS.Model.PatientModel;
+using SIMS.Model.UserModel;
+using SIMS.Service.HospitalManagementService;
 
-namespace Controller.HospitalManagementController
+namespace SIMS.Controller.HospitalManagementController
 {
-   public class StatisticsController : IController<Model.Manager.Stats,long>
-   {
-      public IEnumerable<StatsDoctor> GetDoctorStatistics()
-      {
-         throw new NotImplementedException();
-      }
-      
-      public Model.User.Doctor GetStatisticsByDoctor(Model.User.Doctor doctor)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public Model.Manager.StatsInventory GetStatisticsByItem(Model.Patient.Item item)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public Model.Manager.StatsRoom GetStatisticsByRoom(Model.User.Room room)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public IEnumerable<StatsRoom> GetRoomStatistics()
-      {
-         throw new NotImplementedException();
-      }
-      
-      public Model.Manager.StatsInventory GetInventoryStatistics()
-      {
-         throw new NotImplementedException();
-      }
+    public class StatisticsController : IController<Stats, long>
+    {
+        public IEnumerable<StatsDoctor> GetDoctorStatistics()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Doctor GetStatisticsByDoctor(Doctor doctor)
+        {
+            throw new NotImplementedException();
+        }
+
+        public StatsInventory GetStatisticsByItem(Item item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public StatsRoom GetStatisticsByRoom(Room room)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<StatsRoom> GetRoomStatistics()
+        {
+            throw new NotImplementedException();
+        }
+
+        public StatsInventory GetInventoryStatistics()
+        {
+            throw new NotImplementedException();
+        }
 
         public IEnumerable<Stats> GetAll()
         {
@@ -66,7 +70,7 @@ namespace Controller.HospitalManagementController
             throw new NotImplementedException();
         }
 
-        public Service.HospitalManagementService.StatisticsService statisticsService;
-   
-   }
+        public StatisticsService statisticsService;
+
+    }
 }

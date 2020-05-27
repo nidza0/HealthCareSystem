@@ -5,16 +5,17 @@
 
 using System;
 using System.Collections.Generic;
-using Model.User;
+using SIMS.Model.UserModel;
+using SIMS.Repository.Abstract.MiscAbstractRepository;
 
-namespace Service.MiscService
+namespace SIMS.Service.MiscService
 {
-   public class NotificationService : IService<Model.User.Notification,long>
-   {
-      public IEnumerable<Notification> GetNotificationByUser(Model.User.User user)
-      {
-         throw new NotImplementedException();
-      }
+    public class NotificationService : IService<Notification, long>
+    {
+        public IEnumerable<Notification> GetNotificationByUser(User user)
+        {
+            throw new NotImplementedException();
+        }
 
         public IEnumerable<Notification> GetAll()
         {
@@ -41,7 +42,7 @@ namespace Service.MiscService
             throw new NotImplementedException();
         }
 
-        public Repository.Abstract.Misc.INotificationRepository iNotificationRepository;
-   
-   }
+        public INotificationRepository iNotificationRepository;
+
+    }
 }

@@ -5,43 +5,44 @@
 
 using System;
 using System.Collections.Generic;
-using Model.User;
-using Util;
-using Service.HospitalManagementService;
+using Controller;
+using SIMS.Model.UserModel;
+using SIMS.Service.HospitalManagementService;
+using SIMS.Util;
 
-namespace Controller.HospitalManagementController
+namespace SIMS.Controller.HospitalManagementController
 {
-   public class RoomController : IController<Room, long>
-   {
-      public IEnumerable<Room> GetRoomsByType(RoomType type)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public IEnumerable<Room> GetAvailableRoomsByDate(TimeInterval timeInterval)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public bool DivideRooms(Room initialRoom)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public Room MergeRooms(IEnumerable<Room> roomsToMerge, String newName)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public Model.User.Room GetRoomByName(string name)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public IEnumerable<Room> GetRoomsByFloor(int floor)
-      {
-         throw new NotImplementedException();
-      }
+    public class RoomController : IController<Room, long>
+    {
+        public IEnumerable<Room> GetRoomsByType(RoomType type)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Room> GetAvailableRoomsByDate(TimeInterval timeInterval)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool DivideRooms(Room initialRoom)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Room MergeRooms(IEnumerable<Room> roomsToMerge, string newName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Room GetRoomByName(string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Room> GetRoomsByFloor(int floor)
+        {
+            throw new NotImplementedException();
+        }
 
         public IEnumerable<Room> GetAll()
         {
@@ -69,6 +70,6 @@ namespace Controller.HospitalManagementController
         }
 
         public RoomService roomService;
-   
-   }
+
+    }
 }

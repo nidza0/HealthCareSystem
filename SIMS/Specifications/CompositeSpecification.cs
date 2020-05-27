@@ -5,7 +5,7 @@
 
 using System;
 
-namespace Specifications
+namespace SIMS.Specifications
 {
     public abstract class CompositeSpecification<T> : ISpecification<T>
     {

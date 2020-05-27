@@ -5,41 +5,42 @@
 
 using System;
 using System.Collections.Generic;
-using Model.User;
+using SIMS.Model.UserModel;
+using SIMS.Repository.Abstract.HospitalManagementAbstractRepository;
 
-namespace Service.HospitalManagementService
+namespace SIMS.Service.HospitalManagementService
 {
-   public class RoomService : IService<Model.User.Room,long>
-   {
-      public IEnumerable<Room> GetRoomsByType(RoomType type)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public IEnumerable<Room> GetAvailableRoomsByDate(Util.TimeInterval timeInterval)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public bool DivideRooms(Model.User.Room initialRoom)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public Model.User.Room MergeRooms(IEnumerable<Room> roomsToMerge, String newName)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public Model.User.Room GetRoomByName(string name)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public IEnumerable<Room> GetRoomsByFloor(int floor)
-      {
-         throw new NotImplementedException();
-      }
+    public class RoomService : IService<Room, long>
+    {
+        public IEnumerable<Room> GetRoomsByType(RoomType type)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Room> GetAvailableRoomsByDate(Util.TimeInterval timeInterval)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool DivideRooms(Room initialRoom)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Room MergeRooms(IEnumerable<Room> roomsToMerge, string newName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Room GetRoomByName(string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Room> GetRoomsByFloor(int floor)
+        {
+            throw new NotImplementedException();
+        }
 
         public IEnumerable<Room> GetAll()
         {
@@ -66,7 +67,7 @@ namespace Service.HospitalManagementService
             throw new NotImplementedException();
         }
 
-        public Repository.Abstract.HospitalManagement.IRoomRepository iRoomRepository;
-   
-   }
+        public IRoomRepository iRoomRepository;
+
+    }
 }
