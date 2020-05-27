@@ -5,21 +5,23 @@
 
 using System;
 using System.Collections.Generic;
-using Model.User;
+using Controller;
+using SIMS.Model.UserModel;
+using SIMS.Service.MiscService;
 
-namespace Controller.MiscController
+namespace SIMS.Controller.MiscController
 {
-   public class MessageController : IController<Model.User.Message,long>
-   {
-      public IEnumerable<Message> GetSent(Model.User.User user)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public IEnumerable<Message> GetRecieved(Model.User.User user)
-      {
-         throw new NotImplementedException();
-      }
+    public class MessageController : IController<Message, long>
+    {
+        public IEnumerable<Message> GetSent(User user)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Message> GetRecieved(User user)
+        {
+            throw new NotImplementedException();
+        }
 
         public IEnumerable<Message> GetAll()
         {
@@ -46,7 +48,7 @@ namespace Controller.MiscController
             throw new NotImplementedException();
         }
 
-        public Service.MiscService.MessageService messageService;
-   
-   }
+        public MessageService messageService;
+
+    }
 }

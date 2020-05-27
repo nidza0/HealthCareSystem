@@ -5,44 +5,45 @@
 
 using System;
 using System.Collections.Generic;
-using Model.Manager;
-using Model.Patient;
-using Model.User;
-using Service.HospitalManagementService;
+using Controller;
+using SIMS.Model.ManagerModel;
+using SIMS.Model.PatientModel;
+using SIMS.Model.UserModel;
+using SIMS.Service.HospitalManagementService;
 
-namespace Controller.HospitalManagementController
+namespace SIMS.Controller.HospitalManagementController
 {
-   public class InventoryController : IController<Inventory, long>
-   {
-      public Model.Manager.Inventory AddInventoryItem(Inventory inventory, InventoryItem item)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public Model.Manager.Inventory SetInventoryItem(InventoryItem inventoryItem)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public bool RemoveInventoryItem(Item item)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public IEnumerable<InventoryItem> GetInventoryItemsForRoom(Room room)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public IEnumerable<Item> GetResupply()
-      {
-         throw new NotImplementedException();
-      }
-      
-      public IEnumerable<InventoryItem> GetInventoryItems()
-      {
-         throw new NotImplementedException();
-      }
+    public class InventoryController : IController<Inventory, long>
+    {
+        public Inventory AddInventoryItem(Inventory inventory, InventoryItem item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Inventory SetInventoryItem(InventoryItem inventoryItem)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool RemoveInventoryItem(Item item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<InventoryItem> GetInventoryItemsForRoom(Room room)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Item> GetResupply()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<InventoryItem> GetInventoryItems()
+        {
+            throw new NotImplementedException();
+        }
 
         public IEnumerable<Inventory> GetAll()
         {
@@ -70,6 +71,6 @@ namespace Controller.HospitalManagementController
         }
 
         public InventoryService inventoryService;
-   
-   }
+
+    }
 }

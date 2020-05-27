@@ -5,12 +5,12 @@
 
 using System;
 
-namespace Specifications
+namespace SIMS.Specifications
 {
-   public class OrSpecification<T> : CompositeSpecification<T>
-   {
-      private ISpecification<T> leftSpecification;
-      private ISpecification<T> rightSpecification;
-   
-   }
+    public class OrSpecification<T> : CompositeSpecification<T>
+    {
+        private ISpecification<T> leftSpecification;
+        private ISpecification<T> rightSpecification;
+
+    }
 }

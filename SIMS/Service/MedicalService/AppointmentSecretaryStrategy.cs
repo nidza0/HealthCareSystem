@@ -4,9 +4,9 @@
 // Purpose: Definition of Class AppointmentSecretaryStrategy
 
 using System;
-using Model.Patient;
+using SIMS.Model.PatientModel;
 
-namespace Service.MedicalService
+namespace SIMS.Service.MedicalService
 {
     public class AppointmentSecretaryStrategy : IAppointmentStrategy
     {

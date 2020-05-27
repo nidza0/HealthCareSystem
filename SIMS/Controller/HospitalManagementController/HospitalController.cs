@@ -5,18 +5,20 @@
 
 using System;
 using System.Collections.Generic;
-using Model.User;
+using Controller;
+using SIMS.Model.UserModel;
+using SIMS.Service.HospitalManagementService;
 
-namespace Controller.HospitalManagementController
+namespace SIMS.Controller.HospitalManagementController
 {
-   public class HospitalController : IController<Hospital, long>
-   {
-        public Service.HospitalManagementService.HospitalService hospitalService;
+    public class HospitalController : IController<Hospital, long>
+    {
+        public HospitalService hospitalService;
 
-        public IEnumerable<Hospital> GetHospitalByLocation(Model.User.Location location)
-      {
-         throw new NotImplementedException();
-      }
+        public IEnumerable<Hospital> GetHospitalByLocation(Location location)
+        {
+            throw new NotImplementedException();
+        }
 
         public IEnumerable<Hospital> GetAll()
         {
