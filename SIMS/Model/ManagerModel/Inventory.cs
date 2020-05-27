@@ -11,7 +11,9 @@ namespace SIMS.Model.ManagerModel
 {
     public class Inventory
     {
-        private long id;
+        private long _id;
+        public System.Collections.Generic.List<InventoryItem> inventoryItem;
+        public System.Collections.Generic.List<Medicine> medicine;
 
         public bool AddItem()
         {
@@ -23,7 +25,7 @@ namespace SIMS.Model.ManagerModel
             throw new NotImplementedException();
         }
 
-        public System.Collections.Generic.List<Medicine> medicine;
+        
 
         /// <summary>
         /// Property for collection of Model.Patient.Medicine
@@ -84,7 +86,7 @@ namespace SIMS.Model.ManagerModel
             if (medicine != null)
                 medicine.Clear();
         }
-        public System.Collections.Generic.List<InventoryItem> inventoryItem;
+        
 
         /// <summary>
         /// Property for collection of InventoryItem

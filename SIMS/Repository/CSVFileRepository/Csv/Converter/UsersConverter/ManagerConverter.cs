@@ -10,10 +10,16 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.UsersConverter
 {
     public class ManagerConverter : ICSVConverter<Manager>
     {
-        private string delimiter;
-        private string dateTimeFormat;
+        private string _delimiter;
+        private string _dateTimeFormat;
 
-        public Manager ConvertCSVToEntity(string csv)
+        public ManagerConverter(string delimiter, string datetimeFormat)
+        {
+            _delimiter = delimiter;
+            _dateTimeFormat = datetimeFormat;
+        }
+
+        public Manager ConvertCSVToEntity(string managerCSVFormat)
         {
             throw new NotImplementedException();
         }
