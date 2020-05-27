@@ -12,7 +12,10 @@ namespace SIMS.Model.UserModel
         private string name;
         private string postalCode;
 
-        public Location Association9;
-
+        public City(string name, string postalCode)
+        {
+            this.name = name;
+            this.postalCode = postalCode;
+        }
     }
 }

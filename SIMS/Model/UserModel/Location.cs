@@ -9,10 +9,33 @@ namespace SIMS.Model.UserModel
 {
     public class Location
     {
-        private string geonameId;
+        private long _geonameId;
 
-        public Country country;
-        public City city;
+        private Country _country;
+        private City _city;
 
+        public Location(long geonameId, Country country, City city)
+        {
+            _geonameId = geonameId;
+            _country = country;
+            _city = city;
+        }
+
+        public long ID {
+            get { return _geonameId; }
+            set { _geonameId = value; }
+        }
+
+        public Country Country
+        {
+            get { return _country;  }
+            set { _country = value;  }
+        }
+        
+        public City City
+        {
+            get { return _city; }
+            set { _city = value; }
+        }
     }
 }

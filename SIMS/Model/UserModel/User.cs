@@ -3,18 +3,28 @@
 // Created: 18. april 2020 19:35:17
 // Purpose: Definition of Class User
 
+using SIMS.Repository.Abstract;
 using System;
 
 namespace SIMS.Model.UserModel
 {
-    public class User : Person
+    public class User : Person, IIdentifiable<UserID>
     {
-        private string userName;
-        private string password;
-        private DateTime dateCreated;
-        private bool deleted;
+        private string _userName;
+        private string _password;
+        private DateTime _dateCreated;
+        private bool _deleted;
 
-        public UserID userID;
+        private UserID _userID;
 
+        public UserID GetId()
+        {
+            return _userID;
+        }
+
+        public void SetId(UserID id)
+        {
+            _userID = id;
+        }
     }
 }

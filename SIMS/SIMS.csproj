@@ -59,6 +59,7 @@
     <Compile Include="Repository\Abstract\HospitalManagementAbstractRepository\IMedicineRepository.cs" />
     <Compile Include="Repository\Abstract\HospitalManagementAbstractRepository\IRoomRepository.cs" />
     <Compile Include="Repository\Abstract\HospitalManagementAbstractRepository\IStatisticsRepository.cs" />
+    <Compile Include="Repository\Abstract\IIdentifiable.cs" />
     <Compile Include="Repository\Abstract\MedicalAbstractRepository\IAllergyRepository.cs" />
     <Compile Include="Repository\Abstract\MedicalAbstractRepository\IAppointmentRepository.cs" />
     <Compile Include="Repository\Abstract\MedicalAbstractRepository\IDiagnosisRepository.cs" />

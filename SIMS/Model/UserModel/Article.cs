@@ -9,10 +9,13 @@ namespace SIMS.Model.UserModel
 {
     public class Article : Content
     {
-        private string title;
-        private string shortDescription;
+        private string _title;
+        private string _shortDescription;
 
-        public Employee author;
+        public Employee _author;
 
+        public string Title { get { return _title; } }
+        public string ShortDescription { get { return _shortDescription; } }
+        public Employee Author { get { return _author; } }
     }
 }
