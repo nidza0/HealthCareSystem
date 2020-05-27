@@ -9,9 +9,12 @@ namespace SIMS.Model.UserModel
 {
     public abstract class Content
     {
-        private long id;
-        private string text;
-        private DateTime dateCreated;
+        private long _id;
+        private string _text;
+        private DateTime _dateCreated;
 
+        public long Id { get {return _id;} }
+        public string Text { get { return _text; } }
+        public DateTime Date { get { return _dateCreated; } }
     }
 }
