@@ -21,6 +21,15 @@ namespace SIMS.Model.UserModel
             Comment = comment;
             _rating = new List<Rating>();
         }
+
+        public Feedback(long id, User user, string comment)
+        {
+            _id = id;
+            _user = user;
+            Comment = comment;
+            _rating = new List<Rating>();
+        }
+
         public Feedback(User user,string comment, List<Rating> rating)
         {
             _user = user;
@@ -32,6 +41,20 @@ namespace SIMS.Model.UserModel
 
 
         }
+
+        public Feedback(long id, User user, string comment, List<Rating> rating)
+        {
+            _id = id;
+            _user = user;
+            Comment = comment;
+            if (rating == null)
+                _rating = new List<Rating>();
+            else
+                _rating = rating;
+
+
+        }
+
         public Feedback(long id)
         {
             _id = id;

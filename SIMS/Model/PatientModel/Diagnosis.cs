@@ -24,6 +24,7 @@ namespace SIMS.Model.PatientModel
 
         public Diagnosis(Disease disease, Therapy activeTherapy, List<Therapy> previousTherapy = null)
         {
+            //Constructor used when first created by Doctor.
             _diagnosedDisease = disease;
             _activeTherapy = activeTherapy;
             _date = DateTime.Now;
@@ -40,12 +41,24 @@ namespace SIMS.Model.PatientModel
             _diagnosedDisease = disease;
             _activeTherapy = activeTherapy;
             _date = DateTime.Now;
+            if (previousTherapy == null)
+                _previousTherapies = new List<Therapy>();
+            else
+                _previousTherapies = previousTherapy;
+        }
+        public Diagnosis(Disease disease, Therapy activeTherapy,DateTime issuedOn, List<Therapy> previousTherapy = null)
+        {
+            //Constructor used for complete initialization(eg. reading from the database)
+            _diagnosedDisease = disease;
+            _activeTherapy = activeTherapy;
+            _date = issuedOn;
 
             if (previousTherapy == null)
                 _previousTherapies = new List<Therapy>();
             else
                 _previousTherapies = previousTherapy;
         }
+
 
 
         private void ChangeActiveTherapy(Therapy therapy)

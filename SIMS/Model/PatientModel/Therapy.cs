@@ -22,26 +22,24 @@ namespace SIMS.Model.PatientModel
             _id = id;
         }
 
+        public Therapy(long id, TimeInterval timeInterval, Prescription prescription)
+        {
+            _id = id;
+            _timeInterval = timeInterval;
+            _prescription = prescription;
+        }
+
         public Therapy(TimeInterval timeInterval, Prescription prescription)
         {
             _timeInterval = timeInterval;
             _prescription = prescription;
         }
 
-        public void SetTherapyTime()
-        {
-            throw new NotImplementedException();
-        }
-
         public long GetId()
-        {
-            return _id;
-        }
+            => _id;
 
         public void SetId(long id)
-        {
-            _id = id;
-        }
+            => _id = id;
 
         public TimeInterval TimeInterval { get => _timeInterval; }
         public Prescription Prescription { get => _prescription; }
