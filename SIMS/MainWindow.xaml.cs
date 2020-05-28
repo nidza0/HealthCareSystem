@@ -77,27 +77,27 @@ namespace SIMS
             //Inventory inventoryNew = inventoryConverter.ConvertCSVToEntity(csv);
 
             //Console.WriteLine("New csv" + inventoryConverter.ConvertEntityToCSV(inventoryNew));
-            Disease disease = new Disease(2);
-            Disease disease1 = new Disease(5);
-            Disease disease2 = new Disease(7);
-            List<Disease> diseaseList = new List<Disease>();
-            diseaseList.Add(disease);
-            diseaseList.Add(disease1);
-            diseaseList.Add(disease2);
-            Ingredient ingredient = new Ingredient(1);
-            Ingredient ingredient1 = new Ingredient(2);
-            Ingredient ingredient2 = new Ingredient(3);
-            List<Ingredient> ingredientList = new List<Ingredient>();
-            ingredientList.Add(ingredient);
-            ingredientList.Add(ingredient1);
-            ingredientList.Add(ingredient2);
+            //Disease disease = new Disease(2);
+            //Disease disease1 = new Disease(5);
+            //Disease disease2 = new Disease(7);
+            //List<Disease> diseaseList = new List<Disease>();
+            //diseaseList.Add(disease);
+            //diseaseList.Add(disease1);
+            //diseaseList.Add(disease2);
+            //Ingredient ingredient = new Ingredient(1);
+            //Ingredient ingredient1 = new Ingredient(2);
+            //Ingredient ingredient2 = new Ingredient(3);
+            //List<Ingredient> ingredientList = new List<Ingredient>();
+            //ingredientList.Add(ingredient);
+            //ingredientList.Add(ingredient1);
+            //ingredientList.Add(ingredient2);
 
-            Medicine medicine = new Medicine(69, "droga", 500, MedicineType.DROPS, true, diseaseList, ingredientList, 6, 9);
-            MedicineConverter medicineConverter = new MedicineConverter(",", ";");
-            string csv = medicineConverter.ConvertEntityToCSV(medicine);
-            Console.WriteLine("OLD CSV: " + csv);
-            Medicine newMedicine = medicineConverter.ConvertCSVToEntity(csv);
-            Console.WriteLine("New CSV: " + medicineConverter.ConvertEntityToCSV(newMedicine));
+            //Medicine medicine = new Medicine(69, "droga", 500, MedicineType.DROPS, true, diseaseList, ingredientList, 6, 9);
+            //MedicineConverter medicineConverter = new MedicineConverter(",", ";");
+            //string csv = medicineConverter.ConvertEntityToCSV(medicine);
+            //Console.WriteLine("OLD CSV: " + csv);
+            //Medicine newMedicine = medicineConverter.ConvertCSVToEntity(csv);
+            //Console.WriteLine("New CSV: " + medicineConverter.ConvertEntityToCSV(newMedicine));
 
 
             //string retVal = converter.ConvertEntityToCSV(hospital);

@@ -45,11 +45,6 @@ namespace SIMS.Model.UserModel
             _inventoryItem = inventoryItem;
         }
 
-        public Room(long id)
-        {
-            _id = id;
-        }
-
         public string RoomNumber { get => _roomNumber; set => _roomNumber = value; }
         public bool Occupied { get => _occupied; set => _occupied = value; }
         public int Floor { get => _floor; set => _floor = value; }
