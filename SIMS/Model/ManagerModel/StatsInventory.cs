@@ -28,6 +28,13 @@ namespace SIMS.Model.ManagerModel
             _inventoryItem = inventoryItem;
         }
 
+        public StatsInventory(long id, double usage, Medicine medicine, InventoryItem inventoryItem) : base(id)
+        {
+            _usage = usage;
+            _medicine = medicine;
+            _inventoryItem = inventoryItem;
+        }
+
         public StatsInventory(long id): base(id)
         {
 

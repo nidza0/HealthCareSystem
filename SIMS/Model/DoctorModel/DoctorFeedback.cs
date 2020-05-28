@@ -14,6 +14,7 @@ namespace SIMS.Model.DoctorModel
         private Doctor _recepient;
 
         public DoctorFeedback(User user, string comment, List<Rating> rating, Doctor recepient) : base(user, comment, rating) => _recepient = recepient;
+        public DoctorFeedback(long id, User user, string comment, List<Rating> rating, Doctor recepient) : base(id, user, comment, rating) => _recepient = recepient;
 
         public DoctorFeedback(long id) : base(id)
         {

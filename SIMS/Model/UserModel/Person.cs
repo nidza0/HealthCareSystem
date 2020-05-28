@@ -23,7 +23,17 @@ namespace SIMS.Model.UserModel
         private Sex _sex;
 
         public Person() { }
-        public Person(string name, string surname, string middleName, Sex sex, DateTime dateOfBirth, string uidn, Address address, string homePhone, string cellPhone, string email1, string email2)
+        public Person(  string name, 
+                        string surname, 
+                        string middleName, 
+                        Sex sex, 
+                        DateTime dateOfBirth, 
+                        string uidn, 
+                        Address address, 
+                        string homePhone, 
+                        string cellPhone, 
+                        string email1, 
+                        string email2)
         {
             _name = name;
             _surname = surname;

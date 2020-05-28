@@ -19,8 +19,45 @@ namespace SIMS.Model.UserModel
 
         public User(UserID id) : base() { _userID = id; }
 
-        public User(string userName, string password, DateTime dateCreated, string name, string surname, string middleName, Sex sex, DateTime dateOfBirth, string uidn, Address address, string homePhone, string cellPhone, string email1, string email2) : base(name, surname, middleName, sex, dateOfBirth, uidn, address, homePhone, cellPhone, email1, email2)
+        public User(string userName,
+                    string password, 
+                    DateTime dateCreated, 
+                    string name, 
+                    string surname, 
+                    string middleName, 
+                    Sex sex, 
+                    DateTime dateOfBirth, 
+                    string uidn, 
+                    Address address, 
+                    string homePhone, 
+                    string cellPhone, 
+                    string email1, 
+                    string email2) 
+            : base(name, surname, middleName, sex, dateOfBirth, uidn, address, homePhone, cellPhone, email1, email2)
         {
+            _userName = userName;
+            _password = password;
+            _dateCreated = dateCreated;
+        }
+
+        public User(UserID id, 
+                    string userName, 
+                    string password, 
+                    DateTime dateCreated, 
+                    string name, 
+                    string surname, 
+                    string middleName, 
+                    Sex sex, 
+                    DateTime dateOfBirth, 
+                    string uidn, 
+                    Address address, 
+                    string homePhone, 
+                    string cellPhone, 
+                    string email1, 
+                    string email2) 
+            : base(name, surname, middleName, sex, dateOfBirth, uidn, address, homePhone, cellPhone, email1, email2)
+        {
+            _userID = id;
             _userName = userName;
             _password = password;
             _dateCreated = dateCreated;

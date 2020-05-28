@@ -27,6 +27,14 @@ namespace SIMS.Model.PatientModel
             _minNumber = minNumber;
         }
 
+        public Item(long id, string name, int inStock, int minNumber)
+        {
+            _id = id;
+            _name = name;
+            _inStock = inStock;
+            _minNumber = minNumber;
+        }
+
         public string Name { get => _name; set => _name = value; }
         public int InStock { get => _inStock; set => _inStock = value; }
         public int MinNumber { get => _minNumber; set => _minNumber = value; }

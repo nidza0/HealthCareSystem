@@ -20,6 +20,20 @@ namespace SIMS.Model.UserModel
             _sender = sender;
         }
 
+        public Message(long id, string text, User recipient, User sender, DateTime dateCreated) : base(id, text, dateCreated)
+        {
+            _opened = false;
+            _recipient = recipient;
+            _sender = sender;
+        }
+
+        public Message(long id, string text, User recipient, User sender, DateTime dateCreated, bool opened) : base(id, text, dateCreated)
+        {
+            _opened = opened;
+            _recipient = recipient;
+            _sender = sender;
+        }
+
         public Message(long id) : base(id) { }
 
         public bool Opened { get => _opened; }

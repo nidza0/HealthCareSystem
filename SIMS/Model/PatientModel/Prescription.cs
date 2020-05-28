@@ -21,6 +21,12 @@ namespace Model.Patient
         {
             _id = id;
         }
+        public Prescription(long id, PrescriptionStatus status, Dictionary<Medicine, TherapyDose> medicine)
+        {
+            _id = id;
+            _status = status;
+            _medicine = medicine;
+        }
 
         public Prescription(PrescriptionStatus status, Dictionary<Medicine,TherapyDose> medicine)
         {

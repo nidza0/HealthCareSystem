@@ -5,6 +5,7 @@
  ***********************************************************************/
 
 using System;
+using System.Collections.Generic;
 using SIMS.Model.ManagerModel;
 using SIMS.Repository.Abstract;
 
@@ -17,9 +18,24 @@ namespace SIMS.Model.UserModel
         private bool _occupied;
         private int _floor;
         private RoomType _roomType;
-        private InventoryItem _inventoryItem;
+        private List<InventoryItem> _inventoryItem;
 
-        public Room(long id, string roomNumber, bool occupied, int floor, RoomType roomType, InventoryItem inventoryItem)
+        public Room(long id)
+        {
+            _id = id;
+        }
+        
+
+        public Room(string roomNumber, bool occupied, int floor, RoomType roomType, List<InventoryItem> inventoryItem)
+        {
+            _roomNumber = roomNumber;
+            _occupied = occupied;
+            _floor = floor;
+            _roomType = roomType;
+            _inventoryItem = inventoryItem;
+        }
+
+        public Room(long id, string roomNumber, bool occupied, int floor, RoomType roomType, List<InventoryItem> inventoryItem)
         {
             _id = id;
             _roomNumber = roomNumber;
@@ -33,32 +49,9 @@ namespace SIMS.Model.UserModel
         public bool Occupied { get => _occupied; set => _occupied = value; }
         public int Floor { get => _floor; set => _floor = value; }
         public RoomType RoomType { get => _roomType; set => _roomType = value; }
-        public InventoryItem InventoryItem { get => _inventoryItem; set => _inventoryItem = value; }
+        public List<InventoryItem> InventoryItem { get => _inventoryItem; set => _inventoryItem = value; }
 
-        public bool Reserve()
-        {
-            throw new NotImplementedException();
-        }
 
-        public int Filter()
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool AddAppointment()
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool RemoveAppointment()
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool EditAppointment()
-        {
-            throw new NotImplementedException();
-        }
 
         public long GetId()
         {
