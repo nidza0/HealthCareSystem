@@ -21,7 +21,7 @@ namespace SIMS.Model.UserModel
             _author = author;
         }
 
-        public Article(id, string title, string shortDescription, string text, Employee author, DateTime dateCreated) : base(id, text, dateCreated)
+        public Article(long id, string title, string shortDescription, string text, Employee author, DateTime dateCreated) : base(id, text, dateCreated)
         {
             _title = title;
             _shortDescription = shortDescription;
