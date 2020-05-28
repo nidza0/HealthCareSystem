@@ -35,6 +35,17 @@ namespace SIMS.Model.PatientModel
                 _previousTherapies = previousTherapy;
         }
 
+        public Diagnosis(long id, Disease disease, Therapy activeTherapy, List<Therapy> previousTherapy = null)
+        {
+            _id = id;
+            _diagnosedDisease = disease;
+            _activeTherapy = activeTherapy;
+            _date = DateTime.Now;
+            if (previousTherapy == null)
+                _previousTherapies = new List<Therapy>();
+            else
+                _previousTherapies = previousTherapy;
+        }
         public Diagnosis(Disease disease, Therapy activeTherapy,DateTime issuedOn, List<Therapy> previousTherapy = null)
         {
             //Constructor used for complete initialization(eg. reading from the database)
@@ -104,7 +115,7 @@ namespace SIMS.Model.PatientModel
             }
         }
 
-        public long Id { get => _id; set => _id = value; }
+        //public long Id { get => _id; set => _id = value; }
         public Therapy ActiveTherapy { get => _activeTherapy; set => ChangeActiveTherapy(value); }
         public DateTime Date { get => _date; set => _date = value; }
         public Disease DiagnosedDisease { get => _diagnosedDisease; set => _diagnosedDisease = value; }

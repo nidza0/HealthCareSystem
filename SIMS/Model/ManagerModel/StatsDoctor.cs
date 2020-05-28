@@ -28,6 +28,13 @@ namespace SIMS.Model.ManagerModel
             _doctor = doctor;
         }
 
+        public StatsDoctor(long id, double numberOfAppointments, string avgAppointmentTime, Doctor doctor) : base(id)
+        {
+            _numberOfAppointments = numberOfAppointments;
+            _avgAppointmentTime = avgAppointmentTime;
+            _doctor = doctor;
+        }
+
         public StatsDoctor(long id): base(id)
         {
         }

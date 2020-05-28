@@ -23,6 +23,7 @@ namespace SIMS.Model.PatientModel
         public MedicalRecord(long id)
         {
             _id = id;
+            
         }
 
         public MedicalRecord(Patient patient)
@@ -46,7 +47,7 @@ namespace SIMS.Model.PatientModel
         {
             _patient = patient;
             _patientBloodType = bloodType;
-            _patientDiagnosis = PatientDiagnosis;
+            _patientDiagnosis = patientDiagnosis;
             _allergy = patientAllergies;
         }
 
@@ -55,10 +56,9 @@ namespace SIMS.Model.PatientModel
             _id = id;
             _patient = patient;
             _patientBloodType = bloodType;
-            _patientDiagnosis = PatientDiagnosis;
+            _patientDiagnosis = patientDiagnosis;
             _allergy = patientAllergies;
         }
-
 
 
         /// <summary>
@@ -200,7 +200,7 @@ namespace SIMS.Model.PatientModel
         }
 
         public long Id { get => _id; set => _id = value; }
-        public BloodType PatientBloodType1 { get => _patientBloodType; set => _patientBloodType = value; }
+        
         public Patient Patient { get => _patient; set => _patient = value; }
     }
 }
