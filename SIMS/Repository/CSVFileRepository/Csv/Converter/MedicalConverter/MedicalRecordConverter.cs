@@ -21,9 +21,14 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.MedicalConverter
             _delimiter = delimiter;
         }
 
-        public MedicalRecord ConvertCSVToEntity(string csv)
+        public MedicalRecord ConvertCSVToEntity(string medicalRecordCSVformat)
         {
-            throw new NotImplementedException();
+            string[] tokens = medicalRecordCSVformat.Split(_delimiter.ToCharArray());
+            return new MedicalRecord(long.Parse(tokens[0]),
+                                     new Patient(new UserID(tokens[1])),
+                                     (BloodType)Enum.Parse(typeof(BloodType), tokens[2]),
+                                     GetDiagnosisCSVlist(tokens[3].Split(_listDelimiter.ToCharArray())),
+                                     GetAllergyCSVlist(tokens[4].Split(_listDelimiter.ToCharArray())));
         }
 
         /*private long _id;
@@ -56,5 +61,11 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.MedicalConverter
 
         private string GetPatientAllergyCSVstring(List<Allergy> allergies)
             => string.Join(_listDelimiter, allergies.Select(_allergy => _allergy.GetId()));
+
+        private List<Diagnosis> GetDiagnosisCSVlist(string[] ids)
+            => ids.ToList().ConvertAll(x => new Diagnosis(long.Parse(x)));
+
+        private List<Allergy> GetAllergyCSVlist(string[] ids)
+            => ids.ToList().ConvertAll(x => new Allergy(long.Parse(x)));
     }
 }

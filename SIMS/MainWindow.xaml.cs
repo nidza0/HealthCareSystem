@@ -144,10 +144,15 @@ namespace SIMS
 
             MedicalRecord medRec = new MedicalRecord(2, new Patient(new UserID("P69")), BloodType.AB_NEGATIVE, diagList, alerList);
             List<Diagnosis> lista = medRec.PatientDiagnosis;
-            
+            string csv = converter2.ConvertEntityToCSV(medRec);
+
             Console.WriteLine("===================================================");
-            Console.WriteLine(converter2.ConvertEntityToCSV(medRec));
+            Console.WriteLine(csv);
             Console.WriteLine("===================================================");
+            MedicalRecord medRec2 = converter2.ConvertCSVToEntity(csv);
+            Console.WriteLine(converter2.ConvertEntityToCSV(medRec2));
+            Console.WriteLine("===================================================");
+
 
         }
     }
