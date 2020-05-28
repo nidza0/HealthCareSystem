@@ -20,6 +20,13 @@ namespace SIMS.Model.UserModel
             _text = text;
         }
 
+        public Content(long id, string text, DateTime dateCreated)
+        {
+            _id = id;
+            _dateCreated = dateCreated;
+            _text = text;
+        }
+
         public Content(long id)
         {
             _id = id;
