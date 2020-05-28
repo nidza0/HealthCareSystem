@@ -3,15 +3,37 @@
 // Created: 18. april 2020 19:37:52
 // Purpose: Definition of Class TimeTable
 
+using SIMS.Repository.Abstract;
 using SIMS.Util;
 using System;
 using System.Collections.Generic;
 
 namespace SIMS.Model.UserModel
 {
-    public class TimeTable
+    public class TimeTable : IIdentifiable<long>
     {
+        private long _id;
         private Dictionary<WorkingDaysEnum, TimeInterval> _workingHours;
+
+        public TimeTable(Dictionary<WorkingDaysEnum, TimeInterval> workingHours)
+        {
+            _workingHours = workingHours;
+        }
+
+        public TimeTable(long id, Dictionary<WorkingDaysEnum, TimeInterval> workingHours)
+        {
+            _workingHours = workingHours;
+        }
+
+        public TimeTable()
+        {
+            _workingHours = new Dictionary<WorkingDaysEnum, TimeInterval>();
+        }
+
+        public TimeTable(long id)
+        {
+            _id = id;
+        }
 
         public bool Edit()
         {
@@ -35,14 +57,14 @@ namespace SIMS.Model.UserModel
             }
         }
 
-        public TimeTable(Dictionary<WorkingDaysEnum, TimeInterval> workingHours)
+        public long GetId()
         {
-            _workingHours = workingHours;
+            return _id;
         }
 
-        public TimeTable()
+        public void SetId(long id)
         {
-            _workingHours = new Dictionary<WorkingDaysEnum, TimeInterval>();
+            _id = id;
         }
     }
 }
