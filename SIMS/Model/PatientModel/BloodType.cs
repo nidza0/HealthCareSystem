@@ -10,13 +10,14 @@ namespace SIMS.Model.PatientModel
 {
     public enum BloodType
     {
-        Aplus,
-        Anegative,
+        A_PLUS,
+        A_NEGATIVE,
         AB,
-        Bnegative,
-        Oplus,
-        Onegative,
-        ABplus,
-        ABnegative
+        B_NEGATIVE,
+        O_PLUS,
+        O_NEGATIVE,
+        AB_PLUS,
+        AB_NEGATIVE,
+        NOT_TESTED
     }
 }

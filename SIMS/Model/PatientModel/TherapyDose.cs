@@ -4,14 +4,23 @@
 // Purpose: Definition of Class TherapyDose
 
 using System;
+using System.Collections.Generic;
 
 namespace SIMS.Model.PatientModel
 {
     public class TherapyDose
     {
-        private double howMany;
+        //private double _howMany;
 
-        public TherapyTime[] therapyTime;
+        //private List<TherapyTime> _therapyTime;
 
+        private Dictionary<TherapyTime, double> _dosage;
+
+        public Dictionary<TherapyTime, double> Dosage { get => _dosage; set => _dosage = value; }
+
+        public TherapyDose(Dictionary<TherapyTime,double> dosage)
+        {
+            _dosage = dosage;
+        }
     }
 }

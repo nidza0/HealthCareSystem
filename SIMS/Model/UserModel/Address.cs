@@ -9,9 +9,25 @@ namespace SIMS.Model.UserModel
 {
     public class Address
     {
-        private string address;
+        private string _address; //street
+        private Location _location;
 
-        public Location location;
+        public Address(string address, Location location)
+        {
+            _address = address;
+            _location = location;
+        }
 
+        public string Street
+        {
+            get { return _address; }
+            set { _address = value;  }
+        }
+        
+        public Location Location
+        {
+            get { return _location;  }
+            set { _location = value;  }
+        }
     }
 }

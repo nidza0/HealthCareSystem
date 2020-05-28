@@ -15,29 +15,19 @@ namespace SIMS.Controller.UsersController
     {
         public SecretaryService secretaryService;
 
-        public Secretary Create(Secretary entity)
+        public SecretaryController(SecretaryService service)
         {
-            throw new NotImplementedException();
+            secretaryService = service;
         }
 
-        public void Delete(Secretary entity)
-        {
-            throw new NotImplementedException();
-        }
+        public Secretary Create(Secretary secretary) => secretaryService.Create(secretary);
 
-        public IEnumerable<Secretary> GetAll()
-        {
-            throw new NotImplementedException();
-        }
+        public void Delete(Secretary secretary) => secretaryService.Delete(secretary);
 
-        public Secretary GetByID(UserID id)
-        {
-            throw new NotImplementedException();
-        }
+        public IEnumerable<Secretary> GetAll() => secretaryService.GetAll();
 
-        public Secretary Update(Secretary entity)
-        {
-            throw new NotImplementedException();
-        }
+        public Secretary GetByID(UserID id) => secretaryService.GetByID(id);
+
+        public Secretary Update(Secretary secretary) => secretaryService.Update(secretary);
     }
 }

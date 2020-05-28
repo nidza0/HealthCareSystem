@@ -6,29 +6,34 @@
 using SIMS.Repository.CSVFileRepository.Csv.Converter;
 using System;
 using System.Collections.Generic;
-
+using System.IO;
+using System.Linq;
 
 namespace SIMS.Repository.CSVFileRepository.Csv.Stream
 {
-    public class CSVStream<T> : ICSVStream<T>
+    public class CSVStream<T> : ICSVStream<T> where T : class
     {
-        private string path;
+        private readonly string _path;
+        private ICSVConverter<T> _converter;
 
-        public ICSVConverter<T> iCSVConverter;
+        public CSVStream(string path, ICSVConverter<T> converter)
+        {
+            _path = path;
+            _converter = converter;
+        }
 
         public void SaveAll(IEnumerable<T> entities)
-        {
-            throw new NotImplementedException();
-        }
+            => WriteAllLinesToFile(entities.Select(_converter.ConvertEntityToCSV).ToList());
+        
+        private void WriteAllLinesToFile(IEnumerable<string> list)
+            => File.WriteAllLines(_path, list.ToArray());
 
         public IEnumerable<T> ReadAll()
-        {
-            throw new NotImplementedException();
-        }
+            => File.ReadAllLines(_path)
+            .Select(_converter.ConvertCSVToEntity)
+            .ToList();
 
-        public void AppendToFile(T enitity)
-        {
-            throw new NotImplementedException();
-        }
+        public void AppendToFile(T entity)
+            => File.AppendAllText(_path, _converter.ConvertEntityToCSV(entity) + Environment.NewLine);
     }
 }

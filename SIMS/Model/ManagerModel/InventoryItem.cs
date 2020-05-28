@@ -11,7 +11,15 @@ namespace SIMS.Model.ManagerModel
 {
     public class InventoryItem : Item
     {
-        public Room room;
+        private Room _room;
 
+        public Room Room { get { return _room; } set { } }
+
+        public InventoryItem(string name, int inStock, int minNumber, Room room) : base(name, inStock, minNumber)
+        {
+            _room = room;
+        }
+
+        public InventoryItem(long id) : base(id) { }
     }
 }

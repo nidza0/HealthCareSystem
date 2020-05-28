@@ -5,31 +5,38 @@
  ***********************************************************************/
 
 using System;
+using System.Collections.Generic;
 using SIMS.Model.PatientModel;
+using SIMS.Repository.Abstract;
 
 namespace SIMS.Model.ManagerModel
 {
-    public class Inventory
+    public class Inventory: IIdentifiable<long>
     {
-        private long id;
+        private long _id;
+        public List<InventoryItem> inventoryItem;
+        public List<Medicine> medicine;
 
-        public bool AddItem()
+        public Inventory(long id)
         {
-            throw new NotImplementedException();
+            _id = id;
+            inventoryItem = new List<InventoryItem>();
+            medicine = new List<Medicine>();
         }
 
-        public bool AddMedicine()
+        public Inventory(long id, List<InventoryItem> inventoryItem, List<Medicine> medicine)
         {
-            throw new NotImplementedException();
+            this._id = id;
+            this.inventoryItem = inventoryItem;
+            this.medicine = medicine;
         }
-
-        public System.Collections.Generic.List<Medicine> medicine;
+      
 
         /// <summary>
         /// Property for collection of Model.Patient.Medicine
         /// </summary>
         /// <pdGenerated>Default opposite class collection property</pdGenerated>
-        public System.Collections.Generic.List<Medicine> Medicine
+        public List<Medicine> Medicine
         {
             get
             {
@@ -57,7 +64,7 @@ namespace SIMS.Model.ManagerModel
             if (newMedicine == null)
                 return;
             if (medicine == null)
-                medicine = new System.Collections.Generic.List<Medicine>();
+                medicine = new List<Medicine>();
             if (!medicine.Contains(newMedicine))
                 medicine.Add(newMedicine);
         }
@@ -84,18 +91,18 @@ namespace SIMS.Model.ManagerModel
             if (medicine != null)
                 medicine.Clear();
         }
-        public System.Collections.Generic.List<InventoryItem> inventoryItem;
+        
 
         /// <summary>
         /// Property for collection of InventoryItem
         /// </summary>
         /// <pdGenerated>Default opposite class collection property</pdGenerated>
-        public System.Collections.Generic.List<InventoryItem> InventoryItem
+        public List<InventoryItem> InventoryItem
         {
             get
             {
                 if (inventoryItem == null)
-                    inventoryItem = new System.Collections.Generic.List<InventoryItem>();
+                    inventoryItem = new List<InventoryItem>();
                 return inventoryItem;
             }
             set
@@ -118,7 +125,7 @@ namespace SIMS.Model.ManagerModel
             if (newInventoryItem == null)
                 return;
             if (inventoryItem == null)
-                inventoryItem = new System.Collections.Generic.List<InventoryItem>();
+                inventoryItem = new List<InventoryItem>();
             if (!inventoryItem.Contains(newInventoryItem))
                 inventoryItem.Add(newInventoryItem);
         }
@@ -146,5 +153,14 @@ namespace SIMS.Model.ManagerModel
                 inventoryItem.Clear();
         }
 
+        public long GetId()
+        {
+            return _id;
+        }
+
+        public void SetId(long id)
+        {
+            _id = id;
+        }
     }
 }

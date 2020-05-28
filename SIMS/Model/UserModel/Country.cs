@@ -4,15 +4,28 @@
 // Purpose: Definition of Class Country
 
 using System;
+using System.Collections.Generic;
 
 namespace SIMS.Model.UserModel
 {
     public class Country
     {
-        private string name;
-        private string code;
+        private string _name;
+        private string _code;
+        public List<City> _cityList;
 
-        public System.Collections.Generic.List<City> Association9;
+        public Country(string code, string name)
+        {
+            _code = code;
+            _name = name;
+            _cityList = new List<City>();
+        }
+        public Country(string code, string name,List<City> cityList)
+        {
+            _code = code;
+            _name = name;
+            _cityList = cityList;
+        }
 
     }
 }
