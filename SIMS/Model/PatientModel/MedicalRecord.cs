@@ -34,13 +34,6 @@ namespace SIMS.Model.PatientModel
             _allergy = new List<Allergy>();
         }
 
-        public MedicalRecord(Patient patient,BloodType bloodType,List<Diagnosis> patientDiagnosis, List<Allergy> patientAllergies)
-        {
-            _patient = patient;
-            _patientBloodType = bloodType;
-            _patientDiagnosis = PatientDiagnosis;
-            _allergy = patientAllergies;
-        }
         public MedicalRecord(Patient patient, BloodType bloodType)
         {
             _patient = patient;
@@ -48,6 +41,24 @@ namespace SIMS.Model.PatientModel
             _patientDiagnosis = new List<Diagnosis>();
             _allergy = new List<Allergy>();
         }
+
+        public MedicalRecord(Patient patient,BloodType bloodType,List<Diagnosis> patientDiagnosis, List<Allergy> patientAllergies)
+        {
+            _patient = patient;
+            _patientBloodType = bloodType;
+            _patientDiagnosis = PatientDiagnosis;
+            _allergy = patientAllergies;
+        }
+
+        public MedicalRecord(long id, Patient patient, BloodType bloodType, List<Diagnosis> patientDiagnosis, List<Allergy> patientAllergies)
+        {
+            _id = id;
+            _patient = patient;
+            _patientBloodType = bloodType;
+            _patientDiagnosis = PatientDiagnosis;
+            _allergy = patientAllergies;
+        }
+
 
 
         /// <summary>

@@ -26,6 +26,21 @@ namespace SIMS.Model.PatientModel
             _id = id;
         }
 
+        public Disease(long id, string name, string overview, bool isChronic, DiseaseType diseaseType, List<Symptom> symptoms, List<Medicine> administratedFor = null)
+        {
+            _id = id;
+            _name = name;
+            _overview = overview;
+            _isChronic = isChronic;
+            _diseaseType = diseaseType;
+            _symptoms = symptoms;
+
+            if (administratedFor == null)
+                _administratedFor = new List<Medicine>();
+            else
+                _administratedFor = administratedFor;
+        }
+
         public Disease(string name, string overview, bool isChronic, DiseaseType diseaseType,List<Symptom> symptoms,List<Medicine> administratedFor = null)
         {
             _name = name;

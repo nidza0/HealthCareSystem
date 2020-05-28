@@ -20,6 +20,12 @@ namespace SIMS.Model.UserModel
         private RoomType _roomType;
         private List<InventoryItem> _inventoryItem;
 
+        public Room(long id)
+        {
+            _id = id;
+        }
+        
+
         public Room(string roomNumber, bool occupied, int floor, RoomType roomType, List<InventoryItem> inventoryItem)
         {
             _roomNumber = roomNumber;
@@ -37,6 +43,11 @@ namespace SIMS.Model.UserModel
             _floor = floor;
             _roomType = roomType;
             _inventoryItem = inventoryItem;
+        }
+
+        public Room(long id)
+        {
+            _id = id;
         }
 
         public string RoomNumber { get => _roomNumber; set => _roomNumber = value; }

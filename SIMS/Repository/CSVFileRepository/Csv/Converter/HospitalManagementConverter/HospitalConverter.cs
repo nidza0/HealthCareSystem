@@ -15,33 +15,52 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.HospitalManagementConv
         private readonly string _delimiter = ",";
         private readonly string _listDelimiter = ";"; //Delimiter used for separating room IDs.
 
-        public HospitalConverter(string delimiter)
+        public HospitalConverter(string delimiter, string listDelimiter)
         {
             _delimiter = delimiter;
+            _listDelimiter = listDelimiter;
         }
 
         public Hospital ConvertCSVToEntity(string csv)
         {
-            throw new NotImplementedException();
+            string[] tokens = SplitStringByDelimiter(csv, _delimiter);
+            Address dummyAddress = GetDummyAddress(SplitStringByDelimiter(tokens[2], _listDelimiter));
+            List<Room> dummyRooms = GetDummyRooms(SplitStringByDelimiter(tokens[5], _listDelimiter));
+            List<Employee> dummyEmployees = GetDummyEmployee(SplitStringByDelimiter(tokens[6], _listDelimiter));
+
+            return new Hospital(long.Parse(tokens[0]), tokens[1], dummyAddress, tokens[3], tokens[4], dummyRooms, dummyEmployees);
         }
 
         public string ConvertEntityToCSV(Hospital entity)
             => string.Join(_delimiter,
                 entity.GetId(),
                 entity.Name,
+                GetAddressCSVstring(entity.Address),
                 entity.Telephone,
                 entity.Website,
-                getAddressCSVstring(entity.Address),
-                getRoomIDSCSVstring(entity.Room),
-                getEmployeeIDSCSVstring(entity.Employee));
+                GetRoomIDSCSVstring(entity.Room),
+                GetEmployeeIDSCSVstring(entity.Employee));
 
-        private string getAddressCSVstring(Address address)
+        private string GetAddressCSVstring(Address address)
            => string.Join(_listDelimiter, address.Street, address.Location.GetId());
 
-        private string getRoomIDSCSVstring(IEnumerable<Room> roomList)
+        private string GetRoomIDSCSVstring(IEnumerable<Room> roomList)
             => string.Join(_listDelimiter, roomList.Select(room => room.GetId()));
 
-        private string getEmployeeIDSCSVstring(IEnumerable<Employee> employeeList)
+        private string GetEmployeeIDSCSVstring(IEnumerable<Employee> employeeList)
             => string.Join(_listDelimiter, employeeList.Select(employee => employee.GetId()));
+        
+        private string[] SplitStringByDelimiter(string stringToSplit, string delimiter)
+            => stringToSplit.Split(delimiter.ToCharArray());
+
+        private List<Room> GetDummyRooms(string[] ids)
+            => ids.ToList().ConvertAll(x => new Room(long.Parse(x)));
+
+        private List<Employee> GetDummyEmployee(string[] ids)
+            => ids.ToList().ConvertAll(x => new Employee(new UserID(x)));
+
+        private Address GetDummyAddress(string[] data)
+            => new Address(data[0], new Location(long.Parse(data[1])));
+
     }
 }

@@ -12,20 +12,14 @@ namespace SIMS.Model.UserModel
     {
         private string _name;
         private string _code;
-        public List<City> _cityList;
 
         public Country(string code, string name)
         {
             _code = code;
             _name = name;
-            _cityList = new List<City>();
-        }
-        public Country(string code, string name,List<City> cityList)
-        {
-            _code = code;
-            _name = name;
-            _cityList = cityList;
         }
 
+        public string Name { get => _name; }
+        public string Code { get => _code; }
     }
 }
