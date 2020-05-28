@@ -23,6 +23,16 @@ namespace SIMS.Model.PatientModel
 
         public Appointment(long id) => _id = id;
 
+        public Appointment(long id, Doctor doctor, Patient patient, Room room, AppointmentType appointmentType, TimeInterval timeInterval)
+        {
+            _id = id;
+            _doctorInAppointment = doctor;
+            _patient = patient;
+            _room = room;
+            _appointmentType = appointmentType;
+            _timeInterval = timeInterval;
+        }
+
         public Appointment(Doctor doctor,Patient patient,Room room,AppointmentType appointmentType,TimeInterval timeInterval)
         {
             _doctorInAppointment = doctor;

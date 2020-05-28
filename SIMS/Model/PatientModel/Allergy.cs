@@ -26,6 +26,17 @@ namespace SIMS.Model.PatientModel
             _allergicToIngredient = null; 
         }
 
+        public Allergy(long id,string name, Ingredient allergicToIngredient, List<Symptom> symptomList)
+        {
+            _id = id;
+            _name = name;
+            _allergicToIngredient = allergicToIngredient;
+            if (_symptoms == null)
+                _symptoms = new List<Symptom>();
+            else
+                _symptoms = symptomList;
+        }
+
         public Allergy(string name,Ingredient allergicToIngredient,List<Symptom> symptomList)
         {
             _name = name;

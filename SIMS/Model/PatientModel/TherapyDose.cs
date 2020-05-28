@@ -10,9 +10,6 @@ namespace SIMS.Model.PatientModel
 {
     public class TherapyDose
     {
-        //private double _howMany;
-
-        //private List<TherapyTime> _therapyTime;
 
         private Dictionary<TherapyTime, double> _dosage;
 
