@@ -31,22 +31,6 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.MedicalConverter
                                      GetAllergyCSVlist(tokens[4].Split(_listDelimiter.ToCharArray())));
         }
 
-        /*private long _id;
-        private BloodType _patientBloodType;
-        private Patient _patient;
-
-        private List<Diagnosis> _patientDiagnosis;
-        public List<Allergy> _allergy;
-
-        public MedicalRecord(long id, Patient patient, BloodType bloodType, List<Diagnosis> patientDiagnosis, List<Allergy> patientAllergies)
-        {
-            _id = id;
-            _patient = patient;
-            _patientBloodType = bloodType;
-            _patientDiagnosis = patientDiagnosis;
-            _allergy = patientAllergies;
-        }*/
-
         public string ConvertEntityToCSV(MedicalRecord medicalRecord)
             => string.Join(_delimiter,
                            medicalRecord.GetId(),
