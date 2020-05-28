@@ -19,9 +19,8 @@ namespace SIMS.Model.UserModel
         private RoomType _roomType;
         private InventoryItem _inventoryItem;
 
-        public Room(long id, string roomNumber, bool occupied, int floor, RoomType roomType, InventoryItem inventoryItem)
+        public Room(string roomNumber, bool occupied, int floor, RoomType roomType, InventoryItem inventoryItem)
         {
-            _id = id;
             _roomNumber = roomNumber;
             _occupied = occupied;
             _floor = floor;
@@ -35,30 +34,7 @@ namespace SIMS.Model.UserModel
         public RoomType RoomType { get => _roomType; set => _roomType = value; }
         public InventoryItem InventoryItem { get => _inventoryItem; set => _inventoryItem = value; }
 
-        public bool Reserve()
-        {
-            throw new NotImplementedException();
-        }
 
-        public int Filter()
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool AddAppointment()
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool RemoveAppointment()
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool EditAppointment()
-        {
-            throw new NotImplementedException();
-        }
 
         public long GetId()
         {

@@ -14,9 +14,9 @@ namespace SIMS.Model.UserModel
         private string _question;
         private int _stars;
 
-        public string Question { get { return _question; } set { } }
+        public string Question { get { return _question; } set { _question = value; } }
 
-        public int Stars { get { return _stars; } set { }}
+        public int Stars { get { return _stars; } set { _stars = value; }}
 
         public Rating(long id, string question, int stars)
         {

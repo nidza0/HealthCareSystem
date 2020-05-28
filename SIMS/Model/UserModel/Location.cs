@@ -15,16 +15,15 @@ namespace SIMS.Model.UserModel
         private Country _country;
         private City _city;
 
-        public Location(long geonameId, Country country, City city)
+        public Location(Country country, City city)
         {
-            _geonameId = geonameId;
             _country = country;
             _city = city;
         }
 
-        public long ID {
-            get { return _geonameId; }
-            set { _geonameId = value; }
+        public Location(long geonameid)
+        {
+            _geonameId = geonameid;
         }
 
         public Country Country
