@@ -38,6 +38,17 @@ namespace SIMS.Model.UserModel
             _address = address;
         }
 
+        public Hospital(long id, string name, Address address, string telephone, string website, List<Room> room, List<Employee> employee)
+        {
+            _id = id;
+            _name = name;
+            _telephone = telephone;
+            _website = website;
+            _room = room;
+            _employee = employee;
+            _address = address;
+        }
+
         public Hospital(string name, Address address, string telephone, string website)
         {
             _name = name;
@@ -48,6 +59,16 @@ namespace SIMS.Model.UserModel
             _employee = new List<Employee>();
         }
 
+        public Hospital(long id, string name, Address address, string telephone, string website)
+        {
+            _id = id;
+            _name = name;
+            _telephone = telephone;
+            _website = website;
+            _address = address;
+            _room = new List<Room>();
+            _employee = new List<Employee>();
+        }
 
 
 

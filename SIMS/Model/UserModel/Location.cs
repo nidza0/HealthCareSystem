@@ -10,7 +10,7 @@ namespace SIMS.Model.UserModel
 {
     public class Location : IIdentifiable<long>
     {
-        private long _geonameId;
+        private long _id;
 
         private Country _country;
         private City _city;
@@ -21,9 +21,16 @@ namespace SIMS.Model.UserModel
             _city = city;
         }
 
-        public Location(long geonameid)
+        public Location(long id, Country country, City city)
         {
-            _geonameId = geonameid;
+            _id = id;
+            _country = country;
+            _city = city;
+        }
+
+        public Location(long id)
+        {
+            _id = id;
         }
 
         public Country Country
@@ -40,12 +47,12 @@ namespace SIMS.Model.UserModel
 
         public long GetId()
         {
-            return _geonameId;
+            return _id;
         }
 
         public void SetId(long id)
         {
-            _geonameId = id;
+            _id = id;
         }
     }
 }

@@ -53,6 +53,14 @@ namespace SIMS.Model.ManagerModel
             _room = room;
         }
 
+        public StatsRoom(long id, double usage, double timeOccupied, int avgAppointmentTime, List<Room> room) : base(id)
+        {
+            _usage = usage;
+            _timeOccupied = timeOccupied;
+            _avgAppointmentTime = avgAppointmentTime;
+            _room = room;
+        }
+
         public StatsRoom(long id): base(id)
         {
 

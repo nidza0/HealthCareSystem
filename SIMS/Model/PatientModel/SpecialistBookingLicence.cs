@@ -9,6 +9,7 @@ using SIMS.Repository.Abstract;
 using SIMS.Util;
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 
 namespace SIMS.Model.PatientModel
 {
@@ -24,6 +25,28 @@ namespace SIMS.Model.PatientModel
         public List<Doctor> _handsOutLicence;
 
         //TODO: Constructors
+
+        public SpecialistBookingLicence(long id, DocTypeEnum doctorAllowed, int numberOfAppointments, bool Active, Patient patient, TimeInterval timeInterval, List<Doctor> handsOutLicence) 
+        {
+            _id = id;
+            _doctorAllowed = doctorAllowed;
+            _numberOfAppointments = numberOfAppointments;
+            _active = Active;
+            _patient = patient;
+            _timeInterval = timeInterval;
+            _handsOutLicence = handsOutLicence;
+        }
+
+        public SpecialistBookingLicence (DocTypeEnum doctorAllowed, int numberOfAppointments, bool Active, Patient patient, TimeInterval timeInterval, List<Doctor> handsOutLicence)
+        {
+            _doctorAllowed = doctorAllowed;
+            _numberOfAppointments = numberOfAppointments;
+            _active = Active;
+            _patient = patient;
+            _timeInterval = timeInterval;
+            _handsOutLicence = handsOutLicence;
+        }
+
 
         public long GetId()
         {
