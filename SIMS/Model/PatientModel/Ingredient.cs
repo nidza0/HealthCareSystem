@@ -19,6 +19,12 @@ namespace SIMS.Model.PatientModel
             _id = id;
         }
 
+        public Ingredient(long id, string name)
+        {
+            _id = id;
+            _name = name;
+        }
+
         public Ingredient(string name)
         {
             _name = name;
