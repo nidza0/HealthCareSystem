@@ -20,6 +20,11 @@ namespace SIMS.Model.ManagerModel
             _room = room;
         }
 
+        public InventoryItem(long id,string name, int inStock, int minNumber, Room room) : base(id ,name, inStock, minNumber)
+        {
+            _room = room;
+        }
+
         public InventoryItem(long id) : base(id) { }
     }
 }
