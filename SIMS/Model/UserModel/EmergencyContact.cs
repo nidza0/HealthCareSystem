@@ -22,5 +22,11 @@ namespace SIMS.Model.UserModel
         }
 
         public EmergencyContact() { }
+
+        public string Name { get => _name; }
+        public string Surname { get => _surname; }
+        public string Email { get => _email; }
+        public string PhoneNumber { get => _phoneNumber; }
+
     }
 }

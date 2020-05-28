@@ -12,16 +12,16 @@ namespace SIMS.Model.UserModel
     {
         private long _id;
 
-        private Country _country;
-        private City _city;
+        private string _country;
+        private string _city;
 
-        public Location(Country country, City city)
+        public Location(string country, string city)
         {
             _country = country;
             _city = city;
         }
 
-        public Location(long id, Country country, City city)
+        public Location(long id, string country, string city)
         {
             _id = id;
             _country = country;
@@ -33,13 +33,13 @@ namespace SIMS.Model.UserModel
             _id = id;
         }
 
-        public Country Country
+        public string Country
         {
             get { return _country;  }
             set { _country = value;  }
         }
         
-        public City City
+        public string City
         {
             get { return _city; }
             set { _city = value; }
