@@ -12,9 +12,8 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.HospitalManagementConv
 {
     public class MedicineConverter : ICSVConverter<Medicine>
     {
-        // public Medicine(long id, string name, double strength, MedicineType medicineType, bool isValid, List<Disease> usedFor, List<Ingredient> ingredient, int inStock, int minNumber)
-        private readonly string _delimiter;
-        private readonly string _listDelimiter;
+        private readonly string _delimiter = ",";
+        private readonly string _listDelimiter = ";";
         public MedicineConverter(string delimiter, string listDelimiter)
         {
             _delimiter = delimiter;
