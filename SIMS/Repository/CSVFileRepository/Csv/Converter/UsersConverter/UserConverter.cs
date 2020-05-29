@@ -5,6 +5,7 @@
 
 using SIMS.Model.UserModel;
 using System;
+using System.Globalization;
 
 namespace SIMS.Repository.CSVFileRepository.Csv.Converter.UsersConverter
 {
@@ -23,11 +24,11 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.UsersConverter
         {
             string[] tokens = csv.Split(_delimiter.ToCharArray());
 
-            User user = new User(new UserID(tokens[0]),
-                                    tokens[1], //username
-                                    tokens[2], //password
-                                    DateTime.Parse(tokens[3]),
-                                    bool.Parse(tokens[4])); //deleted
+            User user = new User(id: new UserID(tokens[0]),
+                                    username: tokens[1],
+                                    password: tokens[2],
+                                    dateCreated: DateTime.ParseExact(tokens[3], _dateTimeFormat, CultureInfo.InvariantCulture),
+                                    deleted: bool.Parse(tokens[4]));
 
             return user;
         }

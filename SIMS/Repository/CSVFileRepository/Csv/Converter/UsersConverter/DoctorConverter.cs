@@ -4,6 +4,7 @@
 // Purpose: Definition of Class DoctorConverter
 
 using System;
+using System.Globalization;
 using SIMS.Model.DoctorModel;
 using SIMS.Model.UserModel;
 
@@ -24,25 +25,25 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.UsersConverter
         {
             string[] tokens = csv.Split(_delimiter.ToCharArray());
 
-            Doctor doc = new Doctor(new UserID(tokens[0]), //id
-                                    tokens[1], //username
-                                    tokens[2], //password
-                                    DateTime.Parse(tokens[3]), //dateCreated
-                                    tokens[4], //name
-                                    tokens[5], //surname
-                                    tokens[6], //middleName
-                                    (Sex)Enum.Parse(typeof(Sex), tokens[7]), //sex
-                                    DateTime.Parse(tokens[8]), //dateOfBirth
-                                    tokens[9], //uidn
-                                    new Address(tokens[10], new Location(Convert.ToInt64(tokens[11]), tokens[12], tokens[13])), //address
-                                    tokens[14], //homePhone
-                                    tokens[15], //cellPhone
-                                    tokens[16], //email1
-                                    tokens[17], //email2
-                                    new TimeTable(Convert.ToInt64(tokens[18])), //timetable
-                                    new Hospital(Convert.ToInt64(tokens[19])),
-                                    new Room(Convert.ToInt64(tokens[20])),
-                                    (DocTypeEnum)Enum.Parse(typeof(DocTypeEnum), tokens[21])); //doctorType
+            Doctor doc = new Doctor(id: new UserID(tokens[0]),
+                                    userName: tokens[1],
+                                    password: tokens[2],
+                                    dateCreated: DateTime.ParseExact(tokens[3], _dateTimeFormat, CultureInfo.InvariantCulture),
+                                    name: tokens[4],
+                                    surname: tokens[5],
+                                    middleName: tokens[6],
+                                    sex: (Sex)Enum.Parse(typeof(Sex), tokens[7]),
+                                    dateOfBirth: DateTime.ParseExact(tokens[8], _dateTimeFormat, CultureInfo.InvariantCulture),
+                                    uidn: tokens[9],
+                                    address: new Address(tokens[10], new Location(Convert.ToInt64(tokens[11]), tokens[12], tokens[13])),
+                                    homePhone: tokens[14],
+                                    cellPhone: tokens[15],
+                                    email1: tokens[16],
+                                    email2: tokens[17],
+                                    timeTable: new TimeTable(long.Parse(tokens[18])),
+                                    hospital: new Hospital(long.Parse(tokens[19])),
+                                    office: new Room(long.Parse(tokens[20])),
+                                    doctorType: (DocTypeEnum)Enum.Parse(typeof(DocTypeEnum), tokens[21]));
 
             return doc;
         }
