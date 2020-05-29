@@ -10,7 +10,12 @@
         <SolidColorBrush Color="#1c2e4a" x:Key="BackgroundColor"></SolidColorBrush>
         <SolidColorBrush Color="#FFFAFA" x:Key="BorderBlockColor"/>
 
-        <BitmapImage x:Key="LogoImage" UriSource="../images/logo.png"/>
+        <LinearGradientBrush x:Key="backgroundGradient">
+            <GradientStop Color="#192841" Offset="0"/>
+            <GradientStop Color="#282866" Offset="1"/>
+        </LinearGradientBrush>
+
+        <BitmapImage x:Key="LogoImage" UriSource="static/images/logo.png"/>
         <Style x:Key="BorderBlockStyle" TargetType="{x:Type Border}">
             <Setter Property="BorderBrush" Value="Silver"></Setter>
             <Setter Property="BorderThickness" Value="4"/>
@@ -31,14 +36,30 @@
             <Setter Property="Margin" Value="4"/>
         </Style>
 
-        <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
-            <Setter Property="Background" Value="#5b738b"></Setter>
-            <!--Benjamin Moore Van Deusen Blue 25% lighter-->
-            <Setter Property="Margin" Value="10 0 0 0"></Setter>
+        <Style x:Key="loginButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="#0d98ba"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="Black" BorderThickness="1" CornerRadius="5">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Opacity" Value="0.8" />
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="False">
+                    <Setter Property="Opacity" Value="1" />
+                </Trigger>
+            </Style.Triggers>
         </Style>
 
     </Window.Resources>
-    <Grid Background="{StaticResource BackgroundColor}">
+    <Grid Background="{StaticResource backgroundGradient}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"></ColumnDefinition>
             <!--Margin model-->
@@ -96,9 +117,9 @@
                     </Grid.RowDefinitions>
 
                     <Label  Grid.Row="0" Grid.Column="0" Content="Username: " Style="{StaticResource InputLabel}"></Label>
-                    <TextBox Grid.Row="0" Grid.Column="1" x:Name="username" Margin="3" Background="AliceBlue"></TextBox>
+                    <TextBox  TextChanged="validateInput" Grid.Row="0" Grid.Column="1" x:Name="username" Margin="3" Background="AliceBlue"></TextBox>
                     <Label  Grid.Row="1" Grid.Column="0" Content="Password: " Style="{StaticResource InputLabel}"></Label>
-                    <TextBox Grid.Row="1" Grid.Column="1" x:Name="password" Margin="3" Background="AliceBlue"></TextBox>
+                    <TextBox TextChanged="validateInput" Grid.Row="1" Grid.Column="1" x:Name="password" Margin="3" Background="AliceBlue"></TextBox>
                     <StackPanel Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right">
                         <Label>
                             <Hyperlink >Forgot your password?</Hyperlink>
@@ -130,10 +151,10 @@
                     </Grid.ColumnDefinitions>
 
                     <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                        <Button Click="ResetButton_Click" Style="{StaticResource ButtonStyle}">
+                        <Button x:Name="resetButton" Margin="5 0 0 0" Click="ResetButton_Click" Style="{StaticResource loginButtonStyle}">
                             <Label Style="{StaticResource InputLabel}">Reset</Label>
                         </Button>
-                        <Button Click="ConfirmButton_Click_1" Style="{StaticResource ButtonStyle}">
+                        <Button IsEnabled="False" x:Name="confirmButton" Click="ConfirmButton_Click_1" Style="{StaticResource loginButtonStyle}">
                             <Label Content="Confirm" Style="{StaticResource InputLabel}"></Label>
                         </Button>
                     </StackPanel>

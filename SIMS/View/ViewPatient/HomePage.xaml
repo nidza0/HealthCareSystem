@@ -3,413 +3,482 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:SIMS.View.ViewPatient"
         mc:Ignorable="d"
-        Title="HomePage" Height="450" Width="800">
+        Title="Home page" Height="450" Width="800"
+        WindowState="Maximized"
+        WindowStartupLocation="CenterScreen">
     <Window.Resources>
-        <SolidColorBrush Color="#1c2e4a" x:Key="BackgroundColor"></SolidColorBrush>
+        <SolidColorBrush Color="#f5ee67" x:Key="BackgroundColor"></SolidColorBrush>
         <SolidColorBrush Color="#FFFAFA" x:Key="BorderBlockColor"/>
+        <SolidColorBrush Color="#2372DF" x:Key="userMesageColor"/>
+        
 
-        <BitmapImage x:Key="LogoImage" UriSource="../images/logo.png"/>
+        <LinearGradientBrush x:Key="backgroundGradient">
+            <GradientStop Color="#192841" Offset="0"/>
+            <GradientStop Color="#282866" Offset="1"/>
+        </LinearGradientBrush>
+
+        <BitmapImage x:Key="LogoImage" UriSource="static/images/logo.png"/>
+
+        <GridLength x:Key="marginWidth">20</GridLength>
         <Style x:Key="BorderBlockStyle" TargetType="{x:Type Border}">
             <Setter Property="BorderBrush" Value="Silver"></Setter>
             <Setter Property="BorderThickness" Value="4"/>
-            <Setter Property="Background" Value="{StaticResource BorderBlockColor}"/>
+            <Setter Property="Background" Value="{StaticResource backgroundGradient}"/>
             <Setter Property="Margin" Value="10"/>
             <Setter Property="CornerRadius" Value="10"/>
         </Style>
+
+        <Style x:Key="ContentBlockStyle" TargetType="{x:Type Border}" BasedOn="{StaticResource BorderBlockStyle}">
+            <Setter Property="BorderBrush" Value="#3232ff"/>
+            <Setter Property="Width" Value="300"/>
+            <Setter Property="Height" Value="125"/>
+            <Setter Property="MaxHeight" Value="500"/>
+        </Style>
+
+
+        <Style x:Key="stackBorder" TargetType="{x:Type Border}" BasedOn="{StaticResource BorderBlockStyle}">
+            <Setter Property="BorderBrush" Value="{StaticResource BackgroundColor}"/>
+            <Setter Property="BorderThickness" Value="3"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Padding" Value="5"/>
+
+        </Style>
+        
+        
 
 
         <Style x:Key="LabelStyle" TargetType="{x:Type Label}">
             <Setter Property="FontSize" Value="20"></Setter>
             <Setter Property="FontWeight" Value="Bold"></Setter>
+            <Setter Property="Foreground" Value="#e8dc2e"/>
         </Style>
 
         <Style x:Key="SubtitleLabelStyle" TargetType="{x:Type Label}">
             <Setter Property="FontSize" Value="16"></Setter>
             <Setter Property="FontWeight" Value="Bold"></Setter>
         </Style>
+
+        <Style x:Key="contentStackHover" TargetType="{x:Type StackPanel}">
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Opacity" Value="0.8" />
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="False">
+                    <Setter Property="Opacity" Value="1" />
+                </Trigger>
+            </Style.Triggers>
+            
+        </Style>
+
+        <Style x:Key="borderColorAnimation" TargetType="{x:Type Border}">
+            <Setter Property="BorderBrush" Value="#2372DF"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="Background" Value="#80B3F9"/>
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="Border.MouseEnter">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="#2372DF" Duration="0:0:0.3" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="Border.MouseLeave">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="#8EB9F1" Duration="0:0:1" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="_ListBoxItemStyle" TargetType="ListBoxItem">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border Name="_Border"
+                                Padding="0"
+                                SnapsToDevicePixels="true">
+                                
+                            <ContentPresenter />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="true">
+                                <Setter TargetName="_Border" Property="Background" Value="#5399FA"/>
+                                <Setter Property="Foreground" Value="Black"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Margin" Value="0 0 5 0"/>
+        </Style>
+
+        <Style x:Key="ListBoxStyle" TargetType="{x:Type ListBox}">
+            <Style.Resources>
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent" />
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black" />
+                <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="Transparent" />
+                <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="Transparent" />
+            </Style.Resources>
+
+        </Style>
+
+        <Style x:Key="upcomingEventsListBoxStyle" TargetType="{x:Type ListBox}" BasedOn="{StaticResource ListBoxStyle}">
+            <Setter Property="Background" Value="Transparent"/>
+            <Style.Triggers>
+                <DataTrigger 
+            Binding="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=Items.Count}" 
+            Value="0"
+            >
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate>
+                                <Border Style="{StaticResource borderColorAnimation}" VerticalAlignment="Top">
+                                    <TextBlock Foreground="{StaticResource userMesageColor}"  FontSize="20" Text="Hooray! You currently have upcoming events! :)"></TextBlock>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="notificationsListBoxStyle" TargetType="{x:Type ListBox}" BasedOn="{StaticResource ListBoxStyle}">
+            <Setter Property="Background" Value="Transparent"/>
+            <Style.Triggers>
+                <DataTrigger 
+            Binding="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=Items.Count}" 
+            Value="0"
+            >
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate>
+                                <TextBlock Foreground="{StaticResource userMesageColor}" FontSize="20" Text="Hooray! You currently have no unread notifications! :)"></TextBlock>
+                                
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="recommendedArticlesListBoxStyle" TargetType="{x:Type ListBox}" BasedOn="{StaticResource ListBoxStyle}">
+            <Setter Property="Background" Value="Transparent"/>
+            <Style.Triggers>
+                <DataTrigger 
+            Binding="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=Items.Count}" 
+            Value="0"
+            >
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate>
+                                <TextBlock Foreground="{StaticResource userMesageColor}" FontSize="20" Text="There are currently no recommended articles for you. :("></TextBlock>
+
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="navigationButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="#0d98ba"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="Black" BorderThickness="1" CornerRadius="5">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Opacity" Value="0.8" />
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="False">
+                    <Setter Property="Opacity" Value="1" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
     </Window.Resources>
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="6*"></RowDefinition>
-        </Grid.RowDefinitions>
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+        <Grid Background="{StaticResource BackgroundColor}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="75"></RowDefinition>
+                <RowDefinition Height="80"></RowDefinition>
+                <RowDefinition Height="6*"></RowDefinition>
+            </Grid.RowDefinitions>
 
-        <!--Navigation menu-->
-        <Border Grid.Row="0" Style="{StaticResource BorderBlockStyle}">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition></RowDefinition>
-                    <!--Social media-->
-                    <RowDefinition></RowDefinition>
-                    <!--Row #1 and row #2 for modeling navigation items-->
-                    <RowDefinition></RowDefinition>
-                </Grid.RowDefinitions>
+            <!--Navigation menu-->
+            <Border Grid.Row="0" Style="{StaticResource BorderBlockStyle}">
 
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width= "*"></ColumnDefinition>
-                    <!--Left margin model-->
+                <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                    <!--Logo definition -> Copyrighted, needs to be changed-->
+                    <Image Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="1" Grid.RowSpan="3" Source="{StaticResource LogoImage}"/>
 
-                    <!--Content columns-->
-                    <ColumnDefinition Width= "4*"></ColumnDefinition>
-                    <!--9 columns for better control-->
-                    <ColumnDefinition Width= "4*"></ColumnDefinition>
-                    <ColumnDefinition Width= "4*"></ColumnDefinition>
-                    <ColumnDefinition Width= "4*"></ColumnDefinition>
-                    <ColumnDefinition Width= "4*"></ColumnDefinition>
-                    <ColumnDefinition Width= "4*"></ColumnDefinition>
-                    <ColumnDefinition Width= "4*"></ColumnDefinition>
-                    <ColumnDefinition Width= "4*"></ColumnDefinition>
-                    <ColumnDefinition Width= "4*"></ColumnDefinition>
+                    <!--Navigation items definition-->
+                    <Button Style="{StaticResource navigationButtonStyle}" Click="Button_Click" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="5">Make an appointment</Button>
+                    <Button Style="{StaticResource navigationButtonStyle}"  Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="5">My appointments</Button>
+                    <Button Style="{StaticResource navigationButtonStyle}"  Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="1" Grid.RowSpan="2" Margin="5">My therapy</Button>
+                    <Button Style="{StaticResource navigationButtonStyle}"  Click = "MyDiagnosis_Button_Click" Grid.Row="1" Grid.Column="7" Grid.ColumnSpan="1" Grid.RowSpan="2" Margin="5">My diagnosis</Button>
+                    <Button Style="{StaticResource navigationButtonStyle}"  Click= "Messages_Button_Click" Grid.Row="1" Grid.Column="8" Grid.ColumnSpan="1" Grid.RowSpan="2" Margin="5">Messages</Button>
+                    <Button Style="{StaticResource navigationButtonStyle}"  Click = "ExitButton_Closing" Grid.Row="1" Grid.Column="9" Grid.ColumnSpan="1" Grid.RowSpan="2" Margin="5">Exit</Button>
 
-                    <ColumnDefinition Width= "*"></ColumnDefinition>
-                    <!-- Right margin model-->
-                </Grid.ColumnDefinitions>
+                </WrapPanel>
 
-                <!--Logo definition -> Copyrighted, needs to be changed-->
-                <Image Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="1" Grid.RowSpan="3" Source="{StaticResource LogoImage}"/>
+            </Border>
 
-                <!--Navigation items definition-->
-                <Button Click="Button_Click" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="5">Make an appointment</Button>
-                <Button Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="5">My appointments</Button>
-                <Button Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="1" Grid.RowSpan="2" Margin="5">My therapy</Button>
-                <Button Click = "MyDiagnosis_Button_Click" Grid.Row="1" Grid.Column="7" Grid.ColumnSpan="1" Grid.RowSpan="2" Margin="5">My diagnosis</Button>
-                <Button Click= "Messages_Button_Click" Grid.Row="1" Grid.Column="8" Grid.ColumnSpan="1" Grid.RowSpan="2" Margin="5">Messages</Button>
-                <Button Click = "ExitButton_Closing" Grid.Row="1" Grid.Column="9" Grid.ColumnSpan="1" Grid.RowSpan="2" Margin="5">Exit</Button>
+            <Border Grid.Row="1" Style="{StaticResource BorderBlockStyle}">
+                <Label Content="RESERVED FOR PROMO BANNER IMAGE"/>
+               
+            </Border>
+            <!--TODO: PROMO IMAGE-->
+            <!--Not done since I don't have a proper image.-->
 
-            </Grid>
+            <Border Grid.Row="2" Style="{StaticResource BorderBlockStyle}">
+                <Grid x:Name="mainGrid">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <!--Top margin model-->
 
+                        <!--Content row definition-->
+                        <RowDefinition Height="auto"/>
+                        <!--Block name-->
 
-        </Border>
+                        <RowDefinition Height="165"/>
 
-        <Border Grid.Row="1" Style="{StaticResource BorderBlockStyle}">
-            <Label Content="RESERVED FOR PROMO BANNER IMAGE"/>
-        </Border>
-        <!--TODO: PROMO IMAGE-->
-        <!--Not done since I don't have a proper image.-->
+                        <RowDefinition Height="auto"/>
+                        <!--Block name-->
 
-        <Border Grid.Row="2" Style="{StaticResource BorderBlockStyle}">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"></RowDefinition>
-                    <!--Top margin model-->
+                        <RowDefinition Height="165"/>
 
-                    <!--Content row definition-->
-                    <RowDefinition Height="auto"/>
-                    <!--Block name-->
+                        <RowDefinition Height="auto"/>
+                        <!--Block name-->
 
-                    <RowDefinition Height="5*"/>
+                        <RowDefinition Height="165"/>
 
-                    <RowDefinition Height="auto"/>
-                    <!--Block name-->
-
-                    <RowDefinition Height="5*"/>
-
-                    <RowDefinition Height="auto"/>
-                    <!--Block name-->
-
-                    <RowDefinition Height="5*"/>
-
-                    <RowDefinition Height="*"></RowDefinition>
-                    <!--Bottom margin model-->
-                </Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <!--Bottom margin model-->
+                    </Grid.RowDefinitions>
 
 
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <!--Left margin model-->
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="{StaticResource ResourceKey=marginWidth}"/>
+                        <!--Left margin model-->
 
-                    <ColumnDefinition Width="auto"/>
-                    <!--Label column-->
+                        <ColumnDefinition Width="auto"/>
+                        <!--Label column-->
 
-                    <ColumnDefinition Width="12*"/>
-                    <!-- content -->
+                        <ColumnDefinition Width="12*"/>
+                        <!-- content -->
 
-                    <ColumnDefinition Width="*"/>
-                    <!--Right margin model-->
-                </Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="{StaticResource ResourceKey=marginWidth}"/>
+                        <!--Right margin model-->
+                    </Grid.ColumnDefinitions>
 
-                <!--Upcoming-->
-                <Label Grid.Row="1" Grid.Column="1"  Content="Upcoming events" Style="{StaticResource LabelStyle}"></Label>
+                    <!--Upcoming-->
+                    <Label Grid.Row="1" Grid.Column="1"  Content="Upcoming events" Style="{StaticResource LabelStyle}"></Label>
+                    <Border Style="{StaticResource stackBorder}" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2">
+                    <ListBox Style="{StaticResource upcomingEventsListBoxStyle}"  HorizontalAlignment="Left" ItemsSource="{Binding}" x:Name="UpcomingEventsListBox" BorderThickness="0" ItemContainerStyle="{DynamicResource _ListBoxItemStyle}">
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel  Orientation="Horizontal" Margin="0" />
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
 
-                <ScrollViewer Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                    <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
-                        <!--We will model upcoming event "notification" here-->
-                        <!-- After code gets generated, we will use ObservableCollection<T>? -->
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                
+                                        <!--Modelling upcoming notification-->
+                                        <!--Since border can only accept one child, we will use another StackPanel-->
 
-                        <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
-                            <StackPanel Orientation="Horizontal">
-                                <!-- NOTE : PROBABLY SHOULD BE CHANGED TO GRID. GRIDS SHOULD BE GENERATED FROM PROGRAM, SINCE WE CAN'T CREATE DYNAMIC GRID IN XAML-->
-                                <Border Style="{StaticResource BorderBlockStyle}">
-                                    <!--Modelling upcoming notification-->
-                                    <!--Since border can only accept one child, we will use another StackPanel-->
+                                <Border Style="{StaticResource borderColorAnimation}">
+                                <StackPanel Style="{StaticResource contentStackHover}"  Height="{Binding RelativeSource={RelativeSource FindAncestor, 
+    AncestorType={x:Type ListBox}},Path=Height}" Width="250" Orientation="Vertical" >
+                                        <Label Content="Upcoming operation" Style="{StaticResource SubtitleLabelStyle}"/>
 
+                                        <DockPanel>
+                                            <DockPanel DockPanel.Dock="Top">
+                                                <Label Content="Doctor: " FontWeight="Bold"></Label>
+                                                <TextBlock VerticalAlignment="Center" TextWrapping="Wrap">
+                                                    <TextBlock.Text>
+                                                        <MultiBinding StringFormat="{}{0} {1}">
+                                                            <Binding Path="DoctorInAppointment.Name" />
+                                                            <Binding Path="DoctorInAppointment.Surname" />
+                                                        </MultiBinding>
+                                                    </TextBlock.Text>
+                                                </TextBlock>
+                                            </DockPanel>
+                                        </DockPanel>
 
-                                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                                        <!--Example for solution to the previous problem when dynamic grid gets implemented.-->
-                                        <StackPanel Orientation="Vertical" CanHorizontallyScroll="True">
-                                            <StackPanel Orientation="Horizontal">
-                                                <Label Content="Upcoming operation" Style="{StaticResource SubtitleLabelStyle}" />
-                                            </StackPanel>
+                                        <DockPanel>
+                                            <DockPanel DockPanel.Dock="Top">
+                                                <Label Content="Date and time: " FontWeight="Bold"></Label>
+                                                <TextBlock VerticalAlignment="Center" TextWrapping="Wrap">
+                                                    <TextBlock.Text>
+                                                        <MultiBinding StringFormat="{}{0}-{1}">
+                                                            <Binding Path="TimeInterval.StartTime" />
+                                                            <Binding Path="TimeInterval.EndTime" />
+                                                        </MultiBinding>
+                                                    </TextBlock.Text>
+                                                </TextBlock>
+                                            </DockPanel>
+                                        </DockPanel>
 
-                                            <StackPanel Orientation="Horizontal">
-                                                <!--Date and time-->
-                                                <Label Content="Date and Time: " FontWeight="Bold"/>
-                                                <Label Content="06/10/2012 12:00"/>
-                                            </StackPanel>
-
-                                            <StackPanel Orientation="Horizontal">
-                                                <!--Doctor-->
-                                                <Label Content="Doctor: " FontWeight="Bold"/>
-                                                <Label Content="Pera Peric"/>
-                                            </StackPanel>
-
-                                            <StackPanel Orientation="Horizontal">
-                                                <!-- Location -->
-                                                <Label Content="Location: " FontWeight="Bold"/>
-                                                <Label Content="Milana Rakica 77, Novi Sad, Operaciona sala 15"/>
-                                            </StackPanel>
-                                        </StackPanel>
-                                    </ScrollViewer>
-
-
+                                        <DockPanel>
+                                            <DockPanel DockPanel.Dock="Top">
+                                                <Label Content="Location: " FontWeight="Bold"></Label>
+                                                <TextBlock VerticalAlignment="Center" TextWrapping="Wrap">
+                                                    <TextBlock.Text>
+                                                        <MultiBinding StringFormat="{}Room {0} ">
+                                                            <Binding Path="Room.RoomNumber" />
+                                                        </MultiBinding>
+                                                    </TextBlock.Text>
+                                                </TextBlock>
+                                            </DockPanel>
+                                        </DockPanel>
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+                                        </Grid>
+                                    </StackPanel>
                                 </Border>
 
-                                <Border Style="{StaticResource BorderBlockStyle}">
-                                    <!--Modelling upcoming notification-->
-                                    <!--Since border can only accept one child, we will use another StackPanel-->
+
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    </Border>
+
+
+                    <!--Notifications-->
+                    <Label  Grid.Row="3" Grid.Column="1"  Content="Notifications" Style="{StaticResource LabelStyle}"></Label>
+
+                    <Border Style="{StaticResource stackBorder}" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2">
+                        <ListBox Style="{StaticResource notificationsListBoxStyle}"   HorizontalAlignment="Left" ItemsSource="{Binding}" x:Name="NotificationsListBox" BorderThickness="0" ItemContainerStyle="{DynamicResource _ListBoxItemStyle}">
+
+                            <ListBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel  Orientation="Horizontal" Margin="0" />
+                                </ItemsPanelTemplate>
+                            </ListBox.ItemsPanel>
+
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+
+                                    <Border Style="{StaticResource borderColorAnimation}">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+                                            <StackPanel Grid.Row="0" Style="{StaticResource contentStackHover}"  Height="{Binding RelativeSource={RelativeSource FindAncestor, 
+    AncestorType={x:Type ListBox}},Path=Height}" Width="250" Orientation="Vertical" >
+
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="auto"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="auto"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Label Grid.Column="0" Content="Notification" Style="{StaticResource SubtitleLabelStyle}" HorizontalAlignment="Left"/>
+                                                    <Label Grid.Column ="2" FontWeight="Normal" Foreground="#de5d83" Content="{Binding Date}" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                                                </Grid>
+
+                                                <TextBlock Grid.Row="1"  TextWrapping="Wrap" Text="{Binding Text}"/>
+
+                                            </StackPanel>
+
+                                            <StackPanel Grid.Row="2" Orientation="Vertical" VerticalAlignment="Bottom">
+                                                <Button  Style="{StaticResource navigationButtonStyle}"  Content="Dismiss" Name="btnDelete" HorizontalAlignment="Stretch"  Click="DismissNotificationClick"/>
+                                            </StackPanel>
+                                        </Grid>
+                                    </Border>
+
+
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </Border>
 
 
 
-                                    <StackPanel Orientation="Vertical" >
-                                        <StackPanel Orientation="Horizontal">
-                                            <Label Content="Upcoming check-up"  Style="{StaticResource SubtitleLabelStyle}" />
-                                        </StackPanel>
+                    <!--Notifications-->
+                    <Label  Grid.Row="5" Grid.Column="1"  Content="Recommended articles" Style="{StaticResource LabelStyle}"></Label>
 
-                                        <StackPanel Orientation="Horizontal">
-                                            <!--Date and time-->
-                                            <Label Content="Date and Time: " FontWeight="Bold"/>
-                                            <Label Content="06/10/1997 15:00"/>
-                                        </StackPanel>
+                    <Border Style="{StaticResource stackBorder}" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2">
+                        <ListBox Style="{StaticResource recommendedArticlesListBoxStyle}"   HorizontalAlignment="Left" ItemsSource="{Binding}" x:Name="articlesListBox" BorderThickness="0" ItemContainerStyle="{DynamicResource _ListBoxItemStyle}">
 
-                                        <StackPanel Orientation="Horizontal">
-                                            <!--Doctor-->
-                                            <Label Content="Doctor: " FontWeight="Bold"/>
-                                            <Label Content="Ratko Peric"/>
-                                        </StackPanel>
+                            <ListBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel  Orientation="Horizontal" Margin="0" />
+                                </ItemsPanelTemplate>
+                            </ListBox.ItemsPanel>
 
-                                        <StackPanel Orientation="Horizontal">
-                                            <!-- Location -->
-                                            <Label Content="Location: " FontWeight="Bold"/>
-                                            <Label Content="Milana Rakica 77, Novi Sad, Ordinacija 15a"/>
-                                        </StackPanel>
-                                    </StackPanel>
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
 
+                                    <Border Style="{StaticResource borderColorAnimation}">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+                                            <StackPanel Grid.Row="0" Style="{StaticResource contentStackHover}"  Height="{Binding RelativeSource={RelativeSource FindAncestor, 
+    AncestorType={x:Type ListBox}},Path=Height}" Width="250" Orientation="Vertical" >
 
-                                </Border>
-
-                                <Border Style="{StaticResource BorderBlockStyle}">
-                                    <!--Modelling upcoming notification-->
-                                    <!--Since border can only accept one child, we will use another StackPanel-->
-
-
-
-                                    <StackPanel Orientation="Vertical" >
-                                        <StackPanel Orientation="Horizontal">
-                                            <Label Content="Upcoming check-up" Style="{StaticResource SubtitleLabelStyle}" />
-                                        </StackPanel>
-
-                                        <StackPanel Orientation="Horizontal">
-                                            <!--Date and time-->
-                                            <Label Content="Date and Time: " FontWeight="Bold"/>
-                                            <Label Content="06/10/1997 15:00"/>
-                                        </StackPanel>
-
-                                        <StackPanel Orientation="Horizontal">
-                                            <!--Doctor-->
-                                            <Label Content="Doctor: " FontWeight="Bold"/>
-                                            <Label Content="Ratko Peric"/>
-                                        </StackPanel>
-
-                                        <StackPanel Orientation="Horizontal">
-                                            <!-- Location -->
-                                            <Label Content="Location: " FontWeight="Bold"/>
-                                            <Label Content="Milana Rakica 77, Novi Sad, Ordinacija 15a"/>
-                                        </StackPanel>
-                                    </StackPanel>
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="auto"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="auto"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Label Grid.Column="0" Content="{Binding Title}" Style="{StaticResource SubtitleLabelStyle}" HorizontalAlignment="Left"/>
+                                                    <Label Grid.Column ="2" FontWeight="Normal" Foreground="#de5d83" Content="{Binding Date}" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                                                </Grid>
 
 
-                                </Border>
-
-                            </StackPanel>
-                        </ScrollViewer>
-                    </StackPanel>
-                </ScrollViewer>
+                                                <TextBlock TextWrapping="Wrap" Text="{Binding ShortDescription}"/>
+                                            </StackPanel>
 
 
-                <!--Notifications-->
-                <Label Grid.Row="3" Grid.Column="1"  Content="Notifications" Style="{StaticResource LabelStyle}"></Label>
+                                                <StackPanel Grid.Row="2" Orientation="Vertical" VerticalAlignment="Bottom">
+                                                <Button  Style="{StaticResource navigationButtonStyle}"  Content="View article" Name="viewArticleButton"  HorizontalAlignment="Stretch"  Click="ViewArticleButton_Click"/>
+                                                </StackPanel>
 
-                <ScrollViewer Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                    <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
-                        <!--We will model upcoming event "notification" here-->
-                        <!-- After code gets generated, we will use ObservableCollection<T>? -->
+                                            
 
-                        <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
-                            <Border Style="{StaticResource BorderBlockStyle}">
-                                <!--Modelling user notifications-->
-                                <!--Since border can only accept one child, we will use another StackPanel-->
-                                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                                    <!--Example for solution to the previous problem when dynamic grid gets implemented.-->
-                                    <StackPanel Orientation="Vertical" CanHorizontallyScroll="True" x:Name="NotificationParent">
-                                        <StackPanel Orientation="Horizontal">
-                                            <Label Content="Change of work time" x:Name="notificationLabel" Style="{StaticResource SubtitleLabelStyle}" />
-                                        </StackPanel>
-
-                                        <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                            <TextBlock TextWrapping="Wrap" Width="{Binding ElementName=Scroller, Path=ViewportWidth}">
-                                                             Dear Nikola Dragic,
-                                                            <LineBreak/>
-                                                            <LineBreak/>
-                                                            I am informing you that we are changing our work hours...
-                                                        <LineBreak/>
-                                                            Sincerely,
-                                                            Management.
-                                            </TextBlock>
-                                        </ScrollViewer>
-                                    </StackPanel>
-                                </ScrollViewer>
-                            </Border>
-                        </ScrollViewer>
-
-                        <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
-                            <Border Style="{StaticResource BorderBlockStyle}">
-                                <!--Modelling user notifications-->
-                                <!--Since border can only accept one child, we will use another StackPanel-->
-                                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                                    <!--Example for solution to the previous problem when dynamic grid gets implemented.-->
-                                    <StackPanel Orientation="Vertical" CanHorizontallyScroll="True">
-                                        <StackPanel Orientation="Horizontal">
-                                            <Label Content="Quick checkup"  Style="{StaticResource SubtitleLabelStyle}" />
-                                        </StackPanel>
-
-                                        <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                            <TextBlock TextWrapping="Wrap" Width="{Binding ElementName=Scroller, Path=ViewportWidth}">
-                                                             Dear Nikola Dragic,
-                                                            <LineBreak/>
-                                                            <LineBreak/>
-                                                            Hopefully you're doing fine.
-                                                        <LineBreak/>
-                                                            Sincerely,
-                                                            Management.
-                                            </TextBlock>
-                                        </ScrollViewer>
-                                    </StackPanel>
-                                </ScrollViewer>
-                            </Border>
-                        </ScrollViewer>
-
-                        <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
-                            <Border Style="{StaticResource BorderBlockStyle}">
-                                <!--Modelling user notifications-->
-                                <!--Since border can only accept one child, we will use another StackPanel-->
-                                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                                    <!--Example for solution to the previous problem when dynamic grid gets implemented.-->
-                                    <StackPanel Orientation="Vertical" CanHorizontallyScroll="True">
-                                        <StackPanel Orientation="Horizontal">
-                                            <Label Content="Working hours"  Style="{StaticResource SubtitleLabelStyle}" />
-                                        </StackPanel>
-
-                                        <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                            <TextBlock TextWrapping="Wrap" Width="{Binding ElementName=Scroller, Path=ViewportWidth}">
-                                                             Dear Nikola Dragic,
-                                                            <LineBreak/>
-                                                            <LineBreak/>
-                                                            Our working hours are changed from 06:00 - 00:00 to 05:00 - 00:00
-                                                        <LineBreak/>
-                                                            Sincerely,
-                                                            Management.
-                                            </TextBlock>
-                                        </ScrollViewer>
-                                    </StackPanel>
-                                </ScrollViewer>
-                            </Border>
-                        </ScrollViewer>
-                    </StackPanel>
-                </ScrollViewer>
+                                        </Grid>
+                                    </Border>
 
 
-                <!--Upcoming-->
-                <Label Grid.Row="5" Grid.Column="1"  Content="Recommended articles" Style="{StaticResource LabelStyle}"></Label>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </Border>
 
-                <ScrollViewer Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                    <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
-                        <!--We will model upcoming event "notification" here-->
-                        <!-- After code gets generated, we will use ObservableCollection<T>? -->
-
-                        <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
-                            <Border Style="{StaticResource BorderBlockStyle}">
-                                <!--Modelling user notifications-->
-                                <!--Since border can only accept one child, we will use another StackPanel-->
-                                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                                    <!--Example for solution to the previous problem when dynamic grid gets implemented.-->
-                                    <StackPanel Orientation="Vertical" CanHorizontallyScroll="True">
-                                        <StackPanel Orientation="Horizontal">
-                                            <Label Content="Change of work time" Style="{StaticResource SubtitleLabelStyle}" />
-                                        </StackPanel>
-
-                                        <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                            <TextBlock TextWrapping="Wrap" Width="{Binding ElementName=Scroller, Path=ViewportWidth}">
-                                                             Dear Nikola Dragic,
-                                                            <LineBreak/>
-                                                            <LineBreak/>
-                                                            I am informing you that we are changing our work hours...
-                                                        <LineBreak/>
-                                                            Sincerely,
-                                                            Management.
-                                            </TextBlock>
-                                        </ScrollViewer>
-                                    </StackPanel>
-                                </ScrollViewer>
-                            </Border>
-                        </ScrollViewer>
-
-                        <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
-                            <Border Style="{StaticResource BorderBlockStyle}">
-                                <!--Modelling user notifications-->
-                                <!--Since border can only accept one child, we will use another StackPanel-->
-                                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                                    <!--Example for solution to the previous problem when dynamic grid gets implemented.-->
-                                    <StackPanel Orientation="Vertical" CanHorizontallyScroll="True">
-                                        <StackPanel Orientation="Horizontal">
-                                            <Label Content="Quick checkup"  Style="{StaticResource SubtitleLabelStyle}" />
-                                        </StackPanel>
-
-                                        <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                            <TextBlock TextWrapping="Wrap" Width="{Binding ElementName=Scroller, Path=ViewportWidth}">
-                                                             Dear Nikola Dragic,
-                                                            <LineBreak/>
-                                                            <LineBreak/>
-                                                            Hopefully you're doing fine.
-                                                        <LineBreak/>
-                                                            Sincerely,
-                                                            Management.
-                                            </TextBlock>
-                                        </ScrollViewer>
-                                    </StackPanel>
-                                </ScrollViewer>
-                            </Border>
-                        </ScrollViewer>
-                    </StackPanel>
-                </ScrollViewer>
-            </Grid>
+                </Grid>
 
 
 
-        </Border>
-    </Grid>
+            </Border>
+        </Grid>
+    </ScrollViewer>
 
 </Window>
