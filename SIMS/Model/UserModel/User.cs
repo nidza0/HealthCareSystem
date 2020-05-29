@@ -63,6 +63,20 @@ namespace SIMS.Model.UserModel
             _dateCreated = dateCreated;
         }
 
+        public User(UserID id,
+                    string username,
+                    string password,
+                    DateTime dateCreated,
+                    bool deleted)
+            : base()
+        {
+            _userID = id;
+            _userName = username;
+            _password = password;
+            _dateCreated = dateCreated;
+            _deleted = deleted;
+        }
+
         public UserID GetId()
         {
             return _userID;

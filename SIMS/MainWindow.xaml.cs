@@ -18,6 +18,7 @@ using SIMS.Model.ManagerModel;
 using SIMS.Repository.CSVFileRepository.Csv.Converter.MedicalConverter;
 using SIMS.Model.DoctorModel;
 using SIMS.Model.PatientModel;
+using SIMS.Repository.CSVFileRepository.Csv.Converter.UsersConverter;
 
 namespace SIMS
 {
@@ -105,6 +106,7 @@ namespace SIMS
             //Console.WriteLine(retVal);
             //Console.WriteLine("TEST");
 
+            /*
             RoomConverter converter = new RoomConverter(",");
             List<InventoryItem> testlist = new List<InventoryItem>
             {
@@ -152,8 +154,23 @@ namespace SIMS
             MedicalRecord medRec2 = converter2.ConvertCSVToEntity(csv);
             Console.WriteLine(converter2.ConvertEntityToCSV(medRec2));
             Console.WriteLine("===================================================");
+            */
 
+            /*
+            Secretary secretary = new Secretary(new UserID("s1"), "gergoo", "pass123", DateTime.Now, "Sekretar", "Sekretaric", "M", Sex.OTHER, new DateTime(1980,6,18), "0123456789", new Address("Ulica br 4", new Location(87, "Serbia", "Novi Sad")), "021787878", "0646464646", "email1@email", "email2@email", new TimeTable(78), new Hospital(7));
+            SecretaryConverter conv = new SecretaryConverter(";", "dd.MM.yyyy.");
+            string secString1 = conv.ConvertEntityToCSV(secretary);
+            Console.WriteLine(secString1);
+            string secString2 = conv.ConvertEntityToCSV(conv.ConvertCSVToEntity(secString1));
+            Console.WriteLine(secString1.Equals(secString2));
+            */
 
+            User user = new User(new UserID("d5677"), "usernaaaa", "passwd", DateTime.Now, true);
+            UserConverter conv = new UserConverter(",", "dd.MM.yyyy.");
+            string usrString1 = conv.ConvertEntityToCSV(user);
+            Console.WriteLine(usrString1);
+            string usrString2 = conv.ConvertEntityToCSV(conv.ConvertCSVToEntity(usrString1));
+            Console.WriteLine(usrString1.Equals(usrString2));
         }
     }
 }
