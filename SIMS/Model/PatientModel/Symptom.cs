@@ -16,18 +16,18 @@ namespace SIMS.Model.PatientModel
         private string _name;
         private string _shortDescription;
 
-        private Symptom(long id){
+        public Symptom(long id){
             _id = id;
         }
 
-        private Symptom(long id, string name, string shortDescription)
+        public Symptom(long id, string name, string shortDescription)
         {
             _id = id;
             _name = name;
             _shortDescription = shortDescription;
         }
 
-        private Symptom(string name, string shortDescription)
+        public Symptom(string name, string shortDescription)
         {
             _name = name;
             _shortDescription = shortDescription;

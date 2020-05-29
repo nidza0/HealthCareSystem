@@ -5,7 +5,6 @@
 
 using System;
 using System.Collections.Generic;
-using Model.Patient;
 using SIMS.Model.PatientModel;
 using SIMS.Model.UserModel;
 using SIMS.Repository.Abstract.MedicalAbstractRepository;

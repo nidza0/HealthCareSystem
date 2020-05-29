@@ -3,7 +3,6 @@
 // Created: 15. april 2020 21:34:36
 // Purpose: Definition of Class MedicalRecord
 
-using Model.Patient;
 using System;
 using System.Collections.Generic;
 using SIMS.Repository.Abstract;

@@ -8,7 +8,7 @@ using System;
 using SIMS.Repository.Abstract;
 using System.Collections.Generic;
 
-namespace Model.Patient
+namespace SIMS.Model.PatientModel
 {
     public class Prescription : IIdentifiable<long>
    {
