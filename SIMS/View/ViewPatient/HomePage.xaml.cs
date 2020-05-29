@@ -26,6 +26,7 @@ namespace SIMS.View.ViewPatient
         public ObservableCollection<Appointment> recentAppointments = new ObservableCollection<Appointment>();
         public ObservableCollection<Notification> notifications = new ObservableCollection<Notification>();
         public ObservableCollection<Article> articles = new ObservableCollection<Article>();
+        public ObservableCollection<Diagnosis> diagnosisList = new ObservableCollection<Diagnosis>();
 
         public HomePage()
         {
@@ -71,6 +72,47 @@ namespace SIMS.View.ViewPatient
             articles.Add(article2);
 
             articlesListBox.DataContext = articles;
+
+            //public Diagnosis(long id, Disease disease, Therapy activeTherapy, List<Therapy> previousTherapy = null)
+            Symptom symptom1 = new Symptom(22,"Throat pain","Pain in the front neck region");
+            Symptom symptom2 = new Symptom(22, "Nausea", "Feeling sick");
+            Symptom symptom3 = new Symptom(22, "Throat pain", "Pain in the front neck region");
+            List<Symptom> lista = new List<Symptom>();
+            lista.Add(symptom1);
+            lista.Add(symptom2);
+            lista.Add(symptom3);
+
+            Disease disease = new Disease(22, "Hashimoto's disease", " Hashimoto's disease is a condition in which your immune system" +
+                                        "attacks your thyroid, a small gland at the base of your neck" +
+                                        "below your Adam's apple. The thyroid gland is part of your" +
+                                        "endocrine system, which produces hormones that sadadthyroid, a small gland at the base of your neck" +
+                                        "below your Adam's apple.", true, new DiseaseType(true, true, "nmp"), lista);
+
+            Disease disease1 = new Disease(23, "Throat cancer", " Hashimoto's disease is a condition in which your immune system" +
+                                        "attacks your thyroid, a small gland at the base of your neck" +
+                                        "below your Adam's apple. The thyroid gland is part of your" +
+                                        "endocrine system, which produces hormones that sadadthyroid, a small gland at the base of your neck" +
+                                        "below your Adam's apple.", true, new DiseaseType(true, true, "nmp"), lista);
+            Medicine medicine = new Medicine("Xanax", 20, MedicineType.PILL, 5, 2);
+            Dictionary<Medicine, TherapyDose> dict = new Dictionary<Medicine, TherapyDose>();
+            Dictionary<TherapyTime, double> dict_ther = new Dictionary<TherapyTime, double>();
+            dict_ther.Add(TherapyTime.BeforeBed, 20);
+            TherapyDose therapyDose = new TherapyDose(dict_ther);
+            dict.Add(medicine, therapyDose);
+            Prescription prescription = new Prescription(2, PrescriptionStatus.ACTIVE, dict);
+
+            Therapy therapy = new Therapy(2, new TimeInterval(DateTime.Now, DateTime.Now), prescription);
+
+            Diagnosis diagnosis = new Diagnosis(69, disease, therapy);
+            Diagnosis diagnosis1 = new Diagnosis(69, disease1, therapy);
+
+            diagnosisList.Add(diagnosis);
+            diagnosisList.Add(diagnosis1);
+
+
+
+
+
             //string csv = appointmentConverter.ConvertEntityToCSV(appointment);
             //Console.WriteLine("Old CSV: " + csv);
             //Appointment newAppointment = appointmentConverter.ConvertCSVToEntity(csv);
@@ -86,9 +128,8 @@ namespace SIMS.View.ViewPatient
 
         private void MyDiagnosis_Button_Click(object sender, RoutedEventArgs e)
         {
-            //DiagnosisOverview diagnosisOverview = new DiagnosisOverview();
-            //diagnosisOverview.WindowState = WindowState.Maximized;
-            //diagnosisOverview.Show();
+            DiagnosisOverview diagnosisOverview = new DiagnosisOverview();
+            diagnosisOverview.Show();
         }
 
         private void ExitButton_Closing(object sender, RoutedEventArgs e)

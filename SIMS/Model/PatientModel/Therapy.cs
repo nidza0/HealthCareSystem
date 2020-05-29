@@ -3,7 +3,6 @@
 // Created: 15. april 2020 22:03:13
 // Purpose: Definition of Class Therapy
 
-using Model.Patient;
 using SIMS.Repository.Abstract;
 using SIMS.Util;
 using System;
