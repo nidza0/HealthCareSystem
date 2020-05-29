@@ -15,6 +15,10 @@
     <sys:String x:Key="Profile">Profile</sys:String>
     <sys:String x:Key="Inbox">Inbox</sys:String>
     <sys:String x:Key="Settings">Settings</sys:String>
+    <sys:String x:Key="Login">Login</sys:String>
+    <sys:String x:Key="PatientDetails">Patient Details</sys:String>
+
+    <sys:String x:Key="errNoPatients">No patients found</sys:String>
 
     <!-- New Patient Page -->
     <sys:String x:Key="StandardPatient">Standard</sys:String>
@@ -22,10 +26,11 @@
     <sys:String x:Key="lblGeneralPatientInfo">General Patient Info</sys:String>
     <sys:String x:Key="lblMorePatientInfo">Additional Patient Info</sys:String>
     <sys:String x:Key="lblEmergencyContactInfo">Emergency Contact Info</sys:String>
-    <sys:String x:Key="lblUsername">Username *</sys:String>
-    <sys:String x:Key="lblName">Name *</sys:String>
+    <sys:String x:Key="lblUsername">Username</sys:String>
+    <sys:String x:Key="lblPassword">Password</sys:String>
+    <sys:String x:Key="lblName">Name</sys:String>
     <sys:String x:Key="lblMiddleName">Middlename</sys:String>
-    <sys:String x:Key="lblSurname">Surname *</sys:String>
+    <sys:String x:Key="lblSurname">Surname</sys:String>
     <sys:String x:Key="lblGender">Gender</sys:String>
     <sys:String x:Key="radioMale">Male</sys:String>
     <sys:String x:Key="radioFemale">Female</sys:String>
@@ -34,7 +39,8 @@
     <sys:String x:Key="lblDateOfBirth">Date Of Birth</sys:String>
     <sys:String x:Key="lblCountry">Country</sys:String>
     <sys:String x:Key="lblCity">City</sys:String>
-    <sys:String x:Key="lblTelephone">Telephone</sys:String>
+    <sys:String x:Key="lblTelephone">Home telephone</sys:String>
+    <sys:String x:Key="lblCellPhone">Cellphone</sys:String>
     <sys:String x:Key="lblEmail">Email</sys:String>
     <sys:String x:Key="lblAddress">Address</sys:String>
     <sys:String x:Key="lblEmergencyName">Emergency Contact's Name</sys:String>

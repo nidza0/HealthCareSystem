@@ -1,5 +1,4 @@
-﻿using SIMS.View.ViewSecretary.Pages;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,22 +10,25 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SIMS.View.ViewSecretary
+namespace SIMS.View.ViewSecretary.Pages
 {
     /// <summary>
-    /// Interaction logic for MainWindowSecretary.xaml
+    /// Interaction logic for MainWindowPageSecretary.xaml
     /// </summary>
-    public partial class MainWindowSecretary : Window
+    public partial class MainWindowPageSecretary : Page
     {
         System.Windows.Threading.DispatcherTimer Timer = new System.Windows.Threading.DispatcherTimer();
 
-        public MainWindowSecretary()
+        public MainWindowPageSecretary()
         {
             InitializeComponent();
             InitializeDateTime();
             CentralFrameNavigator.getInstance().setFrame(CentralFrame);
+            FrameManager.getInstance().CentralFrame = CentralFrame;
+            FrameManager.getInstance().SideFrame = SideFrame;
             InitializeSidebar();
         }
 

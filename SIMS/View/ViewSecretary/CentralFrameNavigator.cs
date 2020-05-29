@@ -50,6 +50,7 @@ namespace SIMS.View.ViewSecretary
                 case "btn_doctors":
                     break;
                 case "btn_patients":
+                    frame.Content = new PatientsPageSecretary();
                     break;
                 case "btn_profile":
                     frame.Content = new ProfilePageSecretary();
