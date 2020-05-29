@@ -9,23 +9,21 @@ namespace SIMS.Model.UserModel
 {
     public class Notification : Content
     {
-        public User recipient;
+        private User _recipient;
 
-        /// <summary>
-        /// Property for User
-        /// </summary>
-        /// <pdGenerated>Default opposite class property</pdGenerated>
-        public User Recipient
+        public User Recipient { get => _recipient; }
+
+        public Notification(string text, User recipient, DateTime dateCreated) : base(text, dateCreated)
         {
-            get
-            {
-                return recipient;
-            }
-            set
-            {
-                recipient = value;
-            }
+            _recipient = recipient;
         }
+
+        public Notification(long id, string text, User recipient, DateTime dateCreated) : base(id, text, dateCreated)
+        {
+            _recipient = recipient;
+        }
+
+        public Notification(long id) : base(id) { }
 
     }
 }

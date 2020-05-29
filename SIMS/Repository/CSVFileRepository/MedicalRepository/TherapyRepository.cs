@@ -3,7 +3,6 @@
 // Created: 24. maj 2020 11:52:17
 // Purpose: Definition of Class TherapyRepository
 
-using Model.Patient;
 using SIMS.Model.PatientModel;
 using SIMS.Model.UserModel;
 using SIMS.Repository.Abstract.MedicalAbstractRepository;

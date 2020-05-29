@@ -9,8 +9,8 @@ namespace SIMS.Model.UserModel
 {
     public enum Sex
     {
-        male,
-        female,
-        other
+        MALE,
+        FEMALE,
+        OTHER
     }
 }

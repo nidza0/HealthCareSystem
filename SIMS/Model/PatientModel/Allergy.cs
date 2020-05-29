@@ -5,28 +5,79 @@
  ***********************************************************************/
 
 using System;
+using SIMS.Repository.Abstract;
+using System.Collections.Generic;
 
 namespace SIMS.Model.PatientModel
 {
-    public class Allergy
+    public class Allergy : IIdentifiable<long>
     {
-        private string name;
-        private long id;
+        private string _name;
+        private long _id;
 
-        public Ingredient allergicToIngredient;
-        public System.Collections.ArrayList symptoms;
+        private Ingredient _allergicToIngredient;
+        private List<Symptom> _symptoms;
+
+        public Allergy(long id)
+        {
+            _id = id;
+            _name = "";
+            _symptoms = new List<Symptom>();
+            _allergicToIngredient = null; 
+        }
+
+        public Allergy(long id,string name, Ingredient allergicToIngredient, List<Symptom> symptomList)
+        {
+            _id = id;
+            _name = name;
+            _allergicToIngredient = allergicToIngredient;
+            if (_symptoms == null)
+                _symptoms = new List<Symptom>();
+            else
+                _symptoms = symptomList;
+        }
+
+        public Allergy(string name,Ingredient allergicToIngredient,List<Symptom> symptomList)
+        {
+            _name = name;
+            _allergicToIngredient = allergicToIngredient;
+            if (_symptoms == null)
+                _symptoms = new List<Symptom>();
+            else
+                _symptoms = symptomList;
+        }
+
+        public Allergy(string name, Ingredient allergicToIngredient)
+        {
+            _name = name;
+            _allergicToIngredient = allergicToIngredient;
+            _symptoms = new List<Symptom>();
+        }
+
+
+        public Ingredient AllergicToIngredient
+        {
+            get { return _allergicToIngredient; }
+            set { _allergicToIngredient = value; }
+        }
+
+        public string Name
+        {
+            get { return _name; }
+            set { _name = value; }
+        }
 
         /// <summary>
         /// Property for collection of Symptom
         /// </summary>
         /// <pdGenerated>Default opposite class collection property</pdGenerated>
-        public System.Collections.ArrayList Symptoms
+        public List<Symptom> Symptoms
         {
             get
             {
-                if (symptoms == null)
-                    symptoms = new System.Collections.ArrayList();
-                return symptoms;
+                if (_symptoms == null)
+                    _symptoms = new List<Symptom>();
+                return _symptoms;
             }
             set
             {
@@ -47,10 +98,10 @@ namespace SIMS.Model.PatientModel
         {
             if (newSymptom == null)
                 return;
-            if (symptoms == null)
-                symptoms = new System.Collections.ArrayList();
-            if (!symptoms.Contains(newSymptom))
-                symptoms.Add(newSymptom);
+            if (_symptoms == null)
+                _symptoms = new List<Symptom>();
+            if (!_symptoms.Contains(newSymptom))
+                _symptoms.Add(newSymptom);
         }
 
         /// <summary>
@@ -61,9 +112,9 @@ namespace SIMS.Model.PatientModel
         {
             if (oldSymptom == null)
                 return;
-            if (symptoms != null)
-                if (symptoms.Contains(oldSymptom))
-                    symptoms.Remove(oldSymptom);
+            if (_symptoms != null)
+                if (_symptoms.Contains(oldSymptom))
+                    _symptoms.Remove(oldSymptom);
         }
 
         /// <summary>
@@ -72,9 +123,12 @@ namespace SIMS.Model.PatientModel
         /// <pdGenerated>Default removeAll</pdGenerated>
         public void RemoveAllSymptoms()
         {
-            if (symptoms != null)
-                symptoms.Clear();
+            if (_symptoms != null)
+                _symptoms.Clear();
         }
 
+        public long GetId() => _id;
+
+        public void SetId(long id) => _id = id;
     }
 }

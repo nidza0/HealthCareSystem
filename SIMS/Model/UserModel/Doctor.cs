@@ -4,74 +4,68 @@
 // Purpose: Definition of Class Doctor
 
 using System;
+using System.Collections.Generic;
 using SIMS.Model.DoctorModel;
 
 namespace SIMS.Model.UserModel
 {
     public class Doctor : Employee
     {
-        public Room office;
-        public System.Collections.Generic.List<DocTypeEnum> docTypeEnum;
+        private Room _office;
+        private DocTypeEnum _docTypeEnum;
 
-        /// <summary>
-        /// Property for collection of DocTypeEnum
-        /// </summary>
-        /// <pdGenerated>Default opposite class collection property</pdGenerated>
-        public System.Collections.Generic.List<DocTypeEnum> DocTypeEnum
+        public Doctor(  string userName, 
+                        string password, 
+                        DateTime dateCreated, 
+                        string name, 
+                        string surname, 
+                        string middleName, 
+                        Sex sex, 
+                        DateTime dateOfBirth, 
+                        string uidn, 
+                        Address address, 
+                        string homePhone, 
+                        string cellPhone, 
+                        string email1, 
+                        string email2, 
+                        TimeTable timeTable, 
+                        Hospital hospital, 
+                        Room office, 
+                        DocTypeEnum doctorType) 
+            : base(timeTable, hospital, userName, password, dateCreated, name, surname, middleName, sex, dateOfBirth, uidn, address, homePhone, cellPhone, email1, email2)
         {
-            get
-            {
-                if (docTypeEnum == null)
-                    docTypeEnum = new System.Collections.Generic.List<DocTypeEnum>();
-                return docTypeEnum;
-            }
-            set
-            {
-                RemoveAllDocTypeEnum();
-                if (value != null)
-                {
-                    foreach (DocTypeEnum oDocTypeEnum in value)
-                        AddDocTypeEnum(oDocTypeEnum);
-                }
-            }
+            _office = office;
+            _docTypeEnum = doctorType;
         }
 
-        /// <summary>
-        /// Add a new DocTypeEnum in the collection
-        /// </summary>
-        /// <pdGenerated>Default Add</pdGenerated>
-        public void AddDocTypeEnum(DocTypeEnum newDocTypeEnum)
+        public Doctor(  UserID id, 
+                        string userName, 
+                        string password, 
+                        DateTime dateCreated, 
+                        string name, 
+                        string surname, 
+                        string middleName, 
+                        Sex sex, 
+                        DateTime dateOfBirth, 
+                        string uidn, 
+                        Address address, 
+                        string homePhone, 
+                        string cellPhone, 
+                        string email1, 
+                        string email2, 
+                        TimeTable timeTable, 
+                        Hospital hospital, 
+                        Room office, 
+                        DocTypeEnum doctorType) 
+            : base(id, timeTable, hospital, userName, password, dateCreated, name, surname, middleName, sex, dateOfBirth, uidn, address, homePhone, cellPhone, email1, email2)
         {
-            if (newDocTypeEnum == null)
-                return;
-            if (docTypeEnum == null)
-                docTypeEnum = new System.Collections.Generic.List<DocTypeEnum>();
-            if (!docTypeEnum.Contains(newDocTypeEnum))
-                docTypeEnum.Add(newDocTypeEnum);
+            _office = office;
+            _docTypeEnum = doctorType;
         }
 
-        /// <summary>
-        /// Remove an existing DocTypeEnum from the collection
-        /// </summary>
-        /// <pdGenerated>Default Remove</pdGenerated>
-        public void RemoveDocTypeEnum(DocTypeEnum oldDocTypeEnum)
-        {
-            if (oldDocTypeEnum == null)
-                return;
-            if (docTypeEnum != null)
-                if (docTypeEnum.Contains(oldDocTypeEnum))
-                    docTypeEnum.Remove(oldDocTypeEnum);
-        }
+        public Doctor(UserID id) : base(id) { }
 
-        /// <summary>
-        /// Remove all instances of DocTypeEnum from the collection
-        /// </summary>
-        /// <pdGenerated>Default removeAll</pdGenerated>
-        public void RemoveAllDocTypeEnum()
-        {
-            if (docTypeEnum != null)
-                docTypeEnum.Clear();
-        }
-
+        public Room Office { get => _office; }
+        public DocTypeEnum DocTypeEnum { get => _docTypeEnum; }
     }
 }

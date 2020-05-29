@@ -10,10 +10,34 @@ namespace SIMS.Model.ManagerModel
 {
     public class StatsInventory : Stats
     {
-        private double usage;
+        private double _usage;
 
-        public Medicine medicine;
-        public InventoryItem inventoryItem;
+        private Medicine _medicine;
+        private InventoryItem _inventoryItem;
 
+        public double Usage { get { return _usage; } set { } }
+
+        public Medicine Medicine { get { return _medicine; } set { } }
+
+        public InventoryItem InventoryItem { get { return _inventoryItem; } set { } }
+
+        public StatsInventory(double usage, Medicine medicine, InventoryItem inventoryItem): base()
+        {
+            _usage = usage;
+            _medicine = medicine;
+            _inventoryItem = inventoryItem;
+        }
+
+        public StatsInventory(long id, double usage, Medicine medicine, InventoryItem inventoryItem) : base(id)
+        {
+            _usage = usage;
+            _medicine = medicine;
+            _inventoryItem = inventoryItem;
+        }
+
+        public StatsInventory(long id): base(id)
+        {
+
+        }
     }
 }

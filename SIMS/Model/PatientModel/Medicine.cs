@@ -5,64 +5,64 @@
  ***********************************************************************/
 
 using System;
+using SIMS.Model.PatientModel;
+using System.Collections.Generic;
 
 namespace SIMS.Model.PatientModel
 {
     public class Medicine : Item
     {
-        private double strength;
-        private bool isValid;
+        private double _strength;
+        private bool _isValid;
+        private MedicineType _medicineType;
 
-        public void Validate()
+        private List<Ingredient> _ingredient;
+        private List<Disease> _usedFor;
+
+
+        public Medicine(long id) : base(id)
         {
-            throw new NotImplementedException();
+        }
+        public Medicine(string name,double strength, MedicineType medicineType,int inStock, int minNumber) : base(name, inStock, minNumber)
+        {
+            _strength = strength;
+            _medicineType = MedicineType;
+            _isValid = false;
+            _ingredient = new List<Ingredient>();
+            _usedFor = new List<Disease>();
         }
 
-        public void Invalidate()
+        public Medicine(string name, double strength, MedicineType medicineType,bool isValid,List<Disease> usedFor, List<Ingredient> ingredient,int inStock, int minNumber) : base(name, inStock, minNumber)
         {
-            throw new NotImplementedException();
+            _strength = strength;
+            _medicineType = MedicineType;
+            _isValid = false;
+            _ingredient = ingredient;
+            _usedFor = usedFor;
         }
 
-        public void AddIngredient()
+        public Medicine(long id, string name, double strength, MedicineType medicineType, bool isValid, List<Disease> usedFor, List<Ingredient> ingredient, int inStock, int minNumber) : base(id,name, inStock, minNumber)
         {
-            throw new NotImplementedException();
+            _strength = strength;
+            _medicineType = MedicineType;
+            _isValid = false;
+            _ingredient = ingredient;
+            _usedFor = usedFor;
         }
 
-        public void RemoveIngredient()
-        {
-            throw new NotImplementedException();
-        }
 
-        public MedicineType medicineType;
-
-        /// <summary>
-        /// Property for MedicineType
-        /// </summary>
-        /// <pdGenerated>Default opposite class property</pdGenerated>
-        public MedicineType MedicineType
-        {
-            get
-            {
-                return medicineType;
-            }
-            set
-            {
-                medicineType = value;
-            }
-        }
-        public System.Collections.ArrayList ingredient;
 
         /// <summary>
         /// Property for collection of Ingredient
         /// </summary>
         /// <pdGenerated>Default opposite class collection property</pdGenerated>
-        public System.Collections.ArrayList Ingredient
+        public List<Ingredient> Ingredient
         {
             get
             {
-                if (ingredient == null)
-                    ingredient = new System.Collections.ArrayList();
-                return ingredient;
+                if (_ingredient == null)
+                    _ingredient = new List<Ingredient>();
+                return _ingredient;
             }
             set
             {
@@ -83,10 +83,10 @@ namespace SIMS.Model.PatientModel
         {
             if (newIngredient == null)
                 return;
-            if (ingredient == null)
-                ingredient = new System.Collections.ArrayList();
-            if (!ingredient.Contains(newIngredient))
-                ingredient.Add(newIngredient);
+            if (_ingredient == null)
+                _ingredient = new List<Ingredient>();
+            if (!_ingredient.Contains(newIngredient))
+                _ingredient.Add(newIngredient);
         }
 
         /// <summary>
@@ -97,9 +97,9 @@ namespace SIMS.Model.PatientModel
         {
             if (oldIngredient == null)
                 return;
-            if (ingredient != null)
-                if (ingredient.Contains(oldIngredient))
-                    ingredient.Remove(oldIngredient);
+            if (_ingredient != null)
+                if (_ingredient.Contains(oldIngredient))
+                    _ingredient.Remove(oldIngredient);
         }
 
         /// <summary>
@@ -108,22 +108,22 @@ namespace SIMS.Model.PatientModel
         /// <pdGenerated>Default removeAll</pdGenerated>
         public void RemoveAllIngredient()
         {
-            if (ingredient != null)
-                ingredient.Clear();
+            if (_ingredient != null)
+                _ingredient.Clear();
         }
-        public System.Collections.ArrayList usedFor;
+
 
         /// <summary>
         /// Property for collection of Disease
         /// </summary>
         /// <pdGenerated>Default opposite class collection property</pdGenerated>
-        public System.Collections.ArrayList UsedFor
+        public List<Disease> UsedFor
         {
             get
             {
-                if (usedFor == null)
-                    usedFor = new System.Collections.ArrayList();
-                return usedFor;
+                if (_usedFor == null)
+                    _usedFor = new List<Disease>();
+                return _usedFor;
             }
             set
             {
@@ -136,6 +136,10 @@ namespace SIMS.Model.PatientModel
             }
         }
 
+        public double Strength { get => _strength; set => _strength = value; }
+        public bool IsValid { get => _isValid; set => _isValid = value; }
+        public MedicineType MedicineType { get => _medicineType; set => _medicineType = value; }
+
         /// <summary>
         /// Add a new Disease in the collection
         /// </summary>
@@ -144,11 +148,11 @@ namespace SIMS.Model.PatientModel
         {
             if (newDisease == null)
                 return;
-            if (usedFor == null)
-                usedFor = new System.Collections.ArrayList();
-            if (!usedFor.Contains(newDisease))
+            if (_usedFor == null)
+                _usedFor = new List<Disease>();
+            if (!_usedFor.Contains(newDisease))
             {
-                usedFor.Add(newDisease);
+                _usedFor.Add(newDisease);
                 newDisease.AddAdministratedFor(this);
             }
         }
@@ -161,10 +165,10 @@ namespace SIMS.Model.PatientModel
         {
             if (oldDisease == null)
                 return;
-            if (usedFor != null)
-                if (usedFor.Contains(oldDisease))
+            if (_usedFor != null)
+                if (_usedFor.Contains(oldDisease))
                 {
-                    usedFor.Remove(oldDisease);
+                    _usedFor.Remove(oldDisease);
                     oldDisease.RemoveAdministratedFor(this);
                 }
         }
@@ -175,12 +179,12 @@ namespace SIMS.Model.PatientModel
         /// <pdGenerated>Default removeAll</pdGenerated>
         public void RemoveAllUsedFor()
         {
-            if (usedFor != null)
+            if (_usedFor != null)
             {
                 System.Collections.ArrayList tmpUsedFor = new System.Collections.ArrayList();
-                foreach (Disease oldDisease in usedFor)
+                foreach (Disease oldDisease in _usedFor)
                     tmpUsedFor.Add(oldDisease);
-                usedFor.Clear();
+                _usedFor.Clear();
                 foreach (Disease oldDisease in tmpUsedFor)
                     oldDisease.RemoveAdministratedFor(this);
                 tmpUsedFor.Clear();
