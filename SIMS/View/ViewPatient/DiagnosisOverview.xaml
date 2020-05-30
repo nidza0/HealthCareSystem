@@ -32,14 +32,14 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsSelected" Value="true">
-                                <Setter TargetName="_Border" Property="Background" Value="#5399FA"/>
+                                <Setter TargetName="_Border" Property="Background" Value="Transparent"/>
                                 <Setter Property="Foreground" Value="Black"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
-            <Setter Property="Margin" Value="0 0 5 0"/>
+            <Setter Property="Margin" Value="5 12 5 0"/>
         </Style>
 
         <Style x:Key="borderColorAnimation" TargetType="{x:Type Border}">
@@ -69,15 +69,7 @@
             </Style.Triggers>
         </Style>
 
-        <Style x:Key="ListBoxStyle" TargetType="{x:Type ListBox}">
-            <Style.Resources>
-                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent" />
-                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black" />
-                <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="Transparent" />
-                <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="Transparent" />
-            </Style.Resources>
-
-        </Style>
+        
 
         <Style x:Key="BorderBlockStyle" TargetType="{x:Type Border}">
             <Setter Property="BorderBrush" Value="Silver"></Setter>
@@ -118,6 +110,28 @@
         </Style>
 
 
+        <Style x:Key="contentStackHover" TargetType="{x:Type StackPanel}">
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Opacity" Value="0.8" />
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="False">
+                    <Setter Property="Opacity" Value="1" />
+                </Trigger>
+            </Style.Triggers>
+
+        </Style>
+
+
+        <Style x:Key="ListBoxStyle" TargetType="{x:Type ListBox}">
+            <Style.Resources>
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent" />
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black" />
+                <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="Transparent" />
+                <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="Transparent" />
+            </Style.Resources>
+
+        </Style>
 
 
         <Style x:Key="diagnosisListBoxStyle" TargetType="{x:Type ListBox}" BasedOn="{StaticResource ListBoxStyle}">
@@ -130,9 +144,7 @@
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate>
-                                <Border Style="{StaticResource borderColorAnimation}" VerticalAlignment="Top">
-                                    <TextBlock Foreground="{StaticResource userMesageColor}"  FontSize="20" Text="Hooray! You currently't have diagnosis."></TextBlock>
-                                </Border>
+                                <TextBlock Foreground="{StaticResource userMesageColor}" FontSize="20" Text="Hooray! No diagnosis to show! :)"></TextBlock>
                             </ControlTemplate>
                         </Setter.Value>
                     </Setter>
@@ -140,7 +152,28 @@
             </Style.Triggers>
         </Style>
 
-       
+        <Style x:Key="ButtonStyle" TargetType="{x:Type RadioButton}">
+            <Setter Property="Background" Value="#0d98ba"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type RadioButton}">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="Black" BorderThickness="1" CornerRadius="5">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Opacity" Value="0.8" />
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="False">
+                    <Setter Property="Opacity" Value="1" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
     </Window.Resources>
     <Grid Background="{StaticResource BackgroundColor}">
         <Grid.RowDefinitions>
@@ -170,25 +203,27 @@
                 </Grid.RowDefinitions>
 
                 <StackPanel Orientation="Horizontal" Margin="7" HorizontalAlignment="Left">
-                    <RadioButton  IsChecked="True" Style="{StaticResource {x:Type ToggleButton}}">
+                    <RadioButton IsChecked="True" Style="{StaticResource ButtonStyle}">
                         <Label Content="All" Style="{StaticResource SubtitleLabelStyle}"></Label>
                     </RadioButton>
 
                     <Separator Margin="6 0"/>
 
-                    <RadioButton  Style="{StaticResource {x:Type ToggleButton}}">
+                    <RadioButton  Style="{StaticResource ButtonStyle}">
                         <Label Content="Active" Style="{StaticResource SubtitleLabelStyle}"></Label>
                     </RadioButton>
 
                     <Separator Margin="6 0"/>
 
-                    <RadioButton  Style="{StaticResource {x:Type ToggleButton}}">
+                    <RadioButton Style="{StaticResource ButtonStyle}">
                         <Label Content="Inactive" Style="{StaticResource SubtitleLabelStyle}"></Label>
 
                     </RadioButton>
                 </StackPanel>
 
-                <ListBox Grid.Row="1" Style="{StaticResource diagnosisListBoxStyle}"  HorizontalAlignment="Left" ItemsSource="{Binding}" x:Name="diagnosisListBox" BorderThickness="0" ItemContainerStyle="{DynamicResource _ListBoxItemStyle}">
+                <Border Grid.Row="1" x:Name="contentBorder">
+                    <ListBox ScrollViewer.HorizontalScrollBarVisibility="Disabled" Width="{Binding RelativeSource={RelativeSource FindAncestor, 
+    AncestorType={x:Type Border}},Path=Width}"  Style="{StaticResource diagnosisListBoxStyle}"  VerticalAlignment="Top" ItemsSource="{Binding}" x:Name="diagnosisListBox" BorderThickness="0" ItemContainerStyle="{DynamicResource _ListBoxItemStyle}">
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel Orientation="Vertical"></StackPanel>
@@ -197,82 +232,41 @@
 
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <Border Grid.Row="0" Style="{StaticResource borderColorAnimation}">
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="auto"></RowDefinition>
-                                        <!-- Disease name -->
-                                        <RowDefinition Height="auto"></RowDefinition>
-                                        <!--Separator-->
-                                        <RowDefinition Height="auto"></RowDefinition>
-                                        <!-- Organs affected -->
-                                        <RowDefinition Height="auto"></RowDefinition>
-                                        <!--Symptoms-->
-                                        <RowDefinition Height="auto"></RowDefinition>
-                                        <!--Short overview-->
-                                    </Grid.RowDefinitions>
+                                <Border Style="{StaticResource borderColorAnimation}">
+                                    <StackPanel Style="{StaticResource contentStackHover}"  Width="{Binding RelativeSource={RelativeSource FindAncestor, 
+    AncestorType={x:Type ListBox}},Path=Height}" Height="175" Orientation="Vertical" >
+                                        <Label Content="{Binding DiagnosedDisease.Name}" Style="{StaticResource LabelStyle}"/>
 
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"></ColumnDefinition>
-                                        <!--Data-->
-                                        <ColumnDefinition Width="auto"></ColumnDefinition>
-                                        <!--Reserved for disease "image"-->
-                                    </Grid.ColumnDefinitions>
+                                        <DockPanel>
+                                            <DockPanel DockPanel.Dock="Top">
+                                                <Label Content="Symptoms: " FontWeight="Bold"></Label>
+                                                <TextBlock VerticalAlignment="Center" TextWrapping="Wrap" Text="{Binding SymptomRepresent}"/>
+                                            </DockPanel>
+                                        </DockPanel>
 
+                                        <DockPanel>
+                                            <DockPanel DockPanel.Dock="Top">
+                                                <Label VerticalAlignment="Top" Content="Overview: " FontWeight="Bold"></Label>
+                                                <TextBlock VerticalAlignment="Center" TextWrapping="Wrap" Text="{Binding DiagnosedDisease.Overview}"/>
+                                            </DockPanel>
+                                        </DockPanel>
 
-                                    <!--Diagnosis header-->
-                                    <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource SubtitleLabelStyle}" Content="Hashimoto's disease"/>
-                                    <Separator Margin="5" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Background="{x:Null}"/>
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+                                        </Grid>
 
-                                    <!--Diagnosis description-->
-                                    <Grid Grid.Row="1" Grid.Column="0">
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="auto"></RowDefinition>
-                                            <!--Organs affected-->
-                                            <RowDefinition Height="auto"></RowDefinition>
-                                            <!--Symptoms-->
-                                            <RowDefinition Height="*"></RowDefinition>
-                                            <!--Overview-->
-                                        </Grid.RowDefinitions>
-
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="auto"></ColumnDefinition>
-                                            <!--For label-->
-                                            <ColumnDefinition Width="*"></ColumnDefinition>
-                                            <!--For data-->
-                                        </Grid.ColumnDefinitions>
-
-
-                                        <Label Grid.Row="0" Grid.Column="0" Content="Symptoms: " FontWeight="Bold"></Label>
-                                        <TextBlock Grid.Row="1" Grid.Column="1">Fatigue, sluggishness, hair loss,memory lapses</TextBlock>
-
-                                        <Label Grid.Row="1" Grid.Column="0" Content="Short overview: " FontWeight="Bold"></Label>
-                                        <TextBlock Grid.Row="2" Grid.Column="1" TextWrapping="Wrap">
-                                        Hashimoto's disease is a condition in which your immune system
-                                        attacks your thyroid, a small gland at the base of your neck
-                                        below your Adam's apple. The thyroid gland is part of your
-                                        endocrine system, which produces hormones that sadadthyroid, a small gland at the base of your neck
-                                        below your Adam's apple. The thyroid gland is part of your
-                                        endocrine system, which produces hormones that sadadthyroid, a small gland at the base of your neck
-                                        below your Adam's apple. The thyroid gland is part of your
-                                        endocrine system, which produces hormones that sadadthyroid, a small gland at the base of your neck
-                                        below your Adam's apple. The thyroid gland is part of your
-                                        endocrine system, which produces hormones that sadad
-                                        </TextBlock>
-                                    </Grid>
-
-                                </Grid>
-
-
-                            </Border>
-                        </DataTemplate>
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
                     </ListBox.ItemTemplate>
                     
                     
                 </ListBox>
+                </Border>
 
 
-                      
 
             </Grid>
         </Border>

@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using SIMS.Repository.Abstract;
+using System.Linq;
 
 namespace SIMS.Model.PatientModel
 {
@@ -160,5 +161,11 @@ namespace SIMS.Model.PatientModel
         public long GetId() => _id;
 
         public void SetId(long id) => _id = id;
+
+
+        public string SymptomRepresent
+        {
+            get { return string.Join(", ", this._diagnosedDisease.Symptoms.Select(symptom => symptom.Name)); }
+        }
     }
 }

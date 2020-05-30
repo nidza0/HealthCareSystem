@@ -113,14 +113,14 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsSelected" Value="true">
-                                <Setter TargetName="_Border" Property="Background" Value="#5399FA"/>
+                                <Setter TargetName="_Border" Property="Background" Value="Transparent"/>
                                 <Setter Property="Foreground" Value="Black"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
-            <Setter Property="Margin" Value="0 0 5 0"/>
+            <Setter Property="Margin" Value="5 0 5 0"/>
         </Style>
 
         <Style x:Key="ListBoxStyle" TargetType="{x:Type ListBox}">
@@ -143,9 +143,7 @@
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate>
-                                <Border Style="{StaticResource borderColorAnimation}" VerticalAlignment="Top">
-                                    <TextBlock Foreground="{StaticResource userMesageColor}"  FontSize="20" Text="Hooray! You currently have upcoming events! :)"></TextBlock>
-                                </Border>
+                                <TextBlock Foreground="{StaticResource userMesageColor}" FontSize="20" Text="No upcoming events! :)"></TextBlock>
                             </ControlTemplate>
                         </Setter.Value>
                     </Setter>

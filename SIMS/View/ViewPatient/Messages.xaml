@@ -7,10 +7,42 @@
         mc:Ignorable="d"
         Title="Messages" Height="450" Width="800">
     <Window.Resources>
-        <SolidColorBrush Color="#1c2e4a" x:Key="BackgroundColor"></SolidColorBrush>
+        <SolidColorBrush Color="#f5ee67" x:Key="BackgroundColor"></SolidColorBrush>
         <SolidColorBrush Color="#FFFAFA" x:Key="BorderBlockColor"/>
+        <SolidColorBrush Color="#2372DF" x:Key="userMesageColor"/>
+        <LinearGradientBrush x:Key="backgroundGradient">
+            <GradientStop Color="#192841" Offset="0"/>
+            <GradientStop Color="#282866" Offset="1"/>
+        </LinearGradientBrush>
 
-        <BitmapImage x:Key="LogoImage" UriSource="../images/logo.png"/>
+
+
+        <BitmapImage x:Key="LogoImage" UriSource="static/images/logo.png"/>
+
+        <Style x:Key="conversationistName" TargetType="{x:Type TextBlock}">
+            <Setter Property="Foreground" Value="#e8dc2e"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+
+        <Style x:Key="LabelStyle" TargetType="{x:Type Label}">
+            <Setter Property="FontSize" Value="20"></Setter>
+            <Setter Property="FontWeight" Value="Bold"></Setter>
+            <Setter Property="Foreground" Value="#e8dc2e"/>
+        </Style>
+        
+
+        <Style x:Key="SubtitleLabelStyle" TargetType="{x:Type Label}">
+            <Setter Property="FontSize" Value="16"></Setter>
+            <Setter Property="FontWeight" Value="Bold"></Setter>
+            <Setter Property="Foreground" Value="#e8dc2e"/>
+        </Style>
+
+        <Style x:Key="normalLabel" TargetType="{x:Type Label}">
+            <Setter Property="Foreground" Value="#e8dc2e"/>
+        </Style>
+
         <Style x:Key="BorderBlockStyle" TargetType="{x:Type Border}">
             <Setter Property="BorderBrush" Value="Silver"></Setter>
             <Setter Property="BorderThickness" Value="4"/>
@@ -19,25 +51,23 @@
             <Setter Property="CornerRadius" Value="10"/>
         </Style>
 
-        <Style x:Key="LabelStyle" TargetType="{x:Type Label}">
-            <Setter Property="FontSize" Value="20"></Setter>
-            <Setter Property="FontWeight" Value="Bold"></Setter>
-        </Style>
-
-        <Style x:Key="SubtitleLabelStyle" TargetType="{x:Type Label}">
-            <Setter Property="FontSize" Value="16"></Setter>
-            <Setter Property="FontWeight" Value="Bold"></Setter>
-        </Style>
-
         <Style x:Key="myMessageBorder" TargetType="{x:Type Border}" BasedOn="{StaticResource ResourceKey=BorderBlockStyle}">
             <Setter Property="Background" Value="#0084ff"></Setter>
+            <Setter Property="BorderThickness" Value="0"/>
 
         </Style>
         <Style x:Key="otherPersonMessageBorder" TargetType="{x:Type Border}" BasedOn="{StaticResource ResourceKey=BorderBlockStyle}">
             <Setter Property="Background" Value="Silver"></Setter>
             <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="BorderBrush" Value="Red"></Setter>
+        </Style>
 
+        <Style x:Key="contentBlockStyle" TargetType="{x:Type Border}" BasedOn="{StaticResource ResourceKey=BorderBlockStyle}">
+            
+            <Setter Property="Background" Value="{StaticResource backgroundGradient}"/>
+        </Style>
+
+        <Style x:Key="backgroundBlockStyle" TargetType="{x:Type Border}" BasedOn="{StaticResource ResourceKey=BorderBlockStyle}">
+            <Setter Property="Background" Value="#0d98ba"/>
         </Style>
 
         <!--TAKEN FROM :  https://www.codeproject.com/Tips/1235350/Switch-Type-WPF-ToggleButton-RadioButton-On-Off-Co-->
@@ -190,34 +220,128 @@
                 Value="{StaticResource ToggleButtonFalseBackground}" />
                                 <Setter TargetName="ForegroundEllipse" Property="Fill"
                 Value="{StaticResource ToggleButtonFalseForeground}" />
-                                <!--<Trigger.EnterActions>
-                                    <BeginStoryboard>
-                                        <Storyboard>
-                                            <DoubleAnimation Storyboard.TargetName
-                        ="AnimationSizeBorder"
-                        Storyboard.TargetProperty="(Border.Width)"
-                        To="0" Duration="0:0:3"/>
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </Trigger.EnterActions>
-                                <Trigger.ExitActions>
-
-                                    <BeginStoryboard>
-                                        <Storyboard>
-                                            <DoubleAnimation Storyboard.TargetName=
-                        "AnimationSizeBorder"
-                        Storyboard.TargetProperty="(Border.Width)"
-                        From="0" Duration="0:0:3"/>
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </Trigger.ExitActions>-->
                                 <Setter TargetName="AnimationSizeBorder" Property="Width" Value="0" />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+            
+    
+
         </Style>
+
+        <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="#0d98ba"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="Black" BorderThickness="1" CornerRadius="5">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Opacity" Value="0.8" />
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="False">
+                    <Setter Property="Opacity" Value="1" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="MessageBlockStyle" TargetType="{x:Type Border}">
+            <Setter Property="BorderBrush" Value="RosyBrown"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Background" Value="#FFFF99"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="Margin" Value="10"/>
+        </Style>
+
+        <Style x:Key="ListBoxStyle" TargetType="{x:Type ListBox}">
+            <Style.Resources>
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent" />
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black" />
+                <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="Transparent" />
+                <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="Transparent" />
+            </Style.Resources>
+
+        </Style>
+
+        
+
+        <Style x:Key="conversationListBoxStyle" TargetType="{x:Type ListBox}" BasedOn="{StaticResource ListBoxStyle}">
+            <Setter Property="Background" Value="Transparent"/>
+            <Style.Triggers>
+                <DataTrigger 
+            Binding="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=Items.Count}" 
+            Value="0"
+            >
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate>
+                                <TextBlock TextWrapping="Wrap"  Foreground="{StaticResource userMesageColor}" FontSize="20" Text="You have no conversations at the moment :("></TextBlock>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="_ListBoxItemStyle" TargetType="ListBoxItem">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border Name="_Border"
+                                Padding="0"
+                                SnapsToDevicePixels="true">
+
+                            <ContentPresenter />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="true">
+                                <Setter TargetName="_Border" Property="Background" Value="Transparent"/>
+                                <Setter Property="Foreground" Value="Black"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Margin" Value="5 12 5 0"/>
+        </Style>
+
+        <Style x:Key="borderColorAnimation" TargetType="{x:Type Border}">
+            <Setter Property="BorderBrush" Value="#2372DF"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="Background" Value="#80B3F9"/>
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="Border.MouseEnter">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="#2372DF" Duration="0:0:0.3" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="Border.MouseLeave">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="#8EB9F1" Duration="0:0:1" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+            </Style.Triggers>
+        </Style>
+
+
+
 
     </Window.Resources>
     <Grid Background="{StaticResource BackgroundColor}">
@@ -228,23 +352,23 @@
         </Grid.RowDefinitions>
 
 
-        <Border Grid.Row="0" Style="{StaticResource BorderBlockStyle}">
+        <Border Grid.Row="0" Style="{StaticResource contentBlockStyle}">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Label Content="Messages" Style="{StaticResource LabelStyle}"/>
             </StackPanel>
         </Border>
 
-        <Border Grid.Row="1">
+        <Border Grid.Row="1" Style="{StaticResource backgroundBlockStyle}">
             <!--Separate  Filter and Conversaonist info-->
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition  Width="198*"></ColumnDefinition>
-                    <ColumnDefinition  Width="337*"></ColumnDefinition>
-                    <ColumnDefinition Width="257*"/>
+                    <ColumnDefinition  Width="300"></ColumnDefinition>
+                    <ColumnDefinition  Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
 
-                <Border  Grid.Column="0" x:Name="filterColumn" Style="{StaticResource BorderBlockStyle}">
+                <Border  Grid.Column="0" x:Name="filterColumn" Style="{StaticResource contentBlockStyle}">
                     <!--<StackPanel Orientation="Vertical">-->
                     <Grid>
                         <Grid.RowDefinitions>
@@ -267,12 +391,6 @@
                             <Label Grid.Column="0" Content="Filter" Style="{StaticResource SubtitleLabelStyle}"/>
                             <ToggleButton  Style="{StaticResource SwitchTypeToggleButton}" Grid.Column="2" />
 
-                            <!--<CheckBox Grid.Column="2">
-                                <Label Content="On/Off" FontSize="14"/>
-                                -->
-                            <!-- TODO: Make it look like button -->
-                            <!--
-                            </CheckBox>-->
                         </Grid>
 
 
@@ -297,15 +415,15 @@
                             </Grid.RowDefinitions>
 
 
-                            <Label Grid.Row = "0" Grid.Column="0" Content="Name: " FontWeight="Bold"/>
+                            <Label Grid.Row = "0" Grid.Column="0" Content="Name: " FontWeight="Bold" Style="{StaticResource normalLabel}"/>
                             <TextBox Grid.Row = "0" Grid.Column="1" Width="150" Margin="10 0" HorizontalAlignment="Left"></TextBox>
-                            <CheckBox Grid.Row="0" Grid.Column="2" HorizontalAlignment="Left" Margin="10 0">
-                                <Label Content="Only recent" FontWeight="Bold"></Label>
+                            <CheckBox Grid.Row="0" Grid.Column="2" HorizontalAlignment="Left" Margin="10 0" >
+                                <Label Content="Only recent"  Style="{StaticResource normalLabel}"></Label>
                             </CheckBox>
 
                             <Separator Grid.Row="1" Grid.Column="0" Margin="0 5" Background="{x:Null}"></Separator>
 
-                            <Label Grid.Row="2" Grid.Column="0" Content="Date: " FontWeight="Bold"/>
+                            <Label Grid.Row="2" Grid.Column="0" Content="Date: " FontWeight="Bold" Style="{StaticResource normalLabel}"/>
                             <DatePicker Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" Margin="10 0"></DatePicker>
                             <DatePicker Grid.Row="2" Grid.Column="2" HorizontalAlignment="Left" Margin="10 0"></DatePicker>
 
@@ -313,53 +431,41 @@
 
                         <Separator Grid.Row="3" Background="Silver"/>
 
-                        <ScrollViewer Grid.Row="4" CanContentScroll="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-                            <StackPanel Orientation="Vertical">
-                                <!--<Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*"></RowDefinition>
-                                    <RowDefinition Height="*"></RowDefinition>
-                                    <RowDefinition Height="*"></RowDefinition>
-                                </Grid.RowDefinitions>-->
-                                <Border Style="{StaticResource BorderBlockStyle}">
-                                    <!--Message one-->
-                                    <StackPanel Orientation="Vertical">
-                                        <Label Content="Pera Peric" FontWeight="Bold"></Label>
+                        <ListBox Grid.Row="4" Width="{Binding RelativeSource={RelativeSource FindAncestor, 
+    AncestorType={x:Type Border}},Path=Width}"  Style="{StaticResource conversationListBoxStyle}"  VerticalAlignment="Top" ItemsSource="{Binding}" x:Name="distinctConvListBox" BorderThickness="0" ItemContainerStyle="{DynamicResource _ListBoxItemStyle}">
+                            <ListBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Vertical"/>
+                                </ItemsPanelTemplate>
+                            </ListBox.ItemsPanel>
 
-                                        <Label Content="Part of message #1"/>
-                                    </StackPanel>
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Height="75" Style="{StaticResource borderColorAnimation}">
+                                        <StackPanel Orientation="Vertical">
 
-                                </Border>
-
-                                <Border Style="{StaticResource BorderBlockStyle}">
-                                    <!--Message one-->
-                                    <StackPanel Orientation="Vertical">
-                                        <Label Content="Pera Peric" FontWeight="Bold"></Label>
-
-                                        <Label Content="Part of message #1"/>
-                                    </StackPanel>
-
-                                </Border>
-
-                                <Border  Style="{StaticResource BorderBlockStyle}">
-                                    <!--Message one-->
-                                    <StackPanel Orientation="Vertical">
-                                        <Label Content="Pera Peric" FontWeight="Bold"></Label>
-
-                                        <Label Content="Part of message #1"/>
-                                    </StackPanel>
-
-                                </Border>
-                            </StackPanel>
-                            <!--</Grid>-->
-                        </ScrollViewer>
-                        <!--</StackPanel>-->
+                                            <!--Message one-->
+                                            <StackPanel Orientation="Vertical">
+                                                <TextBlock Style="{StaticResource conversationistName}">
+                                                    <TextBlock.Text>
+                                                        <MultiBinding StringFormat="{}{0} {1}">
+                                                            <Binding Path="Name"/>
+                                                            <Binding Path="Surname"/>
+                                                        </MultiBinding>
+                                                    </TextBlock.Text>
+                                                </TextBlock>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
                     </Grid>
                 </Border>
 
 
 
-                <Border x:Name="ConversationistColumn"  Grid.Column="1" Style="{StaticResource BorderBlockStyle}" Grid.ColumnSpan="2">
+                <Border x:Name="ConversationistColumn"  Grid.Column="1" Style="{StaticResource contentBlockStyle}" Grid.ColumnSpan="2">
                     <!--<StackPanel>-->
                     <Grid>
                         <Grid.RowDefinitions>
@@ -386,7 +492,7 @@
                                 </Grid.ColumnDefinitions>
 
                                 <Label Grid.Column = "0" Content="Nikola Dragic" Style="{StaticResource SubtitleLabelStyle}"/>
-                                <Button Grid.Column="2" Content="Report" Margin="3 3"></Button>
+                                <Button Grid.Column="2" Content="Report" Margin="3 3" Style="{StaticResource ButtonStyle}"></Button>
                             </Grid>
 
                             <!--Traits-->
@@ -409,18 +515,18 @@
 
                                     <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Vertical">
                                         <StackPanel Orientation="Horizontal">
-                                            <Label Content="Location: " FontWeight="Bold"></Label>
+                                            <Label Content="Location: " FontWeight="Bold" Style="{StaticResource normalLabel}"></Label>
                                             <Label Content="Novi Sad, Serbia"></Label>
                                         </StackPanel>
 
                                         <StackPanel Orientation="Horizontal">
-                                            <Label Content="Language(s): " FontWeight="Bold"></Label>
+                                            <Label Content="Language(s): " FontWeight="Bold" Style="{StaticResource normalLabel}"></Label>
                                             <Label Content="English, Serbian"></Label>
                                         </StackPanel>
                                     </StackPanel>
 
 
-                                    <Button Content="View profile" Grid.Column="2" Margin="5"/>
+                                    <Button Content="View profile" Grid.Column="2" Margin="5" Style="{StaticResource ButtonStyle}"/>
                                 </Grid>
                             </Grid>
 
@@ -431,48 +537,8 @@
                         <Border Grid.Row="2">
                             <!-- Choosen conversation -->
                             <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"></ColumnDefinition>
-                                        <!--Your messages-->
-                                        <ColumnDefinition Width="*"></ColumnDefinition>
-                                        <!--Other person messages-->
-                                    </Grid.ColumnDefinitions>
-
-                                    <Grid.RowDefinitions>
-                                        <!--Rows will be defined here as an example.-->
-                                        <!--In the solution, they will be generated from C# code.-->
-                                        <RowDefinition Height="auto"></RowDefinition>
-                                        <RowDefinition Height="auto"></RowDefinition>
-                                        <RowDefinition Height="auto"></RowDefinition>
-                                        <RowDefinition Height="auto"></RowDefinition>
-                                        <RowDefinition Height="auto"></RowDefinition>
-                                        <RowDefinition Height="auto"></RowDefinition>
-                                    </Grid.RowDefinitions>
-
-
-                                    <Border Grid.Row="0" Grid.Column="0" Style="{StaticResource myMessageBorder}">
-                                        <TextBlock Padding="2" TextWrapping="Wrap">
-                                                Postovani doktore, kako ssadsdadasdsadsadasdsadsadasadsadadsate?
-                                                kako ssadsdadasdsadsadasdsadsadasadsadadsate?
-                                                kako ssadsdadasdsadsadasdsadsadasadsadadsate?
-                                        </TextBlock>
-                                    </Border>
-
-                                    <Border Grid.Row="1" Grid.Column="1" Style="{StaticResource otherPersonMessageBorder}">
-                                        <TextBlock Padding="2" TextWrapping="Wrap">
-                                                Postovani Veljko,
-                                                Drago nam je sto si se javio. Kako ti mozemo pomoci?
-                                        </TextBlock>
-                                    </Border>
-
-                                    <Border Grid.Row="2" Grid.Column="0" Style="{StaticResource myMessageBorder}">
-                                        <TextBlock Padding="2" TextWrapping="Wrap">
-                                                Kada imate slobodan termin?
-                                        </TextBlock>
-                                    </Border>
-
-                                </Grid>
+                                <!--TODO: PAGES-->
+                                <Frame Source="ConversationContent.xaml"/>
                             </ScrollViewer>
                         </Border>
 
@@ -489,7 +555,7 @@
                                     </TextBox>
                                 </ScrollViewer>
 
-                                <Button Grid.Row="0" Grid.Column="1">
+                                <Button Grid.Row="0" Grid.Column="1" Style="{StaticResource ButtonStyle}">
                                     Submit
                                     <!--TODO: ADD SUBMIT IMAGE-->
                                 </Button>
