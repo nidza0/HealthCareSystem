@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -17,17 +16,48 @@ using System.Windows.Shapes;
 namespace SIMS.View.ViewManager
 {
     /// <summary>
-    /// Interaction logic for ManagerMainPage.xaml
+    /// Interaction logic for ShiftsOverviewPage.xaml
     /// </summary>
-    public partial class ManagerMainPage : Page
+    public partial class ShiftsOverviewPage : Page
     {
-        public ManagerMainPage()
+        public ShiftsOverviewPage()
         {
             InitializeComponent();
 
-            WebBrowser.Navigate("https://mobile.twitter.com/WHO");
-            dynamic activeX = this.WebBrowser.GetType().InvokeMember("ActiveXInstance", BindingFlags.GetProperty | BindingFlags.Instance | BindingFlags.NonPublic, null, this.WebBrowser, new object[] { });
-            activeX.Silent = true;
+            PresentPanel.Visibility = Visibility.Visible;
+            AbsentPanel.Visibility = Visibility.Hidden;
+        }
+
+        private void PresentDataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+
+        }
+
+        private void PresentDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void AbsentDataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+
+        }
+
+        private void AbsentDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void presentButton_Click(object sender, RoutedEventArgs e)
+        {
+            PresentPanel.Visibility = Visibility.Visible;
+            AbsentPanel.Visibility = Visibility.Hidden;
+        }
+
+        private void absentButton_Click(object sender, RoutedEventArgs e)
+        {
+            AbsentPanel.Visibility = Visibility.Visible;
+            PresentPanel.Visibility = Visibility.Hidden;
         }
 
         //Menu buttons
@@ -59,6 +89,20 @@ namespace SIMS.View.ViewManager
         private void MenuDodavanje_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new Uri("../View/ViewManager/DoctorAddingPage.xaml", UriKind.Relative));
+        }
+        //END REGION
+
+        // Home Button
+        private void homeButton_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("../View/ViewManager/ManagerMainPage.xaml", UriKind.Relative));
+        }
+        //END REGION
+        //Back button
+        private void backButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (NavigationService.CanGoBack)
+                NavigationService.GoBack();
         }
         //END REGION
     }

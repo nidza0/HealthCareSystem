@@ -28,7 +28,7 @@ namespace SIMS.View.ViewManager
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             //TODO: Verifikacija
-            NavigationService.Navigate(new Uri("/View/ViewManager/ManagerMainPage.xaml"));
+            NavigationService.Navigate(new Uri("../View/ViewManager/ManagerMainPage.xaml", UriKind.Relative));
         }
     }
 }

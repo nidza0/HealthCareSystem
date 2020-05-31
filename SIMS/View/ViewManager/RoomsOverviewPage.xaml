@@ -1,4 +1,4 @@
-﻿<Page x:Class="SIMS.View.ViewManager.ManagerMainPage"
+﻿<Page x:Class="SIMS.View.ViewManager.RoomsOverviewPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,27 +6,34 @@
       xmlns:local="clr-namespace:SIMS.View.ViewManager"
       mc:Ignorable="d" 
       d:DesignHeight="950" d:DesignWidth="550"
-      Title="ManagerMainPage">
+      Title="RoomsOverviewPage"
+      FontSize="22">
 
     <Grid>
         <!--Images-->
         <Grid.Background>
             <ImageBrush ImageSource="/View/ImagesManager/background.png" TileMode="FlipX" Stretch="UniformToFill"/>
         </Grid.Background>
-        <Image HorizontalAlignment="Left" Height="171" VerticalAlignment="Top" Width="335" Margin="215,110,0,0" Stretch="Fill" Source="C:\Users\vule\Desktop\hci\v3 WPF\manager_wpf\wpf_manager\wpf_manager\Zdravo2.png" RenderTransformOrigin="0.5,0.5"/>
-        <Border BorderThickness="3"
-                BorderBrush="#ec1c70" RenderTransformOrigin="0.5,0.5" Margin="10,110,0,0" HorizontalAlignment="Left" Width="195" Height="213" VerticalAlignment="Top">
+        <!--#endregion-->
 
-            <Image HorizontalAlignment="Center" Margin="0,0,0,0" Stretch="UniformToFill" Height="206" VerticalAlignment="Center" Width="206"  Source="C:\Users\vule\Desktop\hci\v3 WPF\manager_wpf\wpf_manager\wpf_manager\images\mImage.jpg"/>
-        </Border>
-        
+        <!--Datagrid-->
+        <DockPanel x:Name="RoomsPanel" HorizontalAlignment="Left" Height="650" Margin="0,180,0,0" VerticalAlignment="Top" Width="550" Background="White">
+            <Border BorderBrush="#ec1c70" BorderThickness="3" >
+                <DataGrid x:Name="RoomsDataGrid" FontWeight="Bold" AutoGenerateColumns="True" IsReadOnly="True"  AutoGeneratingColumn="RoomsDataGrid_AutoGeneratingColumn" SelectionMode="Single" MaxHeight="650" ScrollViewer.VerticalScrollBarVisibility="Auto" MouseDoubleClick="RoomsDataGrid_MouseDoubleClick" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Background="White" Foreground="Black" Height="650" VerticalAlignment="Top"/>
+            </Border>
+        </DockPanel>
         <!--#endregion-->
 
         <!--Labels-->
-        <Label x:Name="NameLabel" FontSize="25" FontWeight="Bold" HorizontalAlignment="Left" Margin="10,328,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.029,-0.244" Width="357" Height="35"/>
-
+        <Label Content="Sobe" FontSize="30" FontWeight="Bold" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="190,25,190,0" VerticalAlignment="Top" Width="171" Height="70"/>
+        <Label Content="Lista soba:" FontSize="30" FontWeight="Bold" HorizontalAlignment="Left" Margin="0,131,0,0" VerticalAlignment="Top" Width="228" Height="49"/>
         <!--#endregion-->
 
+        <!--Buttons-->
+        <Button x:Name="homeButton" Click="homeButton_Click" Foreground="Black" FontSize="30" FontWeight="Bold" Background="Transparent" BorderThickness="4" BorderBrush="#ec1c70" Margin="0,25,10,0" VerticalAlignment="Top" Height="70" Content="Početna" HorizontalAlignment="Right" Width="140"/>
+        <Button x:Name="backButton" Click="backButton_Click" Foreground="Black" FontSize="30" FontWeight="Bold" Background="Transparent" BorderThickness="4" BorderBrush="#ec1c70" Margin="0,0,10,20" Content="Nazad" HorizontalAlignment="Right" Width="140" Height="70" VerticalAlignment="Bottom"/>
+        <!--#endregion-->
+        
         <!--Menu-->
         <Popup x:Name="MenuPopup" Placement="RelativePoint"  StaysOpen="False"  >
             <StackPanel Background="#232829" HorizontalAlignment="Left" Height="950" VerticalAlignment="Top" Width="400">
@@ -64,7 +71,7 @@
             </StackPanel>
         </Popup>
 
-        <Button Style="{x:Null}" x:Name="MenuButton" Foreground="Black" FontSize="22" FontWeight="Bold" Background="Transparent" BorderThickness="4" BorderBrush="#ec1c70" Margin="15,25,0,0" HorizontalAlignment="Left" Width="140" VerticalAlignment="Top" Height="70">
+        <Button Style="{x:Null}" x:Name="MenuButton" Foreground="Black" FontSize="30" FontWeight="Bold" Background="Transparent" BorderThickness="4" BorderBrush="#ec1c70" Margin="15,25,0,0" HorizontalAlignment="Left" Width="140" VerticalAlignment="Top" Height="70">
             Menu
             <Button.Triggers>
                 <EventTrigger RoutedEvent="Button.Click">
@@ -82,11 +89,7 @@
                 </EventTrigger>
             </Button.Triggers>
         </Button>
-        
-        <!--#endregion-->
-        
-        <!--Webbrowser-->
-        <WebBrowser Name="WebBrowser" Margin="0,375,0,0"/>
+
         <!--#endregion-->
     </Grid>
 </Page>

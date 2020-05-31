@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -17,17 +16,23 @@ using System.Windows.Shapes;
 namespace SIMS.View.ViewManager
 {
     /// <summary>
-    /// Interaction logic for ManagerMainPage.xaml
+    /// Interaction logic for InventoryOverviewPage.xaml
     /// </summary>
-    public partial class ManagerMainPage : Page
+    public partial class InventoryOverviewPage : Page
     {
-        public ManagerMainPage()
+        public InventoryOverviewPage()
         {
             InitializeComponent();
+        }
 
-            WebBrowser.Navigate("https://mobile.twitter.com/WHO");
-            dynamic activeX = this.WebBrowser.GetType().InvokeMember("ActiveXInstance", BindingFlags.GetProperty | BindingFlags.Instance | BindingFlags.NonPublic, null, this.WebBrowser, new object[] { });
-            activeX.Silent = true;
+        private void InventoryDataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+
+        }
+
+        private void InventoryDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+
         }
 
         //Menu buttons
@@ -59,6 +64,20 @@ namespace SIMS.View.ViewManager
         private void MenuDodavanje_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new Uri("../View/ViewManager/DoctorAddingPage.xaml", UriKind.Relative));
+        }
+        //END REGION
+
+        // Home Button
+        private void homeButton_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("../View/ViewManager/ManagerMainPage.xaml", UriKind.Relative));
+        }
+        //END REGION
+        //Back button
+        private void backButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (NavigationService.CanGoBack)
+                NavigationService.GoBack();
         }
         //END REGION
     }

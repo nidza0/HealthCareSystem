@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -17,17 +16,13 @@ using System.Windows.Shapes;
 namespace SIMS.View.ViewManager
 {
     /// <summary>
-    /// Interaction logic for ManagerMainPage.xaml
+    /// Interaction logic for MedicineDetailPage.xaml
     /// </summary>
-    public partial class ManagerMainPage : Page
+    public partial class MedicineDetailPage : Page
     {
-        public ManagerMainPage()
+        public MedicineDetailPage()
         {
             InitializeComponent();
-
-            WebBrowser.Navigate("https://mobile.twitter.com/WHO");
-            dynamic activeX = this.WebBrowser.GetType().InvokeMember("ActiveXInstance", BindingFlags.GetProperty | BindingFlags.Instance | BindingFlags.NonPublic, null, this.WebBrowser, new object[] { });
-            activeX.Silent = true;
         }
 
         //Menu buttons
@@ -38,7 +33,7 @@ namespace SIMS.View.ViewManager
 
         private void MenuLekari_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Uri("../View/ViewManager/DoctorsOverviewPage.xaml", UriKind.Relative));
+            NavigationService.Navigate(new Uri("../View/ViewManager/DoctorOverviewPage.xaml", UriKind.Relative));
         }
 
         private void MenuInventar_Click(object sender, RoutedEventArgs e)
@@ -59,6 +54,20 @@ namespace SIMS.View.ViewManager
         private void MenuDodavanje_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new Uri("../View/ViewManager/DoctorAddingPage.xaml", UriKind.Relative));
+        }
+        //END REGION
+
+        // Home Button
+        private void homeButton_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("../View/ViewManager/ManagerMainPage.xaml", UriKind.Relative));
+        }
+        //END REGION
+        //Back button
+        private void backButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (NavigationService.CanGoBack)
+                NavigationService.GoBack();
         }
         //END REGION
     }
