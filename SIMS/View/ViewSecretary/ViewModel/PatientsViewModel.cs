@@ -2,49 +2,83 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
-namespace SIMS.View.ViewSecretary.Pages
+namespace SIMS.View.ViewSecretary.ViewModel
 {
-    /// <summary>
-    /// Interaction logic for PatientsPageSecretary.xaml
-    /// </summary
-    public partial class PatientsPageSecretary : Page
+    class PatientsViewModel
     {
+        private ICollectionView patientsCollection;
         private ObservableCollection<Patient> patients = new ObservableCollection<Patient>();
+        private string filterString;
 
-        public ObservableCollection<Patient> Patients { get => patients; set => patients = value; }
-
-        public PatientsPageSecretary()
+        public PatientsViewModel()
         {
-            InitializeComponent();
-            this.DataContext = this;
             loadPatients();
-            checkPatients();
+            PatientsCollection = CollectionViewSource.GetDefaultView(Patients);
+            PatientsCollection.Filter = new Predicate<object>(Filter);
         }
 
-        private void checkPatients()
+        public ICollectionView PatientsCollection
         {
-            if(Patients.Count == 0)
+            get => patientsCollection;
+            set
             {
-                errNoPatients.Visibility = Visibility.Visible;
+                patientsCollection = value; NotifyPropertyChanged("PatientsCollection");
             }
         }
+        public ObservableCollection<Patient> Patients { get => patients; set => patients = value; }
+
+        public string FilterString
+        {
+            get { return filterString; }
+            set
+            {
+                filterString = value;
+                NotifyPropertyChanged("FilterString");
+                FilterCollection();
+            }
+        }
+
+        private void FilterCollection()
+        {
+            if (patientsCollection != null)
+            {
+                patientsCollection.Refresh();
+            }
+        }
+
+        public bool Filter(object obj)
+        {
+            var data = obj as Patient;
+            if (data != null)
+            {
+                if (!string.IsNullOrEmpty(filterString))
+                {
+                    //TODO: filter logic
+                    return data.FullName.ToLower().Contains(filterString.ToLower()) || data.Uidn.Contains(filterString);
+                }
+                return true;
+            }
+            return false;
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void NotifyPropertyChanged(string property)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
+        }
+
         private void loadPatients()
         {
-            //TODO: PatientController > Get All Patients
-            patients.Add(new Patient(new UserID("p1"),
+            //TODO: PatientController > Get All Patients with Selected Doctor
+
+            Patients.Add(new Patient(new UserID("p1"),
                                         "peraaa13",
                                         "",
                                         DateTime.Now,
@@ -63,7 +97,7 @@ namespace SIMS.View.ViewSecretary.Pages
                                         PatientType.GENERAL,
                                         null));
 
-            patients.Add(new Patient(new UserID("p3"),
+            Patients.Add(new Patient(new UserID("p3"),
                                         "milica92",
                                         "",
                                         DateTime.Now,
@@ -82,7 +116,7 @@ namespace SIMS.View.ViewSecretary.Pages
                                         PatientType.GENERAL,
                                         null));
 
-            patients.Add(new Patient(new UserID("p1"),
+            Patients.Add(new Patient(new UserID("p1"),
                                         "alien65",
                                         "",
                                         DateTime.Now,
@@ -99,20 +133,13 @@ namespace SIMS.View.ViewSecretary.Pages
                                         "",
                                         new EmergencyContact("Elon", "Musk", "elon@musk.com", "75315454545"),
                                         PatientType.GENERAL,
-                                        null));
+                                        GetDummyDoctor()));
         }
 
-        private void dataGridPatients_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private Doctor GetDummyDoctor()
         {
-            //TODO: open patient details page
-            Patient selectedPatient = (Patient)dataGridPatients.SelectedItem;
-            FrameManager.getInstance().SideFrame.Navigate(new PatientDetailsPageSecretary(selectedPatient));
-        }
-
-        private void dataGridPatients_LoadingRow(object sender, DataGridRowEventArgs e)
-        {
-            // Add row number
-            e.Row.Header = (e.Row.GetIndex() + 1).ToString();
+            return new Doctor(new UserID("d678"),
+                                null, null, DateTime.Now, "Stephen", "Strange", "Doctor", Sex.MALE, DateTime.Now, null, null, null, null, null, null, null, null, null, Model.DoctorModel.DocTypeEnum.SURGEON);
         }
     }
 }

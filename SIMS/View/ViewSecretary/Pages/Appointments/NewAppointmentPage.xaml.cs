@@ -13,16 +13,20 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SIMS.View.ViewSecretary.Pages
+namespace SIMS.View.ViewSecretary.Pages.Appointments
 {
-    /// <summary>
-    /// Interaction logic for AppointmentsPageSecretary.xaml
-    /// </summary>
-    public partial class AppointmentsPageSecretary : Page
+
+    public partial class NewAppointmentPage : Page
     {
-        public AppointmentsPageSecretary()
+        public NewAppointmentPage()
         {
             InitializeComponent();
+        }
+
+        private void btnClose_Click(object sender, RoutedEventArgs e)
+        {
+            if (FrameManager.getInstance().SideFrame.CanGoBack)
+                FrameManager.getInstance().SideFrame.GoBack();
         }
     }
 }

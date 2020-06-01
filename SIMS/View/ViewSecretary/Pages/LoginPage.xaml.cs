@@ -15,12 +15,10 @@ using System.Windows.Shapes;
 
 namespace SIMS.View.ViewSecretary.Pages
 {
-    /// <summary>
-    /// Interaction logic for LoginPageSecretary.xaml
-    /// </summary>
-    public partial class LoginPageSecretary : Page
+
+    public partial class LoginPage : Page
     {
-        public LoginPageSecretary()
+        public LoginPage()
         {
             InitializeComponent();
         }
@@ -45,7 +43,7 @@ namespace SIMS.View.ViewSecretary.Pages
             // Change the page of the frame.
             if (pageFrame != null)
             {
-                pageFrame.Navigate(new MainWindowPageSecretary());
+                pageFrame.Navigate(new MainWindowPage());
             }
         }
     }

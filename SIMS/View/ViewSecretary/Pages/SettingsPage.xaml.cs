@@ -18,11 +18,28 @@ namespace SIMS.View.ViewSecretary.Pages
     /// <summary>
     /// Interaction logic for SettingsPageSecretary.xaml
     /// </summary>
-    public partial class SettingsPageSecretary : Page
+    public partial class SettingsPage : Page
     {
-        public SettingsPageSecretary()
+        public SettingsPage()
         {
             InitializeComponent();
+            InitializeButtons();
+        }
+
+        private void InitializeButtons()
+        {
+            if(Application.Current.Resources["UiPrimaryColor"] == Brushes.RoyalBlue)
+            {
+                radioBlue.IsChecked = true;
+            }
+            else if (Application.Current.Resources["UiPrimaryColor"] == Brushes.SeaGreen)
+            {
+                radioGreen.IsChecked = true;
+            }
+            else if(Application.Current.Resources["UiPrimaryColor"] == Brushes.Brown)
+            {
+                radioRed.IsChecked = true;
+            }
         }
 
         private void color_Checked(object sender, RoutedEventArgs e)

@@ -13,21 +13,22 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SIMS.View.ViewSecretary.Pages
+namespace SIMS.View.ViewSecretary.Pages.Patients
 {
     /// <summary>
     /// Interaction logic for NewPatientPageSecretary.xaml
     /// </summary>
-    public partial class NewPatientPageSecretary : Page
+    public partial class NewPatientPage : Page
     {
-        public NewPatientPageSecretary()
+        public NewPatientPage()
         {
             InitializeComponent();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            CentralFrameNavigator.getInstance().goBack();
+            if (FrameManager.getInstance().CentralFrame.CanGoBack)
+                FrameManager.getInstance().CentralFrame.GoBack();
         }
     }
 }

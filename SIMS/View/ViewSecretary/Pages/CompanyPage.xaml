@@ -1,27 +1,18 @@
-﻿<Page x:Class="SIMS.View.ViewSecretary.Pages.LoginPageSecretary"
+﻿<Page x:Class="SIMS.View.ViewSecretary.Pages.CompanyPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SIMS.View.ViewSecretary.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="800" d:DesignWidth="1500"
-      Title="LoginPageSecretary">
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="CompanyPage">
 
-
-    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="30">
+    <StackPanel VerticalAlignment="Center">
         <Image Source="/SIMS;component/View/ViewSecretary/Resources/Images/healthcare.jpg" Height="150"></Image>
         <StackPanel>
             <Label x:Name="CompanyName" Content="{StaticResource CompanyName}" Padding="0" FontSize="50" HorizontalAlignment="Center" Foreground="RoyalBlue"></Label>
             <Label x:Name="CompanyType" Content="{StaticResource CompanyType}" Padding="0" FontSize="15" HorizontalAlignment="Center" Foreground="RoyalBlue"></Label>
         </StackPanel>
-
-        <StackPanel Width="200" Margin="20">
-            <Label x:Name="lblUsername" Content="{StaticResource lblUsername}"></Label>
-            <TextBox x:Name="txtUsername"></TextBox>
-            <Label x:Name="lblPassword" Content="{StaticResource lblPassword}"></Label>
-            <PasswordBox x:Name="txtPassword"></PasswordBox>
-        </StackPanel>
-        <Button x:Name="btnLogin" Content="{StaticResource Login}" Width="80" Click="btnLogin_Click"></Button>
     </StackPanel>
 </Page>

@@ -2,14 +2,14 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:SIMS.View.ViewSecretary.Resources">
     <Style TargetType="Button" x:Key="StyleOrdinaryButton">
-        <Setter Property="Background" Value="{StaticResource UiSecondaryColor}"></Setter>
-        <Setter Property="Padding" Value="5"></Setter>
+        <Setter Property="Background" Value="{DynamicResource UiSecondaryColor}"></Setter>
+        <Setter Property="Padding" Value="6"></Setter>
     </Style>
 
     <Style TargetType="Button" x:Key="StyleOKButton">
         <Setter Property="Background" Value="{DynamicResource UiPrimaryColor}"></Setter>
         <Setter Property="Foreground" Value="{DynamicResource FontLightColor}"></Setter>
-        <Setter Property="Padding" Value="5"></Setter>
+        <Setter Property="Padding" Value="6"></Setter>
     </Style>
 
     <Style x:Key="InfoHeader" TargetType="Label">
@@ -27,9 +27,18 @@
         <Setter Property="BorderBrush" Value="Transparent"></Setter>
     </Style>
 
+    <Style x:Key="LabelInfo" TargetType="Label">
+        <Setter Property="Foreground" Value="#ababab"></Setter>
+    </Style>
+
     <ControlTemplate x:Key="SidebarButtons" TargetType="RadioButton">
-        <Border x:Name="Border">
+        <Border x:Name="brdr">
             <ContentPresenter></ContentPresenter>
         </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter TargetName="brdr" Property="Background" Value="#ff0000"></Setter>
+            </Trigger>
+        </ControlTemplate.Triggers>
     </ControlTemplate>
 </ResourceDictionary>

@@ -15,12 +15,10 @@ using System.Windows.Shapes;
 
 namespace SIMS.View.ViewSecretary.Pages
 {
-    /// <summary>
-    /// Interaction logic for ProfilePageSecretary.xaml
-    /// </summary>
-    public partial class ProfilePageSecretary : Page
+
+    public partial class HomePage : Page
     {
-        public ProfilePageSecretary()
+        public HomePage()
         {
             InitializeComponent();
         }

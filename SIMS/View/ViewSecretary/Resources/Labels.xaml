@@ -17,9 +17,20 @@
     <sys:String x:Key="Settings">Settings</sys:String>
     <sys:String x:Key="Login">Login</sys:String>
     <sys:String x:Key="PatientDetails">Patient Details</sys:String>
+    <sys:String x:Key="PersonalInfoHeader">Personal Information</sys:String>
+    <sys:String x:Key="ContactInfoHeader">Contact Information</sys:String>
+    <sys:String x:Key="AccountInfoHeader">Account</sys:String>
+    <sys:String x:Key="EmergencyContactInfoHeader">Emergency Contact</sys:String>
+    <sys:String x:Key="SelectedDoctorInfoHeader">Selected Doctor</sys:String>
 
     <sys:String x:Key="errNoPatients">No patients found</sys:String>
+    <sys:String x:Key="errNoSelectedDoctor">No selected doctor found</sys:String>
+    <sys:String x:Key="errNoAppointments">No appointments found</sys:String>
 
+    <!-- DateTime Format -->
+    <sys:String x:Key="TimeFormat">HH:mm</sys:String>
+    <sys:String x:Key="DateFormat">dd.MM.yyyy.</sys:String>
+    
     <!-- New Patient Page -->
     <sys:String x:Key="StandardPatient">Standard</sys:String>
     <sys:String x:Key="GuestPatient">Guest</sys:String>
@@ -39,14 +50,31 @@
     <sys:String x:Key="lblDateOfBirth">Date Of Birth</sys:String>
     <sys:String x:Key="lblCountry">Country</sys:String>
     <sys:String x:Key="lblCity">City</sys:String>
-    <sys:String x:Key="lblTelephone">Home telephone</sys:String>
-    <sys:String x:Key="lblCellPhone">Cellphone</sys:String>
+    <sys:String x:Key="lblTelephone">Home phone</sys:String>
+    <sys:String x:Key="lblCellPhone">Cell phone</sys:String>
+    <sys:String x:Key="lblPhone">Phone</sys:String>
     <sys:String x:Key="lblEmail">Email</sys:String>
+    <sys:String x:Key="lblEmail1">Primary Email</sys:String>
+    <sys:String x:Key="lblEmail2">Secondary Email</sys:String>
     <sys:String x:Key="lblAddress">Address</sys:String>
     <sys:String x:Key="lblEmergencyName">Emergency Contact's Name</sys:String>
     <sys:String x:Key="lblEmergencySurname">Emergency Contact's Surname</sys:String>
     <sys:String x:Key="lblEmergencyTelephone">Emergency Contact's Telephone</sys:String>
     <sys:String x:Key="lblEmergencyEmail">Emergency Contact's Email</sys:String>
+    <sys:String x:Key="lblInfo">Info</sys:String>
+    <sys:String x:Key="lblDoctorType">Doctor Type</sys:String>
+
+    <!-- New Appointment Page -->
+    <sys:String x:Key="lblPatient">Patient</sys:String>
+    <sys:String x:Key="lblStartTime">Start Time</sys:String>
+    <sys:String x:Key="lblEndTime">End Time</sys:String>
+    <sys:String x:Key="lblDoctor">Doctor</sys:String>
+    <sys:String x:Key="lblRoom">Room</sys:String>
+    <sys:String x:Key="lblAppointmentType">Type</sys:String>
+
+    <sys:String x:Key="lblSearch">Search</sys:String>
+    <sys:String x:Key="lblDateCreated">Date Created</sys:String>
+    <sys:String x:Key="lblPatientType">Patient Type</sys:String>
 
     <sys:String x:Key="lblAppointmentDateAndTime">Date and time</sys:String>
     <sys:String x:Key="lblAppointmentDoctor">Doctor</sys:String>
@@ -55,4 +83,9 @@
 
     <sys:String x:Key="btnOK">OK</sys:String>
     <sys:String x:Key="btnCancel">Cancel</sys:String>
+    
+    <sys:String x:Key="btnEdit">Edit</sys:String>
+    <sys:String x:Key="btnMessage">Message</sys:String>
+    <sys:String x:Key="btnYesterday">Yesterday</sys:String>
+    <sys:String x:Key="btnTomorrow">Tomorrow</sys:String>
 </ResourceDictionary>

@@ -1,5 +1,4 @@
-﻿using SIMS.View.ViewSecretary.Pages;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,19 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SIMS.View.ViewSecretary
+namespace SIMS.View.ViewSecretary.Pages
 {
-    /// <summary>
-    /// Interaction logic for MainSecretary.xaml
-    /// </summary>
-    public partial class MainSecretary : Window
+
+    public partial class CompanyPage : Page
     {
-        public MainSecretary()
+        public CompanyPage()
         {
             InitializeComponent();
-            MainFrame.Navigate(new LoginPage());
         }
     }
 }

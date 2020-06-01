@@ -181,41 +181,52 @@
     <Compile Include="Util\MedicineFilter.cs" />
     <Compile Include="Util\TherapyFilter.cs" />
     <Compile Include="Util\TimeInterval.cs" />
-    <Compile Include="View\ViewSecretary\CentralFrameNavigator.cs" />
+    <Compile Include="View\ViewSecretary\DummyController\DummyDoctorController.cs" />
+    <Compile Include="View\ViewSecretary\DummyController\DummyPatientController.cs" />
     <Compile Include="View\ViewSecretary\FrameManager.cs" />
     <Compile Include="View\ViewSecretary\MainSecretary.xaml.cs">
       <DependentUpon>MainSecretary.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\ViewSecretary\Pages\AppointmentsPageSecretary.xaml.cs">
-      <DependentUpon>AppointmentsPageSecretary.xaml</DependentUpon>
+    <Compile Include="View\ViewSecretary\Pages\Appointments\AppointmentsPage.xaml.cs">
+      <DependentUpon>AppointmentsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\ViewSecretary\Pages\HomePageSecretary.xaml.cs">
-      <DependentUpon>HomePageSecretary.xaml</DependentUpon>
+    <Compile Include="View\ViewSecretary\Pages\CompanyPage.xaml.cs">
+      <DependentUpon>CompanyPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\ViewSecretary\Pages\LoginPageSecretary.xaml.cs">
-      <DependentUpon>LoginPageSecretary.xaml</DependentUpon>
+    <Compile Include="View\ViewSecretary\Pages\Doctors\DoctorsPage.xaml.cs">
+      <DependentUpon>DoctorsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\ViewSecretary\Pages\MainWindowPageSecretary.xaml.cs">
-      <DependentUpon>MainWindowPageSecretary.xaml</DependentUpon>
+    <Compile Include="View\ViewSecretary\Pages\HomePage.xaml.cs">
+      <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\ViewSecretary\Pages\NewAppointmentPageSecretary.xaml.cs">
-      <DependentUpon>NewAppointmentPageSecretary.xaml</DependentUpon>
+    <Compile Include="View\ViewSecretary\Pages\LoginPage.xaml.cs">
+      <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\ViewSecretary\Pages\NewPatientPageSecretary.xaml.cs">
-      <DependentUpon>NewPatientPageSecretary.xaml</DependentUpon>
+    <Compile Include="View\ViewSecretary\Pages\MainWindowPage.xaml.cs">
+      <DependentUpon>MainWindowPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\ViewSecretary\Pages\PatientDetailsPageSecretary.xaml.cs">
-      <DependentUpon>PatientDetailsPageSecretary.xaml</DependentUpon>
+    <Compile Include="View\ViewSecretary\Pages\Appointments\NewAppointmentPage.xaml.cs">
+      <DependentUpon>NewAppointmentPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\ViewSecretary\Pages\PatientsPageSecretary.xaml.cs">
-      <DependentUpon>PatientsPageSecretary.xaml</DependentUpon>
+    <Compile Include="View\ViewSecretary\Pages\Patients\NewPatientPage.xaml.cs">
+      <DependentUpon>NewPatientPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\ViewSecretary\Pages\ProfilePageSecretary.xaml.cs">
-      <DependentUpon>ProfilePageSecretary.xaml</DependentUpon>
+    <Compile Include="View\ViewSecretary\Pages\Patients\PatientDetailsPage.xaml.cs">
+      <DependentUpon>PatientDetailsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\ViewSecretary\Pages\SettingsPageSecretary.xaml.cs">
-      <DependentUpon>SettingsPageSecretary.xaml</DependentUpon>
+    <Compile Include="View\ViewSecretary\Pages\Patients\PatientsPage.xaml.cs">
+      <DependentUpon>PatientsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\ViewSecretary\Pages\ProfilePage.xaml.cs">
+      <DependentUpon>ProfilePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewSecretary\Pages\SettingsPage.xaml.cs">
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewSecretary\ViewModel\AppointmentsViewModel.cs" />
+    <Compile Include="View\ViewSecretary\ViewModel\DoctorsViewModel.cs" />
+    <Compile Include="View\ViewSecretary\ViewModel\PatientsViewModel.cs" />
+    <Compile Include="View\ViewSecretary\ViewModel\PatientViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -249,43 +260,51 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\ViewSecretary\Pages\AppointmentsPageSecretary.xaml">
+    <Page Include="View\ViewSecretary\Pages\Appointments\AppointmentsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\ViewSecretary\Pages\HomePageSecretary.xaml">
+    <Page Include="View\ViewSecretary\Pages\CompanyPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\ViewSecretary\Pages\LoginPageSecretary.xaml">
+    <Page Include="View\ViewSecretary\Pages\Doctors\DoctorsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\ViewSecretary\Pages\MainWindowPageSecretary.xaml">
+    <Page Include="View\ViewSecretary\Pages\HomePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\ViewSecretary\Pages\NewAppointmentPageSecretary.xaml">
+    <Page Include="View\ViewSecretary\Pages\LoginPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\ViewSecretary\Pages\NewPatientPageSecretary.xaml">
+    <Page Include="View\ViewSecretary\Pages\MainWindowPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\ViewSecretary\Pages\PatientDetailsPageSecretary.xaml">
+    <Page Include="View\ViewSecretary\Pages\Appointments\NewAppointmentPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\ViewSecretary\Pages\PatientsPageSecretary.xaml">
+    <Page Include="View\ViewSecretary\Pages\Patients\NewPatientPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\ViewSecretary\Pages\ProfilePageSecretary.xaml">
+    <Page Include="View\ViewSecretary\Pages\Patients\PatientDetailsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\ViewSecretary\Pages\SettingsPageSecretary.xaml">
+    <Page Include="View\ViewSecretary\Pages\Patients\PatientsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewSecretary\Pages\ProfilePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewSecretary\Pages\SettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -380,9 +399,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="View\ViewSecretary\ViewModel\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="View\ViewSecretary\Resources\Images\healthcare.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
