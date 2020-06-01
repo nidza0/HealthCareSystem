@@ -28,7 +28,7 @@ namespace SIMS.View.ViewPatient
         private void ResetButton_Click(object sender, RoutedEventArgs e)
         {
             this.username.Text = "";
-            this.password.Text = "";
+            this.password.Password = "";
             confirmButton.IsEnabled = false;
             
         }
@@ -38,7 +38,7 @@ namespace SIMS.View.ViewPatient
         private void ConfirmButton_Click_1(object sender, RoutedEventArgs e)
         {
             String username = this.username.Text;
-            String password = this.password.Text;
+            String password = this.password.Password;
 
             //TODO: Check if username and password valid.
 
@@ -59,7 +59,18 @@ namespace SIMS.View.ViewPatient
                 return;
             }
 
-            if (username.Text != "" && password.Text != "") confirmButton.IsEnabled = true;
+            if (username.Text != "" && password.Password != "") confirmButton.IsEnabled = true;
+        }
+
+        private void Password_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            if (username == null || password == null)
+            {
+                confirmButton.IsEnabled = false;
+                return;
+            }
+
+            if (username.Text != "" && password.Password != "") confirmButton.IsEnabled = true;
         }
     }
 }

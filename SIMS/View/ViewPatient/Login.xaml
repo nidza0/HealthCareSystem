@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SIMS.View.ViewPatient"
         mc:Ignorable="d"
-        Title="Login" Height="450" Width="800">
+        Title="Login" Height="450" Width="800"
+        WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <SolidColorBrush Color="#1c2e4a" x:Key="BackgroundColor"></SolidColorBrush>
         <SolidColorBrush Color="#FFFAFA" x:Key="BorderBlockColor"/>
@@ -119,7 +120,7 @@
                     <Label  Grid.Row="0" Grid.Column="0" Content="Username: " Style="{StaticResource InputLabel}"></Label>
                     <TextBox  TextChanged="validateInput" Grid.Row="0" Grid.Column="1" x:Name="username" Margin="3" Background="AliceBlue"></TextBox>
                     <Label  Grid.Row="1" Grid.Column="0" Content="Password: " Style="{StaticResource InputLabel}"></Label>
-                    <TextBox TextChanged="validateInput" Grid.Row="1" Grid.Column="1" x:Name="password" Margin="3" Background="AliceBlue"></TextBox>
+                    <PasswordBox PasswordChanged="Password_PasswordChanged" Grid.Row="1" Grid.Column="1" x:Name="password" Margin="3" Background="AliceBlue"></PasswordBox>
                     <StackPanel Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right">
                         <Label>
                             <Hyperlink >Forgot your password?</Hyperlink>
