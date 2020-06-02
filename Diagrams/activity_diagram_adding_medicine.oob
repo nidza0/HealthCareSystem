@@ -928,7 +928,7 @@ NameToCode=No</a:ModelOptionsText>
 <a:TargetStereotype/>
 <a:TargetID>6045E729-47C9-4A0D-8B84-AEC47FFD812A</a:TargetID>
 <a:TargetClassID>18112063-1A4B-11D1-83D9-444553540000</a:TargetClassID>
-<a:TargetPackagePath>&lt;Model&gt;::Model::Patient</a:TargetPackagePath>
+<a:TargetPackagePath>&lt;Model&gt;::Model::PatientModel</a:TargetPackagePath>
 </o:Shortcut>
 </c:Classes>
 <c:Flows>
@@ -4209,7 +4209,7 @@ LABL 0 Arial,8,N</a:FontList>
 <a:Creator>vule</a:Creator>
 <a:ModificationDate>1591109476</a:ModificationDate>
 <a:Modifier>vule</a:Modifier>
-<a:TargetModelURL>file:///C|/Users/vule/Desktop/projekat/HealthCareSystem/Diagrams/class_diagram.oom</a:TargetModelURL>
+<a:TargetModelURL>file:///%[PRJ_ROOT_DIR]%/class_diagram.oom</a:TargetModelURL>
 <a:TargetModelID>E7FF7563-98B0-4295-9CB9-C00C843429E6</a:TargetModelID>
 <a:TargetModelClassID>18112060-1A4B-11D1-83D9-444553540000</a:TargetModelClassID>
 <c:SessionShortcuts>
