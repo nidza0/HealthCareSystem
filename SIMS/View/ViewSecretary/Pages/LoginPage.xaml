@@ -22,6 +22,6 @@
             <Label x:Name="lblPassword" Content="{StaticResource lblPassword}"></Label>
             <PasswordBox x:Name="txtPassword"></PasswordBox>
         </StackPanel>
-        <Button x:Name="btnLogin" Content="{StaticResource Login}" Width="80" Style="{StaticResource StyleOKButton}" Click="btnLogin_Click"></Button>
+        <Button x:Name="btnLogin" Content="{StaticResource Login}" Style="{StaticResource StyleOKButton}" HorizontalAlignment="Center" Click="btnLogin_Click"></Button>
     </StackPanel>
 </Page>

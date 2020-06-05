@@ -77,7 +77,7 @@ namespace SIMS.View.ViewSecretary.Pages
 
         private void btn_newappointment_Click(object sender, RoutedEventArgs e)
         {
-            SideFrame.Content = new NewAppointmentPage();
+            SideFrame.Content = new CreateUpdateAppointmentPage();
         }
 
         private void btn_home_Click(object sender, RoutedEventArgs e)

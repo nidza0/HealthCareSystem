@@ -31,6 +31,12 @@
         <Setter Property="Foreground" Value="#ababab"></Setter>
     </Style>
 
+    <Style x:Key="HorizontalSeparatorStyle" TargetType="Separator">
+        <Setter Property="Height" Value="4"></Setter>
+        <Setter Property="Background" Value="#ababab"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
+    </Style>
+
     <ControlTemplate x:Key="SidebarButtons" TargetType="RadioButton">
         <Border x:Name="brdr">
             <ContentPresenter></ContentPresenter>

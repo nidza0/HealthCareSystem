@@ -28,8 +28,8 @@
                     <Label x:Name="lbl_companyType" Content="{StaticResource CompanyType}" Padding="0" FontSize="9" HorizontalAlignment="Center"></Label>
                 </StackPanel>
                 <Button x:Name="btn_newappointment" Content="{StaticResource NewAppointment}" Margin="0 0 10 0" Padding="5" Click="btn_newappointment_Click"></Button>
-                <Button x:Name="btn_newpatient" Content="{StaticResource NewPatient}" Width="auto" Height="auto" Margin="0 0 10 0" Padding="5" Click="btn_newpatient_Click"></Button>
-                <Button x:Name="btn_report" Content="{StaticResource Report}" Width="auto" Height="auto" Margin="0 0 10 0" Padding="5" Visibility="Visible"></Button>
+                <Button x:Name="btn_newpatient" Content="{StaticResource NewPatient}" Height="auto" Margin="0 0 10 0" Padding="5" Click="btn_newpatient_Click"></Button>
+                <Button x:Name="btn_report" Content="{StaticResource Report}" Height="auto" Margin="0 0 10 0" Padding="5" Visibility="Visible"></Button>
             </StackPanel>
             <!-- DATE AND TIME PANEL -->
             <StackPanel DockPanel.Dock="Right" Orientation="Vertical" Margin="10">

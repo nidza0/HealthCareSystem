@@ -17,19 +17,28 @@
     <sys:String x:Key="Settings">Settings</sys:String>
     <sys:String x:Key="Login">Login</sys:String>
     <sys:String x:Key="PatientDetails">Patient Details</sys:String>
+    <sys:String x:Key="DoctorDetails">Doctor Details</sys:String>
+    <sys:String x:Key="AppointmentDetails">Appointment Details</sys:String>
     <sys:String x:Key="PersonalInfoHeader">Personal Information</sys:String>
     <sys:String x:Key="ContactInfoHeader">Contact Information</sys:String>
     <sys:String x:Key="AccountInfoHeader">Account</sys:String>
     <sys:String x:Key="EmergencyContactInfoHeader">Emergency Contact</sys:String>
     <sys:String x:Key="SelectedDoctorInfoHeader">Selected Doctor</sys:String>
+    <sys:String x:Key="WorkingHours">Working Hours</sys:String>
 
     <sys:String x:Key="errNoPatients">No patients found</sys:String>
     <sys:String x:Key="errNoSelectedDoctor">No selected doctor found</sys:String>
     <sys:String x:Key="errNoAppointments">No appointments found</sys:String>
+    <sys:String x:Key="errNoDoctors">No doctors found</sys:String>
+    <sys:String x:Key="errNoAvailableRooms">No available rooms found</sys:String>
+    <sys:String x:Key="errTimeInvalid">Error: End time before start time</sys:String>
+    <sys:String x:Key="errNoAvailableDoctors">No available doctors found</sys:String>
 
     <!-- DateTime Format -->
     <sys:String x:Key="TimeFormat">HH:mm</sys:String>
     <sys:String x:Key="DateFormat">dd.MM.yyyy.</sys:String>
+    <sys:String x:Key="timeSeparator"> - </sys:String>
+    <sys:String x:Key="HourMinuteSeparator">:</sys:String>
     
     <!-- New Patient Page -->
     <sys:String x:Key="StandardPatient">Standard</sys:String>
@@ -63,6 +72,16 @@
     <sys:String x:Key="lblEmergencyEmail">Emergency Contact's Email</sys:String>
     <sys:String x:Key="lblInfo">Info</sys:String>
     <sys:String x:Key="lblDoctorType">Doctor Type</sys:String>
+    <sys:String x:Key="lblDate">Date</sys:String>
+    <sys:String x:Key="lblTime">Time</sys:String>
+
+    <sys:String x:Key="lblMonday">Monday</sys:String>
+    <sys:String x:Key="lblTuesday">Tuesday</sys:String>
+    <sys:String x:Key="lblWednesday">Wednesday</sys:String>
+    <sys:String x:Key="lblThursday">Thursday</sys:String>
+    <sys:String x:Key="lblFriday">Friday</sys:String>
+    <sys:String x:Key="lblSaturday">Saturday</sys:String>
+    <sys:String x:Key="lblSunday">Sunday</sys:String>
 
     <!-- New Appointment Page -->
     <sys:String x:Key="lblPatient">Patient</sys:String>
@@ -71,18 +90,25 @@
     <sys:String x:Key="lblDoctor">Doctor</sys:String>
     <sys:String x:Key="lblRoom">Room</sys:String>
     <sys:String x:Key="lblAppointmentType">Type</sys:String>
+    <sys:String x:Key="lblRoomType">Type</sys:String>
 
     <sys:String x:Key="lblSearch">Search</sys:String>
     <sys:String x:Key="lblDateCreated">Date Created</sys:String>
     <sys:String x:Key="lblPatientType">Patient Type</sys:String>
 
+    <sys:String x:Key="lblAppointment">Appointment</sys:String>
     <sys:String x:Key="lblAppointmentDateAndTime">Date and time</sys:String>
     <sys:String x:Key="lblAppointmentDoctor">Doctor</sys:String>
     <sys:String x:Key="lblAppointmentPatient">Patient</sys:String>
     <sys:String x:Key="lblAppointmentRoom">Room</sys:String>
+    <sys:String x:Key="lblSelectedDoctor">Selected Doctor</sys:String>
+    <sys:String x:Key="lblSelectedPatient">Selected Patient</sys:String>
+    <sys:String x:Key="lblSelectedRoom">Selected Room</sys:String>
 
     <sys:String x:Key="btnOK">OK</sys:String>
     <sys:String x:Key="btnCancel">Cancel</sys:String>
+    <sys:String x:Key="btnCreate">Create</sys:String>
+    <sys:String x:Key="btnSchedule">Schedule</sys:String>
     
     <sys:String x:Key="btnEdit">Edit</sys:String>
     <sys:String x:Key="btnMessage">Message</sys:String>

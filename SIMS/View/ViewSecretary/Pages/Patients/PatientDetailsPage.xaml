@@ -19,8 +19,8 @@
             <DockPanel DockPanel.Dock="Top">
                 <Label Content="{Binding Patient.FullName}" FontSize="30" DockPanel.Dock="Left"></Label>
                 <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" HorizontalAlignment="Right" Margin="6">
-                    <Button x:Name="btnEditPatient" Content="{StaticResource btnEdit}" Margin="0 0 6 0" Style="{StaticResource StyleOrdinaryButton}" Click="btnEditPatient_Click"></Button>
-                    <Button x:Name="btnSendMessage" Content="{StaticResource btnMessage}" Style="{StaticResource StyleOrdinaryButton}" Click="btnSendMessage_Click"></Button>
+                    <Button x:Name="btnEditPatient" Content="{StaticResource btnEdit}" Margin="0 0 6 0" Style="{StaticResource StyleOrdinaryButton}" Click="btnEditPatient_Click" HorizontalAlignment="Center"></Button>
+                    <Button x:Name="btnSendMessage" Content="{StaticResource btnMessage}" Style="{StaticResource StyleOrdinaryButton}" Click="btnSendMessage_Click" HorizontalAlignment="Center"></Button>
                 </StackPanel>
             </DockPanel>
             <ScrollViewer DockPanel.Dock="Bottom" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
@@ -111,7 +111,7 @@
                         <StackPanel>
                             <DockPanel x:Name="SelectedDoctorPanel">
                                 <Label Content="{Binding Patient.SelectedDoctor.FullName}" DockPanel.Dock="Left"></Label>
-                                <Button x:Name="btnSelectedDoctorDetails" Content="{StaticResource lblInfo}" DockPanel.Dock="Right" Width="50" HorizontalAlignment="Right" Style="{StaticResource StyleOrdinaryButton}"></Button>
+                                <Button x:Name="btnSelectedDoctorDetails" Content="{StaticResource lblInfo}" DockPanel.Dock="Right" Width="50" HorizontalAlignment="Right" Style="{StaticResource StyleOrdinaryButton}" Click="btnSelectedDoctorDetails_Click"></Button>
                             </DockPanel>
                             <Label x:Name="SelectedDoctorPanelError" Content="{StaticResource errNoSelectedDoctor}" Visibility="Hidden"></Label>
                         </StackPanel>

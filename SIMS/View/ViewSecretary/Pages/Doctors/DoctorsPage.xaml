@@ -27,7 +27,7 @@
                 </DataGrid.Columns>
             </DataGrid>
 
-            <TextBlock x:Name="errNoPatients" Text="{StaticResource errNoPatients}" HorizontalAlignment="Center" Visibility="Hidden"></TextBlock>
+            <TextBlock x:Name="errNoDoctors" Text="{StaticResource errNoDoctors}" HorizontalAlignment="Center" Visibility="Hidden"></TextBlock>
         </DockPanel>
     </DockPanel>
 </Page>

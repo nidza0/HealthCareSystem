@@ -24,59 +24,9 @@ namespace SIMS.View.ViewSecretary.ViewModel
             PatientsCollection.Filter = new Predicate<object>(Filter);
         }
 
-        public ICollectionView PatientsCollection
-        {
-            get => patientsCollection;
-            set
-            {
-                patientsCollection = value; NotifyPropertyChanged("PatientsCollection");
-            }
-        }
-        public ObservableCollection<Patient> Patients { get => patients; set => patients = value; }
-
-        public string FilterString
-        {
-            get { return filterString; }
-            set
-            {
-                filterString = value;
-                NotifyPropertyChanged("FilterString");
-                FilterCollection();
-            }
-        }
-
-        private void FilterCollection()
-        {
-            if (patientsCollection != null)
-            {
-                patientsCollection.Refresh();
-            }
-        }
-
-        public bool Filter(object obj)
-        {
-            var data = obj as Patient;
-            if (data != null)
-            {
-                if (!string.IsNullOrEmpty(filterString))
-                {
-                    //TODO: filter logic
-                    return data.FullName.ToLower().Contains(filterString.ToLower()) || data.Uidn.Contains(filterString);
-                }
-                return true;
-            }
-            return false;
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void NotifyPropertyChanged(string property)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
-        }
-
         private void loadPatients()
         {
-            //TODO: PatientController > Get All Patients with Selected Doctor
+            //TODO: PatientController > Get All Patients
 
             Patients.Add(new Patient(new UserID("p1"),
                                         "peraaa13",
@@ -141,5 +91,58 @@ namespace SIMS.View.ViewSecretary.ViewModel
             return new Doctor(new UserID("d678"),
                                 null, null, DateTime.Now, "Stephen", "Strange", "Doctor", Sex.MALE, DateTime.Now, null, null, null, null, null, null, null, null, null, Model.DoctorModel.DocTypeEnum.SURGEON);
         }
+
+        #region Filtering
+        public ICollectionView PatientsCollection
+        {
+            get => patientsCollection;
+            set
+            {
+                patientsCollection = value; NotifyPropertyChanged("PatientsCollection");
+            }
+        }
+        public ObservableCollection<Patient> Patients { get => patients; set => patients = value; }
+
+        public string FilterString
+        {
+            get { return filterString; }
+            set
+            {
+                filterString = value;
+                NotifyPropertyChanged("FilterString");
+                FilterCollection();
+            }
+        }
+
+        private void FilterCollection()
+        {
+            if (patientsCollection != null)
+            {
+                patientsCollection.Refresh();
+            }
+        }
+
+        public bool Filter(object obj)
+        {
+            var data = obj as Patient;
+            if (data != null)
+            {
+                if (!string.IsNullOrEmpty(filterString))
+                {
+                    //TODO: filter logic
+                    return data.FullName.ToLower().Contains(filterString.ToLower()) || data.Uidn.Contains(filterString);
+                }
+                return true;
+            }
+            return false;
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void NotifyPropertyChanged(string property)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
+        }
+
+#endregion Filtering
     }
 }

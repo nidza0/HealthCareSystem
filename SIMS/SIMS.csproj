@@ -187,11 +187,17 @@
     <Compile Include="View\ViewSecretary\MainSecretary.xaml.cs">
       <DependentUpon>MainSecretary.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\ViewSecretary\Pages\Appointments\AppointmentDetailsPage.xaml.cs">
+      <DependentUpon>AppointmentDetailsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\ViewSecretary\Pages\Appointments\AppointmentsPage.xaml.cs">
       <DependentUpon>AppointmentsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ViewSecretary\Pages\CompanyPage.xaml.cs">
       <DependentUpon>CompanyPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewSecretary\Pages\Doctors\DoctorDetailsPage.xaml.cs">
+      <DependentUpon>DoctorDetailsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ViewSecretary\Pages\Doctors\DoctorsPage.xaml.cs">
       <DependentUpon>DoctorsPage.xaml</DependentUpon>
@@ -205,8 +211,8 @@
     <Compile Include="View\ViewSecretary\Pages\MainWindowPage.xaml.cs">
       <DependentUpon>MainWindowPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\ViewSecretary\Pages\Appointments\NewAppointmentPage.xaml.cs">
-      <DependentUpon>NewAppointmentPage.xaml</DependentUpon>
+    <Compile Include="View\ViewSecretary\Pages\Appointments\CreateUpdateAppointmentPage.xaml.cs">
+      <DependentUpon>CreateUpdateAppointmentPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ViewSecretary\Pages\Patients\NewPatientPage.xaml.cs">
       <DependentUpon>NewPatientPage.xaml</DependentUpon>
@@ -224,9 +230,12 @@
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ViewSecretary\ViewModel\AppointmentsViewModel.cs" />
+    <Compile Include="View\ViewSecretary\ViewModel\AppointmentViewModel.cs" />
     <Compile Include="View\ViewSecretary\ViewModel\DoctorsViewModel.cs" />
+    <Compile Include="View\ViewSecretary\ViewModel\DoctorViewModel.cs" />
     <Compile Include="View\ViewSecretary\ViewModel\PatientsViewModel.cs" />
     <Compile Include="View\ViewSecretary\ViewModel\PatientViewModel.cs" />
+    <Compile Include="View\ViewSecretary\ViewModel\RoomsViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -260,11 +269,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\ViewSecretary\Pages\Appointments\AppointmentDetailsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\ViewSecretary\Pages\Appointments\AppointmentsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\ViewSecretary\Pages\CompanyPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewSecretary\Pages\Doctors\DoctorDetailsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -284,7 +301,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\ViewSecretary\Pages\Appointments\NewAppointmentPage.xaml">
+    <Page Include="View\ViewSecretary\Pages\Appointments\CreateUpdateAppointmentPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -15,7 +15,14 @@ namespace SIMS.View.ViewSecretary.ViewModel
 
         public PatientViewModel(Patient p)
         {
+            GetEagerPatient();
             patient = p;
         }
+
+        private void GetEagerPatient()
+        {
+            //TODO: Get patient with selected doctor
+        }
+
     }
 }

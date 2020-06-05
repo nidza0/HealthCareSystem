@@ -1,4 +1,5 @@
 ﻿using SIMS.Model.UserModel;
+using SIMS.View.ViewSecretary.Pages.Doctors;
 using SIMS.View.ViewSecretary.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -43,12 +44,13 @@ namespace SIMS.View.ViewSecretary.Pages.Patients
 
         private void btnSendMessage_Click(object sender, RoutedEventArgs e)
         {
-
+            //TODO: Open send message frame
+            User recipient = (User)patientVM.Patient;
         }
 
         private void btnEditPatient_Click(object sender, RoutedEventArgs e)
         {
-
+            //TODO: Open edit patient frame
         }
 
         public void Refresh()
@@ -65,6 +67,15 @@ namespace SIMS.View.ViewSecretary.Pages.Patients
                     SelectedDoctorPanel.Visibility = Visibility.Hidden;
                     SelectedDoctorPanelError.Visibility = Visibility.Visible;
                 }
+            }
+        }
+
+        private void btnSelectedDoctorDetails_Click(object sender, RoutedEventArgs e)
+        {
+            Doctor selectedDoctor = patientVM.Patient.SelectedDoctor;
+            if (selectedDoctor != null)
+            {
+                FrameManager.getInstance().SideFrame.Navigate(new DoctorDetailsPage(selectedDoctor));
             }
         }
     }

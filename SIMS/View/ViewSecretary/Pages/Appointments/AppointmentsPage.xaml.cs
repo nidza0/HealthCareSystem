@@ -36,7 +36,11 @@ namespace SIMS.View.ViewSecretary.Pages.Appointments
 
         private void dataGridAppointments_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            
+            Appointment selectedAppointment = (Appointment)dataGridAppointments.SelectedItem;
+            if (selectedAppointment != null)
+            {
+                FrameManager.getInstance().SideFrame.Navigate(new AppointmentDetailsPage(selectedAppointment));
+            }
         }
 
         private void dataGridAppointments_LoadingRow(object sender, DataGridRowEventArgs e)
