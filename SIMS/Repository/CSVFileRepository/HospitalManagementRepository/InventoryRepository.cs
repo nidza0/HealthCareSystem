@@ -45,15 +45,6 @@ namespace SIMS.Repository.CSVFileRepository.HospitalManagementRepository
             throw new NotImplementedException();
         }
 
-        public IEnumerable<InventoryItem> GetInventoryItemsForRoom(Room room)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<InventoryItem> GetInventoryItems()
-        {
-            throw new NotImplementedException();
-        }
 
         public Inventory GetEager(long id)
         {

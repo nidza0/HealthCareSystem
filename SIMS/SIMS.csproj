@@ -58,6 +58,7 @@
     <Compile Include="Model\UserModel\EmergencyContact.cs" />
     <Compile Include="Model\PatientModel\PrescriptionStatus.cs" />
     <Compile Include="Repository\Abstract\HospitalManagementAbstractRepository\IHospitalRepository.cs" />
+    <Compile Include="Repository\Abstract\HospitalManagementAbstractRepository\IInventoryItemRepository.cs" />
     <Compile Include="Repository\Abstract\HospitalManagementAbstractRepository\IInventoryRepository.cs" />
     <Compile Include="Repository\Abstract\HospitalManagementAbstractRepository\IMedicineRepository.cs" />
     <Compile Include="Repository\Abstract\HospitalManagementAbstractRepository\IRoomRepository.cs" />
@@ -81,16 +82,21 @@
     <Compile Include="Repository\Abstract\UsersAbstractRepository\IManagerRepository.cs" />
     <Compile Include="Repository\Abstract\UsersAbstractRepository\IPatientRepository.cs" />
     <Compile Include="Repository\Abstract\UsersAbstractRepository\ISecretaryRepository.cs" />
+    <Compile Include="Repository\Abstract\HospitalManagementAbstractRepository\ITimeTableRepository.cs" />
     <Compile Include="Repository\Abstract\UsersAbstractRepository\IUserRepository.cs" />
     <Compile Include="Repository\CSVFileRepository\Csv\Converter\HospitalManagementConverter\HospitalConverter.cs" />
     <Compile Include="Repository\CSVFileRepository\Csv\Converter\HospitalManagementConverter\InventoryConverter.cs" />
+    <Compile Include="Repository\CSVFileRepository\Csv\Converter\HospitalManagementConverter\InventoryItemConverter.cs" />
     <Compile Include="Repository\CSVFileRepository\Csv\Converter\HospitalManagementConverter\MedicineConverter.cs" />
     <Compile Include="Repository\CSVFileRepository\Csv\Converter\HospitalManagementConverter\RoomConverter.cs" />
     <Compile Include="Repository\CSVFileRepository\Csv\Converter\HospitalManagementConverter\StatisticsConverter.cs" />
+    <Compile Include="Repository\CSVFileRepository\Csv\Converter\HospitalManagementConverter\TimeTableConverter.cs" />
+    <Compile Include="Repository\CSVFileRepository\HospitalManagementRepository\TimeTableRepository.cs" />
     <Compile Include="Repository\CSVFileRepository\Csv\Converter\ICSVConverter.cs" />
     <Compile Include="Repository\CSVFileRepository\Csv\Converter\MedicalConverter\AppointmentConverter.cs" />
     <Compile Include="Repository\CSVFileRepository\Csv\Converter\MedicalConverter\DiagnosisConverter.cs" />
     <Compile Include="Repository\CSVFileRepository\Csv\Converter\MedicalConverter\DiseaseConverter.cs" />
+    <Compile Include="Repository\CSVFileRepository\Csv\Converter\MedicalConverter\IngredientConverter.cs" />
     <Compile Include="Repository\CSVFileRepository\Csv\Converter\MedicalConverter\MedicalRecordConverter.cs" />
     <Compile Include="Repository\CSVFileRepository\Csv\Converter\MedicalConverter\SymptomConverter.cs" />
     <Compile Include="Repository\CSVFileRepository\Csv\Converter\MedicalConverter\TherapyConverter.cs" />
@@ -110,6 +116,7 @@
     <Compile Include="Repository\CSVFileRepository\Csv\Stream\CSVStream.cs" />
     <Compile Include="Repository\CSVFileRepository\Csv\Stream\ICSVStream.cs" />
     <Compile Include="Repository\CSVFileRepository\HospitalManagementRepository\HospitalRepository.cs" />
+    <Compile Include="Repository\CSVFileRepository\HospitalManagementRepository\InventoryItemRepository.cs" />
     <Compile Include="Repository\CSVFileRepository\HospitalManagementRepository\InventoryRepository.cs" />
     <Compile Include="Repository\CSVFileRepository\HospitalManagementRepository\MedicineRepository.cs" />
     <Compile Include="Repository\CSVFileRepository\HospitalManagementRepository\RoomRepository.cs" />
