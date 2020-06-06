@@ -5,20 +5,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using SIMS.Repository.CSVFileRepository.Csv.Converter.HospitalManagementConverter;
 using SIMS.Model.ManagerModel;
 using SIMS.Repository.CSVFileRepository.Csv.Converter.MedicalConverter;
 using SIMS.Model.DoctorModel;
 using SIMS.Model.PatientModel;
 using SIMS.Repository.CSVFileRepository.Csv.Converter.UsersConverter;
+
+using SIMS.Repository.CSVFileRepository.MedicalRepository;
+using SIMS.Repository.CSVFileRepository.Csv.Stream;
+using SIMS.Repository.Sequencer;
+using SIMS.Repository.CSVFileRepository.Csv.Converter;
 
 namespace SIMS
 {
@@ -201,6 +198,83 @@ namespace SIMS
             string csv2 = conv.ConvertEntityToCSV(conv.ConvertCSVToEntity(csv1));
 
             Console.WriteLine(csv1.Equals(csv2));
+
+
+            //Allergy allergy = new Allergy(55);
+
+            //Symptom symptom = new Symptom(1);
+            //Symptom symptom1 = new Symptom(2);
+            //Symptom symptom2 = new Symptom(3);
+            //Symptom symptom3 = new Symptom(4);
+            //Symptom symptom4 = new Symptom(5);
+            //Symptom symptom5 = new Symptom(6);
+
+            //List<Symptom> symptoms = new List<Symptom>();
+            //symptoms.Add(symptom);
+            //symptoms.Add(symptom1);
+            //symptoms.Add(symptom2);
+            //symptoms.Add(symptom3);
+            //symptoms.Add(symptom4);
+            //symptoms.Add(symptom5);
+
+            //allergy.Symptoms = symptoms;
+
+            //Symptom temp = symptoms[1];
+            //temp = new Symptom(6000);
+
+
+
+            //AllergyConverter allergyConverter = new AllergyConverter(",", ";");
+            //Symptom symptom = new Symptom(1);
+            //Symptom symptom1 = new Symptom(2);
+            //Ingredient ingredient = new Ingredient(69);
+
+            //List<Symptom> symptom_list = new List<Symptom>();
+
+            //symptom_list.Add(symptom);
+            //symptom_list.Add(symptom1);
+
+
+            ////Allergy allergy = new Allergy(33, "Test alergija", ingredient, symptom_list);
+            //Allergy allergy = new Allergy(33, "Test alergija", ingredient, null);
+
+            //string csv = allergyConverter.ConvertEntityToCSV(allergy);
+
+            //Allergy newAllergy = allergyConverter.ConvertCSVToEntity(csv);
+
+            //Console.WriteLine("OLD CSV: " + csv);
+            //Console.WriteLine("NEW CSV: " + allergyConverter.ConvertEntityToCSV(newAllergy));
+            String ingredient_path = @"../../files/ingredients.txt";
+            String symptom_path = @"../../files/symptoms.txt";
+            String allergy_path = @"../../files/allergies.txt";
+
+
+            IngredientRepository ingredientRepository = new IngredientRepository("ingredient_test", new CSVStream<Ingredient>(ingredient_path, new IngredientConverter(",")), new LongSequencer());
+            SymptomRepository symptomRepository = new SymptomRepository("symptom_repo", new CSVStream<Symptom>(symptom_path, new SymptomConverter(",")), new LongSequencer());
+            AllergyRepository allergyRepository = new AllergyRepository("test", new CSVStream<Allergy>(allergy_path, new AllergyConverter(",",";")), new LongSequencer(), ingredientRepository, symptomRepository);
+
+            Ingredient ingredient1 = new Ingredient("ingredient_1");
+            Ingredient ingredient2 = new Ingredient("ingredient_2");
+
+            Symptom symptom1 = new Symptom("Boli me nos", "Jako me boli nos");
+            Symptom symptom2 = new Symptom("Boli me glava", "Jako me boli glava");
+
+            ingredientRepository.Create(ingredient1);
+            ingredientRepository.Create(ingredient2);
+
+            symptomRepository.Create(symptom1);
+            symptomRepository.Create(symptom2);
+
+            List<Symptom> test_list = new List<Symptom>();
+            test_list.Add(symptomRepository.GetByID(1));
+            test_list.Add(symptomRepository.GetByID(2));
+
+
+            Allergy allergy = new Allergy("Test allergy", ingredientRepository.GetByID(1), new List<Symptom>());
+
+            allergyRepository.Create(allergy);
+
+         
         }
     }
 }

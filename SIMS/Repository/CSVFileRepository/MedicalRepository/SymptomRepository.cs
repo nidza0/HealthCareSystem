@@ -17,6 +17,7 @@ namespace SIMS.Repository.CSVFileRepository.MedicalRepository
     {
         public SymptomRepository(string entityName, ICSVStream<Symptom> stream, ISequencer<long> sequencer) : base(entityName, stream, sequencer, new LongIdGeneratorStrategy<Symptom>())
         {
+
         }
     }
 }

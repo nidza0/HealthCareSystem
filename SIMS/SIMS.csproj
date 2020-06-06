@@ -95,6 +95,7 @@
     <Compile Include="Repository\CSVFileRepository\Csv\Converter\HospitalManagementConverter\RoomConverter.cs" />
     <Compile Include="Repository\CSVFileRepository\Csv\Converter\HospitalManagementConverter\StatisticsConverter.cs" />
     <Compile Include="Repository\CSVFileRepository\Csv\Converter\HospitalManagementConverter\TimeTableConverter.cs" />
+    <Compile Include="Repository\CSVFileRepository\Csv\Converter\MedicalConverter\AllergyConverter.cs" />
     <Compile Include="Repository\CSVFileRepository\HospitalManagementRepository\TimeTableRepository.cs" />
     <Compile Include="Repository\CSVFileRepository\Csv\Converter\ICSVConverter.cs" />
     <Compile Include="Repository\CSVFileRepository\Csv\Converter\MedicalConverter\AppointmentConverter.cs" />

@@ -18,7 +18,7 @@ namespace SIMS.Repository.Sequencer
 
         public void Initialize(long initID)
         {
-            throw new NotImplementedException();
+            nextID = initID;
         }
     }
 }

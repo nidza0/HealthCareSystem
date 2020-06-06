@@ -10,13 +10,55 @@ using SIMS.Repository.CSVFileRepository.Csv.IdGenerator;
 using SIMS.Repository.CSVFileRepository.Csv.Stream;
 using SIMS.Repository.Sequencer;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SIMS.Repository.CSVFileRepository.MedicalRepository
 {
-    public class AllergyRepository : CSVRepository<Allergy, long>, IAllergyRepository
+    public class AllergyRepository : CSVRepository<Allergy, long>, IAllergyRepository, IEagerCSVRepository<Allergy,long>
     {
-        public AllergyRepository(string entityName, ICSVStream<Allergy> stream, ISequencer<long> sequencer) : base(entityName, stream, sequencer, new LongIdGeneratorStrategy<Allergy>())
+        private IIngredientRepository _ingredientsRepository;
+        private ISymptomRepository _symptomsEagerRepository;
+
+        public AllergyRepository(string entityName, ICSVStream<Allergy> stream, ISequencer<long> sequencer,IIngredientRepository ingredientsRepository,ISymptomRepository symptomsEagerRepository) : base(entityName, stream, sequencer, new LongIdGeneratorStrategy<Allergy>())
         {
+            _ingredientsRepository = ingredientsRepository;
+            _symptomsEagerRepository = symptomsEagerRepository;
         }
+
+        public IEnumerable<Allergy> GetAllEager()
+        {
+            IEnumerable<Allergy> allergies = GetAll();
+            IEnumerable<Ingredient> ingredients = _ingredientsRepository.GetAll();
+            IEnumerable<Symptom> symptoms = _symptomsEagerRepository.GetAll();
+
+            Bind(allergies, ingredients, symptoms);
+
+            return allergies;
+        }
+
+        public Allergy GetEager(long id)
+            => GetAllEager().SingleOrDefault(allergy => allergy.GetId() == id);
+
+        private void Bind(IEnumerable<Allergy> allergies, IEnumerable<Ingredient> ingredients, IEnumerable<Symptom> symptoms)
+        {
+            BindAllergiesWithIngredients(allergies, ingredients);
+            BindAllergiesWithSymptoms(allergies, symptoms);
+        }
+
+        private void BindAllergiesWithIngredients(IEnumerable<Allergy> allergies, IEnumerable<Ingredient> ingredients)
+            => allergies.ToList().ForEach(allergy => allergy.AllergicToIngredient = GetIngredientByID(ingredients, allergy.AllergicToIngredient.Id));
+
+        private void BindAllergiesWithSymptoms(IEnumerable<Allergy> allergies, IEnumerable<Symptom> symptoms)
+            => allergies.ToList().ForEach(allergy =>
+            {
+                allergy.Symptoms = GetSymptomsByIDs(allergy.Symptoms, allergy.Symptoms.Select(symptom => symptom.GetId())).ToList();
+            });
+
+        private Ingredient GetIngredientByID(IEnumerable<Ingredient> ingredients, long id)
+            => ingredients.SingleOrDefault(ingredient => ingredient.Id == id);
+
+        private IEnumerable<Symptom> GetSymptomsByIDs(IEnumerable<Symptom> symptoms, IEnumerable<long> ids)
+            => symptoms.Where(symptom => ids.Contains(symptom.GetId()));
     }
 }

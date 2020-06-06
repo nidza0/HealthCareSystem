@@ -12,22 +12,16 @@ using SIMS.Repository.Sequencer;
 using System;
 using System.Collections.Generic;
 
+
+using System.Linq;
+
 namespace SIMS.Repository.CSVFileRepository.MedicalRepository
 {
-    public class IngredientRepository : CSVRepository<Ingredient, long>, IIngredientRepository, IEagerCSVRepository<Ingredient, long>
+    public class IngredientRepository : CSVRepository<Ingredient, long>, IIngredientRepository
     {
         public IngredientRepository(string entityName, ICSVStream<Ingredient> stream, ISequencer<long> sequencer) : base(entityName, stream, sequencer, new LongIdGeneratorStrategy<Ingredient>())
         {
-        }
 
-        public IEnumerable<Ingredient> GetAllEager()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Ingredient GetEager(long id)
-        {
-            throw new NotImplementedException();
         }
     }
 }
