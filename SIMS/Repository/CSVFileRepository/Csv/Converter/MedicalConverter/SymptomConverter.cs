@@ -10,16 +10,34 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.MedicalConverter
 {
     public class SymptomConverter : ICSVConverter<Symptom>
     {
-        private string delimiter;
+        private readonly string _delimiter;
+
+        public SymptomConverter(string delimiter)
+        {
+            _delimiter = delimiter;
+        }
 
         public Symptom ConvertCSVToEntity(string csv)
         {
-            throw new NotImplementedException();
+            string[] tokens = SplitStringByDelimiter(csv, _delimiter);
+
+            return new Symptom(
+                long.Parse(tokens[0]),
+                tokens[1],
+                tokens[2]
+                );
+
         }
 
         public string ConvertEntityToCSV(Symptom entity)
-        {
-            throw new NotImplementedException();
-        }
+            => string.Join(
+                _delimiter,
+                entity.GetId(),
+                entity.Name,
+                entity.ShortDescription
+                );
+
+        private string[] SplitStringByDelimiter(string stringToSplit, string delimiter)
+           => stringToSplit.Split(delimiter.ToCharArray());
     }
 }

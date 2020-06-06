@@ -32,8 +32,10 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.HospitalManagementConv
         public Inventory ConvertCSVToEntity(string csv)
         {
             string[] tokens = SplitStringByDelimiter(csv, _delimiter);
-            List<InventoryItem> dummyInventoryItems = GetDummyInventoryItems(SplitStringByDelimiter(tokens[1], _listDelimiter));
-            List<Medicine> dummyMedicine = getDummyMedicine(SplitStringByDelimiter(tokens[2], _listDelimiter));
+            List<InventoryItem> dummyInventoryItems = (tokens[1] == "") ? new List<InventoryItem>() : GetDummyInventoryItems(SplitStringByDelimiter(tokens[1], _listDelimiter));
+            List<Medicine> dummyMedicine = (tokens[2] == "") ? new List<Medicine>() : getDummyMedicine(SplitStringByDelimiter(tokens[2], _listDelimiter));
+
+
 
             return new Inventory(
                 long.Parse(tokens[0]), 

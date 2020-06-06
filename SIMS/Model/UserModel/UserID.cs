@@ -5,6 +5,7 @@
 
 using SIMS.Exceptions;
 using System;
+using System.ComponentModel;
 
 namespace SIMS.Model.UserModel
 {
@@ -62,6 +63,12 @@ namespace SIMS.Model.UserModel
         {
             UserID otherId = obj as UserID;
             return Code == otherId.Code && Number == otherId.Number;
+        }
+
+        public UserID increment()
+        {
+            this._number++;
+            return this;
         }
     }
 }
