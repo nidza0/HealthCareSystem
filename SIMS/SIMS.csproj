@@ -70,6 +70,7 @@
     <Compile Include="Repository\Abstract\MedicalAbstractRepository\IDiseaseRepository.cs" />
     <Compile Include="Repository\Abstract\MedicalAbstractRepository\IIngredientRepository.cs" />
     <Compile Include="Repository\Abstract\MedicalAbstractRepository\IMedicalRecordRepository.cs" />
+    <Compile Include="Repository\Abstract\MedicalAbstractRepository\IPrescriptionRepository.cs" />
     <Compile Include="Repository\Abstract\MedicalAbstractRepository\ISymptomRepository.cs" />
     <Compile Include="Repository\Abstract\MedicalAbstractRepository\ITherapyRepository.cs" />
     <Compile Include="Repository\Abstract\MiscAbstractRepository\IArticleRepository.cs" />
@@ -93,6 +94,7 @@
     <Compile Include="Repository\CSVFileRepository\Csv\Converter\MedicalConverter\DiagnosisConverter.cs" />
     <Compile Include="Repository\CSVFileRepository\Csv\Converter\MedicalConverter\DiseaseConverter.cs" />
     <Compile Include="Repository\CSVFileRepository\Csv\Converter\MedicalConverter\MedicalRecordConverter.cs" />
+    <Compile Include="Repository\CSVFileRepository\Csv\Converter\MedicalConverter\PrescriptionConverter.cs" />
     <Compile Include="Repository\CSVFileRepository\Csv\Converter\MedicalConverter\SymptomConverter.cs" />
     <Compile Include="Repository\CSVFileRepository\Csv\Converter\MedicalConverter\TherapyConverter.cs" />
     <Compile Include="Repository\CSVFileRepository\Csv\Converter\MiscConverter\ArticleConverter.cs" />
@@ -127,6 +129,7 @@
     <Compile Include="Repository\CSVFileRepository\MedicalRepository\DiseaseRepository.cs" />
     <Compile Include="Repository\CSVFileRepository\MedicalRepository\IngredientRepository.cs" />
     <Compile Include="Repository\CSVFileRepository\MedicalRepository\MedicalRecordRepository.cs" />
+    <Compile Include="Repository\CSVFileRepository\MedicalRepository\PrescriptionRepository.cs" />
     <Compile Include="Repository\CSVFileRepository\MedicalRepository\SymptomRepository.cs" />
     <Compile Include="Repository\CSVFileRepository\MedicalRepository\TherapyRepository.cs" />
     <Compile Include="Repository\CSVFileRepository\MiscRepository\ArticleRepository.cs" />

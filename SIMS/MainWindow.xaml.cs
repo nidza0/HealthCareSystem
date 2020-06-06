@@ -107,6 +107,7 @@ namespace SIMS
             //Console.WriteLine("TEST");
 
             /*
+             
             RoomConverter converter = new RoomConverter(",");
             List<InventoryItem> testlist = new List<InventoryItem>
             {
@@ -172,6 +173,34 @@ namespace SIMS
             string usrString2 = conv.ConvertEntityToCSV(conv.ConvertCSVToEntity(usrString1));
             Console.WriteLine(usrString1.Equals(usrString2));*/
 
+            /** Prescription tests **/
+
+            Dictionary<Medicine, TherapyDose> medicine = new Dictionary<Medicine, TherapyDose>();
+            Dictionary<TherapyTime, double> dosage1 = new Dictionary<TherapyTime, double>();
+            dosage1.Add(TherapyTime.Afternoon, 7);
+            dosage1.Add(TherapyTime.BeforeBed, 3);
+            dosage1.Add(TherapyTime.WhenIWakeUp, 2);
+            medicine.Add(new Medicine(75), new TherapyDose(dosage1));
+
+            Dictionary<TherapyTime, double> dosage2 = new Dictionary<TherapyTime, double>();
+            dosage2.Add(TherapyTime.AsNeeded, 1);
+            dosage2.Add(TherapyTime.BeforeBed, 2);
+            dosage2.Add(TherapyTime.Afternoon, 6);
+            medicine.Add(new Medicine(54), new TherapyDose(dosage2));
+
+            Dictionary<TherapyTime, double> dosage3 = new Dictionary<TherapyTime, double>();
+            dosage3.Add(TherapyTime.AsNeeded, 9);
+            dosage3.Add(TherapyTime.Evening, 5);
+            dosage3.Add(TherapyTime.BeforeBed, 3);
+            medicine.Add(new Medicine(23), new TherapyDose(dosage3));
+
+            Prescription p = new Prescription(78, PrescriptionStatus.ACTIVE, new Doctor(new UserID("d78")), medicine);
+
+            PrescriptionConverter conv = new PrescriptionConverter(",","~","#","/","!");
+            string csv1 = conv.ConvertEntityToCSV(p);
+            string csv2 = conv.ConvertEntityToCSV(conv.ConvertCSVToEntity(csv1));
+
+            Console.WriteLine(csv1.Equals(csv2));
         }
     }
 }
