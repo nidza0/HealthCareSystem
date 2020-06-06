@@ -150,6 +150,7 @@
     <Compile Include="Repository\CSVFileRepository\MiscRepository\NotificationRepository.cs" />
     <Compile Include="Repository\CSVFileRepository\UsersRepository\DoctorRepository.cs" />
     <Compile Include="Repository\CSVFileRepository\UsersRepository\ManagerRepository.cs" />
+    <Compile Include="Exceptions\NotUniqueException.cs" />
     <Compile Include="Repository\CSVFileRepository\UsersRepository\PatientRepository.cs" />
     <Compile Include="Repository\CSVFileRepository\UsersRepository\SecretaryRepository.cs" />
     <Compile Include="Repository\CSVFileRepository\UsersRepository\UserRepository.cs" />

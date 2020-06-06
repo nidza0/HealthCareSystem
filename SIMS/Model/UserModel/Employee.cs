@@ -84,6 +84,6 @@ namespace SIMS.Model.UserModel
             }
         }
 
-        public TimeTable TimeTable { get => _timeTable; }
+        public TimeTable TimeTable { get => _timeTable; set => _timeTable = value; }
     }
 }
