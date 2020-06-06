@@ -7,7 +7,10 @@ using SIMS.Model.DoctorModel;
 using SIMS.Model.UserModel;
 using SIMS.Repository.Abstract.MiscAbstractRepository;
 using SIMS.Repository.CSVFileRepository.Csv;
+using SIMS.Repository.CSVFileRepository.Csv.IdGenerator;
+using SIMS.Repository.CSVFileRepository.Csv.Stream;
 using SIMS.Repository.CSVFileRepository.UsersRepository;
+using SIMS.Repository.Sequencer;
 using System;
 using System.Collections.Generic;
 
@@ -15,6 +18,9 @@ namespace SIMS.Repository.CSVFileRepository.MiscRepository
 {
     public class DoctorFeedbackRepository : CSVRepository<DoctorFeedback, long>, IDoctorFeedbackRepository, IEagerCSVRepository<DoctorFeedback, long>
     {
+        public DoctorFeedbackRepository(string entityName, ICSVStream<DoctorFeedback> stream, ISequencer<long> sequencer) : base(entityName, stream, sequencer, new LongIdGeneratorStrategy<DoctorFeedback>())
+        {
+        }
         public void BindWithDoctor(IEnumerable<DoctorFeedback> doctorFeedbacks)
         {
             throw new NotImplementedException();
@@ -41,6 +47,5 @@ namespace SIMS.Repository.CSVFileRepository.MiscRepository
         }
 
         public DoctorRepository doctorRepository;
-
     }
 }

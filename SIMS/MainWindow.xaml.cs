@@ -164,13 +164,14 @@ namespace SIMS
             string secString2 = conv.ConvertEntityToCSV(conv.ConvertCSVToEntity(secString1));
             Console.WriteLine(secString1.Equals(secString2));
             */
-
+            /*
             User user = new User(new UserID("d5677"), "usernaaaa", "passwd", DateTime.Now, true);
             UserConverter conv = new UserConverter(",", "dd.MM.yyyy.");
             string usrString1 = conv.ConvertEntityToCSV(user);
             Console.WriteLine(usrString1);
             string usrString2 = conv.ConvertEntityToCSV(conv.ConvertCSVToEntity(usrString1));
-            Console.WriteLine(usrString1.Equals(usrString2));
+            Console.WriteLine(usrString1.Equals(usrString2));*/
+
         }
     }
 }

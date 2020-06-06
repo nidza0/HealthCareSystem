@@ -25,6 +25,11 @@ namespace SIMS.Util
         public bool IsTimeBetween(DateTime dateTime)
             => ((dateTime >= StartTime) && (dateTime <= EndTime));
 
+        public bool IsTimeBetween(TimeInterval timeInterval)
+        {
+            return (timeInterval.StartTime >= StartTime) && (timeInterval.EndTime <= EndTime);
+        }
+
         public bool IsOverlappingWith(TimeInterval timeInterval)
         {
             //(StartA <(=) EndB) and (EndA >(=) StartB)
@@ -34,5 +39,12 @@ namespace SIMS.Util
         public TimeSpan Duration()
             => EndTime.Subtract(StartTime);
 
+        public override bool Equals(object obj)
+        {
+            if (obj == null) return false;
+            TimeInterval otherTime = obj as TimeInterval;
+
+            return StartTime.Equals(otherTime.StartTime) && EndTime.Equals(otherTime.EndTime);
+        }
     }
 }

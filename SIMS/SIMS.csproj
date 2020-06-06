@@ -54,6 +54,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Exceptions\EntityNotFoundException.cs" />
     <Compile Include="Exceptions\InvalidUserIdException.cs" />
     <Compile Include="Model\UserModel\EmergencyContact.cs" />
     <Compile Include="Model\PatientModel\PrescriptionStatus.cs" />
@@ -106,6 +107,12 @@
     <Compile Include="Repository\CSVFileRepository\Csv\Converter\UsersConverter\SecretaryConverter.cs" />
     <Compile Include="Repository\CSVFileRepository\Csv\Converter\UsersConverter\UserConverter.cs" />
     <Compile Include="Repository\CSVFileRepository\Csv\CSVRepository.cs" />
+    <Compile Include="Repository\CSVFileRepository\Csv\IdGenerator\DoctorIdGeneratorStrategy.cs" />
+    <Compile Include="Repository\CSVFileRepository\Csv\IdGenerator\IIdGeneratorStrategy.cs" />
+    <Compile Include="Repository\CSVFileRepository\Csv\IdGenerator\LongIdGeneratorStrategy.cs" />
+    <Compile Include="Repository\CSVFileRepository\Csv\IdGenerator\ManagerIdGeneratorStrategy.cs" />
+    <Compile Include="Repository\CSVFileRepository\Csv\IdGenerator\PatientIdGeneratorStrategy.cs" />
+    <Compile Include="Repository\CSVFileRepository\Csv\IdGenerator\SecretaryIdGeneratorStrategy.cs" />
     <Compile Include="Repository\CSVFileRepository\Csv\IEagerCSVRepository.cs" />
     <Compile Include="Repository\CSVFileRepository\Csv\Stream\CSVStream.cs" />
     <Compile Include="Repository\CSVFileRepository\Csv\Stream\ICSVStream.cs" />

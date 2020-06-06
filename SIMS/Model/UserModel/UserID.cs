@@ -8,14 +8,18 @@ using System;
 
 namespace SIMS.Model.UserModel
 {
-    public class UserID
+    public class UserID : IComparable
     {
         private char _code;
         private int _number;
-        private static string patientPrefix;
-        private static string doctorPrefix;
-        private static string secretaryPrefix;
-        private static string managerPrefix;
+
+        public static UserID defaultDoctor = new UserID("d0");
+        public static UserID defaultPatient = new UserID("p0");
+        public static UserID defaultSecretary = new UserID("s0");
+        public static UserID defaultManager = new UserID("m0");
+
+        public int Number { get => _number; set => _number = value; }
+        public char Code { get => _code; set => _code = value; }
 
         public UserID(string id)
         {
@@ -24,10 +28,10 @@ namespace SIMS.Model.UserModel
                 throw new InvalidUserIdException();
             }
 
-            _code = id[0];
+            Code = id[0];
             try
             {
-                _number = Convert.ToInt32(id.Substring(1));
+                Number = Convert.ToInt32(id.Substring(1));
             }
             catch(Exception e)
             {
@@ -36,7 +40,28 @@ namespace SIMS.Model.UserModel
         }
         public override string ToString()
         {
-            return _code.ToString() + _number;
+            return Code.ToString() + Number;
+        }
+
+        public int CompareTo(object obj)
+        {
+            if (obj == null) return 1;
+
+            UserID otherID = obj as UserID;
+            if(Code == otherID.Code)
+            {
+                return Number.CompareTo(otherID.Number);
+            }
+            else
+            {
+                return 1;
+            }
+        }
+
+        public override bool Equals(object obj)
+        {
+            UserID otherId = obj as UserID;
+            return Code == otherId.Code && Number == otherId.Number;
         }
     }
 }
