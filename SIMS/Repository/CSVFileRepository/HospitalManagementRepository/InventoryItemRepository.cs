@@ -9,12 +9,17 @@ using System.Collections.Generic;
 
 using SIMS.Model.ManagerModel;
 using SIMS.Model.UserModel;
+using SIMS.Repository.CSVFileRepository.Csv.IdGenerator;
+using SIMS.Repository.CSVFileRepository.Csv.Stream;
+using SIMS.Repository.Sequencer;
 
 namespace SIMS.Repository.CSVFileRepository.HospitalManagementRepository
 {
     class InventoryItemRepository : CSVRepository<InventoryItem, long>, IInventoryItemRepository, IEagerCSVRepository<InventoryItem, long>
     {
-
+        public InventoryItemRepository(string entityName, ICSVStream<InventoryItem> stream, ISequencer<long> sequencer, IIdGeneratorStrategy<InventoryItem, long> idGeneratorStrategy) : base(entityName, stream, sequencer, idGeneratorStrategy)
+        {
+        }
 
         public IEnumerable<InventoryItem> GetAllEager()
         {
