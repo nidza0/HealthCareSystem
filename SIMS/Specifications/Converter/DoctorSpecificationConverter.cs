@@ -34,19 +34,19 @@ namespace SIMS.Specifications.Converter
             return new ExpressionSpecification<Doctor>(o => o.DocTypeEnum.Equals(type));
         }
 
-        public ISpecification<Doctor> GetSpecification(DoctorFilter filter)
+        public ISpecification<Doctor> GetSpecification()
         {
             bool andSpecification = true;
             ISpecification<Doctor> specification = new ExpressionSpecification<Doctor>(o => andSpecification);
 
-            if (!String.IsNullOrEmpty(filter.Name))
+            if (!String.IsNullOrEmpty(_filter.Name))
             {
-                specification = specification.And(GetSpecificationByName(filter.Name));
+                specification = specification.And(GetSpecificationByName(_filter.Name));
             }
 
-            if (!String.IsNullOrEmpty(filter.Surname))
+            if (!String.IsNullOrEmpty(_filter.Surname))
             {
-                specification = specification.And(GetSpecificationBySurname(filter.Surname));
+                specification = specification.And(GetSpecificationBySurname(_filter.Surname));
             }
 
             return specification;

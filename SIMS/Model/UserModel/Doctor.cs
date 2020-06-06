@@ -65,7 +65,7 @@ namespace SIMS.Model.UserModel
 
         public Doctor(UserID id) : base(id) { }
 
-        public Room Office { get => _office; }
+        public Room Office { get => _office; set => _office = value; }
         public DocTypeEnum DocTypeEnum { get => _docTypeEnum; }
     }
 }

@@ -8,7 +8,7 @@ using SIMS.Model.UserModel;
 
 namespace SIMS.Repository.Abstract.HospitalManagementAbstractRepository
 {
-    interface ITimeTableRepository : IRepository<TimeTable, long>
+    public interface ITimeTableRepository : IRepository<TimeTable, long>
     {
     }
 }

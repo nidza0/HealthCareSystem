@@ -19,6 +19,7 @@ using SIMS.Repository.CSVFileRepository.Csv.Converter.MedicalConverter;
 using SIMS.Model.DoctorModel;
 using SIMS.Model.PatientModel;
 using SIMS.Repository.CSVFileRepository.Csv.Converter.UsersConverter;
+using System.IO;
 
 namespace SIMS
 {
@@ -201,6 +202,20 @@ namespace SIMS
             string csv2 = conv.ConvertEntityToCSV(conv.ConvertCSVToEntity(csv1));
 
             Console.WriteLine(csv1.Equals(csv2));
+
+            Secretary s = new Secretary(new UserID("s456"));
+            s.TimeTable = new TimeTable(8);
+
+            List<TimeTable> timetables = new List<TimeTable>();
+            timetables.Add(new TimeTable(6));
+            timetables.Add(new TimeTable(7));
+            timetables.Add(new TimeTable(4));
+            timetables.Add(new TimeTable(9));
+
+            s.TimeTable = timetables.SingleOrDefault(timetable => timetable.GetId() == s.TimeTable.GetId());
+
+            Console.WriteLine(s.TimeTable == null ? "NULL" : s.TimeTable.GetId().ToString());
+
         }
     }
 }

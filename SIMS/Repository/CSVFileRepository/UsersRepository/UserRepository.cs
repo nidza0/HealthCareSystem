@@ -20,7 +20,6 @@ namespace SIMS.Repository.CSVFileRepository.UsersRepository
         public UserRepository(ICSVStream<User> stream, ISequencer<UserID> sequencer)
             : base(ENTITY_NAME, stream, sequencer, null)
         {
-
         }
         public User GetByUsername(string username)
             => _stream.ReadAll().SingleOrDefault(user => user.UserName.Equals(username));
