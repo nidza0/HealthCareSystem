@@ -5,22 +5,55 @@
 
 using System;
 using SIMS.Model.PatientModel;
+using SIMS.Util;
 
 namespace SIMS.Repository.CSVFileRepository.Csv.Converter.MedicalConverter
 {
     public class TherapyConverter : ICSVConverter<Therapy>
     {
-        private string delimiter;
-        private string dateTimeFormat;
+        private readonly string _delimiter;
+        private readonly string _listDelimiter;
+        private readonly string _dateTimeFormat;
+
+        public TherapyConverter(string delimiter, string listDelimiter, string dateTimeFormat = "dd.MM.yyyy. HH:mm")
+        {
+            _delimiter = delimiter;
+            _listDelimiter = listDelimiter;
+            _dateTimeFormat = dateTimeFormat;
+        }
 
         public Therapy ConvertCSVToEntity(string csv)
         {
-            throw new NotImplementedException();
+            string[] tokens = SplitStringByDelimiter(csv, _delimiter);
+
+            return new Therapy(
+                long.Parse(tokens[0]),
+                GetTimeInterval(SplitStringByDelimiter(tokens[1],_listDelimiter)),
+                GetDummyPrescription(tokens[2])
+              );
         }
 
         public string ConvertEntityToCSV(Therapy entity)
-        {
-            throw new NotImplementedException();
-        }
+        => string.Join(
+               _delimiter,
+               entity.GetId(),
+               transformTimeIntervalToCSV(entity.TimeInterval),
+               entity.Prescription.GetId()
+            );
+
+        private string transformTimeIntervalToCSV(TimeInterval timeInterval)
+           => string.Join(_listDelimiter, timeInterval.StartTime.ToString(_dateTimeFormat), timeInterval.EndTime.ToString(_dateTimeFormat));
+
+        private string[] SplitStringByDelimiter(string stringToSplit, string delimiter)
+           => stringToSplit.Split(delimiter.ToCharArray());
+
+        private DateTime transformStringToDate(string date)
+           => DateTime.ParseExact(date, _dateTimeFormat, null);
+
+        private TimeInterval GetTimeInterval(string[] timeIntervalCSV)
+           => new TimeInterval(transformStringToDate(timeIntervalCSV[0]), transformStringToDate(timeIntervalCSV[1]));
+
+        private Prescription GetDummyPrescription(string id)
+           => new Prescription(long.Parse(id));
     }
 }

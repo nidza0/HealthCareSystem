@@ -24,8 +24,8 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.HospitalManagementConv
         public Medicine ConvertCSVToEntity(string csv)
         {
             string[] tokens = SplitStringByDelimiter(csv, _delimiter);
-            List<Disease> dummyDisease = GetDummyDisease(SplitStringByDelimiter(tokens[5],_listDelimiter));
-            List<Ingredient> dummyIngredient = GetDummyIngredient(SplitStringByDelimiter(tokens[6], _listDelimiter));
+            List<Disease> dummyDisease = (tokens[5] == "") ? new List<Disease>() : GetDummyDisease(SplitStringByDelimiter(tokens[5],_listDelimiter));
+            List<Ingredient> dummyIngredient = (tokens[6] == "") ? new List<Ingredient>() : GetDummyIngredient(SplitStringByDelimiter(tokens[6], _listDelimiter));
             MedicineType medicineType = (MedicineType)Enum.Parse(typeof(MedicineType), tokens[3]); //Casting string to Enum.
 
             return new Medicine(

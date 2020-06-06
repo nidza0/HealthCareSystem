@@ -46,9 +46,10 @@ namespace SIMS.Model.PatientModel
             else
                 _previousTherapies = previousTherapy;
         }
-        public Diagnosis(Disease disease, Therapy activeTherapy,DateTime issuedOn, List<Therapy> previousTherapy = null)
+        public Diagnosis(long id,Disease disease, Therapy activeTherapy,DateTime issuedOn, List<Therapy> previousTherapy = null)
         {
             //Constructor used for complete initialization(eg. reading from the database)
+            _id = id;
             _diagnosedDisease = disease;
             _activeTherapy = activeTherapy;
             _date = issuedOn;
