@@ -6,15 +6,29 @@
 using SIMS.Model.UserModel;
 using SIMS.Repository.Abstract.UsersAbstractRepository;
 using SIMS.Repository.CSVFileRepository.Csv;
+using SIMS.Repository.CSVFileRepository.Csv.Stream;
+using SIMS.Repository.Sequencer;
 using System;
+using System.Linq;
 
 namespace SIMS.Repository.CSVFileRepository.UsersRepository
 {
     public class UserRepository : CSVRepository<User, UserID>, IUserRepository
     {
-        public User GetByUsername(string username)
+        private const string ENTITY_NAME = "User";
+
+        public UserRepository(ICSVStream<User> stream, ISequencer<UserID> sequencer)
+            : base(ENTITY_NAME, stream, sequencer, null)
         {
-            throw new NotImplementedException();
+
+        }
+        public User GetByUsername(string username)
+            => _stream.ReadAll().SingleOrDefault(user => user.UserName.Equals(username));
+
+        public User WriteToFile(User user)
+        {
+            _stream.AppendToFile(user);
+            return user;
         }
     }
 }

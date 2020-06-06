@@ -6,7 +6,10 @@
 using SIMS.Model.UserModel;
 using SIMS.Repository.Abstract.MiscAbstractRepository;
 using SIMS.Repository.CSVFileRepository.Csv;
+using SIMS.Repository.CSVFileRepository.Csv.IdGenerator;
+using SIMS.Repository.CSVFileRepository.Csv.Stream;
 using SIMS.Repository.CSVFileRepository.UsersRepository;
+using SIMS.Repository.Sequencer;
 using System;
 using System.Collections.Generic;
 
@@ -14,6 +17,10 @@ namespace SIMS.Repository.CSVFileRepository.MiscRepository
 {
     public class MessageRepository : CSVRepository<Message, long>, IMessageRepository, IEagerCSVRepository<Message, long>
     {
+        public MessageRepository(string entityName, ICSVStream<Message> stream, ISequencer<long> sequencer) : base(entityName, stream, sequencer, new LongIdGeneratorStrategy<Message>())
+        {
+        }
+
         private void BindMessageWithPatient(Message message)
         {
             throw new NotImplementedException();

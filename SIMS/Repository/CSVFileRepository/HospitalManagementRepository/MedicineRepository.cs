@@ -6,7 +6,10 @@
 using SIMS.Model.PatientModel;
 using SIMS.Repository.Abstract.HospitalManagementAbstractRepository;
 using SIMS.Repository.CSVFileRepository.Csv;
+using SIMS.Repository.CSVFileRepository.Csv.IdGenerator;
+using SIMS.Repository.CSVFileRepository.Csv.Stream;
 using SIMS.Repository.CSVFileRepository.MedicalRepository;
+using SIMS.Repository.Sequencer;
 using SIMS.Specifications.Converter;
 using SIMS.Util;
 using System;
@@ -16,6 +19,10 @@ namespace SIMS.Repository.CSVFileRepository.HospitalManagementRepository
 {
     public class MedicineRepository : CSVRepository<Medicine, long>, IMedicineRepository, IEagerCSVRepository<Medicine, long>
     {
+        public MedicineRepository(string entityName, ICSVStream<Medicine> stream, ISequencer<long> sequencer) : base(entityName, stream, sequencer, new LongIdGeneratorStrategy<Medicine>())
+        {
+        }
+
         private void BindMedicineWithDisease(IEnumerable<Medicine> medicine, IEnumerable<Disease> disease)
         {
             throw new NotImplementedException();

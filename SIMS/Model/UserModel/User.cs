@@ -91,5 +91,11 @@ namespace SIMS.Model.UserModel
         public string Password { get => _password; }
         public DateTime DateCreated { get => _dateCreated; }
         public bool Deleted { get => _deleted; }
+
+        public override bool Equals(object obj)
+        {
+            User otherUser = obj as User;
+            return _userID.Equals(otherUser.GetId());
+        }
     }
 }

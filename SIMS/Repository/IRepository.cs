@@ -16,7 +16,7 @@ namespace SIMS.Repository
 
         T Create(T entity);
 
-        T Update(T entity);
+        void Update(T entity);
 
         void Delete(T entity);
 

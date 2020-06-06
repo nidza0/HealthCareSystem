@@ -54,6 +54,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Exceptions\EntityNotFoundException.cs" />
     <Compile Include="Exceptions\InvalidUserIdException.cs" />
     <Compile Include="Model\UserModel\EmergencyContact.cs" />
     <Compile Include="Model\PatientModel\PrescriptionStatus.cs" />
@@ -70,6 +71,7 @@
     <Compile Include="Repository\Abstract\MedicalAbstractRepository\IDiseaseRepository.cs" />
     <Compile Include="Repository\Abstract\MedicalAbstractRepository\IIngredientRepository.cs" />
     <Compile Include="Repository\Abstract\MedicalAbstractRepository\IMedicalRecordRepository.cs" />
+    <Compile Include="Repository\Abstract\MedicalAbstractRepository\IPrescriptionRepository.cs" />
     <Compile Include="Repository\Abstract\MedicalAbstractRepository\ISymptomRepository.cs" />
     <Compile Include="Repository\Abstract\MedicalAbstractRepository\ITherapyRepository.cs" />
     <Compile Include="Repository\Abstract\MiscAbstractRepository\IArticleRepository.cs" />
@@ -98,6 +100,7 @@
     <Compile Include="Repository\CSVFileRepository\Csv\Converter\MedicalConverter\DiseaseConverter.cs" />
     <Compile Include="Repository\CSVFileRepository\Csv\Converter\MedicalConverter\IngredientConverter.cs" />
     <Compile Include="Repository\CSVFileRepository\Csv\Converter\MedicalConverter\MedicalRecordConverter.cs" />
+    <Compile Include="Repository\CSVFileRepository\Csv\Converter\MedicalConverter\PrescriptionConverter.cs" />
     <Compile Include="Repository\CSVFileRepository\Csv\Converter\MedicalConverter\SymptomConverter.cs" />
     <Compile Include="Repository\CSVFileRepository\Csv\Converter\MedicalConverter\TherapyConverter.cs" />
     <Compile Include="Repository\CSVFileRepository\Csv\Converter\MiscConverter\ArticleConverter.cs" />
@@ -112,6 +115,12 @@
     <Compile Include="Repository\CSVFileRepository\Csv\Converter\UsersConverter\SecretaryConverter.cs" />
     <Compile Include="Repository\CSVFileRepository\Csv\Converter\UsersConverter\UserConverter.cs" />
     <Compile Include="Repository\CSVFileRepository\Csv\CSVRepository.cs" />
+    <Compile Include="Repository\CSVFileRepository\Csv\IdGenerator\DoctorIdGeneratorStrategy.cs" />
+    <Compile Include="Repository\CSVFileRepository\Csv\IdGenerator\IIdGeneratorStrategy.cs" />
+    <Compile Include="Repository\CSVFileRepository\Csv\IdGenerator\LongIdGeneratorStrategy.cs" />
+    <Compile Include="Repository\CSVFileRepository\Csv\IdGenerator\ManagerIdGeneratorStrategy.cs" />
+    <Compile Include="Repository\CSVFileRepository\Csv\IdGenerator\PatientIdGeneratorStrategy.cs" />
+    <Compile Include="Repository\CSVFileRepository\Csv\IdGenerator\SecretaryIdGeneratorStrategy.cs" />
     <Compile Include="Repository\CSVFileRepository\Csv\IEagerCSVRepository.cs" />
     <Compile Include="Repository\CSVFileRepository\Csv\Stream\CSVStream.cs" />
     <Compile Include="Repository\CSVFileRepository\Csv\Stream\ICSVStream.cs" />
@@ -127,6 +136,7 @@
     <Compile Include="Repository\CSVFileRepository\MedicalRepository\DiseaseRepository.cs" />
     <Compile Include="Repository\CSVFileRepository\MedicalRepository\IngredientRepository.cs" />
     <Compile Include="Repository\CSVFileRepository\MedicalRepository\MedicalRecordRepository.cs" />
+    <Compile Include="Repository\CSVFileRepository\MedicalRepository\PrescriptionRepository.cs" />
     <Compile Include="Repository\CSVFileRepository\MedicalRepository\SymptomRepository.cs" />
     <Compile Include="Repository\CSVFileRepository\MedicalRepository\TherapyRepository.cs" />
     <Compile Include="Repository\CSVFileRepository\MiscRepository\ArticleRepository.cs" />

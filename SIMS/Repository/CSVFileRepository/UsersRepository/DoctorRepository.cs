@@ -7,23 +7,33 @@ using SIMS.Model.DoctorModel;
 using SIMS.Model.UserModel;
 using SIMS.Repository.Abstract.UsersAbstractRepository;
 using SIMS.Repository.CSVFileRepository.Csv;
+using SIMS.Repository.CSVFileRepository.Csv.IdGenerator;
+using SIMS.Repository.CSVFileRepository.Csv.Stream;
+using SIMS.Repository.Sequencer;
 using SIMS.Util;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SIMS.Repository.CSVFileRepository.UsersRepository
 {
     public class DoctorRepository : CSVRepository<Doctor, UserID>, IDoctorRepository, IEagerCSVRepository<Doctor, UserID>
     {
+        private const string ENTITY_NAME = "Doctor";
+
+        public DoctorRepository(ICSVStream<Doctor> stream, ISequencer<UserID> sequencer)
+            : base(ENTITY_NAME, stream, sequencer, new DoctorIdGeneratorStrategy())
+        {
+
+        }
+
         public void Bind(IEnumerable<Doctor> doctors)
         {
             throw new NotImplementedException();
         }
 
         public IEnumerable<Doctor> GetDoctorByType(DocTypeEnum doctorType)
-        {
-            throw new NotImplementedException();
-        }
+            => _stream.ReadAll().Where(doctor => doctor.DocTypeEnum == doctorType);
 
         public IEnumerable<Doctor> GetFilteredDoctors(DoctorFilter filter)
         {

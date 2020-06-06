@@ -6,7 +6,10 @@
 using SIMS.Model.UserModel;
 using SIMS.Repository.Abstract.MiscAbstractRepository;
 using SIMS.Repository.CSVFileRepository.Csv;
+using SIMS.Repository.CSVFileRepository.Csv.IdGenerator;
+using SIMS.Repository.CSVFileRepository.Csv.Stream;
 using SIMS.Repository.CSVFileRepository.UsersRepository;
+using SIMS.Repository.Sequencer;
 using System;
 using System.Collections.Generic;
 
@@ -14,6 +17,10 @@ namespace SIMS.Repository.CSVFileRepository.MiscRepository
 {
     public class ArticleRepository : CSVRepository<Article, long>, IArticleRepository, IEagerCSVRepository<Article, long>
     {
+        public ArticleRepository(string entityName, ICSVStream<Article> stream, ISequencer<long> sequencer) : base(entityName, stream, sequencer, new LongIdGeneratorStrategy<Article>())
+        {
+        }
+
         public void BindArticlesWithAuthors(IEnumerable<Article> articles)
         {
             throw new NotImplementedException();

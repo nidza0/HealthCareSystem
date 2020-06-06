@@ -38,5 +38,13 @@ namespace SIMS.Model.PatientModel
 
         public void SetId(long id)
             => _id = id;
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null) return false;
+
+            Ingredient otherDisease = obj as Ingredient;
+            return _id == otherDisease.GetId();
+        }
     }
 }
