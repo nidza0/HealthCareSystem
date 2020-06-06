@@ -13,7 +13,7 @@ namespace SIMS.Repository.Sequencer
 
         public long GenerateID()
         {
-            throw new NotImplementedException();
+            return ++nextID;
         }
 
         public void Initialize(long initID)

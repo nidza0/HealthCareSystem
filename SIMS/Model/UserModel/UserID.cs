@@ -5,6 +5,7 @@
 
 using SIMS.Exceptions;
 using System;
+using System.ComponentModel;
 
 namespace SIMS.Model.UserModel
 {
@@ -37,6 +38,12 @@ namespace SIMS.Model.UserModel
         public override string ToString()
         {
             return _code.ToString() + _number;
+        }
+
+        public UserID increment()
+        {
+            this._number++;
+            return this;
         }
     }
 }
