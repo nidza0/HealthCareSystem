@@ -11,6 +11,7 @@ using SIMS.Repository.CSVFileRepository.Csv.Stream;
 using SIMS.Repository.Sequencer;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SIMS.Repository.CSVFileRepository.MiscRepository
 {
@@ -20,20 +21,19 @@ namespace SIMS.Repository.CSVFileRepository.MiscRepository
         {
         }
 
-        public IEnumerable<Country> GetAllCountries()
-        {
-            throw new NotImplementedException();
-        }
 
+
+        // TODO: Obsolete
         public IEnumerable<Location> GetAllEager()
         {
-            throw new NotImplementedException();
+            return GetAll();
         }
 
         public Location GetEager(long id)
-        {
-            throw new NotImplementedException();
-        }
+            => GetAllEager().ToList().SingleOrDefault(location => location.GetId() == id);
+
+        public IEnumerable<Location> GetLocationByCountry(string country)
+            => GetAll().ToList().Where(location => location.Country == country);
 
         public IEnumerable<Location> GetLocationByCountry(Country country)
         {

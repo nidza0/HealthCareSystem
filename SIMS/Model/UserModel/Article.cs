@@ -32,6 +32,6 @@ namespace SIMS.Model.UserModel
 
         public string Title { get { return _title; } }
         public string ShortDescription { get { return _shortDescription; } }
-        public Employee Author { get { return _author; } }
+        public Employee Author { get { return _author; } set { _author = value; } }
     }
 }
