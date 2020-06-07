@@ -7,17 +7,9 @@
         mc:Ignorable="d"
         Title="Messages" Height="450" Width="800">
     <Window.Resources>
-        <SolidColorBrush Color="#f5ee67" x:Key="BackgroundColor"></SolidColorBrush>
-        <SolidColorBrush Color="#FFFAFA" x:Key="BorderBlockColor"/>
-        <SolidColorBrush Color="#2372DF" x:Key="userMesageColor"/>
-        <LinearGradientBrush x:Key="backgroundGradient">
-            <GradientStop Color="#192841" Offset="0"/>
-            <GradientStop Color="#282866" Offset="1"/>
-        </LinearGradientBrush>
 
 
 
-        <BitmapImage x:Key="LogoImage" UriSource="static/images/logo.png"/>
 
         <Style x:Key="conversationistName" TargetType="{x:Type TextBlock}">
             <Setter Property="Foreground" Value="#e8dc2e"/>
@@ -26,30 +18,13 @@
             <Setter Property="FontWeight" Value="Bold"/>
         </Style>
 
-        <Style x:Key="LabelStyle" TargetType="{x:Type Label}">
-            <Setter Property="FontSize" Value="20"></Setter>
-            <Setter Property="FontWeight" Value="Bold"></Setter>
-            <Setter Property="Foreground" Value="#e8dc2e"/>
-        </Style>
-        
-
-        <Style x:Key="SubtitleLabelStyle" TargetType="{x:Type Label}">
-            <Setter Property="FontSize" Value="16"></Setter>
-            <Setter Property="FontWeight" Value="Bold"></Setter>
-            <Setter Property="Foreground" Value="#e8dc2e"/>
-        </Style>
+      
 
         <Style x:Key="normalLabel" TargetType="{x:Type Label}">
             <Setter Property="Foreground" Value="#e8dc2e"/>
         </Style>
 
-        <Style x:Key="BorderBlockStyle" TargetType="{x:Type Border}">
-            <Setter Property="BorderBrush" Value="Silver"></Setter>
-            <Setter Property="BorderThickness" Value="4"/>
-            <Setter Property="Background" Value="{StaticResource BorderBlockColor}"/>
-            <Setter Property="Margin" Value="10"/>
-            <Setter Property="CornerRadius" Value="10"/>
-        </Style>
+     
 
         <Style x:Key="myMessageBorder" TargetType="{x:Type Border}" BasedOn="{StaticResource ResourceKey=BorderBlockStyle}">
             <Setter Property="Background" Value="#0084ff"></Setter>
@@ -63,7 +38,7 @@
 
         <Style x:Key="contentBlockStyle" TargetType="{x:Type Border}" BasedOn="{StaticResource ResourceKey=BorderBlockStyle}">
             
-            <Setter Property="Background" Value="{StaticResource backgroundGradient}"/>
+            <Setter Property="Background" Value="{StaticResource backgroundGradient}"/> <!-- Morao sam ovde iskoristiti jer je malo layout drugacije nego na drugim prozorima -->
         </Style>
 
         <Style x:Key="backgroundBlockStyle" TargetType="{x:Type Border}" BasedOn="{StaticResource ResourceKey=BorderBlockStyle}">
@@ -231,28 +206,7 @@
 
         </Style>
 
-        <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
-            <Setter Property="Background" Value="#0d98ba"/>
-
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Border Background="{TemplateBinding Background}" BorderBrush="Black" BorderThickness="1" CornerRadius="5">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Opacity" Value="0.8" />
-                </Trigger>
-                <Trigger Property="IsMouseOver" Value="False">
-                    <Setter Property="Opacity" Value="1" />
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-
+       
         <Style x:Key="MessageBlockStyle" TargetType="{x:Type Border}">
             <Setter Property="BorderBrush" Value="RosyBrown"/>
             <Setter Property="BorderThickness" Value="2"/>
@@ -291,54 +245,7 @@
             </Style.Triggers>
         </Style>
 
-        <Style x:Key="_ListBoxItemStyle" TargetType="ListBoxItem">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="ListBoxItem">
-                        <Border Name="_Border"
-                                Padding="0"
-                                SnapsToDevicePixels="true">
-
-                            <ContentPresenter />
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsSelected" Value="true">
-                                <Setter TargetName="_Border" Property="Background" Value="Transparent"/>
-                                <Setter Property="Foreground" Value="Black"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Setter Property="Margin" Value="5 12 5 0"/>
-        </Style>
-
-        <Style x:Key="borderColorAnimation" TargetType="{x:Type Border}">
-            <Setter Property="BorderBrush" Value="#2372DF"/>
-            <Setter Property="BorderThickness" Value="2"/>
-            <Setter Property="CornerRadius" Value="6"/>
-            <Setter Property="Background" Value="#80B3F9"/>
-            <Style.Triggers>
-                <EventTrigger RoutedEvent="Border.MouseEnter">
-                    <EventTrigger.Actions>
-                        <BeginStoryboard>
-                            <Storyboard>
-                                <ColorAnimation Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="#2372DF" Duration="0:0:0.3" />
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </EventTrigger.Actions>
-                </EventTrigger>
-                <EventTrigger RoutedEvent="Border.MouseLeave">
-                    <EventTrigger.Actions>
-                        <BeginStoryboard>
-                            <Storyboard>
-                                <ColorAnimation Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="#8EB9F1" Duration="0:0:1" />
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </EventTrigger.Actions>
-                </EventTrigger>
-            </Style.Triggers>
-        </Style>
+       
 
 
 
@@ -492,7 +399,7 @@
                                 </Grid.ColumnDefinitions>
 
                                 <Label Grid.Column = "0" Content="Nikola Dragic" Style="{StaticResource SubtitleLabelStyle}"/>
-                                <Button Grid.Column="2" Content="Report" Margin="3 3" Style="{StaticResource ButtonStyle}"></Button>
+                                <Button Grid.Column="2" Content="Report" Margin="3 3" ></Button>
                             </Grid>
 
                             <!--Traits-->
@@ -526,7 +433,7 @@
                                     </StackPanel>
 
 
-                                    <Button Content="View profile" Grid.Column="2" Margin="5" Style="{StaticResource ButtonStyle}"/>
+                                    <Button Content="View profile" Grid.Column="2" Margin="5" />
                                 </Grid>
                             </Grid>
 
@@ -555,7 +462,7 @@
                                     </TextBox>
                                 </ScrollViewer>
 
-                                <Button Grid.Row="0" Grid.Column="1" Style="{StaticResource ButtonStyle}">
+                                <Button Grid.Row="0" Grid.Column="1">
                                     Submit
                                     <!--TODO: ADD SUBMIT IMAGE-->
                                 </Button>

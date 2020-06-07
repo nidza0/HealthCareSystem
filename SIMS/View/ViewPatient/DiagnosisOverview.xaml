@@ -8,77 +8,9 @@
         Title="DiagnosisOverview" Height="600" Width="900"
         WindowStartupLocation="CenterScreen">
     <Window.Resources>
-        <SolidColorBrush Color="#f5ee67" x:Key="BackgroundColor"></SolidColorBrush>
-        <SolidColorBrush Color="#FFFAFA" x:Key="BorderBlockColor"/>
-        <LinearGradientBrush x:Key="backgroundGradient">
-            <GradientStop Color="#192841" Offset="0"/>
-            <GradientStop Color="#282866" Offset="1"/>
-        </LinearGradientBrush>
-
-        <SolidColorBrush Color="#2372DF" x:Key="userMesageColor"/>
 
 
 
-        <BitmapImage x:Key="LogoImage" UriSource="static/images/logo.png"/>
-
-        <Style x:Key="_ListBoxItemStyle" TargetType="ListBoxItem">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="ListBoxItem">
-                        <Border Name="_Border"
-                                Padding="0"
-                                SnapsToDevicePixels="true">
-
-                            <ContentPresenter />
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsSelected" Value="true">
-                                <Setter TargetName="_Border" Property="Background" Value="Transparent"/>
-                                <Setter Property="Foreground" Value="Black"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Setter Property="Margin" Value="5 12 5 0"/>
-        </Style>
-
-        <Style x:Key="borderColorAnimation" TargetType="{x:Type Border}">
-            <Setter Property="BorderBrush" Value="#2372DF"/>
-            <Setter Property="BorderThickness" Value="2"/>
-            <Setter Property="CornerRadius" Value="6"/>
-            <Setter Property="Background" Value="#80B3F9"/>
-            <Style.Triggers>
-                <EventTrigger RoutedEvent="Border.MouseEnter">
-                    <EventTrigger.Actions>
-                        <BeginStoryboard>
-                            <Storyboard>
-                                <ColorAnimation Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="#2372DF" Duration="0:0:0.3" />
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </EventTrigger.Actions>
-                </EventTrigger>
-                <EventTrigger RoutedEvent="Border.MouseLeave">
-                    <EventTrigger.Actions>
-                        <BeginStoryboard>
-                            <Storyboard>
-                                <ColorAnimation Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="#8EB9F1" Duration="0:0:1" />
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </EventTrigger.Actions>
-                </EventTrigger>
-            </Style.Triggers>
-        </Style>
-
-        
-
-        <Style x:Key="BorderBlockStyle" TargetType="{x:Type Border}">
-            <Setter Property="BorderBrush" Value="Silver"></Setter>
-            <Setter Property="BorderThickness" Value="4"/>
-            <Setter Property="Background" Value="{StaticResource backgroundGradient}"/>
-            <Setter Property="Margin" Value="10"/>
-            <Setter Property="CornerRadius" Value="10"/>
-        </Style>
 
         <Style x:Key="DiagnosisBlockStyle" TargetType="{x:Type Border}">
             <Setter Property="BorderBrush" Value="RosyBrown"/>
@@ -88,51 +20,6 @@
             <Setter Property="Margin" Value="10"/>
         </Style>
 
-        <Style x:Key="LabelStyle" TargetType="{x:Type Label}">
-            <Setter Property="FontSize" Value="20"></Setter>
-            <Setter Property="FontWeight" Value="Bold"></Setter>
-            <Setter Property="Foreground" Value="#e8dc2e"/>
-        </Style>
-
-        <Style x:Key="SubtitleLabelStyle" TargetType="{x:Type Label}">
-            <Setter Property="FontSize" Value="16"></Setter>
-            <Setter Property="FontWeight" Value="Bold"></Setter>
-        </Style>
-
-        <Style x:Key="myMessageBorder" TargetType="{x:Type Border}" BasedOn="{StaticResource ResourceKey=BorderBlockStyle}">
-            <Setter Property="Background" Value="#0084ff"></Setter>
-
-        </Style>
-        <Style x:Key="otherPersonMessageBorder" TargetType="{x:Type Border}" BasedOn="{StaticResource ResourceKey=BorderBlockStyle}">
-            <Setter Property="Background" Value="Silver"></Setter>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="BorderBrush" Value="Red"></Setter>
-
-        </Style>
-
-
-        <Style x:Key="contentStackHover" TargetType="{x:Type StackPanel}">
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Opacity" Value="0.8" />
-                </Trigger>
-                <Trigger Property="IsMouseOver" Value="False">
-                    <Setter Property="Opacity" Value="1" />
-                </Trigger>
-            </Style.Triggers>
-
-        </Style>
-
-
-        <Style x:Key="ListBoxStyle" TargetType="{x:Type ListBox}">
-            <Style.Resources>
-                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent" />
-                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black" />
-                <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="Transparent" />
-                <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="Transparent" />
-            </Style.Resources>
-
-        </Style>
 
 
         <Style x:Key="diagnosisListBoxStyle" TargetType="{x:Type ListBox}" BasedOn="{StaticResource ListBoxStyle}">
@@ -153,7 +40,7 @@
             </Style.Triggers>
         </Style>
 
-        <Style x:Key="ButtonStyle" TargetType="{x:Type RadioButton}">
+        <Style x:Key="ButtonStyle" TargetType="{x:Type RadioButton}"> 
             <Setter Property="Background" Value="#0d98ba"/>
 
             <Setter Property="Template">

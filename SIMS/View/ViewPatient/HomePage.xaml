@@ -10,128 +10,8 @@
         WindowState="Maximized"
         WindowStartupLocation="CenterScreen">
     <Window.Resources>
-        <SolidColorBrush Color="#f5ee67" x:Key="BackgroundColor"></SolidColorBrush>
-        <SolidColorBrush Color="#FFFAFA" x:Key="BorderBlockColor"/>
-        <SolidColorBrush Color="#2372DF" x:Key="userMesageColor"/>
-        
+      
 
-        <LinearGradientBrush x:Key="backgroundGradient">
-            <GradientStop Color="#192841" Offset="0"/>
-            <GradientStop Color="#282866" Offset="1"/>
-        </LinearGradientBrush>
-
-        <BitmapImage x:Key="LogoImage" UriSource="static/images/logo.png"/>
-
-        <GridLength x:Key="marginWidth">20</GridLength>
-        <Style x:Key="BorderBlockStyle" TargetType="{x:Type Border}">
-            <Setter Property="BorderBrush" Value="Silver"></Setter>
-            <Setter Property="BorderThickness" Value="4"/>
-            <Setter Property="Background" Value="{StaticResource backgroundGradient}"/>
-            <Setter Property="Margin" Value="10"/>
-            <Setter Property="CornerRadius" Value="10"/>
-        </Style>
-
-        <Style x:Key="ContentBlockStyle" TargetType="{x:Type Border}" BasedOn="{StaticResource BorderBlockStyle}">
-            <Setter Property="BorderBrush" Value="#3232ff"/>
-            <Setter Property="Width" Value="300"/>
-            <Setter Property="Height" Value="125"/>
-            <Setter Property="MaxHeight" Value="500"/>
-        </Style>
-
-
-        <Style x:Key="stackBorder" TargetType="{x:Type Border}" BasedOn="{StaticResource BorderBlockStyle}">
-            <Setter Property="BorderBrush" Value="{StaticResource BackgroundColor}"/>
-            <Setter Property="BorderThickness" Value="3"/>
-            <Setter Property="Margin" Value="5"/>
-            <Setter Property="Padding" Value="5"/>
-
-        </Style>
-        
-        
-
-
-        <Style x:Key="LabelStyle" TargetType="{x:Type Label}">
-            <Setter Property="FontSize" Value="20"></Setter>
-            <Setter Property="FontWeight" Value="Bold"></Setter>
-            <Setter Property="Foreground" Value="#e8dc2e"/>
-        </Style>
-
-        <Style x:Key="SubtitleLabelStyle" TargetType="{x:Type Label}">
-            <Setter Property="FontSize" Value="16"></Setter>
-            <Setter Property="FontWeight" Value="Bold"></Setter>
-        </Style>
-
-        <Style x:Key="contentStackHover" TargetType="{x:Type StackPanel}">
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Opacity" Value="0.8" />
-                </Trigger>
-                <Trigger Property="IsMouseOver" Value="False">
-                    <Setter Property="Opacity" Value="1" />
-                </Trigger>
-            </Style.Triggers>
-            
-        </Style>
-
-        <Style x:Key="borderColorAnimation" TargetType="{x:Type Border}">
-            <Setter Property="BorderBrush" Value="#2372DF"/>
-            <Setter Property="BorderThickness" Value="2"/>
-            <Setter Property="CornerRadius" Value="6"/>
-            <Setter Property="Background" Value="#80B3F9"/>
-            <Setter Property="Margin" Value="0 10 0 0"/>
-            <Style.Triggers>
-                <EventTrigger RoutedEvent="Border.MouseEnter">
-                    <EventTrigger.Actions>
-                        <BeginStoryboard>
-                            <Storyboard>
-                                <ColorAnimation Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="#2372DF" Duration="0:0:0.3" />
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </EventTrigger.Actions>
-                </EventTrigger>
-                <EventTrigger RoutedEvent="Border.MouseLeave">
-                    <EventTrigger.Actions>
-                        <BeginStoryboard>
-                            <Storyboard>
-                                <ColorAnimation Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="#8EB9F1" Duration="0:0:1" />
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </EventTrigger.Actions>
-                </EventTrigger>
-            </Style.Triggers>
-        </Style>
-
-        <Style x:Key="_ListBoxItemStyle" TargetType="ListBoxItem">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="ListBoxItem">
-                        <Border Name="_Border"
-                                Padding="0"
-                                SnapsToDevicePixels="true">
-                                
-                            <ContentPresenter />
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsSelected" Value="true">
-                                <Setter TargetName="_Border" Property="Background" Value="Transparent"/>
-                                <Setter Property="Foreground" Value="Black"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Setter Property="Margin" Value="5 0 5 0"/>
-        </Style>
-
-        <Style x:Key="ListBoxStyle" TargetType="{x:Type ListBox}">
-            <Style.Resources>
-                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent" />
-                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black" />
-                <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="Transparent" />
-                <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="Transparent" />
-            </Style.Resources>
-
-        </Style>
 
         <Style x:Key="upcomingEventsListBoxStyle" TargetType="{x:Type ListBox}" BasedOn="{StaticResource ListBoxStyle}">
             <Setter Property="Background" Value="Transparent"/>
@@ -189,27 +69,7 @@
             </Style.Triggers>
         </Style>
 
-        <Style x:Key="navigationButtonStyle" TargetType="{x:Type Button}">
-            <Setter Property="Background" Value="#0d98ba"/>
-
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Border Background="{TemplateBinding Background}" BorderBrush="Black" BorderThickness="1" CornerRadius="5">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Opacity" Value="0.8" />
-                </Trigger>
-                <Trigger Property="IsMouseOver" Value="False">
-                    <Setter Property="Opacity" Value="1" />
-                </Trigger>
-            </Style.Triggers>
-        </Style>
+ 
 
     </Window.Resources>
 
@@ -224,19 +84,19 @@
             <!--Navigation menu-->
             <Border Grid.Row="0" Style="{StaticResource BorderBlockStyle}">
 
-                <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                     <!--Logo definition -> Copyrighted, needs to be changed-->
                     <Image Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="1" Grid.RowSpan="3" Source="{StaticResource LogoImage}"/>
 
                     <!--Navigation items definition-->
-                    <Button Style="{StaticResource navigationButtonStyle}" Click="Button_Click" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="5">Make an appointment</Button>
-                    <Button Style="{StaticResource navigationButtonStyle}"  Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="5">My appointments</Button>
-                    <Button Style="{StaticResource navigationButtonStyle}"  Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="1" Grid.RowSpan="2" Margin="5">My therapy</Button>
-                    <Button Style="{StaticResource navigationButtonStyle}"  Click = "MyDiagnosis_Button_Click" Grid.Row="1" Grid.Column="7" Grid.ColumnSpan="1" Grid.RowSpan="2" Margin="5">My diagnosis</Button>
-                    <Button Style="{StaticResource navigationButtonStyle}"  Click= "Messages_Button_Click" Grid.Row="1" Grid.Column="8" Grid.ColumnSpan="1" Grid.RowSpan="2" Margin="5">Messages</Button>
-                    <Button Style="{StaticResource navigationButtonStyle}"  Click = "ExitButton_Closing" Grid.Row="1" Grid.Column="9" Grid.ColumnSpan="1" Grid.RowSpan="2" Margin="5">Exit</Button>
+                    <Button   Click="Button_Click" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="5">Make an appointment</Button>
+                    <Button   Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="5">My appointments</Button>
+                    <Button   Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="1" Grid.RowSpan="2" Margin="5">My therapy</Button>
+                    <Button   Click = "MyDiagnosis_Button_Click" Grid.Row="1" Grid.Column="7" Grid.ColumnSpan="1" Grid.RowSpan="2" Margin="5">My diagnosis</Button>
+                    <Button   Click= "Messages_Button_Click" Grid.Row="1" Grid.Column="8" Grid.ColumnSpan="1" Grid.RowSpan="2" Margin="5">Messages</Button>
+                    <Button   Click = "ExitButton_Closing" Grid.Row="1" Grid.Column="9" Grid.ColumnSpan="1" Grid.RowSpan="2" Margin="5">Exit</Button>
 
-                </WrapPanel>
+                </StackPanel>
 
             </Border>
 
@@ -404,7 +264,7 @@
                                             </StackPanel>
 
                                             <StackPanel Grid.Row="2" Orientation="Vertical" VerticalAlignment="Bottom">
-                                                <Button  Style="{StaticResource navigationButtonStyle}"  Content="Dismiss" Name="btnDelete" HorizontalAlignment="Stretch"  Click="DismissNotificationClick"/>
+                                                <Button  Content="Dismiss" Name="btnDelete" HorizontalAlignment="Stretch"  Click="DismissNotificationClick"/>
                                             </StackPanel>
                                         </Grid>
                                     </Border>
@@ -458,7 +318,7 @@
 
 
                                                 <StackPanel Grid.Row="2" Orientation="Vertical" VerticalAlignment="Bottom">
-                                                <Button  Style="{StaticResource navigationButtonStyle}"  Content="View article" Name="viewArticleButton"  HorizontalAlignment="Stretch"  Click="ViewArticleButton_Click"/>
+                                                <Button  Content="View article" Name="viewArticleButton"  HorizontalAlignment="Stretch"  Click="ViewArticleButton_Click"/>
                                                 </StackPanel>
 
                                             

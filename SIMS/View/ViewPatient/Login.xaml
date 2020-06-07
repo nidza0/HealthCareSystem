@@ -8,21 +8,11 @@
         Title="Login" Height="450" Width="800"
         WindowStartupLocation="CenterScreen">
     <Window.Resources>
-        <SolidColorBrush Color="#1c2e4a" x:Key="BackgroundColor"></SolidColorBrush>
         <SolidColorBrush Color="#FFFAFA" x:Key="BorderBlockColor"/>
 
-        <LinearGradientBrush x:Key="backgroundGradient">
-            <GradientStop Color="#192841" Offset="0"/>
-            <GradientStop Color="#282866" Offset="1"/>
-        </LinearGradientBrush>
 
-        <BitmapImage x:Key="LogoImage" UriSource="static/images/logo.png"/>
-        <Style x:Key="BorderBlockStyle" TargetType="{x:Type Border}">
-            <Setter Property="BorderBrush" Value="Silver"></Setter>
-            <Setter Property="BorderThickness" Value="4"/>
+        <Style x:Key="loginBorder" TargetType="{x:Type Border}" BasedOn="{StaticResource BorderBlockStyle}">
             <Setter Property="Background" Value="{StaticResource BorderBlockColor}"/>
-            <Setter Property="Margin" Value="10"/>
-            <Setter Property="CornerRadius" Value="10"/>
         </Style>
 
 
@@ -37,27 +27,7 @@
             <Setter Property="Margin" Value="4"/>
         </Style>
 
-        <Style x:Key="loginButtonStyle" TargetType="{x:Type Button}">
-            <Setter Property="Background" Value="#0d98ba"/>
-
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Border Background="{TemplateBinding Background}" BorderBrush="Black" BorderThickness="1" CornerRadius="5">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Opacity" Value="0.8" />
-                </Trigger>
-                <Trigger Property="IsMouseOver" Value="False">
-                    <Setter Property="Opacity" Value="1" />
-                </Trigger>
-            </Style.Triggers>
-        </Style>
+      
 
     </Window.Resources>
     <Grid Background="{StaticResource backgroundGradient}">
@@ -77,7 +47,7 @@
             <!--Margin model-->
         </Grid.RowDefinitions>
 
-        <Border Grid.Row="1" Grid.Column="1" Style="{StaticResource BorderBlockStyle}">
+        <Border Grid.Row="1" Grid.Column="1" Style="{StaticResource loginBorder}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"></RowDefinition>
@@ -152,10 +122,10 @@
                     </Grid.ColumnDefinitions>
 
                     <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                        <Button x:Name="resetButton" Margin="5 0 0 0" Click="ResetButton_Click" Style="{StaticResource loginButtonStyle}">
+                        <Button x:Name="resetButton" Margin="5 0 0 0" Click="ResetButton_Click" >
                             <Label Style="{StaticResource InputLabel}">Reset</Label>
                         </Button>
-                        <Button IsEnabled="False" x:Name="confirmButton" Click="ConfirmButton_Click_1" Style="{StaticResource loginButtonStyle}">
+                        <Button IsEnabled="False" x:Name="confirmButton" Click="ConfirmButton_Click_1" >
                             <Label Content="Confirm" Style="{StaticResource InputLabel}"></Label>
                         </Button>
                     </StackPanel>
