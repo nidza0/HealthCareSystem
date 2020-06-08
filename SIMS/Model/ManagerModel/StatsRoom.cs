@@ -17,6 +17,7 @@ namespace SIMS.Model.ManagerModel
 
         private Room _room;
 
+        public int AvgAppointmentTime { get { return _avgAppointmentTime; } set { _avgAppointmentTime = value; } }
         public double Usage { get { return _usage; } set { } }
 
         public double TimeOccupied { get { return _timeOccupied; } set { } }
