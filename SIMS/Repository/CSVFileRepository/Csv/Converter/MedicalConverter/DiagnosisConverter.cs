@@ -36,9 +36,8 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.MedicalConverter
             return new Diagnosis(
                     long.Parse(tokens[0]),
                     GetDummyDisease(tokens[1]),
-                    GetDummyActiveTherapy(tokens[2]),
-                    GetDateTimeFromString(tokens[3]),
-                    tokens[4] == "" ? new List<Therapy>() : GetDummyPreviousTherapies(SplitStringByDelimiter(tokens[4], _listDelimiter))
+                    GetDateTimeFromString(tokens[2]),
+                    tokens[3] == "" ? new List<Therapy>() : GetDummyPreviousTherapies(SplitStringByDelimiter(tokens[3], _listDelimiter))
 
                 );
         }
@@ -47,9 +46,8 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.MedicalConverter
             => string.Join(_delimiter,
                     entity.GetId(),
                     entity.DiagnosedDisease.GetId(),
-                    entity.ActiveTherapy.GetId(),
                     entity.Date.ToString(_dateTimeFormat),
-                    GetPreviousTherapyCSV(entity.PreviousTherapies)
+                    GetPreviousTherapyCSV(entity.Therapies)
                 );
 
         private string[] SplitStringByDelimiter(string stringToSplit, string delimiter)
