@@ -39,23 +39,23 @@ namespace SIMS.Specifications.Converter
             return new ExpressionSpecification<Appointment>(o => o.AppointmentType.Equals(type));
         }
 
-        public ISpecification<Appointment> GetSpecification(AppointmentFilter filter)
+        public ISpecification<Appointment> GetSpecification()
         {
             ISpecification<Appointment> specification = new ExpressionSpecification<Appointment>(o => true);
             
-            specification = specification.And(GetSpecificationByType(filter.Type));
+            specification = specification.And(GetSpecificationByType(_filter.Type));
 
-            if(filter.TimeInterval != null)
+            if(_filter.TimeInterval != null)
             {
-                specification = specification.And(GetSpecificationByTimeInterval(filter.TimeInterval));
+                specification = specification.And(GetSpecificationByTimeInterval(_filter.TimeInterval));
             }
 
-            if(filter.Doctor != null)
+            if(_filter.Doctor != null)
             {
-                specification = specification.And(GetSpecificationByDoctor(filter.Doctor));
+                specification = specification.And(GetSpecificationByDoctor(_filter.Doctor));
             }
 
-            specification = specification.And(GetSpecificationByDoctorType(filter.DoctorType));
+            specification = specification.And(GetSpecificationByDoctorType(_filter.DoctorType));
 
             return specification;
         }

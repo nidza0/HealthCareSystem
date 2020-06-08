@@ -3,6 +3,7 @@
 // Created: 23. maj 2020 15:33:38
 // Purpose: Definition of Class RoomRepository
 
+using SIMS.Model.ManagerModel;
 using SIMS.Model.UserModel;
 using SIMS.Repository.Abstract.HospitalManagementAbstractRepository;
 using SIMS.Repository.CSVFileRepository.Csv;
@@ -11,38 +12,47 @@ using SIMS.Repository.CSVFileRepository.Csv.Stream;
 using SIMS.Repository.Sequencer;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SIMS.Repository.CSVFileRepository.HospitalManagementRepository
 {
     public class RoomRepository : CSVRepository<Room, long>, IRoomRepository, IEagerCSVRepository<Room, long>
     {
-        public RoomRepository(string entityName, ICSVStream<Room> stream, ISequencer<long> sequencer) : base(entityName, stream, sequencer, new LongIdGeneratorStrategy<Room>())
+        private IInventoryItemRepository _inventoryItemRepository;
+        public RoomRepository(string entityName, ICSVStream<Room> stream, ISequencer<long> sequencer, IInventoryItemRepository inventoryItemRepository) : base(entityName, stream, sequencer, new LongIdGeneratorStrategy<Room>())
         {
+            _inventoryItemRepository = inventoryItemRepository;
         }
+
+        private void BindRoomsWithItems(IEnumerable<Room> rooms, IEnumerable<InventoryItem> inventoryItems)
+            => rooms.ToList().ForEach(room => 
+            {
+                room.InventoryItem = GetInventoryItemsByIds(inventoryItems, room.InventoryItem.Select(item => item.Id));
+            });
+
+        private List<InventoryItem> GetInventoryItemsByIds(IEnumerable<InventoryItem> items, IEnumerable<long> ids)
+            => items.Where(item => ids.Contains(item.Id)).ToList();
 
         public IEnumerable<Room> GetAllEager()
         {
-            throw new NotImplementedException();
+            IEnumerable<Room> rooms = GetAll();
+            IEnumerable<InventoryItem> items = _inventoryItemRepository.GetAll();
+
+            BindRoomsWithItems(rooms, items);
+
+            return rooms;
         }
 
         public Room GetEager(long id)
-        {
-            throw new NotImplementedException();
-        }
+            => GetAllEager().SingleOrDefault(room => room.GetId() == id);
 
         public Room GetRoomByName(string name)
-        {
-            throw new NotImplementedException();
-        }
+            => GetAll().SingleOrDefault(room => room.RoomNumber == name);
 
         public IEnumerable<Room> GetRoomsByFloor(int floor)
-        {
-            throw new NotImplementedException();
-        }
+            => GetAll().Where(room => room.Floor == floor);
 
         public IEnumerable<Room> GetRoomsByType(RoomType type)
-        {
-            throw new NotImplementedException();
-        }
+            => GetAll().Where(room => room.RoomType == type);
     }
 }
