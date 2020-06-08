@@ -50,13 +50,13 @@ namespace SIMS.Repository.CSVFileRepository.MiscRepository
             => messages.ToList().ForEach(message => message.Sender = GetSecretaryById(secretaries, message.Sender.GetId()));
 
         private Secretary GetSecretaryById(IEnumerable<Secretary> secretaries, UserID id)
-            => secretaries.ToList().SingleOrDefault(secretaries => secretaries.GetId().Equals(id));
+            => secretaries.ToList().SingleOrDefault(secretary => secretary.GetId().Equals(id));
 
         private void BindMessageWithManager(IEnumerable<Manager> managers, IEnumerable<Message> messages)
             => messages.ToList().ForEach(message => message.Sender = GetManagerById(managers, message.Sender.GetId()));
 
         private Manager GetManagerById(IEnumerable<Manager> managers, UserID id)
-            => managers.ToList().SingleOrDefault(managers => managers.GetId().Equals(id));
+            => managers.ToList().SingleOrDefault(manager => manager.GetId().Equals(id));
 
 
         //Bindong with recipients
