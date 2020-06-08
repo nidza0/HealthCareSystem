@@ -177,6 +177,7 @@
     <Compile Include="Util\MedicineFilter.cs" />
     <Compile Include="Util\TherapyFilter.cs" />
     <Compile Include="Util\TimeInterval.cs" />
+    <Compile Include="View\Dummies\DummyDoctors.cs" />
     <Compile Include="View\ViewManager\DoctorAddingPage2.xaml.cs">
       <DependentUpon>DoctorAddingPage2.xaml</DependentUpon>
     </Compile>

@@ -32,8 +32,9 @@
         <!--#endregion-->
 
         <!--Buttons-->
-        <Button x:Name="SearchButton" Foreground="Black" FontSize="22" FontWeight="Bold" Background="Transparent" BorderThickness="2" BorderBrush="#ec1c70" Margin="10,0,0,22" HorizontalAlignment="Left" Width="140" Height="70" Content="Pretraga"  VerticalAlignment="Bottom" Click="SearchButton_Click"/>
-        <Button x:Name="backButton" Click="backButton_Click" Foreground="Black" FontSize="30" FontWeight="Bold" Background="Transparent" BorderThickness="4" BorderBrush="#ec1c70" Margin="0,0,10,20" Content="Nazad" HorizontalAlignment="Right" Width="140" Height="70" VerticalAlignment="Bottom"/>        <Button x:Name="homeButton" Click="homeButton_Click" Foreground="Black" FontSize="30" FontWeight="Bold" Background="Transparent" BorderThickness="4" BorderBrush="#ec1c70" Margin="0,25,10,0" VerticalAlignment="Top" Height="70" Content="Početna" HorizontalAlignment="Right" Width="140"/>
+        <Button x:Name="SearchButton" Click="SearchButton_Click_1" Foreground="Black" FontSize="30" FontWeight="Bold" Background="Transparent" BorderThickness="4" BorderBrush="#ec1c70" Margin="10,0,0,22" HorizontalAlignment="Left" Width="140" Height="70" Content="Pretraga"  VerticalAlignment="Bottom" />
+        <Button x:Name="backButton" Click="backButton_Click" Foreground="Black" FontSize="30" FontWeight="Bold" Background="Transparent" BorderThickness="4" BorderBrush="#ec1c70" Margin="0,0,10,20" Content="Nazad" HorizontalAlignment="Right" Width="140" Height="70" VerticalAlignment="Bottom"/>        
+        <Button x:Name="homeButton" Click="homeButton_Click" Foreground="Black" FontSize="30" FontWeight="Bold" Background="Transparent" BorderThickness="4" BorderBrush="#ec1c70" Margin="0,25,10,0" VerticalAlignment="Top" Height="70" Content="Početna" HorizontalAlignment="Right" Width="140"/>
         <!--#endregion-->
 
         

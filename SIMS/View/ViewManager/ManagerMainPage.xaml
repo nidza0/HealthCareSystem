@@ -13,13 +13,13 @@
         <Grid.Background>
             <ImageBrush ImageSource="/View/ImagesManager/background.png" TileMode="FlipX" Stretch="UniformToFill"/>
         </Grid.Background>
-        <Image HorizontalAlignment="Left" Height="171" VerticalAlignment="Top" Width="335" Margin="215,110,0,0" Stretch="Fill" Source="C:\Users\vule\Desktop\hci\v3 WPF\manager_wpf\wpf_manager\wpf_manager\Zdravo2.png" RenderTransformOrigin="0.5,0.5"/>
+        <Image HorizontalAlignment="Left" Height="171" VerticalAlignment="Top" Width="335" Margin="215,110,0,0" Stretch="Fill" Source="/View/ImagesManager/Zdravo2.png" RenderTransformOrigin="0.5,0.5"/>
         <Border BorderThickness="3"
                 BorderBrush="#ec1c70" RenderTransformOrigin="0.5,0.5" Margin="10,110,0,0" HorizontalAlignment="Left" Width="195" Height="213" VerticalAlignment="Top">
 
-            <Image HorizontalAlignment="Center" Margin="0,0,0,0" Stretch="UniformToFill" Height="206" VerticalAlignment="Center" Width="206"  Source="C:\Users\vule\Desktop\hci\v3 WPF\manager_wpf\wpf_manager\wpf_manager\images\mImage.jpg"/>
+            <Image x:Name="ImageUser" HorizontalAlignment="Center" Margin="-102,-102,98,103" Stretch="UniformToFill" Height="206" VerticalAlignment="Center" Width="193"/>
         </Border>
-        
+
         <!--#endregion-->
 
         <!--Labels-->
@@ -82,9 +82,9 @@
                 </EventTrigger>
             </Button.Triggers>
         </Button>
-        
+
         <!--#endregion-->
-        
+
         <!--Webbrowser-->
         <WebBrowser Name="WebBrowser" Margin="0,375,0,0"/>
         <!--#endregion-->

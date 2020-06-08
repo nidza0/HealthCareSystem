@@ -21,7 +21,7 @@
         <Label x:Name="NameLabel" HorizontalContentAlignment="Center"  FontWeight="Bold" Foreground="Black" Content="" Margin="90,370,90,0" VerticalAlignment="Top"/>
         <Label Content="Tip sobe:" Foreground="#ec1c70" HorizontalAlignment="Left" Margin="30,450,0,0" VerticalAlignment="Top" Width="169" FontWeight="Bold" />
         <Label Content="ID broj:" Foreground="#ec1c70" Margin="0,450,30,0" VerticalAlignment="Top" FontWeight="Bold" HorizontalAlignment="Right" Width="169" />
-        <Label Content="Zauzetost:" Foreground="#ec1c70" HorizontalAlignment="Left" Margin="30,550,0,0" VerticalAlignment="Top" Width="236" FontWeight="Bold" />
+        <Label Content="Zauzeta:" Foreground="#ec1c70" HorizontalAlignment="Left" Margin="30,550,0,0" VerticalAlignment="Top" Width="236" FontWeight="Bold" />
         <Label Content="Sprat:" Foreground="#ec1c70" HorizontalAlignment="Right" Margin="0,550,49,0" VerticalAlignment="Top" Width="150" FontWeight="Bold" />
         <Label x:Name="typeLabel"  Content="" FontWeight="Bold" HorizontalAlignment="Left" Margin="30,500,0,0" VerticalAlignment="Top" Width="185" Height="41"/>
         <Label x:Name="idLabel"  Content="" FontWeight="Bold" HorizontalAlignment="Left" Margin="335,500,0,0" VerticalAlignment="Top" Width="185" Height="41"/>
@@ -32,6 +32,9 @@
         <!--Buttons-->
         <Button x:Name="homeButton" Click="homeButton_Click" Foreground="#ec1c70" FontSize="30" FontWeight="Bold" Background="Transparent" BorderThickness="4" BorderBrush="#ec1c70" Margin="0,25,10,0" VerticalAlignment="Top" Height="70" Content="Početna" HorizontalAlignment="Right" Width="140"/>
         <Button x:Name="backButton" Click="backButton_Click" Foreground="Black" FontSize="30" FontWeight="Bold" Background="Transparent" BorderThickness="4" BorderBrush="#ec1c70" Margin="0,0,10,20" Content="Nazad" HorizontalAlignment="Right" Width="140" Height="70" VerticalAlignment="Bottom"/>
+        <Button x:Name="reserveButton" Click="backButton_Click" Foreground="Black" FontSize="30" FontWeight="Bold" Background="Transparent" BorderThickness="4" BorderBrush="#ec1c70" Margin="0,0,395,20" Content="Rezerviši" HorizontalAlignment="Right" Width="140" Height="70" VerticalAlignment="Bottom"/>
+
+
         <!--#endregion-->
         
         <!--Menu-->

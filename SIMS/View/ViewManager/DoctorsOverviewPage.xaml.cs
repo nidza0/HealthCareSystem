@@ -45,11 +45,6 @@ namespace SIMS.View.ViewManager
 
         }
 
-        private void Back_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         //Menu buttons
         private void MenuSmene_Click(object sender, RoutedEventArgs e)
         {
@@ -93,6 +88,13 @@ namespace SIMS.View.ViewManager
         {
             if (NavigationService.CanGoBack)
                 NavigationService.GoBack();
+        }
+        //END REGION
+
+        //Search button
+        private void SearchButton_Click_1(object sender, RoutedEventArgs e)
+        {
+
         }
         //END REGION
     }
