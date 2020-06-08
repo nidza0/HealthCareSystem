@@ -21,12 +21,6 @@
             <Setter Property="FontWeight" Value="Bold"></Setter>
         </Style>
 
-        <Style x:Key="InputLabel" TargetType="{x:Type Label}">
-            <Setter Property="FontSize" Value="15"></Setter>
-            <Setter Property="FontWeight" Value="Bold"></Setter>
-            <Setter Property="Margin" Value="4"/>
-        </Style>
-
       
 
     </Window.Resources>

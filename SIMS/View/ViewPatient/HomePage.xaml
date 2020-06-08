@@ -89,7 +89,7 @@
                     <Image Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="1" Grid.RowSpan="3" Source="{StaticResource LogoImage}"/>
 
                     <!--Navigation items definition-->
-                    <Button   Click="Button_Click" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="5">Make an appointment</Button>
+                    <Button   Click="MakeAnAppointment" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="5">Make an appointment</Button>
                     <Button   Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="5">My appointments</Button>
                     <Button   Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="1" Grid.RowSpan="2" Margin="5">My therapy</Button>
                     <Button   Click = "MyDiagnosis_Button_Click" Grid.Row="1" Grid.Column="7" Grid.ColumnSpan="1" Grid.RowSpan="2" Margin="5">My diagnosis</Button>
@@ -164,8 +164,8 @@
                                         <!--Modelling upcoming notification-->
                                         <!--Since border can only accept one child, we will use another StackPanel-->
 
-                                <Border Style="{StaticResource borderColorAnimation}">
-                                <StackPanel Style="{StaticResource contentStackHover}"  Height="{Binding RelativeSource={RelativeSource FindAncestor, 
+                                <Border Style="{StaticResource showContentBorder}">
+                                <StackPanel   Height="{Binding RelativeSource={RelativeSource FindAncestor, 
     AncestorType={x:Type ListBox}},Path=Height}" Width="250" Orientation="Vertical" >
                                         <Label Content="Upcoming operation" Style="{StaticResource SubtitleLabelStyle}"/>
 
@@ -239,14 +239,14 @@
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
 
-                                    <Border Style="{StaticResource borderColorAnimation}">
+                                    <Border Style="{StaticResource showContentBorder}">
                                         <Grid>
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="auto"/>
                                                 <RowDefinition Height="auto"/>
                                                 <RowDefinition Height="*"/>
                                             </Grid.RowDefinitions>
-                                            <StackPanel Grid.Row="0" Style="{StaticResource contentStackHover}"  Height="{Binding RelativeSource={RelativeSource FindAncestor, 
+                                            <StackPanel Grid.Row="0"   Height="{Binding RelativeSource={RelativeSource FindAncestor, 
     AncestorType={x:Type ListBox}},Path=Height}" Width="250" Orientation="Vertical" >
 
                                                 <Grid>
@@ -292,14 +292,14 @@
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
 
-                                    <Border Style="{StaticResource borderColorAnimation}">
+                                    <Border Style="{StaticResource showContentBorder}">
                                         <Grid>
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="auto"/>
                                                 <RowDefinition Height="auto"/>
                                                 <RowDefinition Height="*"/>
                                             </Grid.RowDefinitions>
-                                            <StackPanel Grid.Row="0" Style="{StaticResource contentStackHover}"  Height="{Binding RelativeSource={RelativeSource FindAncestor, 
+                                            <StackPanel Grid.Row="0"  Height="{Binding RelativeSource={RelativeSource FindAncestor, 
     AncestorType={x:Type ListBox}},Path=Height}" Width="250" Orientation="Vertical" >
 
                                                 <Grid>

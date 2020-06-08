@@ -5,9 +5,161 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SIMS.View.ViewPatient"
         mc:Ignorable="d"
-        Title="DiagnosisPreview" Height="450" Width="800"
-        WindowStartupLocation="CenterOwner">
-    <Grid>
-                
+        Title="DiagnosisPreview" Height="400" Width="700" >
+
+    <Window.Resources>
+
+        <Style x:Key="textBlock" TargetType="{x:Type TextBlock}">
+            <Setter Property="Foreground" Value="{StaticResource userMesageColor}"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        </Style>
+
+        <Style x:Key="labels" TargetType="{x:Type Label}" BasedOn="{StaticResource SubtitleLabelStyle}">
+            <Setter Property="FontSize" Value="12"></Setter>
+        </Style>
+
+        <Style x:Key="therapyListBoxStyle" TargetType="{x:Type ListBox}" BasedOn="{StaticResource ListBoxStyle}">
+            <Setter Property="Background" Value="Transparent"/>
+            <Style.Triggers>
+                <DataTrigger 
+            Binding="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=Items.Count}" 
+            Value="0"
+            >
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate>
+                                <TextBlock Foreground="{StaticResource userMesageColor}" FontSize="20" Text="Hooray! No diagnosis to show! :)"></TextBlock>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="therapyTimingListBoxStyle" TargetType="{x:Type ListBox}" BasedOn="{StaticResource ListBoxStyle}">
+            <Setter Property="Background" Value="Transparent"/>
+            <Style.Triggers>
+                <DataTrigger 
+            Binding="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=Items.Count}" 
+            Value="0"
+            >
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate>
+                                <TextBlock Foreground="{StaticResource userMesageColor}" FontSize="16" Text="Nothing to show"></TextBlock>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <Grid Background="{StaticResource BackgroundColor}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <!--Header-->
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Row="0" Style="{StaticResource BorderBlockStyle}">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Label Content="{Binding Path=DiagnosedDiseaseName}" Style="{StaticResource LabelStyle}"/>
+                </StackPanel>
+            </Border>
+
+    
+        <Border Grid.Row="1" Style="{StaticResource BorderBlockStyle}">
+            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <StackPanel>
+                <DockPanel>
+                    <DockPanel DockPanel.Dock="Top">
+                        <StackPanel Orientation="Vertical">
+                            <Label Style="{StaticResource SubtitleLabelStyle}" Content="Overview "></Label>
+                            <Separator></Separator>
+                            <TextBlock Style="{StaticResource textBlock}" VerticalAlignment="Center" TextWrapping="Wrap" Text="{Binding Overview}">
+                            </TextBlock>
+                        </StackPanel>
+                    </DockPanel>
+                </DockPanel>
+
+                <DockPanel>
+                    <DockPanel DockPanel.Dock="Top">
+                        <StackPanel Orientation="Vertical">
+                            <Label Style="{StaticResource SubtitleLabelStyle}" Content="Symptoms "></Label>
+                            <Separator></Separator>
+                            <TextBlock Style="{StaticResource textBlock}"  VerticalAlignment="Center" TextWrapping="Wrap" Text="{Binding Symptoms}">
+                            </TextBlock>
+                        </StackPanel>
+                    </DockPanel>
+                </DockPanel>
+
+                <DockPanel>
+                    <DockPanel DockPanel.Dock="Top">
+                        <StackPanel Orientation="Vertical">
+                            <Label Style="{StaticResource SubtitleLabelStyle}" Content="Active therapy "></Label>
+                            <Separator></Separator>
+                            <Border  x:Name="contentBorder">
+                                <ListBox  ScrollViewer.HorizontalScrollBarVisibility="Disabled" Width="{Binding RelativeSource={RelativeSource FindAncestor, 
+    AncestorType={x:Type Border}},Path=Width}"   VerticalAlignment="Top" ItemsSource="{Binding Path=Prescription.Medicine}" x:Name="diagnosisListBox" BorderThickness="0" Style="{StaticResource therapyListBoxStyle}">
+
+                                    <ListBox.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <StackPanel Orientation="Vertical" Margin="6"></StackPanel>
+                                        </ItemsPanelTemplate>
+                                    </ListBox.ItemsPanel>
+
+
+                                    <ListBox.ItemTemplate >
+                                        <DataTemplate>
+                                            <Border BorderBrush="Silver" BorderThickness="1" Width="{Binding Path=ActualWidth, ElementName=contentBorder}" Height="100">
+                                                <StackPanel Orientation="Vertical">
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <Label Style="{StaticResource labels}" Content="Medicine: "></Label>
+                                                        <TextBlock Style="{StaticResource textBlock}" Text="{Binding Key.Name}"></TextBlock>
+                                                    </StackPanel>
+
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <Label Style="{StaticResource labels}" Content="Medicine form: "></Label>
+                                                        <TextBlock Style="{StaticResource textBlock}"  Text="{Binding Key.Strength}"></TextBlock>
+                                                    </StackPanel>
+
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <Label Style="{StaticResource labels}" Content="When to take: "></Label>
+                                                        <ListBox  Background="Transparent" ItemsSource="{Binding Path=Value.Dosage}" Style="{StaticResource therapyTimingListBoxStyle}">
+                                                            <ListBox.ItemsPanel>
+                                                                <ItemsPanelTemplate>
+                                                                    <StackPanel Orientation="Vertical"></StackPanel>
+                                                                </ItemsPanelTemplate>
+                                                            </ListBox.ItemsPanel>
+
+                                                            <ListBox.ItemTemplate >
+                                                                <DataTemplate>
+                                                                    <StackPanel Orientation="Horizontal" >
+                                                                        <TextBlock Margin="0 0 20 0" Style="{StaticResource textBlock}" Text="{Binding Path=Key}"/>
+                                                                        <TextBlock Style="{StaticResource textBlock}" Text="{Binding Path=Value}"/>
+                                                                        <TextBlock Text="units"></TextBlock>
+                                                                    </StackPanel>
+                                                                </DataTemplate>
+                                                            </ListBox.ItemTemplate>
+                                                        </ListBox>
+                                                    </StackPanel>
+                                                </StackPanel>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+
+
+                                </ListBox>
+                            </Border>
+                        </StackPanel>
+                    </DockPanel>
+                </DockPanel>
+            </StackPanel>
+            </ScrollViewer>
+        </Border>
     </Grid>
 </Window>

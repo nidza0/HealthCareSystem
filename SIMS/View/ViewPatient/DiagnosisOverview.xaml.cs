@@ -15,6 +15,7 @@ using System.Collections.ObjectModel;
 
 using SIMS.Model.PatientModel;
 using SIMS.Util;
+using SIMS.Model.UserModel;
 using System.ComponentModel;
 
 namespace SIMS.View.ViewPatient
@@ -51,12 +52,17 @@ namespace SIMS.View.ViewPatient
                                         "endocrine system, which produces hormones that sadadthyroid, a small gland at the base of your neck" +
                                         "below your Adam's apple.", true, new DiseaseType(true, true, "nmp"), lista);
             Medicine medicine = new Medicine("Xanax", 20, MedicineType.PILL, 5, 2);
+            Medicine medicine1 = new Medicine("Pera", 10, MedicineType.PILL, 5, 2);
             Dictionary<Medicine, TherapyDose> dict = new Dictionary<Medicine, TherapyDose>();
             Dictionary<TherapyTime, double> dict_ther = new Dictionary<TherapyTime, double>();
             dict_ther.Add(TherapyTime.BeforeBed, 20);
+            dict_ther.Add(TherapyTime.AsNeeded, 1);
             TherapyDose therapyDose = new TherapyDose(dict_ther);
             dict.Add(medicine, therapyDose);
-            Prescription prescription = new Prescription(2, PrescriptionStatus.ACTIVE, dict);
+            dict.Add(medicine1, therapyDose);
+
+            Doctor doctor = new Doctor(new UserID("D123"));
+            Prescription prescription = new Prescription(2, PrescriptionStatus.ACTIVE,doctor, dict);
 
             Therapy therapy = new Therapy(2, new TimeInterval(DateTime.Now, DateTime.Now), prescription);
 
@@ -72,6 +78,7 @@ namespace SIMS.View.ViewPatient
         }
 
         public ObservableCollection<Diagnosis> DiagnosisList { get => diagnosisList; set => diagnosisList = value; }
+        public ObservableCollection<Diagnosis> DiagnosisList1 { get => diagnosisList; set => diagnosisList = value; }
 
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
         {
@@ -101,7 +108,9 @@ namespace SIMS.View.ViewPatient
             dict_ther.Add(TherapyTime.BeforeBed, 20);
             TherapyDose therapyDose = new TherapyDose(dict_ther);
             dict.Add(medicine, therapyDose);
-            Prescription prescription = new Prescription(2, PrescriptionStatus.ACTIVE, dict);
+
+            Doctor doctor = new Doctor(new UserID("D123"));
+            Prescription prescription = new Prescription(2, PrescriptionStatus.ACTIVE, doctor, dict);
 
             Therapy therapy = new Therapy(2, new TimeInterval(DateTime.Now, DateTime.Now), prescription);
 
@@ -119,6 +128,11 @@ namespace SIMS.View.ViewPatient
             //view.Refresh();
         }
 
-
+        private void ListBoxItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            Diagnosis selectedDiagnosis = (Diagnosis)diagnosisListBox.SelectedItem;
+            DiagnosisPreview diagnosisPreview = new DiagnosisPreview(selectedDiagnosis);
+            diagnosisPreview.ShowDialog();
+        }
     }
 }

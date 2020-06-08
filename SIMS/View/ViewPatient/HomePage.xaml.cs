@@ -115,10 +115,10 @@ namespace SIMS.View.ViewPatient
             }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void MakeAnAppointment(object sender, RoutedEventArgs e)
         {
-            Login loginWindow = new Login();
-            loginWindow.Show();
+            MakeAnAppointment makeAnAppointment = new MakeAnAppointment();
+            makeAnAppointment.Show();
         }
 
         private void DismissNotificationClick(object sender, EventArgs e)
