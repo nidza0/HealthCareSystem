@@ -16,9 +16,5 @@ namespace SIMS.Repository.Abstract.MedicalAbstractRepository
 
         IEnumerable<Diagnosis> GetDiagnosisByMedicine(Medicine medicine);
 
-        IEnumerable<Diagnosis> GetActiveDiagnosisForPatient();
-
-        IEnumerable<Diagnosis> GetInactiveDiagnosisForPatient(Patient patient);
-
     }
 }

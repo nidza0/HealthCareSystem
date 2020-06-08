@@ -52,7 +52,7 @@ namespace SIMS.Repository.CSVFileRepository.MedicalRepository
         private void BindAllergiesWithSymptoms(IEnumerable<Allergy> allergies, IEnumerable<Symptom> symptoms)
             => allergies.ToList().ForEach(allergy =>
             {
-                allergy.Symptoms = GetSymptomsByIDs(allergy.Symptoms, allergy.Symptoms.Select(symptom => symptom.GetId())).ToList();
+                allergy.Symptoms = GetSymptomsByIDs(symptoms, allergy.Symptoms.Select(symptom => symptom.GetId())).ToList();
             });
 
         private Ingredient GetIngredientByID(IEnumerable<Ingredient> ingredients, long id)

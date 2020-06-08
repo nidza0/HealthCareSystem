@@ -12,52 +12,67 @@ using SIMS.Repository.CSVFileRepository.HospitalManagementRepository;
 using SIMS.Repository.Sequencer;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SIMS.Repository.CSVFileRepository.MedicalRepository
 {
     public class DiseaseRepository : CSVRepository<Disease, long>, IDiseaseRepository, IEagerCSVRepository<Disease, long>
     {
-        public DiseaseRepository(string entityName, ICSVStream<Disease> stream, ISequencer<long> sequencer) : base(entityName, stream, sequencer, new LongIdGeneratorStrategy<Disease>())
+        private ISymptomRepository _symptomRepository;
+        private IEagerCSVRepository<Medicine, long> _medicineEagerCSVRepository;
+        public DiseaseRepository(string entityName, ICSVStream<Disease> stream, ISequencer<long> sequencer, IEagerCSVRepository<Medicine, long> medicineEagerCSVRepository, ISymptomRepository symptomRepository) : base(entityName, stream, sequencer, new LongIdGeneratorStrategy<Disease>())
         {
+            _symptomRepository = symptomRepository;
+            _medicineEagerCSVRepository = medicineEagerCSVRepository;
         }
 
         private void Bind(IEnumerable<Disease> diseases)
         {
-            throw new NotImplementedException();
+            IEnumerable<Medicine> medicines = _medicineEagerCSVRepository.GetAllEager();
+            IEnumerable<Symptom> symptoms = _symptomRepository.GetAll();
+
+            BindDiseaseWithMedicine(diseases, medicines);
+            BindDiseaseWithSymptom(diseases, symptoms);
+
         }
 
-        private void BindDiseaseWithMedicine(IEnumerable<Disease> diseases, IEnumerable<Medicine> medicine)
-        {
-            throw new NotImplementedException();
-        }
+        private void BindDiseaseWithMedicine(IEnumerable<Disease> diseases, IEnumerable<Medicine> medicines)
+            => diseases.ToList().ForEach(disease =>
+                {
+                    disease.AdministratedFor = GetMedicinesByIDs(medicines, disease.AdministratedFor.Select(medicine => medicine.GetId())).ToList();
+                }
+            );
 
-        private void BindDiseaseWithSymptom(IEnumerable<Disease> diseases, IEnumerable<Symptom> symptom)
-        {
-            throw new NotImplementedException();
-        }
+        private void BindDiseaseWithSymptom(IEnumerable<Disease> diseases, IEnumerable<Symptom> symptoms)
+           => diseases.ToList().ForEach(disease =>
+           {
+               disease.Symptoms = GetSymptomsByIDs(symptoms, disease.Symptoms.Select(symptom => symptom.GetId())).ToList();
+           });
+
 
         public IEnumerable<Disease> GetDiseasesBySymptoms(IEnumerable<Symptom> symptoms)
-        {
-            throw new NotImplementedException();
-        }
+            => GetAllEager().Where(disease => !disease.Symptoms.Except(symptoms).Any()); //Performs check if disease.Symptoms contains ALL of symptoms.
 
         public IEnumerable<Disease> GetDiseasesByType(DiseaseType type)
-        {
-            throw new NotImplementedException();
-        }
+            => GetAllEager().Where(disease => disease.DiseaseType == type);
 
         public Disease GetEager(long id)
-        {
-            throw new NotImplementedException();
-        }
+            => GetAllEager().SingleOrDefault(disease => disease.GetId() == id);
 
         public IEnumerable<Disease> GetAllEager()
         {
-            throw new NotImplementedException();
+            IEnumerable<Disease> diseases = GetAll();
+            Bind(diseases);
+
+            return diseases;
         }
 
-        public MedicineRepository medicineRepository;
-        public SymptomRepository symptomRepository;
 
+
+        private IEnumerable<Medicine> GetMedicinesByIDs(IEnumerable<Medicine> medicines , IEnumerable<long> ids)
+            => medicines.Where(medicine => ids.Contains(medicine.GetId()));
+
+        private IEnumerable<Symptom> GetSymptomsByIDs(IEnumerable<Symptom> symptoms, IEnumerable<long> ids)
+            => symptoms.Where(symptom => ids.Contains(symptom.GetId()));
     }
 }

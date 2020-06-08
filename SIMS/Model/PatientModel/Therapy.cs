@@ -16,6 +16,9 @@ namespace SIMS.Model.PatientModel
         private TimeInterval _timeInterval;
         private Prescription _prescription;
 
+        public TimeInterval TimeInterval { get => _timeInterval; set => _timeInterval = value; }
+        public Prescription Prescription { get => _prescription; set => _prescription = value; }
+
         public Therapy(long id)
         {
             _id = id;
@@ -40,7 +43,6 @@ namespace SIMS.Model.PatientModel
         public void SetId(long id)
             => _id = id;
 
-        public TimeInterval TimeInterval { get => _timeInterval; }
-        public Prescription Prescription { get => _prescription; }
+
     }
 }
