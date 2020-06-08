@@ -5,51 +5,54 @@
 
 using SIMS.Model.UserModel;
 using System;
+using SIMS.Repository.Abstract;
+using SIMS.Util;
 
 namespace SIMS.Model.PatientModel
 {
-    public class Appointment
+    public class Appointment : IIdentifiable<long>
     {
-        private long id;
-        private bool canceled = false;
+        private long _id;
+        private bool _canceled;
 
-        public AppointmentType appointmentType;
-        public Util.TimeInterval timeInterval;
-        public Patient patient;
+        private AppointmentType _appointmentType;
+        private TimeInterval _timeInterval;
+        private Patient _patient;
+        private Doctor _doctorInAppointment;
+        public Room _room;
 
-        /// <summary>
-        /// Property for Model.User.Patient
-        /// </summary>
-        /// <pdGenerated>Default opposite class property</pdGenerated>
-        public Patient Patient
+        public Appointment(long id) => _id = id;
+
+        public Appointment(long id, Doctor doctor, Patient patient, Room room, AppointmentType appointmentType, TimeInterval timeInterval)
         {
-            get
-            {
-                return patient;
-            }
-            set
-            {
-                patient = value;
-            }
+            _id = id;
+            _doctorInAppointment = doctor;
+            _patient = patient;
+            _room = room;
+            _appointmentType = appointmentType;
+            _timeInterval = timeInterval;
         }
-        public Room room;
 
-        /// <summary>
-        /// Property for Model.User.Room
-        /// </summary>
-        /// <pdGenerated>Default opposite class property</pdGenerated>
-        public Room Room
+        public Appointment(Doctor doctor,Patient patient,Room room,AppointmentType appointmentType,TimeInterval timeInterval)
         {
-            get
-            {
-                return room;
-            }
-            set
-            {
-                room = value;
-            }
+            _doctorInAppointment = doctor;
+            _patient = patient;
+            _room = room;
+            _appointmentType = appointmentType;
+            _timeInterval = timeInterval;
         }
-        public Doctor doctorInAppointment;
 
+
+        public long Id { get => _id; set => _id = value; }
+        public bool Canceled { get => _canceled; set => _canceled = value; }
+        public AppointmentType AppointmentType { get => _appointmentType; set => _appointmentType = value; }
+        public TimeInterval TimeInterval { get => _timeInterval; set => _timeInterval = value; }
+        public Patient Patient { get => _patient; set => _patient = value; }
+        public Room Room { get => _room; set => _room = value; }
+        public Doctor DoctorInAppointment { get => _doctorInAppointment; set => _doctorInAppointment = value; }
+
+        public long GetId() => _id;
+
+        public void SetId(long id) => _id = id;
     }
 }

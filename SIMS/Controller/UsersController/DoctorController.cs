@@ -13,6 +13,11 @@ namespace SIMS.Controller.UsersController
 {
     public class DoctorController : IController<Doctor, UserID>
     {
+        public Service.UsersService.DoctorService doctorService;
+        public Service.MedicalService.DiagnosisService diagnosisService;
+        public Service.MedicalService.TherapyService therapyService;
+        public Service.MedicalService.MedicalRecordService medicalRecordService;
+
         public IEnumerable<Doctor> GetActiveDoctors()
         {
             throw new NotImplementedException();
@@ -58,10 +63,6 @@ namespace SIMS.Controller.UsersController
             throw new NotImplementedException();
         }
 
-        public Service.UsersService.DoctorService doctorService;
-        public Service.MedicalService.DiagnosisService diagnosisService;
-        public Service.MedicalService.TherapyService therapyService;
-        public Service.MedicalService.MedicalRecordService medicalRecordService;
 
     }
 }

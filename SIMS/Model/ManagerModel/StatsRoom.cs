@@ -5,28 +5,34 @@
 
 using SIMS.Model.UserModel;
 using System;
+using System.Collections.Generic;
 
 namespace SIMS.Model.ManagerModel
 {
     public class StatsRoom : Stats
     {
-        private double usage;
-        private double timeOccupied;
-        private int avgAppointmentTime;
+        private double _usage;
+        private double _timeOccupied;
+        private int _avgAppointmentTime;
 
-        public System.Collections.Generic.List<Room> room;
+        private List<Room> _room;
+
+        public double Usage { get { return _usage; } set { } }
+
+        public double TimeOccupied { get { return _timeOccupied; } set { } }
+
 
         /// <summary>
         /// Property for collection of Model.User.Room
         /// </summary>
         /// <pdGenerated>Default opposite class collection property</pdGenerated>
-        public System.Collections.Generic.List<Room> Room
+        public List<Room> Room
         {
             get
             {
-                if (room == null)
-                    room = new System.Collections.Generic.List<Room>();
-                return room;
+                if (_room == null)
+                    _room = new System.Collections.Generic.List<Room>();
+                return _room;
             }
             set
             {
@@ -39,6 +45,28 @@ namespace SIMS.Model.ManagerModel
             }
         }
 
+        public StatsRoom(double usage, double timeOccupied, int avgAppointmentTime, List<Room> room): base()
+        {
+            _usage = usage;
+            _timeOccupied = timeOccupied;
+            _avgAppointmentTime = avgAppointmentTime;
+            _room = room;
+        }
+
+        public StatsRoom(long id, double usage, double timeOccupied, int avgAppointmentTime, List<Room> room) : base(id)
+        {
+            _usage = usage;
+            _timeOccupied = timeOccupied;
+            _avgAppointmentTime = avgAppointmentTime;
+            _room = room;
+        }
+
+        public StatsRoom(long id): base(id)
+        {
+
+        }
+
+
         /// <summary>
         /// Add a new Model.User.Room in the collection
         /// </summary>
@@ -47,10 +75,10 @@ namespace SIMS.Model.ManagerModel
         {
             if (newRoom == null)
                 return;
-            if (room == null)
-                room = new System.Collections.Generic.List<Room>();
-            if (!room.Contains(newRoom))
-                room.Add(newRoom);
+            if (_room == null)
+                _room = new System.Collections.Generic.List<Room>();
+            if (!_room.Contains(newRoom))
+                _room.Add(newRoom);
         }
 
         /// <summary>
@@ -61,9 +89,9 @@ namespace SIMS.Model.ManagerModel
         {
             if (oldRoom == null)
                 return;
-            if (room != null)
-                if (room.Contains(oldRoom))
-                    room.Remove(oldRoom);
+            if (_room != null)
+                if (_room.Contains(oldRoom))
+                    _room.Remove(oldRoom);
         }
 
         /// <summary>
@@ -72,8 +100,8 @@ namespace SIMS.Model.ManagerModel
         /// <pdGenerated>Default removeAll</pdGenerated>
         public void RemoveAllRoom()
         {
-            if (room != null)
-                room.Clear();
+            if (_room != null)
+                _room.Clear();
         }
 
     }

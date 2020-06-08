@@ -10,17 +10,31 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.MiscConverter
 {
     public class NotificationConverter : ICSVConverter<Notification>
     {
-        private string delimiter;
-        private string dateTimeFormat;
+        private readonly string _delimiter = ",";
+        private readonly string _dateTimeFormat = "dd/mmm/yyyy HH:mm";
+
+        public NotificationConverter(string delimiter, string dateTimeFormat = "dd/mm/yyyy HH:mm")
+        {
+            _delimiter = delimiter;
+            _dateTimeFormat = dateTimeFormat;
+        }
 
         public Notification ConvertCSVToEntity(string csv)
         {
-            throw new NotImplementedException();
+            string[] tokens = csv.Split(_delimiter.ToCharArray());
+            long tempId = long.Parse(tokens[0]);
+            return new Notification(tempId, 
+                tokens[1], 
+                new User(new UserID(tokens[2])), 
+                DateTime.Parse(tokens[3]));
         }
 
         public string ConvertEntityToCSV(Notification entity)
-        {
-            throw new NotImplementedException();
-        }
+            => string.Join(_delimiter,
+                entity.GetId(),
+                entity.Text,
+                entity.Recipient.GetId(),
+                entity.Date.ToString(_dateTimeFormat)
+                );
     }
 }

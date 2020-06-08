@@ -9,13 +9,13 @@ namespace SIMS.Model.DoctorModel
 {
     public enum DocTypeEnum
     {
-        familyMedicine,
-        surgeon,
-        cardiologist,
-        dermatologist,
-        infectiousDisease,
-        ophtamologist,
-        endocrinologist,
-        gastroenerologist
+        FAMILYMEDICINE,
+        SURGEON,
+        CARDIOLOGIST,
+        DERMATOLOGIST,
+        INFECTOLOGIST,
+        OPHTAMOLOGIST,
+        ENDOCRINIOLOGIST,
+        GASTROENEROLOGIST
     }
 }

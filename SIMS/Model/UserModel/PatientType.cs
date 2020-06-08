@@ -9,7 +9,7 @@ namespace SIMS.Model.UserModel
 {
     public enum PatientType
     {
-        general,
-        guest
+        GENERAL,
+        GUEST
     }
 }

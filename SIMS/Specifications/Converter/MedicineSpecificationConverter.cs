@@ -4,40 +4,72 @@
 // Purpose: Definition of Class MedicineSpecificationConverter
 
 using SIMS.Model.PatientModel;
+using SIMS.Util;
 using System;
 
 namespace SIMS.Specifications.Converter
 {
     public class MedicineSpecificationConverter
     {
-        private Specifications.ISpecification<Medicine> GetSpecificationByName(string name)
+        private MedicineFilter _filter;
+
+        public MedicineSpecificationConverter(MedicineFilter filter)
         {
-            throw new NotImplementedException();
+            _filter = filter;
+        }
+        private ISpecification<Medicine> GetSpecificationByName(string name)
+        {
+            return new ExpressionSpecification<Medicine>(o => o.Name.Equals(name));
         }
 
-        private Specifications.ISpecification<Medicine> GetSpecificationByDisease(Disease disease)
+        private ISpecification<Medicine> GetSpecificationByDisease(Disease disease)
         {
-            throw new NotImplementedException();
+            return new ExpressionSpecification<Medicine>(o => o.UsedFor.Contains(disease));
         }
 
-        private Specifications.ISpecification<Medicine> GetSpecificationByType(MedicineType type)
+        private ISpecification<Medicine> GetSpecificationByType(MedicineType type)
         {
-            throw new NotImplementedException();
+            return new ExpressionSpecification<Medicine>(o => o.MedicineType.Equals(type));
         }
 
-        private Specifications.ISpecification<Medicine> GetSpecificationByIngredient(Ingredient ingredient)
+        private ISpecification<Medicine> GetSpecificationByIngredient(Ingredient ingredient)
         {
-            throw new NotImplementedException();
+            return new ExpressionSpecification<Medicine>(o => o.Ingredient.Equals(ingredient));
         }
 
-        private Specifications.ISpecification<Medicine> GetSpecificationByStrength(double strength)
+        private ISpecification<Medicine> GetSpecificationByStrength(double strength)
         {
-            throw new NotImplementedException();
+            return new ExpressionSpecification<Medicine>(o => o.Strength == strength);
         }
 
-        public Specifications.ISpecification<Medicine> GetSpecification(Util.MedicineFilter filter)
+        public ISpecification<Medicine> GetSpecification(MedicineFilter filter)
         {
-            throw new NotImplementedException();
+            bool andFilter = true;
+            ISpecification<Medicine> specification = new ExpressionSpecification<Medicine>(o => andFilter);
+
+            if(filter.Disease != null)
+            {
+                specification = specification.And(GetSpecificationByDisease(filter.Disease));
+            }
+
+            if(filter.Ingredient != null)
+            {
+                specification = specification.And(GetSpecificationByIngredient(filter.Ingredient));
+            }
+
+            if(!String.IsNullOrEmpty(filter.Name))
+            {
+                specification = specification.And(GetSpecificationByName(filter.Name));
+            }
+
+            if(filter.Strength != default)
+            {
+                specification = specification.And(GetSpecificationByStrength(filter.Strength));
+            }
+
+            specification = specification.And(GetSpecificationByType(filter.Type));
+
+            return specification;
         }
 
     }

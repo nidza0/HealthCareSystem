@@ -23,6 +23,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -32,6 +33,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -54,17 +56,24 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Exceptions\EntityNotFoundException.cs" />
+    <Compile Include="Exceptions\InvalidUserIdException.cs" />
+    <Compile Include="Model\UserModel\EmergencyContact.cs" />
+    <Compile Include="Model\PatientModel\PrescriptionStatus.cs" />
     <Compile Include="Repository\Abstract\HospitalManagementAbstractRepository\IHospitalRepository.cs" />
+    <Compile Include="Repository\Abstract\HospitalManagementAbstractRepository\IInventoryItemRepository.cs" />
     <Compile Include="Repository\Abstract\HospitalManagementAbstractRepository\IInventoryRepository.cs" />
     <Compile Include="Repository\Abstract\HospitalManagementAbstractRepository\IMedicineRepository.cs" />
     <Compile Include="Repository\Abstract\HospitalManagementAbstractRepository\IRoomRepository.cs" />
     <Compile Include="Repository\Abstract\HospitalManagementAbstractRepository\IStatisticsRepository.cs" />
+    <Compile Include="Repository\Abstract\IIdentifiable.cs" />
     <Compile Include="Repository\Abstract\MedicalAbstractRepository\IAllergyRepository.cs" />
     <Compile Include="Repository\Abstract\MedicalAbstractRepository\IAppointmentRepository.cs" />
     <Compile Include="Repository\Abstract\MedicalAbstractRepository\IDiagnosisRepository.cs" />
     <Compile Include="Repository\Abstract\MedicalAbstractRepository\IDiseaseRepository.cs" />
     <Compile Include="Repository\Abstract\MedicalAbstractRepository\IIngredientRepository.cs" />
     <Compile Include="Repository\Abstract\MedicalAbstractRepository\IMedicalRecordRepository.cs" />
+    <Compile Include="Repository\Abstract\MedicalAbstractRepository\IPrescriptionRepository.cs" />
     <Compile Include="Repository\Abstract\MedicalAbstractRepository\ISymptomRepository.cs" />
     <Compile Include="Repository\Abstract\MedicalAbstractRepository\ITherapyRepository.cs" />
     <Compile Include="Repository\Abstract\MiscAbstractRepository\IArticleRepository.cs" />
@@ -77,17 +86,24 @@
     <Compile Include="Repository\Abstract\UsersAbstractRepository\IManagerRepository.cs" />
     <Compile Include="Repository\Abstract\UsersAbstractRepository\IPatientRepository.cs" />
     <Compile Include="Repository\Abstract\UsersAbstractRepository\ISecretaryRepository.cs" />
+    <Compile Include="Repository\Abstract\HospitalManagementAbstractRepository\ITimeTableRepository.cs" />
     <Compile Include="Repository\Abstract\UsersAbstractRepository\IUserRepository.cs" />
     <Compile Include="Repository\CSVFileRepository\Csv\Converter\HospitalManagementConverter\HospitalConverter.cs" />
     <Compile Include="Repository\CSVFileRepository\Csv\Converter\HospitalManagementConverter\InventoryConverter.cs" />
+    <Compile Include="Repository\CSVFileRepository\Csv\Converter\HospitalManagementConverter\InventoryItemConverter.cs" />
     <Compile Include="Repository\CSVFileRepository\Csv\Converter\HospitalManagementConverter\MedicineConverter.cs" />
     <Compile Include="Repository\CSVFileRepository\Csv\Converter\HospitalManagementConverter\RoomConverter.cs" />
     <Compile Include="Repository\CSVFileRepository\Csv\Converter\HospitalManagementConverter\StatisticsConverter.cs" />
+    <Compile Include="Repository\CSVFileRepository\Csv\Converter\HospitalManagementConverter\TimeTableConverter.cs" />
+    <Compile Include="Repository\CSVFileRepository\Csv\Converter\MedicalConverter\AllergyConverter.cs" />
+    <Compile Include="Repository\CSVFileRepository\HospitalManagementRepository\TimeTableRepository.cs" />
     <Compile Include="Repository\CSVFileRepository\Csv\Converter\ICSVConverter.cs" />
     <Compile Include="Repository\CSVFileRepository\Csv\Converter\MedicalConverter\AppointmentConverter.cs" />
     <Compile Include="Repository\CSVFileRepository\Csv\Converter\MedicalConverter\DiagnosisConverter.cs" />
     <Compile Include="Repository\CSVFileRepository\Csv\Converter\MedicalConverter\DiseaseConverter.cs" />
+    <Compile Include="Repository\CSVFileRepository\Csv\Converter\MedicalConverter\IngredientConverter.cs" />
     <Compile Include="Repository\CSVFileRepository\Csv\Converter\MedicalConverter\MedicalRecordConverter.cs" />
+    <Compile Include="Repository\CSVFileRepository\Csv\Converter\MedicalConverter\PrescriptionConverter.cs" />
     <Compile Include="Repository\CSVFileRepository\Csv\Converter\MedicalConverter\SymptomConverter.cs" />
     <Compile Include="Repository\CSVFileRepository\Csv\Converter\MedicalConverter\TherapyConverter.cs" />
     <Compile Include="Repository\CSVFileRepository\Csv\Converter\MiscConverter\ArticleConverter.cs" />
@@ -102,10 +118,17 @@
     <Compile Include="Repository\CSVFileRepository\Csv\Converter\UsersConverter\SecretaryConverter.cs" />
     <Compile Include="Repository\CSVFileRepository\Csv\Converter\UsersConverter\UserConverter.cs" />
     <Compile Include="Repository\CSVFileRepository\Csv\CSVRepository.cs" />
+    <Compile Include="Repository\CSVFileRepository\Csv\IdGenerator\DoctorIdGeneratorStrategy.cs" />
+    <Compile Include="Repository\CSVFileRepository\Csv\IdGenerator\IIdGeneratorStrategy.cs" />
+    <Compile Include="Repository\CSVFileRepository\Csv\IdGenerator\LongIdGeneratorStrategy.cs" />
+    <Compile Include="Repository\CSVFileRepository\Csv\IdGenerator\ManagerIdGeneratorStrategy.cs" />
+    <Compile Include="Repository\CSVFileRepository\Csv\IdGenerator\PatientIdGeneratorStrategy.cs" />
+    <Compile Include="Repository\CSVFileRepository\Csv\IdGenerator\SecretaryIdGeneratorStrategy.cs" />
     <Compile Include="Repository\CSVFileRepository\Csv\IEagerCSVRepository.cs" />
     <Compile Include="Repository\CSVFileRepository\Csv\Stream\CSVStream.cs" />
     <Compile Include="Repository\CSVFileRepository\Csv\Stream\ICSVStream.cs" />
     <Compile Include="Repository\CSVFileRepository\HospitalManagementRepository\HospitalRepository.cs" />
+    <Compile Include="Repository\CSVFileRepository\HospitalManagementRepository\InventoryItemRepository.cs" />
     <Compile Include="Repository\CSVFileRepository\HospitalManagementRepository\InventoryRepository.cs" />
     <Compile Include="Repository\CSVFileRepository\HospitalManagementRepository\MedicineRepository.cs" />
     <Compile Include="Repository\CSVFileRepository\HospitalManagementRepository\RoomRepository.cs" />
@@ -116,6 +139,7 @@
     <Compile Include="Repository\CSVFileRepository\MedicalRepository\DiseaseRepository.cs" />
     <Compile Include="Repository\CSVFileRepository\MedicalRepository\IngredientRepository.cs" />
     <Compile Include="Repository\CSVFileRepository\MedicalRepository\MedicalRecordRepository.cs" />
+    <Compile Include="Repository\CSVFileRepository\MedicalRepository\PrescriptionRepository.cs" />
     <Compile Include="Repository\CSVFileRepository\MedicalRepository\SymptomRepository.cs" />
     <Compile Include="Repository\CSVFileRepository\MedicalRepository\TherapyRepository.cs" />
     <Compile Include="Repository\CSVFileRepository\MiscRepository\ArticleRepository.cs" />
@@ -126,6 +150,7 @@
     <Compile Include="Repository\CSVFileRepository\MiscRepository\NotificationRepository.cs" />
     <Compile Include="Repository\CSVFileRepository\UsersRepository\DoctorRepository.cs" />
     <Compile Include="Repository\CSVFileRepository\UsersRepository\ManagerRepository.cs" />
+    <Compile Include="Exceptions\NotUniqueException.cs" />
     <Compile Include="Repository\CSVFileRepository\UsersRepository\PatientRepository.cs" />
     <Compile Include="Repository\CSVFileRepository\UsersRepository\SecretaryRepository.cs" />
     <Compile Include="Repository\CSVFileRepository\UsersRepository\UserRepository.cs" />

@@ -3,58 +3,74 @@
 // Created: 15. april 2020 21:34:36
 // Purpose: Definition of Class MedicalRecord
 
-using Model.Patient;
 using System;
+using System.Collections.Generic;
+using SIMS.Repository.Abstract;
+using SIMS.Model.UserModel;
 
 namespace SIMS.Model.PatientModel
 {
-    public class MedicalRecord
+    public class MedicalRecord : IIdentifiable<long>
     {
-        private long id;
+        private long _id;
+        private BloodType _patientBloodType;
+        private Patient _patient;
 
-        public bool AddPrescription(Prescription perscription)
+        private List<Diagnosis> _patientDiagnosis;
+        public List<Allergy> _allergy;
+
+        public MedicalRecord(long id)
         {
-            throw new NotImplementedException();
+            _id = id;
+            
         }
 
-        public bool RemovePrescription(Prescription perscription)
+        public MedicalRecord(Patient patient)
         {
-            throw new NotImplementedException();
+            _patient = patient;
+            _patientBloodType = BloodType.NOT_TESTED;
+
+            _patientDiagnosis = new List<Diagnosis>();
+            _allergy = new List<Allergy>();
         }
 
-        public void AddDiagnosis()
+        public MedicalRecord(Patient patient, BloodType bloodType)
         {
-            throw new NotImplementedException();
+            _patient = patient;
+            _patientBloodType = bloodType;
+            _patientDiagnosis = new List<Diagnosis>();
+            _allergy = new List<Allergy>();
         }
 
-        public bool RemoveDiagnosis()
+        public MedicalRecord(Patient patient,BloodType bloodType,List<Diagnosis> patientDiagnosis, List<Allergy> patientAllergies)
         {
-            throw new NotImplementedException();
+            _patient = patient;
+            _patientBloodType = bloodType;
+            _patientDiagnosis = patientDiagnosis;
+            _allergy = patientAllergies;
         }
 
-        public void AddAllergy()
+        public MedicalRecord(long id, Patient patient, BloodType bloodType, List<Diagnosis> patientDiagnosis, List<Allergy> patientAllergies)
         {
-            throw new NotImplementedException();
+            _id = id;
+            _patient = patient;
+            _patientBloodType = bloodType;
+            _patientDiagnosis = patientDiagnosis;
+            _allergy = patientAllergies;
         }
 
-        public void RemoveAllergy()
-        {
-            throw new NotImplementedException();
-        }
-
-        public System.Collections.ArrayList patientDiagnosis;
 
         /// <summary>
         /// Property for collection of Diagnosis
         /// </summary>
         /// <pdGenerated>Default opposite class collection property</pdGenerated>
-        public System.Collections.ArrayList PatientDiagnosis
+        public List<Diagnosis> PatientDiagnosis
         {
             get
             {
-                if (patientDiagnosis == null)
-                    patientDiagnosis = new System.Collections.ArrayList();
-                return patientDiagnosis;
+                if (_patientDiagnosis == null)
+                    _patientDiagnosis = new List<Diagnosis>();
+                return _patientDiagnosis;
             }
             set
             {
@@ -75,10 +91,10 @@ namespace SIMS.Model.PatientModel
         {
             if (newDiagnosis == null)
                 return;
-            if (patientDiagnosis == null)
-                patientDiagnosis = new System.Collections.ArrayList();
-            if (!patientDiagnosis.Contains(newDiagnosis))
-                patientDiagnosis.Add(newDiagnosis);
+            if (_patientDiagnosis == null)
+                _patientDiagnosis = new List<Diagnosis>();
+            if (!_patientDiagnosis.Contains(newDiagnosis))
+                _patientDiagnosis.Add(newDiagnosis);
         }
 
         /// <summary>
@@ -89,9 +105,9 @@ namespace SIMS.Model.PatientModel
         {
             if (oldDiagnosis == null)
                 return;
-            if (patientDiagnosis != null)
-                if (patientDiagnosis.Contains(oldDiagnosis))
-                    patientDiagnosis.Remove(oldDiagnosis);
+            if (_patientDiagnosis != null)
+                if (_patientDiagnosis.Contains(oldDiagnosis))
+                    _patientDiagnosis.Remove(oldDiagnosis);
         }
 
         /// <summary>
@@ -100,22 +116,22 @@ namespace SIMS.Model.PatientModel
         /// <pdGenerated>Default removeAll</pdGenerated>
         public void RemoveAllPatientDiagnosis()
         {
-            if (patientDiagnosis != null)
-                patientDiagnosis.Clear();
+            if (_patientDiagnosis != null)
+                _patientDiagnosis.Clear();
         }
-        public System.Collections.ArrayList allergy;
+        
 
         /// <summary>
         /// Property for collection of Allergy
         /// </summary>
         /// <pdGenerated>Default opposite class collection property</pdGenerated>
-        public System.Collections.ArrayList Allergy
+        public List<Allergy> Allergy
         {
             get
             {
-                if (allergy == null)
-                    allergy = new System.Collections.ArrayList();
-                return allergy;
+                if (_allergy == null)
+                    _allergy = new List<Allergy>();
+                return _allergy;
             }
             set
             {
@@ -136,10 +152,10 @@ namespace SIMS.Model.PatientModel
         {
             if (newAllergy == null)
                 return;
-            if (allergy == null)
-                allergy = new System.Collections.ArrayList();
-            if (!allergy.Contains(newAllergy))
-                allergy.Add(newAllergy);
+            if (_allergy == null)
+                _allergy = new List<Allergy>();
+            if (!_allergy.Contains(newAllergy))
+                _allergy.Add(newAllergy);
         }
 
         /// <summary>
@@ -150,9 +166,9 @@ namespace SIMS.Model.PatientModel
         {
             if (oldAllergy == null)
                 return;
-            if (allergy != null)
-                if (allergy.Contains(oldAllergy))
-                    allergy.Remove(oldAllergy);
+            if (_allergy != null)
+                if (_allergy.Contains(oldAllergy))
+                    _allergy.Remove(oldAllergy);
         }
 
         /// <summary>
@@ -161,10 +177,16 @@ namespace SIMS.Model.PatientModel
         /// <pdGenerated>Default removeAll</pdGenerated>
         public void RemoveAllAllergy()
         {
-            if (allergy != null)
-                allergy.Clear();
+            if (_allergy != null)
+                _allergy.Clear();
         }
-        public BloodType patientBloodType;
+
+        public long GetId()
+            => _id;
+
+        public void SetId(long id)
+            => _id = id;
+
 
         /// <summary>
         /// Property for BloodType
@@ -172,16 +194,12 @@ namespace SIMS.Model.PatientModel
         /// <pdGenerated>Default opposite class property</pdGenerated>
         public BloodType PatientBloodType
         {
-            get
-            {
-                return patientBloodType;
-            }
-            set
-            {
-                patientBloodType = value;
-            }
+            get { return _patientBloodType; }
+            set { _patientBloodType = value; }
         }
-        public UserModel.Patient patient;
 
+        public long Id { get => _id; set => _id = value; }
+        
+        public Patient Patient { get => _patient; set => _patient = value; }
     }
 }

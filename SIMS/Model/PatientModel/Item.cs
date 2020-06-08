@@ -4,35 +4,46 @@
 // Purpose: Definition of Class Item
 
 using System;
+using SIMS.Repository.Abstract;
 
 namespace SIMS.Model.PatientModel
 {
-    public abstract class Item
+    public abstract class Item : IIdentifiable<long>
     {
-        private string name;
-        private int inStock;
-        private int minNumber;
-        private long id;
+        private string _name;
+        private int _inStock;
+        private int _minNumber;
+        private long _id;
 
-        public bool EditMinNumber()
+        public Item(long id)
         {
-            throw new NotImplementedException();
+            _id = id;
         }
 
-        public bool AddItem()
+        public Item(string name,int inStock, int minNumber)
         {
-            throw new NotImplementedException();
+            _name = name;
+            _inStock = inStock;
+            _minNumber = minNumber;
         }
 
-        public bool RemoveItem()
+        public Item(long id, string name, int inStock, int minNumber)
         {
-            throw new NotImplementedException();
+            _id = id;
+            _name = name;
+            _inStock = inStock;
+            _minNumber = minNumber;
         }
 
-        public bool Buy()
-        {
-            throw new NotImplementedException();
-        }
+        public string Name { get => _name; set => _name = value; }
+        public int InStock { get => _inStock; set => _inStock = value; }
+        public int MinNumber { get => _minNumber; set => _minNumber = value; }
+        public long Id { get => _id; set => _id = value; }
 
+        public long GetId()
+            => _id;
+
+        public void SetId(long id)
+            => _id = id;
     }
 }

@@ -4,27 +4,84 @@
 // Purpose: Definition of Class Feedback
 
 using System;
+using System.Collections.Generic;
+using SIMS.Repository.Abstract;
 
 namespace SIMS.Model.UserModel
 {
-    public class Feedback
+    public class Feedback : IIdentifiable<long>
     {
-        private string comment;
-        private long id;
+        private long _id;
+        private User _user;
+        private List<Rating> _rating;
 
-        public System.Collections.Generic.List<Rating> rating;
+        public Feedback(User user,string comment)
+        {
+            _user = user;
+            Comment = comment;
+            _rating = new List<Rating>();
+        }
+
+        public Feedback(long id, User user, string comment)
+        {
+            _id = id;
+            _user = user;
+            Comment = comment;
+            _rating = new List<Rating>();
+        }
+
+        public Feedback(User user,string comment, List<Rating> rating)
+        {
+            _user = user;
+            Comment = comment;
+            if (rating == null)
+                _rating = new List<Rating>();
+            else
+                _rating = rating;
+
+
+        }
+
+        public Feedback(long id, User user, string comment, List<Rating> rating)
+        {
+            _id = id;
+            _user = user;
+            Comment = comment;
+            if (rating == null)
+                _rating = new List<Rating>();
+            else
+                _rating = rating;
+
+
+        }
+
+        public Feedback(long id)
+        {
+            _id = id;
+            Comment = "";
+            _rating = new List<Rating>();
+        }
+
+   
+        public User User
+        {
+            get { return _user; }
+            set { _user = value; }
+        }
+
+        public string Comment { get; set; }
 
         /// <summary>
         /// Property for collection of Rating
         /// </summary>
         /// <pdGenerated>Default opposite class collection property</pdGenerated>
-        public System.Collections.Generic.List<Rating> Rating
+        public List<Rating> Rating
         {
             get
             {
-                if (rating == null)
-                    rating = new System.Collections.Generic.List<Rating>();
-                return rating;
+                if (_rating == null)
+                    _rating = new List<Rating>();
+                return _rating;
             }
             set
             {
@@ -45,10 +102,10 @@ namespace SIMS.Model.UserModel
         {
             if (newRating == null)
                 return;
-            if (rating == null)
-                rating = new System.Collections.Generic.List<Rating>();
-            if (!rating.Contains(newRating))
-                rating.Add(newRating);
+            if (_rating == null)
+                _rating = new List<Rating>();
+            if (!_rating.Contains(newRating))
+                _rating.Add(newRating);
         }
 
         /// <summary>
@@ -59,9 +116,9 @@ namespace SIMS.Model.UserModel
         {
             if (oldRating == null)
                 return;
-            if (rating != null)
-                if (rating.Contains(oldRating))
-                    rating.Remove(oldRating);
+            if (_rating != null)
+                if (_rating.Contains(oldRating))
+                    _rating.Remove(oldRating);
         }
 
         /// <summary>
@@ -70,10 +127,12 @@ namespace SIMS.Model.UserModel
         /// <pdGenerated>Default removeAll</pdGenerated>
         public void RemoveAllRating()
         {
-            if (rating != null)
-                rating.Clear();
+            if (_rating != null)
+                _rating.Clear();
         }
-        public User user;
 
+        public long GetId() => _id;
+
+        public void SetId(long id) => _id = id;
     }
 }

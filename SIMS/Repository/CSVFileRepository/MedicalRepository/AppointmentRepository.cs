@@ -7,8 +7,11 @@ using SIMS.Model.PatientModel;
 using SIMS.Model.UserModel;
 using SIMS.Repository.Abstract.MedicalAbstractRepository;
 using SIMS.Repository.CSVFileRepository.Csv;
+using SIMS.Repository.CSVFileRepository.Csv.IdGenerator;
+using SIMS.Repository.CSVFileRepository.Csv.Stream;
 using SIMS.Repository.CSVFileRepository.HospitalManagementRepository;
 using SIMS.Repository.CSVFileRepository.UsersRepository;
+using SIMS.Repository.Sequencer;
 using SIMS.Specifications.Converter;
 using SIMS.Util;
 using System;
@@ -18,6 +21,10 @@ namespace SIMS.Repository.CSVFileRepository.MedicalRepository
 {
     public class AppointmentRepository : CSVRepository<Appointment, long>, IAppointmentRepository, IEagerCSVRepository<Appointment, long>
     {
+        public AppointmentRepository(string entityName, ICSVStream<Appointment> stream, ISequencer<long> sequencer) : base(entityName, stream, sequencer, new LongIdGeneratorStrategy<Appointment>())
+        {
+        }
+
         private void Bind(IEnumerable<Appointment> appointments, IEnumerable<Room> rooms, IEnumerable<Doctor> doctors, IEnumerable<Patient> patients)
         {
             throw new NotImplementedException();

@@ -12,11 +12,22 @@ namespace SIMS.Util
 {
     public class AppointmentFilter
     {
-        private DocTypeEnum doctorType;
-        private Doctor doctor;
-        private TimeInterval timeInterval;
-        private AppointmentType type;
-        private bool showUpcomingOnly;
+        private DocTypeEnum _doctorType;
+        private Doctor _doctor;
+        private TimeInterval _timeInterval;
+        private AppointmentType _type;
 
+        public AppointmentFilter(Doctor doctor, DocTypeEnum doctorType, TimeInterval timeInterval, AppointmentType appointmentType)
+        {
+            _doctor = doctor;
+            _doctorType = doctorType;
+            _timeInterval = timeInterval;
+            _type = appointmentType;
+        }
+
+        public DocTypeEnum DoctorType { get => _doctorType; set => _doctorType = value; }
+        public Doctor Doctor { get => _doctor; set => _doctor = value; }
+        public TimeInterval TimeInterval { get => _timeInterval; set => _timeInterval = value; }
+        public AppointmentType Type { get => _type; set => _type = value; }
     }
 }
