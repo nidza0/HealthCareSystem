@@ -11,20 +11,12 @@ using SIMS.Repository.Sequencer;
 
 namespace SIMS.Repository.CSVFileRepository.HospitalManagementRepository
 {
-    public class TimeTableRepository : CSVRepository<TimeTable, long>, ITimeTableRepository, IEagerCSVRepository<TimeTable, long>
+    public class TimeTableRepository : CSVRepository<TimeTable, long>, ITimeTableRepository
     {
         public TimeTableRepository(string entityName, ICSVStream<TimeTable> stream, ISequencer<long> sequencer, IIdGeneratorStrategy<TimeTable, long> idGeneratorStrategy) : base(entityName, stream, sequencer, idGeneratorStrategy)
         {
         }
 
-        public IEnumerable<TimeTable> GetAllEager()
-        {
-            throw new NotImplementedException();
-        }
-
-        public TimeTable GetEager(long id)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }
