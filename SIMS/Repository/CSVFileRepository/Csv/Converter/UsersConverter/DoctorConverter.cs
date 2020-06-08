@@ -12,13 +12,11 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.UsersConverter
 {
     public class DoctorConverter : ICSVConverter<Doctor>
     {
-        private string _delimiter;
-        private string _dateTimeFormat;
+        private string _delimiter = "?";
+        private string _dateTimeFormat = "dd.MM.yyyy.";
 
-        public DoctorConverter(string delimiter, string dateTimeFormat)
+        public DoctorConverter()
         {
-            _delimiter = delimiter;
-            _dateTimeFormat = dateTimeFormat;
         }
 
         public Doctor ConvertCSVToEntity(string csv)
@@ -33,16 +31,16 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.UsersConverter
                                     surname: tokens[5],
                                     middleName: tokens[6],
                                     sex: (Sex)Enum.Parse(typeof(Sex), tokens[7]),
-                                    dateOfBirth: DateTime.ParseExact(tokens[8], _dateTimeFormat, CultureInfo.InvariantCulture),
+                                    dateOfBirth: tokens[8].Equals("") ? DateTime.MinValue : DateTime.ParseExact(tokens[8], _dateTimeFormat, CultureInfo.InvariantCulture),
                                     uidn: tokens[9],
-                                    address: new Address(tokens[10], new Location(Convert.ToInt64(tokens[11]), tokens[12], tokens[13])),
+                                    address: new Address(tokens[10], new Location(tokens[11].Equals("") ? default : long.Parse(tokens[11]), tokens[12], tokens[13])),
                                     homePhone: tokens[14],
                                     cellPhone: tokens[15],
                                     email1: tokens[16],
                                     email2: tokens[17],
-                                    timeTable: new TimeTable(long.Parse(tokens[18])),
-                                    hospital: new Hospital(long.Parse(tokens[19])),
-                                    office: new Room(long.Parse(tokens[20])),
+                                    timeTable: new TimeTable(tokens[18].Equals("") ? default : long.Parse(tokens[18])),
+                                    hospital: new Hospital(tokens[19].Equals("") ? default : long.Parse(tokens[19])),
+                                    office: new Room(tokens[20].Equals("") ? default : long.Parse(tokens[20])),
                                     doctorType: (DocTypeEnum)Enum.Parse(typeof(DocTypeEnum), tokens[21]));
 
             return doc;
@@ -58,19 +56,19 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.UsersConverter
                 doctor.Surname,
                 doctor.MiddleName,
                 doctor.Sex,
-                doctor.DateOfBirth.ToString(_dateTimeFormat),
+                doctor.DateOfBirth == DateTime.MinValue ? "" : doctor.DateOfBirth.ToString(_dateTimeFormat),
                 doctor.Uidn,
-                doctor.Address.Street,
-                doctor.Address.Location.GetId(),
-                doctor.Address.Location.Country,
-                doctor.Address.Location.City,
+                doctor.Address == null ? "" : doctor.Address.Street,
+                doctor.Address == null ? "" : (doctor.Address.Location == null ? "" : doctor.Address.Location.GetId().ToString()),
+                doctor.Address == null ? "" : (doctor.Address.Location == null ? "" : doctor.Address.Location.Country),
+                doctor.Address == null ? "" : (doctor.Address.Location == null ? "" : doctor.Address.Location.City),
                 doctor.HomePhone,
                 doctor.CellPhone,
                 doctor.Email1,
                 doctor.Email2,
-                doctor.TimeTable.GetId(),
-                doctor.Hospital.GetId(),
-                doctor.Office.GetId(),
+                doctor.TimeTable == null ? "" : doctor.TimeTable.GetId().ToString(),
+                doctor.Hospital == null ? "" : doctor.Hospital.GetId().ToString(),
+                doctor.Office == null ? "" : doctor.Office.GetId().ToString(),
                 doctor.DocTypeEnum);
     }
 }
