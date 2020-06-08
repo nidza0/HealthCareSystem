@@ -6,7 +6,6 @@
 using SIMS.Repository.Abstract;
 using System;
 using System.Collections.Generic;
-using SIMS.Repository.Abstract;
 
 
 namespace SIMS.Model.UserModel

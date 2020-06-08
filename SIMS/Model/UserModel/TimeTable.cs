@@ -15,6 +15,8 @@ namespace SIMS.Model.UserModel
         private long _id;
         private Dictionary<WorkingDaysEnum, TimeInterval> _workingHours;
 
+        public Dictionary<WorkingDaysEnum, TimeInterval> WorkingHours { get => _workingHours; set => _workingHours = value; }
+
         public TimeTable(Dictionary<WorkingDaysEnum, TimeInterval> workingHours)
         {
             _workingHours = workingHours;
@@ -22,6 +24,7 @@ namespace SIMS.Model.UserModel
 
         public TimeTable(long id, Dictionary<WorkingDaysEnum, TimeInterval> workingHours)
         {
+            _id = id;
             _workingHours = workingHours;
         }
 

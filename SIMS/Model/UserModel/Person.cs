@@ -59,6 +59,7 @@ namespace SIMS.Model.UserModel
         public string Email2 { get => _email2; }
         public Address Address { get => _address; }
         public Sex Sex { get => _sex; }
+        public string FullName { get => _name + " " + _middleName + " " + _surname; }
 
     }
 }

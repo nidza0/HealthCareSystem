@@ -45,14 +45,16 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.MiscConverter
         private List<Rating> GetList(string listString, char[] delimiter)
         {
             List<Rating> retVal = new List<Rating>();
-            string[] tokens = listString.Split(_listDelimiter.ToCharArray());
 
-            foreach (string entity in tokens)
-            {
-                string[] attributes = entity.Split(_secondaryListDelimiter.ToCharArray());
-                retVal.Add(GetRating(attributes));
+            if(listString != "") { 
+                string[] tokens = listString.Split(_listDelimiter.ToCharArray());
+
+                foreach (string entity in tokens)
+                {
+                    string[] attributes = entity.Split(_secondaryListDelimiter.ToCharArray());
+                    retVal.Add(GetRating(attributes));
+                }
             }
-
             return retVal;
         }
 

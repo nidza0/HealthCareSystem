@@ -11,7 +11,7 @@ namespace SIMS.Model.UserModel
     {
         private User _recipient;
 
-        public User Recipient { get => _recipient; }
+        public User Recipient { get => _recipient; set { _recipient = value; } }
 
         public Notification(string text, User recipient, DateTime dateCreated) : base(text, dateCreated)
         {
