@@ -56,6 +56,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Repository\Abstract\HospitalManagementAbstractRepository\IDoctorStatisticRepository.cs" />
+    <Compile Include="Repository\Abstract\HospitalManagementAbstractRepository\IInventoryStatisticsRepository.cs" />
+    <Compile Include="Repository\Abstract\HospitalManagementAbstractRepository\IRoomStatisticsRepository.cs" />
+    <Compile Include="Repository\CSVFileRepository\Csv\Converter\HospitalManagementConverter\DoctorStatisticsConverter.cs" />
+    <Compile Include="Repository\CSVFileRepository\Csv\Converter\HospitalManagementConverter\InventoryStatisticsConverter.cs" />
+    <Compile Include="Repository\CSVFileRepository\Csv\Converter\HospitalManagementConverter\RoomStatisticsConverter.cs" />
+    <Compile Include="Repository\CSVFileRepository\HospitalManagementRepository\DoctorStatisticRepository.cs" />
+    <Compile Include="Repository\CSVFileRepository\HospitalManagementRepository\InventoryStatisticsRepository.cs" />
+    <Compile Include="Repository\CSVFileRepository\HospitalManagementRepository\RoomStatisticsRepository.cs" />
     <Compile Include="Resources.cs" />
     <Compile Include="Exceptions\EntityNotFoundException.cs" />
     <Compile Include="Exceptions\InvalidUserIdException.cs" />
