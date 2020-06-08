@@ -14,7 +14,6 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.HospitalManagementConv
     public class RoomConverter : ICSVConverter<Room>
     {
         private readonly string _delimiter = ",";
-        private readonly string _listDelimiter = ";";
 
         public RoomConverter()
         {

@@ -25,11 +25,12 @@ namespace SIMS.Repository.CSVFileRepository.MedicalRepository
 {
     public class AppointmentRepository : CSVRepository<Appointment, long>, IAppointmentRepository, IEagerCSVRepository<Appointment, long>
     {
-        private IPatientRepository _patientRepository;
-        private IDoctorRepository _doctorRepository;
+        private const string ENTITY_NAME = "Appointment";
+        private IEagerCSVRepository<Patient,UserID> _patientRepository;
+        private IEagerCSVRepository<Doctor,UserID> _doctorRepository;
         private IRoomRepository _roomRepository;
 
-        public AppointmentRepository(string entityName, ICSVStream<Appointment> stream, ISequencer<long> sequencer, IPatientRepository patientRepository, IDoctorRepository doctorRepository, IRoomRepository roomRepository) : base(entityName, stream, sequencer, new LongIdGeneratorStrategy<Appointment>())
+        public AppointmentRepository(ICSVStream<Appointment> stream, ISequencer<long> sequencer, IEagerCSVRepository<Patient,UserID> patientRepository, IEagerCSVRepository<Doctor,UserID> doctorRepository, IRoomRepository roomRepository) : base(ENTITY_NAME, stream, sequencer, new LongIdGeneratorStrategy<Appointment>())
         {
             _patientRepository = patientRepository;
             _doctorRepository = doctorRepository;
@@ -38,10 +39,10 @@ namespace SIMS.Repository.CSVFileRepository.MedicalRepository
 
         private void Bind(IEnumerable<Appointment> appointments)
         {
-            var patients = _patientRepository.GetAll();
+            var patients = _patientRepository.GetAllEager();
             BindAppointmentsWithPatient(appointments, patients);
 
-            var doctors = _doctorRepository.GetAll();
+            var doctors = _doctorRepository.GetAllEager();
             BindAppointmentsWithDoctor(appointments, doctors);
 
             var rooms = _roomRepository.GetAll();
@@ -58,22 +59,22 @@ namespace SIMS.Repository.CSVFileRepository.MedicalRepository
             => appointments.ToList().ForEach(appointment => appointment.Room = GetRoomById(rooms, appointment.Patient.GetId()));
 
         public IEnumerable<Appointment> GetPatientAppointments(Patient patient)
-            => GetAll().Where(appointment => appointment.Patient.GetId().Equals(patient.GetId()));
+            => GetAllEager().Where(appointment => appointment.Patient.GetId().Equals(patient.GetId()));
 
         public IEnumerable<Appointment> GetAppointmentsByTime(TimeInterval timeInterval)
-            => GetAll().Where(appointment => appointment.TimeInterval.Equals(timeInterval));
+            => GetAllEager().Where(appointment => appointment.TimeInterval.Equals(timeInterval));
 
         public IEnumerable<Appointment> GetAppointmentsByDoctor(Doctor doctor)
-            => GetAll().Where(appointment => appointment.GetId().Equals(doctor.GetId()));
+            => GetAllEager().Where(appointment => appointment.GetId().Equals(doctor.GetId()));
 
         public IEnumerable<Appointment> GetCanceledAppointments()
-            => GetAll().Where(appointment => appointment.Canceled == true);
+            => GetAllEager().Where(appointment => appointment.Canceled == true);
 
         public IEnumerable<Appointment> GetCompletedAppointmentsByPatient(Patient patient)
-            => GetAll().Where(appointment => appointment.Patient.GetId().Equals(patient.GetId())&& isCompleted(appointment));
+            => GetAllEager().Where(appointment => appointment.Patient.GetId().Equals(patient.GetId())&& isCompleted(appointment));
 
         public IEnumerable<Appointment> GetAppointmentsByRoom(Room room)
-            => GetAll().Where(appointment => appointment.Room.GetId().Equals(room.GetId()));
+            => GetAllEager().Where(appointment => appointment.Room.GetId().Equals(room.GetId()));
 
         public IEnumerable<Appointment> GetFilteredAppointment(AppointmentFilter appointmentFilter)
         {
@@ -84,19 +85,19 @@ namespace SIMS.Repository.CSVFileRepository.MedicalRepository
         }
 
         public IEnumerable<Appointment> GetUpcomingAppointmentsForPatient(Patient patient)
-            => GetAll().Where(appointment => appointment.Patient.GetId().Equals(patient.GetId()) && isInFuture(appointment) );
+            => GetAllEager().Where(appointment => appointment.Patient.GetId().Equals(patient.GetId()) && isInFuture(appointment) );
 
         public IEnumerable<Appointment> GetUpcomingAppointmentsForDoctor(Doctor doctor)
-            => GetAll().Where(appointment => appointment.DoctorInAppointment.GetId().Equals(doctor.GetId()));
+            => GetAllEager().Where(appointment => appointment.DoctorInAppointment.GetId().Equals(doctor.GetId()));
 
         public Appointment GetEager(long id)
         {
             var appointment = GetByID(id);
 
-            var patients = _patientRepository.GetAll();
+            var patients = _patientRepository.GetAllEager();
             appointment.Patient = patients.SingleOrDefault(patient => patient.GetId() == appointment.Patient.GetId());
 
-            var doctors = _doctorRepository.GetAll();
+            var doctors = _doctorRepository.GetAllEager();
             appointment.DoctorInAppointment = doctors.SingleOrDefault(doctor => doctor.GetId() == appointment.DoctorInAppointment.GetId());
 
             var rooms = _roomRepository.GetAll();
@@ -109,9 +110,9 @@ namespace SIMS.Repository.CSVFileRepository.MedicalRepository
         {
             IEnumerable<Appointment> appointments = GetAll();
 
-            IEnumerable<Patient> patients = _patientRepository.GetAll();
+            IEnumerable<Patient> patients = _patientRepository.GetAllEager();
             IEnumerable<Room> rooms = _roomRepository.GetAll();
-            IEnumerable<Doctor> doctors = _doctorRepository.GetAll();
+            IEnumerable<Doctor> doctors = _doctorRepository.GetAllEager();
 
             Bind(appointments);
 

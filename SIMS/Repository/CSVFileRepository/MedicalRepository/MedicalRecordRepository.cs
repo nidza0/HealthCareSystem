@@ -20,12 +20,16 @@ namespace SIMS.Repository.CSVFileRepository.MedicalRepository
 {
     public class MedicalRecordRepository : CSVRepository<MedicalRecord, long>, IMedicalRecordRepository, IEagerCSVRepository<MedicalRecord, long>
     {
+        private const string ENTITY_NAME = "MedicalRecord";
         private IPatientRepository _patientRepository;
         private IDiagnosisRepository _diagnosisRepository;
         private IAllergyRepository _allergyRepository;
 
+        public IPatientRepository PatientRepository { get => _patientRepository; set => _patientRepository = value; }
+        public IDiagnosisRepository DiagnosisRepository { get => _diagnosisRepository; set => _diagnosisRepository = value; }
+        public IAllergyRepository AllergyRepository { get => _allergyRepository; set => _allergyRepository = value; }
 
-        public MedicalRecordRepository(string entityName, ICSVStream<MedicalRecord> stream, ISequencer<long> sequencer, IPatientRepository patientRepository, IDiagnosisRepository diagnosisRepository, IAllergyRepository allergyRepository) : base(entityName, stream, sequencer, new LongIdGeneratorStrategy<MedicalRecord>())
+        public MedicalRecordRepository(ICSVStream<MedicalRecord> stream, ISequencer<long> sequencer, IPatientRepository patientRepository, IDiagnosisRepository diagnosisRepository, IAllergyRepository allergyRepository) : base(ENTITY_NAME, stream, sequencer, new LongIdGeneratorStrategy<MedicalRecord>())
         {
             _patientRepository = patientRepository;
             _diagnosisRepository = diagnosisRepository;

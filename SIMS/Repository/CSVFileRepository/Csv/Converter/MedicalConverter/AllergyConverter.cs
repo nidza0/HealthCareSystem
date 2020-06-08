@@ -11,13 +11,11 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.MedicalConverter
     class AllergyConverter : ICSVConverter<Allergy>
     {
 
-        private readonly string _delimiter;
-        private readonly string _listDelimiter;
+        private readonly string _delimiter = ",";
+        private readonly string _listDelimiter = ";";
 
-        public AllergyConverter(string delimiter, string listDelimiter)
+        public AllergyConverter()
         {
-            _delimiter = delimiter;
-            _listDelimiter = listDelimiter;
         }
 
 

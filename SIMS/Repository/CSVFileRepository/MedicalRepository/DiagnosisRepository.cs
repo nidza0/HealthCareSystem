@@ -18,11 +18,12 @@ namespace SIMS.Repository.CSVFileRepository.MedicalRepository
 {
     public class DiagnosisRepository : CSVRepository<Diagnosis, long>, IDiagnosisRepository, IEagerCSVRepository<Diagnosis, long>
     {
+        private const string ENTITY_NAME = "Diagnosis";
         private IEagerCSVRepository<Therapy, long> _therapyEagerCSVRepository;
         private IEagerCSVRepository<Disease, long> _diseaseEagerCSVRepository;
         private IMedicalRecordRepository _medicalRecordRepository;
 
-        public DiagnosisRepository(string entityName, ICSVStream<Diagnosis> stream, ISequencer<long> sequencer, IEagerCSVRepository<Therapy, long> therapyEagerCSVRepository, IEagerCSVRepository<Disease, long> diseaseEagerCSVRepository, IMedicalRecordRepository medicalRecordRepository) : base(entityName, stream, sequencer, new LongIdGeneratorStrategy<Diagnosis>())
+        public DiagnosisRepository(ICSVStream<Diagnosis> stream, ISequencer<long> sequencer, IEagerCSVRepository<Therapy, long> therapyEagerCSVRepository, IEagerCSVRepository<Disease, long> diseaseEagerCSVRepository, IMedicalRecordRepository medicalRecordRepository) : base(ENTITY_NAME, stream, sequencer, new LongIdGeneratorStrategy<Diagnosis>())
         {
             _therapyEagerCSVRepository = therapyEagerCSVRepository;
             _diseaseEagerCSVRepository = diseaseEagerCSVRepository;
@@ -104,5 +105,8 @@ namespace SIMS.Repository.CSVFileRepository.MedicalRepository
         public TherapyRepository therapyRepository;
         public DiseaseRepository diseaseRepository;
 
+        public IEagerCSVRepository<Therapy, long> TherapyEagerCSVRepository { get => _therapyEagerCSVRepository; set => _therapyEagerCSVRepository = value; }
+        public IEagerCSVRepository<Disease, long> DiseaseEagerCSVRepository { get => _diseaseEagerCSVRepository; set => _diseaseEagerCSVRepository = value; }
+        public IMedicalRecordRepository MedicalRecordRepository { get => _medicalRecordRepository; set => _medicalRecordRepository = value; }
     }
 }

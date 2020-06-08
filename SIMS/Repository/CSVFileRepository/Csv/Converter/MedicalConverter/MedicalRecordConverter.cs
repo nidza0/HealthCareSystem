@@ -16,10 +16,8 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.MedicalConverter
         private readonly string _delimiter = ",";
         private readonly string _listDelimiter = ";";
 
-        public MedicalRecordConverter(string delimiter, string listDelimiter)
+        public MedicalRecordConverter()
         {
-            _delimiter = delimiter;
-            _listDelimiter = listDelimiter;
         }
 
         public MedicalRecord ConvertCSVToEntity(string medicalRecordCSVformat)

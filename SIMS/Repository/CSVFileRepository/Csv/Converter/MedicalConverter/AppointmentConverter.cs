@@ -16,13 +16,8 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.MedicalConverter
         private readonly string _listDelimiter = ";";
         private readonly string _dateTimeFormat = "dd.MM.yyyy. HH:mm";
 
-        public AppointmentConverter(string delimiter, string listDelimiter, string dateTimeFormat = "dd.MM.yyyy. HH:mm")
+        public AppointmentConverter()
         {
-            //Date time format not allowed in the constructor intentionally. 
-            //TODO: Create an ENUM with datetimeFormat's so user can't enter a wrong format
-            _delimiter = delimiter;
-            _listDelimiter = listDelimiter;
-            _dateTimeFormat = dateTimeFormat;
         }
 
         public Appointment ConvertCSVToEntity(string csv)
