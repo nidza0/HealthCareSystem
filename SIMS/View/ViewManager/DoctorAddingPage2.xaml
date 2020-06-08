@@ -30,7 +30,6 @@
         <TextBox x:Name="phoneInput" Margin="10,500,10,0" FontWeight="Bold" Foreground="Black" Background="Transparent" BorderBrush="#ec1c70" BorderThickness="3"  HorizontalAlignment="Left" Height="48"  TextWrapping="Wrap" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" VerticalAlignment="Top" Width="530"/>
         <TextBox x:Name="addressInput" Margin="10,600,10,0" FontWeight="Bold" Foreground="Black" Background="Transparent" BorderBrush="#ec1c70" BorderThickness="3"  HorizontalAlignment="Left" Height="48"  TextWrapping="Wrap" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" VerticalAlignment="Top" Width="530"/>
         <TextBox x:Name="emailInput" Margin="10,700,10,0" FontWeight="Bold" Foreground="Black" Background="Transparent" BorderBrush="#ec1c70" BorderThickness="3"  HorizontalAlignment="Left" Height="48"  TextWrapping="Wrap" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" VerticalAlignment="Top" Width="530"/>
-        <Label Content="* - neobavezno polje:" FontWeight="Bold" HorizontalAlignment="Left" Margin="10,800,0,0" VerticalAlignment="Top" Height="42" Width="222"/>
 
         <!--#endregion-->
 

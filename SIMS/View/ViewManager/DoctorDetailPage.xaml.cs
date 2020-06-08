@@ -20,9 +20,17 @@ namespace SIMS.View.ViewManager
     /// </summary>
     public partial class DoctorDetailPage : Page
     {
-        public DoctorDetailPage()
+        public DoctorDetailPage(Model.UserModel.Doctor doc)
         {
             InitializeComponent();
+
+
+            usernameLabel.Content = doc.UserName;
+            telefonLabel.Content = doc.CellPhone;
+            titulaLabel.Content = doc.Sex;
+            datumLabel.Content = doc.DateOfBirth.ToString();
+            roomLabel.Content = doc.Office.GetId();
+            NameLabel.Content = doc.FullName;
         }
 
         //Menu buttons

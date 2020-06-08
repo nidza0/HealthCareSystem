@@ -23,6 +23,8 @@ namespace SIMS.View.ViewManager
         public InventoryOverviewPage()
         {
             InitializeComponent();
+
+            InventoryDataGrid.ItemsSource = Login.items;
         }
 
         private void InventoryDataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)

@@ -21,18 +21,18 @@
 
         <!--Labels-->
         <Label x:Name="NameLabel" HorizontalContentAlignment="Center"  FontWeight="Bold" Foreground="Black" Content="" Margin="90,370,90,0" VerticalAlignment="Top"/>
-        <Label Content="Odeljenje:" Foreground="#ec1c70" HorizontalAlignment="Left" Margin="30,450,0,0" VerticalAlignment="Top" Width="169" FontWeight="Bold" />
+        <Label Content="Korisnicko Ime:" Foreground="#ec1c70" HorizontalAlignment="Left" Margin="30,450,0,0" VerticalAlignment="Top" Width="185" FontWeight="Bold" />
         <Label Content="Radno vreme:" Foreground="#ec1c70" Margin="0,450,30,0" VerticalAlignment="Top" FontWeight="Bold" HorizontalAlignment="Right" Width="169" />
         <Label Content="Telefon:" Foreground="#ec1c70" HorizontalAlignment="Left" Margin="30,550,0,0" VerticalAlignment="Top" Width="169" FontWeight="Bold" />
         <Label Content="Datum rodjenja:" Foreground="#ec1c70" HorizontalAlignment="Left" Margin="30,650,0,0" VerticalAlignment="Top" Width="169" FontWeight="Bold" />
-        <Label Content="Titula:" Foreground="#ec1c70" HorizontalAlignment="Right" Margin="0,550,30,0" VerticalAlignment="Top" Width="169" FontWeight="Bold" />
+        <Label Content="Pol:" Foreground="#ec1c70" HorizontalAlignment="Right" Margin="0,550,30,0" VerticalAlignment="Top" Width="169" FontWeight="Bold" />
         <Label Content="Kancelarija:" Foreground="#ec1c70" HorizontalAlignment="Right" Margin="0,650,30,0" VerticalAlignment="Top" Width="169" FontWeight="Bold" />
-        <Label x:Name="odeljenjeLabel"  Content="" FontWeight="Bold" HorizontalAlignment="Left" Margin="30,500,0,0" VerticalAlignment="Top" Width="185" Height="41"/>
-        <Label x:Name="radnovremeLabel"  Content="" FontWeight="Bold" HorizontalAlignment="Left" Margin="335,500,0,0" VerticalAlignment="Top" Width="185" Height="41"/>
+        <Label x:Name="usernameLabel"  Content="" FontWeight="Bold" HorizontalAlignment="Left" Margin="30,500,0,0" VerticalAlignment="Top" Width="185" Height="41"/>
+        <Label x:Name="radnovremeLabel"  Content="" FontWeight="Bold" HorizontalAlignment="Left" Margin="355,504,0,0" VerticalAlignment="Top" Width="185" Height="41"/>
         <Label x:Name="telefonLabel"  Content="" FontWeight="Bold" HorizontalAlignment="Left" Margin="30,594,0,0" Width="185" Height="41" VerticalAlignment="Top"/>
-        <Label x:Name="titulaLabel"  Content="" FontWeight="Bold" HorizontalAlignment="Left" Margin="335,604,0,0" VerticalAlignment="Top" Width="185" Height="41"/>
-        <Label x:Name="datumLabel"  Content="" FontWeight="Bold" HorizontalAlignment="Left" Margin="30,694,0,0" VerticalAlignment="Top" Width="185" Height="41"/>
-        <Label x:Name="roomLabel"  Content="" FontWeight="Bold" HorizontalAlignment="Left" Margin="335,694,0,0" VerticalAlignment="Top" Width="185" Height="41"/>
+        <Label x:Name="titulaLabel"  Content="" FontWeight="Bold" HorizontalAlignment="Left" Margin="355,604,0,0" VerticalAlignment="Top" Width="185" Height="41"/>
+        <Label x:Name="datumLabel"  Content="" FontWeight="Bold" HorizontalAlignment="Left" Margin="30,694,0,0" VerticalAlignment="Top" Width="130" Height="41"/>
+        <Label x:Name="roomLabel"  Content="" FontWeight="Bold" HorizontalAlignment="Left" Margin="355,694,0,0" VerticalAlignment="Top" Width="185" Height="41"/>
         <!--#endregion-->
 
         <!--Buttons-->

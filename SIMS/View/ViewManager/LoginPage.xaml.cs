@@ -1,5 +1,8 @@
-﻿using System;
+﻿using SIMS.Model.ManagerModel;
+using SIMS.Model.UserModel;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,9 +23,26 @@ namespace SIMS.View.ViewManager
     /// </summary>
     public partial class Login : Page
     {
+        Dummies.DummyDoctors dummy = new Dummies.DummyDoctors();
+
+        public static ObservableCollection<Doctor> doctors;
+        public static ObservableCollection<InventoryItem> items;
+
         public Login()
         {
             InitializeComponent();
+
+            doctors = new ObservableCollection<Doctor>();
+
+            foreach (Doctor doc in Dummies.DummyDoctors.doctorsList)
+                doctors.Add(doc);
+
+            items = new ObservableCollection<InventoryItem>();
+
+            foreach (InventoryItem item in Dummies.DummyDoctors.itemsList)
+                items.Add(item);
+
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
