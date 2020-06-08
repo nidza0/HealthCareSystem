@@ -21,13 +21,15 @@ namespace SIMS.Repository.CSVFileRepository.UsersRepository
             : base(ENTITY_NAME, stream, sequencer, null)
         {
         }
-        public User GetByUsername(string username)
-            => _stream.ReadAll().SingleOrDefault(user => user.UserName.Equals(username));
 
-        public User WriteToFile(User user)
+        public User AddUser(User user)
         {
             _stream.AppendToFile(user);
             return user;
         }
+
+        public User GetByUsername(string username)
+            => _stream.ReadAll().SingleOrDefault(user => user.UserName.Equals(username));
+
     }
 }
