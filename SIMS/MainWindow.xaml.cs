@@ -10,12 +10,9 @@ using SIMS.Model.ManagerModel;
 using SIMS.Repository.CSVFileRepository.Csv.Converter.MedicalConverter;
 using SIMS.Model.DoctorModel;
 using SIMS.Model.PatientModel;
-using SIMS.Repository.CSVFileRepository.Csv.Converter.UsersConverter;
 
 using SIMS.Repository.CSVFileRepository.MedicalRepository;
-using SIMS.Repository.CSVFileRepository.Csv.Stream;
-using SIMS.Repository.Sequencer;
-using SIMS.Repository.CSVFileRepository.Csv.Converter;
+using SIMS.Repository.CSVFileRepository.HospitalManagementRepository;
 
 namespace SIMS
 {
@@ -172,32 +169,32 @@ namespace SIMS
 
             /** Prescription tests **/
 
-            Dictionary<Medicine, TherapyDose> medicine = new Dictionary<Medicine, TherapyDose>();
-            Dictionary<TherapyTime, double> dosage1 = new Dictionary<TherapyTime, double>();
-            dosage1.Add(TherapyTime.Afternoon, 7);
-            dosage1.Add(TherapyTime.BeforeBed, 3);
-            dosage1.Add(TherapyTime.WhenIWakeUp, 2);
-            medicine.Add(new Medicine(75), new TherapyDose(dosage1));
+            //Dictionary<Medicine, TherapyDose> medicine = new Dictionary<Medicine, TherapyDose>();
+            //Dictionary<TherapyTime, double> dosage1 = new Dictionary<TherapyTime, double>();
+            //dosage1.Add(TherapyTime.Afternoon, 7);
+            //dosage1.Add(TherapyTime.BeforeBed, 3);
+            //dosage1.Add(TherapyTime.WhenIWakeUp, 2);
+            //medicine.Add(new Medicine(75), new TherapyDose(dosage1));
 
-            Dictionary<TherapyTime, double> dosage2 = new Dictionary<TherapyTime, double>();
-            dosage2.Add(TherapyTime.AsNeeded, 1);
-            dosage2.Add(TherapyTime.BeforeBed, 2);
-            dosage2.Add(TherapyTime.Afternoon, 6);
-            medicine.Add(new Medicine(54), new TherapyDose(dosage2));
+            //Dictionary<TherapyTime, double> dosage2 = new Dictionary<TherapyTime, double>();
+            //dosage2.Add(TherapyTime.AsNeeded, 1);
+            //dosage2.Add(TherapyTime.BeforeBed, 2);
+            //dosage2.Add(TherapyTime.Afternoon, 6);
+            //medicine.Add(new Medicine(54), new TherapyDose(dosage2));
 
-            Dictionary<TherapyTime, double> dosage3 = new Dictionary<TherapyTime, double>();
-            dosage3.Add(TherapyTime.AsNeeded, 9);
-            dosage3.Add(TherapyTime.Evening, 5);
-            dosage3.Add(TherapyTime.BeforeBed, 3);
-            medicine.Add(new Medicine(23), new TherapyDose(dosage3));
+            //Dictionary<TherapyTime, double> dosage3 = new Dictionary<TherapyTime, double>();
+            //dosage3.Add(TherapyTime.AsNeeded, 9);
+            //dosage3.Add(TherapyTime.Evening, 5);
+            //dosage3.Add(TherapyTime.BeforeBed, 3);
+            //medicine.Add(new Medicine(23), new TherapyDose(dosage3));
 
-            Prescription p = new Prescription(78, PrescriptionStatus.ACTIVE, new Doctor(new UserID("d78")), medicine);
+            //Prescription p = new Prescription(78, PrescriptionStatus.ACTIVE, new Doctor(new UserID("d78")), medicine);
 
-            PrescriptionConverter conv = new PrescriptionConverter(",","~","#","/","!");
-            string csv1 = conv.ConvertEntityToCSV(p);
-            string csv2 = conv.ConvertEntityToCSV(conv.ConvertCSVToEntity(csv1));
+            //PrescriptionConverter conv = new PrescriptionConverter(",","~","#","/","!");
+            //string csv1 = conv.ConvertEntityToCSV(p);
+            //string csv2 = conv.ConvertEntityToCSV(conv.ConvertCSVToEntity(csv1));
 
-            Console.WriteLine(csv1.Equals(csv2));
+            //Console.WriteLine(csv1.Equals(csv2));
 
 
             //Allergy allergy = new Allergy(55);
@@ -275,38 +272,47 @@ namespace SIMS
             //allergyRepository.Create(allergy);
 
 
-            String ingredient_path = @"../../files/MedicalFiles/ingredients.txt";
-            String symptom_path = @"../../files/MedicalFiles/symptoms.txt";
-            String allergy_path = @"../../files/MedicalFiles/allergies.txt";
+            //String ingredient_path = @"../../files/MedicalFiles/ingredients.txt";
+            //String symptom_path = @"../../files/MedicalFiles/symptoms.txt";
+            //String allergy_path = @"../../files/MedicalFiles/allergies.txt";
 
 
-            IngredientRepository ingredientRepository = new IngredientRepository("ingredient_test", new CSVStream<Ingredient>(ingredient_path, new IngredientConverter(",")), new LongSequencer());
-            SymptomRepository symptomRepository = new SymptomRepository("symptom_repo", new CSVStream<Symptom>(symptom_path, new SymptomConverter(",")), new LongSequencer());
-            AllergyRepository allergyRepository = new AllergyRepository("test", new CSVStream<Allergy>(allergy_path, new AllergyConverter(",", ";")), new LongSequencer(), ingredientRepository, symptomRepository);
+            //IngredientRepository ingredientRepository = new IngredientRepository("ingredient_test", new CSVStream<Ingredient>(ingredient_path, new IngredientConverter(",")), new LongSequencer());
+            //SymptomRepository symptomRepository = new SymptomRepository("symptom_repo", new CSVStream<Symptom>(symptom_path, new SymptomConverter(",")), new LongSequencer());
+            //AllergyRepository allergyRepository = new AllergyRepository("test", new CSVStream<Allergy>(allergy_path, new AllergyConverter(",", ";")), new LongSequencer(), ingredientRepository, symptomRepository);
 
-            Ingredient ingredient1 = new Ingredient("ingredient_1");
-            Ingredient ingredient2 = new Ingredient("ingredient_2");
+            //Ingredient ingredient1 = new Ingredient("ingredient_1");
+            //Ingredient ingredient2 = new Ingredient("ingredient_2");
 
-            Symptom symptom1 = new Symptom("Boli me nos", "Jako me boli nos");
-            Symptom symptom2 = new Symptom("Boli me glava", "Jako me boli glava");
+            //Symptom symptom1 = new Symptom("Boli me nos", "Jako me boli nos");
+            //Symptom symptom2 = new Symptom("Boli me glava", "Jako me boli glava");
 
-            ingredientRepository.Create(ingredient1);
-            ingredientRepository.Create(ingredient2);
+            //ingredientRepository.Create(ingredient1);
+            //ingredientRepository.Create(ingredient2);
 
+            //symptomRepository.Create(symptom1);
+            //symptomRepository.Create(symptom2);
+
+            //List<Symptom> test_list = new List<Symptom>();
+            //test_list.Add(symptomRepository.GetByID(1));
+            //test_list.Add(symptomRepository.GetByID(2));
+
+
+            //Allergy allergy = new Allergy("Test allergy", ingredientRepository.GetByID(1), test_list);
+
+            //Allergy tst = allergyRepository.Create(allergy);
+
+            //foreach (Symptom symp in tst.Symptoms)
+            //    Console.WriteLine(symp.Name);
+
+            AppResources appResources = AppResources.getInstance();
+
+            SymptomRepository symptomRepository = appResources.symptomRepository;
+            Symptom symptom1 = new Symptom("B123", "Soba za operacije");
+            Symptom symptom2 = new Symptom("B134", "Soba za prijem");
             symptomRepository.Create(symptom1);
             symptomRepository.Create(symptom2);
-
-            List<Symptom> test_list = new List<Symptom>();
-            test_list.Add(symptomRepository.GetByID(1));
-            test_list.Add(symptomRepository.GetByID(2));
-
-
-            Allergy allergy = new Allergy("Test allergy", ingredientRepository.GetByID(1), test_list);
-
-            Allergy tst = allergyRepository.Create(allergy);
-
-            foreach (Symptom symp in tst.Symptoms)
-                Console.WriteLine(symp.Name);
+            
 
         }
     }

@@ -17,10 +17,11 @@ namespace SIMS.Repository.CSVFileRepository.MedicalRepository
 {
     public class PrescriptionRepository : CSVRepository<Prescription, long>, IPrescriptionRepository, IEagerCSVRepository<Prescription, long>
     {
+        private const string ENTITY_NAME = "Prescription";
         private IDoctorRepository _doctorRepository;
         private IMedicineRepository _medicineRepository;
 
-        public PrescriptionRepository(string entityName, ICSVStream<Prescription> stream, ISequencer<long> sequencer, IDoctorRepository doctorRepository, IMedicineRepository medicineRepository) : base(entityName, stream, sequencer, new LongIdGeneratorStrategy<Prescription>())
+        public PrescriptionRepository(ICSVStream<Prescription> stream, ISequencer<long> sequencer, IDoctorRepository doctorRepository, IMedicineRepository medicineRepository) : base(ENTITY_NAME, stream, sequencer, new LongIdGeneratorStrategy<Prescription>())
         {
             _doctorRepository = doctorRepository;
             _medicineRepository = medicineRepository;

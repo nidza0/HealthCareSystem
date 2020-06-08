@@ -18,11 +18,8 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.MiscConverter
         private readonly string _secondaryListDelimiter = "-";
        
 
-        public FeedbackConverter(string delimiter, string secondaryListDelimiter, string listDelimiter)
-        {
-            _delimiter = delimiter;
-            _listDelimiter = listDelimiter;
-            
+        public FeedbackConverter()
+        {            
         }
 
         public Feedback ConvertCSVToEntity(string csv)

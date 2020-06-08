@@ -22,9 +22,10 @@ namespace SIMS.Repository.CSVFileRepository.HospitalManagementRepository
 {
     public class MedicineRepository : CSVRepository<Medicine, long>, IMedicineRepository, IEagerCSVRepository<Medicine, long>
     {
+        private const string ENTITY_NAME = "Medicine";
         IIngredientRepository _ingredientRepository;
         IDiseaseRepository _diseaseRepository;
-        public MedicineRepository(string entityName, ICSVStream<Medicine> stream, ISequencer<long> sequencer, IIngredientRepository ingredientRepository, IDiseaseRepository diseaseRepository) : base(entityName, stream, sequencer, new LongIdGeneratorStrategy<Medicine>())
+        public MedicineRepository(ICSVStream<Medicine> stream, ISequencer<long> sequencer, IIngredientRepository ingredientRepository, IDiseaseRepository diseaseRepository) : base(ENTITY_NAME, stream, sequencer, new LongIdGeneratorStrategy<Medicine>())
         {
             _ingredientRepository = ingredientRepository;
             _diseaseRepository = diseaseRepository;
@@ -90,5 +91,7 @@ namespace SIMS.Repository.CSVFileRepository.HospitalManagementRepository
         public MedicineSpecificationConverter medicineSpecificationConverter;
         public DiseaseRepository diseaseRepository;
 
+        public IIngredientRepository IngredientRepository { get => _ingredientRepository; set => _ingredientRepository = value; }
+        public IDiseaseRepository DiseaseRepository { get => _diseaseRepository; set => _diseaseRepository = value; }
     }
 }

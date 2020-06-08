@@ -17,20 +17,21 @@ namespace SIMS.Repository.CSVFileRepository.MedicalRepository
 {
     public class AllergyRepository : CSVRepository<Allergy, long>, IAllergyRepository, IEagerCSVRepository<Allergy,long>
     {
+        private const string ENTITY_NAME = "Allergy";
         private IIngredientRepository _ingredientsRepository;
-        private ISymptomRepository _symptomsEagerRepository;
+        private ISymptomRepository _symptomsRepository;
 
-        public AllergyRepository(string entityName, ICSVStream<Allergy> stream, ISequencer<long> sequencer,IIngredientRepository ingredientsRepository,ISymptomRepository symptomsEagerRepository) : base(entityName, stream, sequencer, new LongIdGeneratorStrategy<Allergy>())
+        public AllergyRepository(ICSVStream<Allergy> stream, ISequencer<long> sequencer,IIngredientRepository ingredientsRepository,ISymptomRepository symptomsRepository) : base(ENTITY_NAME, stream, sequencer, new LongIdGeneratorStrategy<Allergy>())
         {
             _ingredientsRepository = ingredientsRepository;
-            _symptomsEagerRepository = symptomsEagerRepository;
+            _symptomsRepository = symptomsRepository;
         }
 
         public IEnumerable<Allergy> GetAllEager()
         {
             IEnumerable<Allergy> allergies = GetAll();
             IEnumerable<Ingredient> ingredients = _ingredientsRepository.GetAll();
-            IEnumerable<Symptom> symptoms = _symptomsEagerRepository.GetAll();
+            IEnumerable<Symptom> symptoms = _symptomsRepository.GetAll();
 
             Bind(allergies, ingredients, symptoms);
 

@@ -12,14 +12,12 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.MedicalConverter
 {
     public class DiseaseConverter : ICSVConverter<Disease>
     {
-        private readonly string _delimiter;
-        private readonly string _listDelimiter;
+        private readonly string _delimiter = ",";
+        private readonly string _listDelimiter = ";";
 
 
-        public DiseaseConverter(string delimiter, string listDelimiter)
+        public DiseaseConverter()
         {
-            _delimiter = delimiter;
-            _listDelimiter = listDelimiter;
         }
 
         public Disease ConvertCSVToEntity(string csv)

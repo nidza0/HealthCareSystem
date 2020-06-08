@@ -18,9 +18,14 @@ namespace SIMS.Repository.CSVFileRepository.MedicalRepository
 {
     public class DiseaseRepository : CSVRepository<Disease, long>, IDiseaseRepository, IEagerCSVRepository<Disease, long>
     {
+        private const string ENTITY_NAME = "Disease";
         private ISymptomRepository _symptomRepository;
         private IEagerCSVRepository<Medicine, long> _medicineEagerCSVRepository;
-        public DiseaseRepository(string entityName, ICSVStream<Disease> stream, ISequencer<long> sequencer, IEagerCSVRepository<Medicine, long> medicineEagerCSVRepository, ISymptomRepository symptomRepository) : base(entityName, stream, sequencer, new LongIdGeneratorStrategy<Disease>())
+
+        public ISymptomRepository SymptomRepository { get => _symptomRepository; set => _symptomRepository = value; }
+        public IEagerCSVRepository<Medicine, long> MedicineEagerCSVRepository { get => _medicineEagerCSVRepository; set => _medicineEagerCSVRepository = value; }
+
+        public DiseaseRepository(ICSVStream<Disease> stream, ISequencer<long> sequencer, IEagerCSVRepository<Medicine, long> medicineEagerCSVRepository, ISymptomRepository symptomRepository) : base(ENTITY_NAME, stream, sequencer, new LongIdGeneratorStrategy<Disease>())
         {
             _symptomRepository = symptomRepository;
             _medicineEagerCSVRepository = medicineEagerCSVRepository;

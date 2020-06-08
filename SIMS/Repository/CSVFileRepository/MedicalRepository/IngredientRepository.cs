@@ -19,7 +19,8 @@ namespace SIMS.Repository.CSVFileRepository.MedicalRepository
 {
     public class IngredientRepository : CSVRepository<Ingredient, long>, IIngredientRepository
     {
-        public IngredientRepository(string entityName, ICSVStream<Ingredient> stream, ISequencer<long> sequencer) : base(entityName, stream, sequencer, new LongIdGeneratorStrategy<Ingredient>())
+        private const string ENTITY_NAME = "Ingredient";
+        public IngredientRepository(ICSVStream<Ingredient> stream, ISequencer<long> sequencer) : base(ENTITY_NAME, stream, sequencer, new LongIdGeneratorStrategy<Ingredient>())
         {
 
         }
