@@ -40,7 +40,7 @@ namespace SIMS.Repository.CSVFileRepository.MiscRepository
             => GetAllEager().SingleOrDefault(feedback => feedback.GetId() == id);
 
         private void BindWithUser(IEnumerable<Feedback> feedback, IEnumerable<User> users)
-            => feedback.ToList().ForEach(feedback => feedback.User = GetUserById(users, feedback.User.GetId()));
+            => feedback.ToList().ForEach(fb => fb.User = GetUserById(users, feedback.User.GetId()));
 
         private User GetUserById(IEnumerable<User> users, UserID id)
             => users.SingleOrDefault(user => user.GetId().Equals(id));
