@@ -19,9 +19,5 @@ namespace SIMS.Repository.Abstract.HospitalManagementAbstractRepository
 
         bool RemoveInventoryItem(Item item);
 
-        IEnumerable<InventoryItem> GetInventoryItemsForRoom(Room room);
-
-        IEnumerable<InventoryItem> GetInventoryItems();
-
     }
 }

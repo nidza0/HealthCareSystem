@@ -5,19 +5,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using SIMS.Repository.CSVFileRepository.Csv.Converter.HospitalManagementConverter;
 using SIMS.Model.ManagerModel;
 using SIMS.Repository.CSVFileRepository.Csv.Converter.MedicalConverter;
 using SIMS.Model.DoctorModel;
 using SIMS.Model.PatientModel;
+using SIMS.Repository.CSVFileRepository.Csv.Converter.UsersConverter;
+
+using SIMS.Repository.CSVFileRepository.MedicalRepository;
+using SIMS.Repository.CSVFileRepository.Csv.Stream;
+using SIMS.Repository.Sequencer;
+using SIMS.Repository.CSVFileRepository.Csv.Converter;
 
 namespace SIMS
 {
@@ -105,6 +103,8 @@ namespace SIMS
             //Console.WriteLine(retVal);
             //Console.WriteLine("TEST");
 
+            /*
+             
             RoomConverter converter = new RoomConverter(",");
             List<InventoryItem> testlist = new List<InventoryItem>
             {
@@ -152,8 +152,129 @@ namespace SIMS
             MedicalRecord medRec2 = converter2.ConvertCSVToEntity(csv);
             Console.WriteLine(converter2.ConvertEntityToCSV(medRec2));
             Console.WriteLine("===================================================");
+            */
+
+            /*
+            Secretary secretary = new Secretary(new UserID("s1"), "gergoo", "pass123", DateTime.Now, "Sekretar", "Sekretaric", "M", Sex.OTHER, new DateTime(1980,6,18), "0123456789", new Address("Ulica br 4", new Location(87, "Serbia", "Novi Sad")), "021787878", "0646464646", "email1@email", "email2@email", new TimeTable(78), new Hospital(7));
+            SecretaryConverter conv = new SecretaryConverter(";", "dd.MM.yyyy.");
+            string secString1 = conv.ConvertEntityToCSV(secretary);
+            Console.WriteLine(secString1);
+            string secString2 = conv.ConvertEntityToCSV(conv.ConvertCSVToEntity(secString1));
+            Console.WriteLine(secString1.Equals(secString2));
+            */
+            /*
+            User user = new User(new UserID("d5677"), "usernaaaa", "passwd", DateTime.Now, true);
+            UserConverter conv = new UserConverter(",", "dd.MM.yyyy.");
+            string usrString1 = conv.ConvertEntityToCSV(user);
+            Console.WriteLine(usrString1);
+            string usrString2 = conv.ConvertEntityToCSV(conv.ConvertCSVToEntity(usrString1));
+            Console.WriteLine(usrString1.Equals(usrString2));*/
+
+            /** Prescription tests **/
+
+            Dictionary<Medicine, TherapyDose> medicine = new Dictionary<Medicine, TherapyDose>();
+            Dictionary<TherapyTime, double> dosage1 = new Dictionary<TherapyTime, double>();
+            dosage1.Add(TherapyTime.Afternoon, 7);
+            dosage1.Add(TherapyTime.BeforeBed, 3);
+            dosage1.Add(TherapyTime.WhenIWakeUp, 2);
+            medicine.Add(new Medicine(75), new TherapyDose(dosage1));
+
+            Dictionary<TherapyTime, double> dosage2 = new Dictionary<TherapyTime, double>();
+            dosage2.Add(TherapyTime.AsNeeded, 1);
+            dosage2.Add(TherapyTime.BeforeBed, 2);
+            dosage2.Add(TherapyTime.Afternoon, 6);
+            medicine.Add(new Medicine(54), new TherapyDose(dosage2));
+
+            Dictionary<TherapyTime, double> dosage3 = new Dictionary<TherapyTime, double>();
+            dosage3.Add(TherapyTime.AsNeeded, 9);
+            dosage3.Add(TherapyTime.Evening, 5);
+            dosage3.Add(TherapyTime.BeforeBed, 3);
+            medicine.Add(new Medicine(23), new TherapyDose(dosage3));
+
+            Prescription p = new Prescription(78, PrescriptionStatus.ACTIVE, new Doctor(new UserID("d78")), medicine);
+
+            PrescriptionConverter conv = new PrescriptionConverter(",","~","#","/","!");
+            string csv1 = conv.ConvertEntityToCSV(p);
+            string csv2 = conv.ConvertEntityToCSV(conv.ConvertCSVToEntity(csv1));
+
+            Console.WriteLine(csv1.Equals(csv2));
 
 
+            //Allergy allergy = new Allergy(55);
+
+            //Symptom symptom = new Symptom(1);
+            //Symptom symptom1 = new Symptom(2);
+            //Symptom symptom2 = new Symptom(3);
+            //Symptom symptom3 = new Symptom(4);
+            //Symptom symptom4 = new Symptom(5);
+            //Symptom symptom5 = new Symptom(6);
+
+            //List<Symptom> symptoms = new List<Symptom>();
+            //symptoms.Add(symptom);
+            //symptoms.Add(symptom1);
+            //symptoms.Add(symptom2);
+            //symptoms.Add(symptom3);
+            //symptoms.Add(symptom4);
+            //symptoms.Add(symptom5);
+
+            //allergy.Symptoms = symptoms;
+
+            //Symptom temp = symptoms[1];
+            //temp = new Symptom(6000);
+
+
+
+            //AllergyConverter allergyConverter = new AllergyConverter(",", ";");
+            //Symptom symptom = new Symptom(1);
+            //Symptom symptom1 = new Symptom(2);
+            //Ingredient ingredient = new Ingredient(69);
+
+            //List<Symptom> symptom_list = new List<Symptom>();
+
+            //symptom_list.Add(symptom);
+            //symptom_list.Add(symptom1);
+
+
+            ////Allergy allergy = new Allergy(33, "Test alergija", ingredient, symptom_list);
+            //Allergy allergy = new Allergy(33, "Test alergija", ingredient, null);
+
+            //string csv = allergyConverter.ConvertEntityToCSV(allergy);
+
+            //Allergy newAllergy = allergyConverter.ConvertCSVToEntity(csv);
+
+            //Console.WriteLine("OLD CSV: " + csv);
+            //Console.WriteLine("NEW CSV: " + allergyConverter.ConvertEntityToCSV(newAllergy));
+            //String ingredient_path = @"../../files/ingredients.txt";
+            //String symptom_path = @"../../files/symptoms.txt";
+            //String allergy_path = @"../../files/allergies.txt";
+
+
+            //IngredientRepository ingredientRepository = new IngredientRepository("ingredient_test", new CSVStream<Ingredient>(ingredient_path, new IngredientConverter(",")), new LongSequencer());
+            //SymptomRepository symptomRepository = new SymptomRepository("symptom_repo", new CSVStream<Symptom>(symptom_path, new SymptomConverter(",")), new LongSequencer());
+            //AllergyRepository allergyRepository = new AllergyRepository("test", new CSVStream<Allergy>(allergy_path, new AllergyConverter(",",";")), new LongSequencer(), ingredientRepository, symptomRepository);
+
+            //Ingredient ingredient1 = new Ingredient("ingredient_1");
+            //Ingredient ingredient2 = new Ingredient("ingredient_2");
+
+            //Symptom symptom1 = new Symptom("Boli me nos", "Jako me boli nos");
+            //Symptom symptom2 = new Symptom("Boli me glava", "Jako me boli glava");
+
+            //ingredientRepository.Create(ingredient1);
+            //ingredientRepository.Create(ingredient2);
+
+            //symptomRepository.Create(symptom1);
+            //symptomRepository.Create(symptom2);
+
+            //List<Symptom> test_list = new List<Symptom>();
+            //test_list.Add(symptomRepository.GetByID(1));
+            //test_list.Add(symptomRepository.GetByID(2));
+
+
+            //Allergy allergy = new Allergy("Test allergy", ingredientRepository.GetByID(1), new List<Symptom>());
+
+            //allergyRepository.Create(allergy);
+
+         
         }
     }
 }

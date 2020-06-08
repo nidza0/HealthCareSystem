@@ -7,6 +7,7 @@ using SIMS.Model.PatientModel;
 using System;
 using SIMS.Repository.Abstract;
 using System.Collections.Generic;
+using SIMS.Model.UserModel;
 
 namespace SIMS.Model.PatientModel
 {
@@ -14,23 +15,25 @@ namespace SIMS.Model.PatientModel
    {
         private long _id;
         private PrescriptionStatus _status;
-     
+        private Doctor _doctor;
         private Dictionary<Medicine,TherapyDose> _medicine;
 
         public Prescription(long id)
         {
             _id = id;
         }
-        public Prescription(long id, PrescriptionStatus status, Dictionary<Medicine, TherapyDose> medicine)
+        public Prescription(long id, PrescriptionStatus status, Doctor doctor,Dictionary<Medicine, TherapyDose> medicine)
         {
             _id = id;
             _status = status;
+            _doctor = doctor;
             _medicine = medicine;
         }
 
-        public Prescription(PrescriptionStatus status, Dictionary<Medicine,TherapyDose> medicine)
+        public Prescription(PrescriptionStatus status, Doctor doctor,Dictionary<Medicine,TherapyDose> medicine)
         {
             _status = status;
+            _doctor = doctor;
             _medicine = medicine;
         }
 
@@ -66,6 +69,7 @@ namespace SIMS.Model.PatientModel
       }
 
         public PrescriptionStatus Status { get => _status; set => _status = value; }
+        public Doctor Doctor { get => _doctor; set => _doctor = value; }
 
         /// <summary>
         /// Add a new Medicine in the collection

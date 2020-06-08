@@ -63,6 +63,20 @@ namespace SIMS.Model.UserModel
             _dateCreated = dateCreated;
         }
 
+        public User(UserID id,
+                    string username,
+                    string password,
+                    DateTime dateCreated,
+                    bool deleted)
+            : base()
+        {
+            _userID = id;
+            _userName = username;
+            _password = password;
+            _dateCreated = dateCreated;
+            _deleted = deleted;
+        }
+
         public UserID GetId()
         {
             return _userID;
@@ -77,5 +91,11 @@ namespace SIMS.Model.UserModel
         public string Password { get => _password; }
         public DateTime DateCreated { get => _dateCreated; }
         public bool Deleted { get => _deleted; }
+
+        public override bool Equals(object obj)
+        {
+            User otherUser = obj as User;
+            return _userID.Equals(otherUser.GetId());
+        }
     }
 }

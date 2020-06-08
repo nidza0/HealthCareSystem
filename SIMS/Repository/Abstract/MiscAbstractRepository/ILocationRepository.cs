@@ -11,7 +11,8 @@ namespace SIMS.Repository.Abstract.MiscAbstractRepository
 {
     public interface ILocationRepository : IRepository<Location, long>
     {
-        IEnumerable<Location> GetLocationByCountry(Country country);
+        // TODO: Izbrisati sa modela
+        //IEnumerable<Location> GetLocationByCountry(Country country);
 
         IEnumerable<Country> GetAllCountries();
 

@@ -8,6 +8,9 @@ using SIMS.Model.PatientModel;
 using SIMS.Model.UserModel;
 using SIMS.Repository.Abstract.HospitalManagementAbstractRepository;
 using SIMS.Repository.CSVFileRepository.Csv;
+using SIMS.Repository.CSVFileRepository.Csv.IdGenerator;
+using SIMS.Repository.CSVFileRepository.Csv.Stream;
+using SIMS.Repository.Sequencer;
 using System;
 using System.Collections.Generic;
 
@@ -15,6 +18,10 @@ namespace SIMS.Repository.CSVFileRepository.HospitalManagementRepository
 {
     public class InventoryRepository : CSVRepository<Inventory, long>, IInventoryRepository, IEagerCSVRepository<Inventory, long>
     {
+        public InventoryRepository(string entityName, ICSVStream<Inventory> stream, ISequencer<long> sequencer) : base(entityName, stream, sequencer, new LongIdGeneratorStrategy<Inventory>())
+        {
+        }
+
         private void BindInventoryWithMedicine(Inventory inventory, IEnumerable<Medicine> medicines)
         {
             throw new NotImplementedException();
@@ -45,15 +52,6 @@ namespace SIMS.Repository.CSVFileRepository.HospitalManagementRepository
             throw new NotImplementedException();
         }
 
-        public IEnumerable<InventoryItem> GetInventoryItemsForRoom(Room room)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<InventoryItem> GetInventoryItems()
-        {
-            throw new NotImplementedException();
-        }
 
         public Inventory GetEager(long id)
         {
@@ -66,6 +64,5 @@ namespace SIMS.Repository.CSVFileRepository.HospitalManagementRepository
         }
 
         public MedicineRepository medicineRepository;
-
     }
 }
