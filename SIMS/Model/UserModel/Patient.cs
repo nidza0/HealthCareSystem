@@ -71,6 +71,6 @@ namespace SIMS.Model.UserModel
 
         public PatientType PatientType { get => _patientType; }
         public EmergencyContact EmergencyContact { get => _emergencyContact; }
-        public Doctor SelectedDoctor { get => _selectedDoctor; }
+        public Doctor SelectedDoctor { get => _selectedDoctor; set => _selectedDoctor = value; }
     }
 }

@@ -17,7 +17,7 @@ namespace SIMS.Repository.Abstract.HospitalManagementAbstractRepository
 
         Inventory SetInventoryItem(InventoryItem inventoryItem);
 
-        bool RemoveInventoryItem(Item item);
+        void RemoveInventoryItem(InventoryItem item);
 
     }
 }

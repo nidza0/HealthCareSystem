@@ -34,7 +34,12 @@ namespace SIMS.Repository.CSVFileRepository.UsersRepository
         public new Manager Create(Manager manager)
         {
             if (IsUsernameUnique(manager.UserName))
-                return base.Create(manager);
+            {
+                manager.DateCreated = DateTime.Now;
+                manager = base.Create(manager);
+                _userRepository.AddUser(manager);
+                return manager;
+            }
             else
                 throw new NotUniqueException(string.Format(NOT_UNIQUE_ERROR, manager.UserName));
         }

@@ -34,7 +34,13 @@ namespace SIMS.Repository.CSVFileRepository.UsersRepository
         public new Secretary Create(Secretary secretary)
         {
             if (IsUsernameUnique(secretary.UserName))
-                return base.Create(secretary);
+            {
+                secretary.DateCreated = DateTime.Now;
+
+                secretary = base.Create(secretary);
+                _userRepository.AddUser(secretary);
+                return secretary;
+            }
             else
                 throw new NotUniqueException(string.Format(NOT_UNIQUE_ERROR, secretary.UserName));
         }

@@ -11,13 +11,11 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.UsersConverter
 {
     public class ManagerConverter : ICSVConverter<Manager>
     {
-        private string _delimiter;
-        private string _dateTimeFormat;
+        private string _delimiter = "?";
+        private string _dateTimeFormat = "dd.MM.yyyy.";
 
-        public ManagerConverter(string delimiter, string datetimeFormat)
+        public ManagerConverter()
         {
-            _delimiter = delimiter;
-            _dateTimeFormat = datetimeFormat;
         }
 
         public Manager ConvertCSVToEntity(string managerCSVFormat)
@@ -32,22 +30,22 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.UsersConverter
                                             surname: tokens[5],
                                             middleName: tokens[6],
                                             sex: (Sex) Enum.Parse(typeof(Sex), tokens[7]),
-                                            dateOfBirth: DateTime.ParseExact(tokens[8], _dateTimeFormat, CultureInfo.InvariantCulture),
+                                            dateOfBirth: tokens[8].Equals("") ? DateTime.MinValue : DateTime.ParseExact(tokens[8], _dateTimeFormat, CultureInfo.InvariantCulture),
                                             uidn: tokens[9], 
-                                            address: new Address(tokens[10], new Location(long.Parse(tokens[11]), tokens[12], tokens[13])),
+                                            address: new Address(tokens[10], new Location(tokens[11].Equals("") ? default : long.Parse(tokens[11]), tokens[12], tokens[13])),
                                             homePhone: tokens[14],
                                             cellPhone: tokens[15], 
                                             email1: tokens[16],
                                             email2: tokens[17],
-                                            timeTable: new TimeTable(long.Parse(tokens[18])),
-                                            hospital: new Hospital(long.Parse(tokens[19])));
+                                            timeTable: new TimeTable(tokens[18].Equals("") ? default : long.Parse(tokens[18])),
+                                            hospital: new Hospital(tokens[19].Equals("") ? default : long.Parse(tokens[19])));
 
             return manager;
         }
 
         public string ConvertEntityToCSV(Manager manager)
             => string.Join(_delimiter,
-                manager.GetId(),
+                manager.GetId().ToString(),
                 manager.UserName,
                 manager.Password,
                 manager.DateCreated.ToString(_dateTimeFormat),
@@ -55,17 +53,17 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.UsersConverter
                 manager.Surname,
                 manager.MiddleName,
                 manager.Sex,
-                manager.DateOfBirth.ToString(_dateTimeFormat),
+                manager.DateOfBirth == DateTime.MinValue ? "" : manager.DateOfBirth.ToString(_dateTimeFormat),
                 manager.Uidn,
-                manager.Address.Street,
-                manager.Address.Location.GetId(),
-                manager.Address.Location.Country,
-                manager.Address.Location.City,
+                manager.Address == null ? "" : manager.Address.Street,
+                manager.Address == null ? "" : (manager.Address.Location == null ? "" : manager.Address.Location.GetId().ToString()),
+                manager.Address == null ? "" : (manager.Address.Location == null ? "" : manager.Address.Location.Country),
+                manager.Address == null ? "" : (manager.Address.Location == null ? "" : manager.Address.Location.City),
                 manager.HomePhone,
                 manager.CellPhone,
                 manager.Email1,
                 manager.Email2,
-                manager.TimeTable.GetId(),
-                manager.Hospital.GetId());
+                manager.TimeTable == null ? "" : manager.TimeTable.GetId().ToString(),
+                manager.Hospital == null ? "" : manager.Hospital.GetId().ToString());
     }
 }

@@ -3,6 +3,7 @@
 // Created: 23. maj 2020 15:33:37
 // Purpose: Definition of Class InventoryRepository
 
+using SIMS.Exceptions;
 using SIMS.Model.ManagerModel;
 using SIMS.Model.PatientModel;
 using SIMS.Model.UserModel;
@@ -13,28 +14,53 @@ using SIMS.Repository.CSVFileRepository.Csv.Stream;
 using SIMS.Repository.Sequencer;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Management.Instrumentation;
 
 namespace SIMS.Repository.CSVFileRepository.HospitalManagementRepository
 {
     public class InventoryRepository : CSVRepository<Inventory, long>, IInventoryRepository, IEagerCSVRepository<Inventory, long>
     {
-        public InventoryRepository(string entityName, ICSVStream<Inventory> stream, ISequencer<long> sequencer) : base(entityName, stream, sequencer, new LongIdGeneratorStrategy<Inventory>())
+        private IInventoryItemRepository _inventoryItemRepository;
+        private IMedicineRepository _medicineRepository;
+        public InventoryRepository(string entityName, ICSVStream<Inventory> stream, ISequencer<long> sequencer, IInventoryItemRepository inventoryItemRepository, IMedicineRepository medicineRepository) : base(entityName, stream, sequencer, new LongIdGeneratorStrategy<Inventory>())
         {
+            _inventoryItemRepository = inventoryItemRepository;
+            _medicineRepository = medicineRepository;
         }
 
-        private void BindInventoryWithMedicine(Inventory inventory, IEnumerable<Medicine> medicines)
-        {
-            throw new NotImplementedException();
+        private void BindInventoryWithMedicine(IEnumerable<Inventory> inventories, IEnumerable<Medicine> medicines)
+        { 
+            foreach(Inventory inventory in inventories) { 
+                for(int i = 0; i < inventory.Medicine.Count - 1; i++)
+                {
+                    inventory.Medicine[i] = GetMedicineById(medicines, inventory.Medicine[i].GetId());
+                }
+            }
         }
 
-        private void BindInventoryWithItems(Inventory inventory, IEnumerable<InventoryItem> items)
+        private Medicine GetMedicineById(IEnumerable<Medicine> medicines, long id)
+            => medicines.SingleOrDefault(medicine => medicine.GetId() == id);
+
+        private void BindInventoryWithItems(IEnumerable<Inventory> inventories, IEnumerable<InventoryItem> items)
         {
-            throw new NotImplementedException();
+            foreach (Inventory inventory in inventories)
+            {
+                for (int i = 0; i < inventory.InventoryItem.Count - 1; i++)
+                {
+                    inventory.InventoryItem[i] = GetInventoryItemById(items, inventory.InventoryItem[i].GetId());
+                }
+            }
         }
 
-        public void Bind(Inventory inventory, IEnumerable<InventoryItem> inventoryItems, IEnumerable<Medicine> medicine)
+        private InventoryItem GetInventoryItemById(IEnumerable<InventoryItem> items, long id)
+            => items.SingleOrDefault(item => item.GetId() == id);
+
+        public void Bind(IEnumerable<Inventory> inventories, IEnumerable<InventoryItem> inventoryItems, IEnumerable<Medicine> medicine)
         {
-            throw new NotImplementedException();
+            BindInventoryWithItems(inventories, inventoryItems);
+            BindInventoryWithMedicine(inventories, medicine);
         }
 
         public Inventory AddInventoryItem(Inventory inventory, InventoryItem item)
@@ -44,23 +70,54 @@ namespace SIMS.Repository.CSVFileRepository.HospitalManagementRepository
 
         public Inventory SetInventoryItem(InventoryItem inventoryItem)
         {
-            throw new NotImplementedException();
+
+            Inventory toUpdate = GetAll().SingleOrDefault(inventory => inventory.inventoryItem.Contains(inventoryItem));
+            InventoryItem original = GetItemById(toUpdate.InventoryItem, inventoryItem.GetId());
+            if(original != null)
+            {
+                original = inventoryItem;
+                Update(toUpdate);
+
+            } else
+            {
+                throw new EntityNotFoundException();
+            }
+
+            return toUpdate;
         }
 
-        public bool RemoveInventoryItem(Item item)
+        private InventoryItem GetItemById(IEnumerable<InventoryItem> items, long id)
+            => items.SingleOrDefault(item => item.GetId() == id);
+
+        public void RemoveInventoryItem(InventoryItem inventoryItem)
         {
-            throw new NotImplementedException();
+            Inventory toUpdate = GetAll().SingleOrDefault(inventory => inventory.inventoryItem.Contains(inventoryItem));
+            InventoryItem original = GetItemById(toUpdate.InventoryItem, inventoryItem.GetId());
+            if (original != null)
+            {
+                toUpdate.inventoryItem.Remove(inventoryItem);
+                Update(toUpdate);
+
+            }
+            else
+            {
+                throw new EntityNotFoundException();
+            }
+
         }
 
 
         public Inventory GetEager(long id)
-        {
-            throw new NotImplementedException();
-        }
+            => GetAllEager().ToList().SingleOrDefault(inventory => inventory.GetId() == id);
 
         public IEnumerable<Inventory> GetAllEager()
         {
-            throw new NotImplementedException();
+            IEnumerable<Inventory> inventories = GetAll();
+            IEnumerable<InventoryItem> items = _inventoryItemRepository.GetAll();
+            IEnumerable<Medicine> meds = _medicineRepository.GetAll();
+            Bind(inventories, items, meds);
+
+            return inventories;
         }
 
         public MedicineRepository medicineRepository;
