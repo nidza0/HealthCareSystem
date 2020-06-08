@@ -274,7 +274,40 @@ namespace SIMS
 
             //allergyRepository.Create(allergy);
 
-         
+
+            String ingredient_path = @"../../files/MedicalFiles/ingredients.txt";
+            String symptom_path = @"../../files/MedicalFiles/symptoms.txt";
+            String allergy_path = @"../../files/MedicalFiles/allergies.txt";
+
+
+            IngredientRepository ingredientRepository = new IngredientRepository("ingredient_test", new CSVStream<Ingredient>(ingredient_path, new IngredientConverter(",")), new LongSequencer());
+            SymptomRepository symptomRepository = new SymptomRepository("symptom_repo", new CSVStream<Symptom>(symptom_path, new SymptomConverter(",")), new LongSequencer());
+            AllergyRepository allergyRepository = new AllergyRepository("test", new CSVStream<Allergy>(allergy_path, new AllergyConverter(",", ";")), new LongSequencer(), ingredientRepository, symptomRepository);
+
+            Ingredient ingredient1 = new Ingredient("ingredient_1");
+            Ingredient ingredient2 = new Ingredient("ingredient_2");
+
+            Symptom symptom1 = new Symptom("Boli me nos", "Jako me boli nos");
+            Symptom symptom2 = new Symptom("Boli me glava", "Jako me boli glava");
+
+            ingredientRepository.Create(ingredient1);
+            ingredientRepository.Create(ingredient2);
+
+            symptomRepository.Create(symptom1);
+            symptomRepository.Create(symptom2);
+
+            List<Symptom> test_list = new List<Symptom>();
+            test_list.Add(symptomRepository.GetByID(1));
+            test_list.Add(symptomRepository.GetByID(2));
+
+
+            Allergy allergy = new Allergy("Test allergy", ingredientRepository.GetByID(1), test_list);
+
+            Allergy tst = allergyRepository.Create(allergy);
+
+            foreach (Symptom symp in tst.Symptoms)
+                Console.WriteLine(symp.Name);
+
         }
     }
 }

@@ -10,84 +10,118 @@ using SIMS.Repository.CSVFileRepository.Csv;
 using SIMS.Repository.CSVFileRepository.Csv.IdGenerator;
 using SIMS.Repository.CSVFileRepository.Csv.Stream;
 using SIMS.Repository.Sequencer;
+using SIMS.Specifications.Converter;
 using SIMS.Util;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using SIMS.Specifications;
 
 namespace SIMS.Repository.CSVFileRepository.MedicalRepository
 {
     public class TherapyRepository : CSVRepository<Therapy, long>, ITherapyRepository, IEagerCSVRepository<Therapy, long>
     {
-        public TherapyRepository(string entityName, ICSVStream<Therapy> stream, ISequencer<long> sequencer) : base(entityName, stream, sequencer, new LongIdGeneratorStrategy<Therapy>())
+        private IEagerCSVRepository<Prescription, long> _prescriptionEagerCSVRepository;
+        private IEagerCSVRepository<MedicalRecord, long> _medicalRecordEagerCSVRepository;
+        private IMedicalRecordRepository _medicalRecordRepository;
+        private IDiagnosisRepository _diagnosisCSVRepository;
+
+
+        public TherapyRepository(string entityName, ICSVStream<Therapy> stream, ISequencer<long> sequencer, IEagerCSVRepository<MedicalRecord, long> medicalRecordEagerRepository, IMedicalRecordRepository medicalRecordRepository, IEagerCSVRepository<Prescription, long> prescriptionEagerCSVRepository, IDiagnosisRepository diagnosisCSVRepository) : base(entityName, stream, sequencer, new LongIdGeneratorStrategy<Therapy>())
         {
+            _prescriptionEagerCSVRepository = prescriptionEagerCSVRepository;
+            _medicalRecordEagerCSVRepository = medicalRecordEagerRepository;
+            _medicalRecordRepository = medicalRecordRepository;
+            _diagnosisCSVRepository = diagnosisCSVRepository;
         }
 
-        private void BindTherapyWithMedicine(IEnumerable<Therapy> therapies, IEnumerable<Medicine> medicine)
+        public Therapy GetEager(long id)
+            => GetAllEager().SingleOrDefault(therapy => therapy.GetId() == id);
+
+        public IEnumerable<Therapy> GetAllEager()
         {
-            throw new NotImplementedException();
+            IEnumerable<Therapy> therapies = GetAll();
+            Bind(therapies);
+
+            return therapies;
         }
 
-        public Prescription AddPrescription(Therapy therapy, Prescription perscription)
-        {
-            throw new NotImplementedException();
+        private void Bind(IEnumerable<Therapy> therapies){
+            IEnumerable<Prescription> prescriptions = _prescriptionEagerCSVRepository.GetAllEager();
+            BindTherapyWithPrescription(therapies, prescriptions);
         }
 
-        public IEnumerable<Therapy> GetTherapyByDate(TimeInterval dateRange)
-        {
-            throw new NotImplementedException();
-        }
+        private void BindTherapyWithPrescription(IEnumerable<Therapy> therapies, IEnumerable<Prescription> prescriptions)
+            => therapies.ToList().ForEach(therapy => therapy.Prescription = GetPrescriptionByID(prescriptions, therapy.Prescription.GetId()));
+
+        public IEnumerable<Therapy> GetTherapyByDate(TimeInterval dateRange) //Return all therapies where therapy time interval is inside passed time interval(dateRange).
+            => GetAllEager().Where(therapy => dateRange.IsTimeBetween(therapy.TimeInterval));
 
         public IEnumerable<Therapy> GetTherapyByMedicine(Medicine medicine)
-        {
-            throw new NotImplementedException();
-        }
+            => GetAllEager().Where(therapy => therapy.Prescription.Medicine.Keys.Contains(medicine));
 
         public IEnumerable<Therapy> GetTherapyByPatient(Patient patient)
         {
-            throw new NotImplementedException();
+            List<Therapy> retVal = new List<Therapy>();
+            IEnumerable<Diagnosis> diagnosisList = _diagnosisCSVRepository.GetAllDiagnosisForPatient(patient);
+
+            foreach (Diagnosis diagnosis in diagnosisList)
+                retVal.AddRange(diagnosis.Therapies);
+
+
+            return retVal;
         }
 
         public IEnumerable<Therapy> GetFilteredTherapy(TherapyFilter filter)
         {
-            throw new NotImplementedException();
+            ISpecification<Therapy> therapySpecification = new TherapySpecificationConverter(filter).GetSpecification();
+            IEnumerable <Therapy> therapies = Find(therapySpecification);
+            Bind(therapies);
+
+            return therapies;
         }
 
         public IEnumerable<Therapy> GetTherapyByDiagnosis(Diagnosis diagnosis)
-        {
-            throw new NotImplementedException();
-        }
+            => diagnosis.Therapies;
 
         public IEnumerable<Therapy> GetActiveTherapyForPatient(Patient patient)
         {
-            throw new NotImplementedException();
+            List<Therapy> retVal = new List<Therapy>();
+
+            IEnumerable<Diagnosis> diagnosisList = _diagnosisCSVRepository.GetAllDiagnosisForPatient(patient);
+
+            foreach (Diagnosis diagnosis in diagnosisList)
+                retVal.AddRange(diagnosis.ActiveTherapy);
+
+            return retVal;
         }
 
         public IEnumerable<Therapy> GetPastTherapyForPatient(Patient patient)
         {
-            throw new NotImplementedException();
+            List<Therapy> retVal = new List<Therapy>();
+
+            IEnumerable<Diagnosis> diagnosisList = _diagnosisCSVRepository.GetAllDiagnosisForPatient(patient);
+
+            foreach (Diagnosis diagnosis in diagnosisList)
+                retVal.AddRange(diagnosis.InactiveTherapy);
+
+            return retVal;
         }
 
         public IEnumerable<Therapy> GetActiveTherapyForDiagnosis(Diagnosis diagnosis)
-        {
-            throw new NotImplementedException();
-        }
+            => diagnosis.ActiveTherapy;
 
         public IEnumerable<Therapy> GetPastTherapiesForDiagnosis(Diagnosis diagnosis)
-        {
-            throw new NotImplementedException();
-        }
+            => diagnosis.InactiveTherapy;
 
-        public Therapy GetEager(long id)
-        {
-            throw new NotImplementedException();
-        }
 
-        public IEnumerable<Therapy> GetAllEager()
-        {
-            throw new NotImplementedException();
-        }
+        private Prescription GetPrescriptionByID(IEnumerable<Prescription> prescriptions, long id)
+            => prescriptions.SingleOrDefault(prescription => prescription.GetId() == id);
 
-        public Specifications.Converter.TherapySpecificationConverter therapySpecificationConverter;
+        public TherapySpecificationConverter therapySpecificationConverter;
+
+        private IEnumerable<Therapy> GetTherapiesByIDs(IEnumerable<Therapy> therapies, IEnumerable<long> ids)
+            => therapies.Where(therapy => ids.Contains(therapy.GetId()));
 
     }
 }
