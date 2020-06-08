@@ -16,35 +16,12 @@ using System.Linq;
 
 namespace SIMS.Repository.CSVFileRepository.HospitalManagementRepository
 {
-    public class RoomRepository : CSVRepository<Room, long>, IRoomRepository, IEagerCSVRepository<Room, long>
+    public class RoomRepository : CSVRepository<Room, long>, IRoomRepository
     {
-        private IInventoryItemRepository _inventoryItemRepository;
-        public RoomRepository(string entityName, ICSVStream<Room> stream, ISequencer<long> sequencer, IInventoryItemRepository inventoryItemRepository) : base(entityName, stream, sequencer, new LongIdGeneratorStrategy<Room>())
+        private const string ENTITY_NAME = "Room";
+        public RoomRepository(ICSVStream<Room> stream, ISequencer<long> sequencer) : base(ENTITY_NAME, stream, sequencer, new LongIdGeneratorStrategy<Room>())
         {
-            _inventoryItemRepository = inventoryItemRepository;
         }
-
-        private void BindRoomsWithItems(IEnumerable<Room> rooms, IEnumerable<InventoryItem> inventoryItems)
-            => rooms.ToList().ForEach(room => 
-            {
-                room.InventoryItem = GetInventoryItemsByIds(inventoryItems, room.InventoryItem.Select(item => item.Id));
-            });
-
-        private List<InventoryItem> GetInventoryItemsByIds(IEnumerable<InventoryItem> items, IEnumerable<long> ids)
-            => items.Where(item => ids.Contains(item.Id)).ToList();
-
-        public IEnumerable<Room> GetAllEager()
-        {
-            IEnumerable<Room> rooms = GetAll();
-            IEnumerable<InventoryItem> items = _inventoryItemRepository.GetAll();
-
-            BindRoomsWithItems(rooms, items);
-
-            return rooms;
-        }
-
-        public Room GetEager(long id)
-            => GetAllEager().SingleOrDefault(room => room.GetId() == id);
 
         public Room GetRoomByName(string name)
             => GetAll().SingleOrDefault(room => room.RoomNumber == name);

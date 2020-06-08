@@ -13,7 +13,8 @@ namespace SIMS.Repository.CSVFileRepository.HospitalManagementRepository
 {
     public class TimeTableRepository : CSVRepository<TimeTable, long>, ITimeTableRepository
     {
-        public TimeTableRepository(string entityName, ICSVStream<TimeTable> stream, ISequencer<long> sequencer, IIdGeneratorStrategy<TimeTable, long> idGeneratorStrategy) : base(entityName, stream, sequencer, idGeneratorStrategy)
+        private const string ENTITY_NAME = "TimeTable";
+        public TimeTableRepository(ICSVStream<TimeTable> stream, ISequencer<long> sequencer) : base(ENTITY_NAME, stream, sequencer, new LongIdGeneratorStrategy<TimeTable>())
         {
         }
 
