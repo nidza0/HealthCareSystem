@@ -42,13 +42,13 @@ namespace SIMS.Repository.CSVFileRepository.MedicalRepository
         private void BindMedicalRecordsWithDiagnosis(IEnumerable<MedicalRecord> medicalRecords, IEnumerable<Diagnosis> diagnosis)
             => medicalRecords.ToList().ForEach(medicalRecord =>
             {
-                medicalRecord.PatientDiagnosis = GetDiagnosisByIds(diagnosis, medicalRecord.PatientDiagnosis.Select(diagnosis => diagnosis.GetId())).ToList();
+                medicalRecord.PatientDiagnosis = GetDiagnosisByIds(diagnosis, medicalRecord.PatientDiagnosis.Select(diag => diag.GetId())).ToList();
             });
 
         private void BindMedicalRecordsWithAllergies(IEnumerable<MedicalRecord> medicalRecords, IEnumerable<Allergy> allergies)
             => medicalRecords.ToList().ForEach(medicalRecord =>
            {
-               medicalRecord.Allergy = GetAlergiesByIds(allergies, medicalRecord.Allergy.Select(allergies => allergies.GetId())).ToList();
+               medicalRecord.Allergy = GetAlergiesByIds(allergies, medicalRecord.Allergy.Select(allergy => allergy.GetId())).ToList();
            });
 
         private void BindMedicalRecordsWithPatients(IEnumerable<MedicalRecord> medicalRecords, IEnumerable<Patient> patients)
