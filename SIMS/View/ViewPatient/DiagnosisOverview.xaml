@@ -91,7 +91,7 @@
                 </Grid.RowDefinitions>
 
                 <StackPanel Orientation="Horizontal" Margin="7" HorizontalAlignment="Left">
-                    <RadioButton IsChecked="True" Style="{StaticResource ButtonStyle}">
+                    <RadioButton Checked="RadioButton_Checked" IsChecked="True" Style="{StaticResource ButtonStyle}">
                         <Label Content="All" Style="{StaticResource SubtitleLabelStyle}"></Label>
                     </RadioButton>
 
@@ -111,7 +111,6 @@
 
                 <Border Grid.Row="1" x:Name="contentBorder">
                     <ListBox ScrollViewer.HorizontalScrollBarVisibility="Disabled" Width="{Binding RelativeSource={RelativeSource FindAncestor, 
-    AncestorType={x:Type Border}},Path=Width}"  Style="{StaticResource diagnosisListBoxStyle}"  VerticalAlignment="Top" ItemsSource="{Binding}" x:Name="diagnosisListBox" BorderThickness="0" ItemContainerStyle="{DynamicResource _ListBoxItemStyle}">
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel Orientation="Vertical"></StackPanel>
