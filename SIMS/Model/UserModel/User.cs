@@ -63,6 +63,25 @@ namespace SIMS.Model.UserModel
             _dateCreated = dateCreated;
         }
 
+        public User(string userName,
+                    string password,
+                    string name,
+                    string surname,
+                    string middleName,
+                    Sex sex,
+                    DateTime dateOfBirth,
+                    string uidn,
+                    Address address,
+                    string homePhone,
+                    string cellPhone,
+                    string email1,
+                    string email2)
+            : base(name, surname, middleName, sex, dateOfBirth, uidn, address, homePhone, cellPhone, email1, email2)
+        {
+            _userName = userName;
+            _password = password;
+        }
+
         public User(UserID id,
                     string username,
                     string password,

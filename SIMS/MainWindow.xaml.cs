@@ -103,34 +103,20 @@ namespace SIMS
             //Console.WriteLine(retVal);
             //Console.WriteLine("TEST");
 
+            
             /*
-             
-            RoomConverter converter = new RoomConverter(",");
-            List<InventoryItem> testlist = new List<InventoryItem>
-            {
-                new InventoryItem(3),
-                new InventoryItem(4)
-            };
+            RoomConverter converter = new RoomConverter();
 
-
-            Room room2 = new Room(2, "23", true, 3, RoomType.OPERATION, new List<InventoryItem>());
-            testlist.Add(new InventoryItem(5,"kita",2,1,room2));
-            Room room1 = new Room(1, "22", true, 2, RoomType.OPERATION, testlist);
+            Room room2 = new Room(2, "23", true, 3, RoomType.OPERATION);
+            Room room1 = new Room(1, "22", true, 2, RoomType.OPERATION);
 
             string retVal1 = converter.ConvertEntityToCSV(room1);
-            string retVal2 = converter.ConvertEntityToCSV(room2);
+            string retVal2 = converter.ConvertEntityToCSV(converter.ConvertCSVToEntity(retVal1));
 
-            Console.WriteLine("--------------------------------------------------");
-            Console.WriteLine(retVal1);
-            Console.WriteLine(retVal2);
-            Console.WriteLine("--------------------------------------------------");
-            Room room3 = converter.ConvertCSVToEntity(retVal1);
-            Console.WriteLine(room3);
-            Console.WriteLine("--------------------------------------------------");
-            Console.WriteLine(converter.ConvertEntityToCSV(room3));
-            Console.WriteLine("--------------------------------------------------");
+            Console.WriteLine(retVal1.Equals(retVal2));
 
-
+            */
+            /*
             MedicalRecordConverter converter2 = new MedicalRecordConverter("*");
 
             List <Diagnosis> diagList = new List<Diagnosis>();
@@ -145,7 +131,7 @@ namespace SIMS
             MedicalRecord medRec = new MedicalRecord(2, new Patient(new UserID("P69")), BloodType.AB_NEGATIVE, diagList, alerList);
             List<Diagnosis> lista = medRec.PatientDiagnosis;
             string csv = converter2.ConvertEntityToCSV(medRec);
-
+            
             Console.WriteLine("===================================================");
             Console.WriteLine(csv);
             Console.WriteLine("===================================================");
@@ -171,7 +157,7 @@ namespace SIMS
             Console.WriteLine(usrString1.Equals(usrString2));*/
 
             /** Prescription tests **/
-
+            /*
             Dictionary<Medicine, TherapyDose> medicine = new Dictionary<Medicine, TherapyDose>();
             Dictionary<TherapyTime, double> dosage1 = new Dictionary<TherapyTime, double>();
             dosage1.Add(TherapyTime.Afternoon, 7);
@@ -198,7 +184,7 @@ namespace SIMS
             string csv2 = conv.ConvertEntityToCSV(conv.ConvertCSVToEntity(csv1));
 
             Console.WriteLine(csv1.Equals(csv2));
-
+            */
 
             //Allergy allergy = new Allergy(55);
 
@@ -274,7 +260,7 @@ namespace SIMS
 
             //allergyRepository.Create(allergy);
 
-
+            /*
             String ingredient_path = @"../../files/MedicalFiles/ingredients.txt";
             String symptom_path = @"../../files/MedicalFiles/symptoms.txt";
             String allergy_path = @"../../files/MedicalFiles/allergies.txt";
@@ -308,6 +294,19 @@ namespace SIMS
             foreach (Symptom symp in tst.Symptoms)
                 Console.WriteLine(symp.Name);
 
+            */
+
+
+            
+            AppResources res = AppResources.getInstance();
+            
+            /*
+            Secretary secretary = new Secretary("secr3450", "passwd", "SekretarIme", "SekretarPrezime", null, Sex.MALE, new DateTime(1999, 5, 5), "4578145236", null, null, null, null, null, null, null);
+            Secretary secretary2 = new Secretary("jidhsdi", "123456", "SekretarIme2", "SekretarPrezime2", null, Sex.MALE, new DateTime(2000, 5, 5), "164410546", null, null, null, null, null, null, null);
+
+            res.secretaryRepository.Create(secretary);
+            res.secretaryRepository.Create(secretary2);
+            */
         }
     }
 }

@@ -14,18 +14,19 @@ using System.Threading.Tasks;
 
 namespace SIMS
 {
-    class Resources
+    class AppResources
     {
-        private readonly String userFile = @"Files\UserFiles\users.txt";
-        private readonly String patientFile = @"Files\UserFiles\patients.txt";
-        private readonly String doctorFile = @"Files\UserFiles\doctors.txt";
-        private readonly String managerFile = @"Files\UserFiles\managers.txt";
-        private readonly String timeTableFile = @"Files\HospitalManagementFiles\timeTables.txt";
-        private readonly String hospitalFile = @"Files\HospitalManagementFiles\hospitals.txt";
-        private readonly String roomFile = @"Files\HospitalManagementFiles\rooms.txt";
-        private readonly String inventoryItemFile = @"Files\HospitalManagementFiles\inventoryItems.txt";
+        private readonly String userFile = @"..\..\Files\UserFiles\users.txt";
+        private readonly String patientFile = @"..\..\Files\UserFiles\patients.txt";
+        private readonly String doctorFile = @"..\..\Files\UserFiles\doctors.txt";
+        private readonly String managerFile = @"..\..\Files\UserFiles\managers.txt";
+        private readonly String secretaryFile = @"..\..\Files\UserFiles\secretaries.txt";
+        private readonly String timeTableFile = @"..\..\Files\HospitalManagementFiles\timeTables.txt";
+        private readonly String hospitalFile = @"..\..\Files\HospitalManagementFiles\hospitals.txt";
+        private readonly String roomFile = @"..\..\Files\HospitalManagementFiles\rooms.txt";
+        private readonly String inventoryItemFile = @"..\..\Files\HospitalManagementFiles\inventoryItems.txt";
 
-        private static Resources instance = null;
+        private static AppResources instance = null;
 
         public UserRepository userRepository;
         public DoctorRepository doctorRepository;
@@ -37,7 +38,7 @@ namespace SIMS
         public RoomRepository roomRepository;
         public InventoryItemRepository inventoryItemRepository;
 
-        private Resources() {
+        private AppResources() {
             userRepository = new UserRepository(new CSVStream<User>(userFile, new UserConverter()), new ComplexSequencer());
 
 
@@ -47,18 +48,18 @@ namespace SIMS
             hospitalRepository = new HospitalRepository(new CSVStream<Hospital>(hospitalFile, new HospitalConverter()), new LongSequencer(), roomRepository);
 
 
-            secretaryRepository = new SecretaryRepository(new CSVStream<Secretary>(managerFile, new SecretaryConverter()), new ComplexSequencer(), timeTableRepository, hospitalRepository, userRepository);
+            secretaryRepository = new SecretaryRepository(new CSVStream<Secretary>(secretaryFile, new SecretaryConverter()), new ComplexSequencer(), timeTableRepository, hospitalRepository, userRepository);
             managerRepository = new ManagerRepository(new CSVStream<Manager>(managerFile, new ManagerConverter()), new ComplexSequencer(), timeTableRepository, hospitalRepository, userRepository);
             doctorRepository = new DoctorRepository(new CSVStream<Doctor>(doctorFile, new DoctorConverter()), new ComplexSequencer(), timeTableRepository, hospitalRepository, roomRepository, userRepository);
             patientRepository = new PatientRepository(new CSVStream<Patient>(patientFile, new PatientConverter()), new ComplexSequencer(), doctorRepository, userRepository);
             
         }
 
-        public static Resources getInstance()
+        public static AppResources getInstance()
         {
             if(instance == null)
             {
-                instance = new Resources();
+                instance = new AppResources();
             }
 
             return instance;

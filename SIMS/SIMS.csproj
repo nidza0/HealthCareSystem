@@ -56,7 +56,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Resources.cs" />
+    <Compile Include="AppResources.cs" />
     <Compile Include="Exceptions\EntityNotFoundException.cs" />
     <Compile Include="Exceptions\InvalidUserIdException.cs" />
     <Compile Include="Model\UserModel\EmergencyContact.cs" />
@@ -97,6 +97,7 @@
     <Compile Include="Repository\CSVFileRepository\Csv\Converter\HospitalManagementConverter\StatisticsConverter.cs" />
     <Compile Include="Repository\CSVFileRepository\Csv\Converter\HospitalManagementConverter\TimeTableConverter.cs" />
     <Compile Include="Repository\CSVFileRepository\Csv\Converter\MedicalConverter\AllergyConverter.cs" />
+    <Compile Include="Repository\CSVFileRepository\Csv\IdGenerator\UserIdGeneratorStrategy.cs" />
     <Compile Include="Repository\CSVFileRepository\HospitalManagementRepository\TimeTableRepository.cs" />
     <Compile Include="Repository\CSVFileRepository\Csv\Converter\ICSVConverter.cs" />
     <Compile Include="Repository\CSVFileRepository\Csv\Converter\MedicalConverter\AppointmentConverter.cs" />
@@ -150,6 +151,7 @@
     <Compile Include="Repository\CSVFileRepository\MiscRepository\MessageRepository.cs" />
     <Compile Include="Repository\CSVFileRepository\MiscRepository\NotificationRepository.cs" />
     <Compile Include="Repository\CSVFileRepository\UsersRepository\DoctorRepository.cs" />
+    <Compile Include="Exceptions\IllegalUserCreationException.cs" />
     <Compile Include="Repository\CSVFileRepository\UsersRepository\ManagerRepository.cs" />
     <Compile Include="Exceptions\NotUniqueException.cs" />
     <Compile Include="Repository\CSVFileRepository\UsersRepository\PatientRepository.cs" />
@@ -262,9 +264,7 @@
     <Compile Include="Model\PatientModel\TherapyTime.cs" />
     <Compile Include="Model\UserModel\Address.cs" />
     <Compile Include="Model\UserModel\Article.cs" />
-    <Compile Include="Model\UserModel\City.cs" />
     <Compile Include="Model\UserModel\Content.cs" />
-    <Compile Include="Model\UserModel\Country.cs" />
     <Compile Include="Model\UserModel\Doctor.cs" />
     <Compile Include="Model\UserModel\Employee.cs" />
     <Compile Include="Model\UserModel\Feedback.cs" />

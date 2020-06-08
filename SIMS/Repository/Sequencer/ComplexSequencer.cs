@@ -13,15 +13,15 @@ namespace SIMS.Repository.Sequencer
         private UserID nextID;
 
         public UserID GenerateID() 
-        { 
-            return new UserID(nextID.ToString()).increment();
+        {
+            nextID = nextID.increment();
+            return new UserID(nextID.ToString());
         }
 
         public void Initialize(UserID initID)
         {
-            nextID = initID;
+            nextID = new UserID(initID.ToString());
         }
-
         
     }
 }
