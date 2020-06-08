@@ -48,24 +48,24 @@ namespace SIMS.Specifications.Converter
             return therapyTimeSpecification;
         }
 
-        public ISpecification<Therapy> GetSpecification(TherapyFilter filter)
+        public ISpecification<Therapy> GetSpecification()
         {
             bool andFilter = true;
             ISpecification<Therapy> specification = new ExpressionSpecification<Therapy>(o => andFilter);
 
-            if (String.IsNullOrEmpty(filter.DrugName))
+            if (String.IsNullOrEmpty(_filter.DrugName))
             {
-                specification = specification.And(GetSpecificationByDrugName(filter.DrugName));
+                specification = specification.And(GetSpecificationByDrugName(_filter.DrugName));
             }
 
-            if(filter.TherapyTimes != null)
+            if(_filter.TherapyTimes != null)
             {
-                specification = specification.And(GetSpecificationByTherapyTimes(filter.TherapyTimes));
+                specification = specification.And(GetSpecificationByTherapyTimes(_filter.TherapyTimes));
             }
 
-            if(filter.TimeInterval != null)
+            if(_filter.TimeInterval != null)
             {
-                specification = specification.And(GetSpecificationByTimeInterval(filter.TimeInterval));
+                specification = specification.And(GetSpecificationByTimeInterval(_filter.TimeInterval));
             }
 
             return specification;
