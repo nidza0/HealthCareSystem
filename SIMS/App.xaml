@@ -8,6 +8,7 @@
         <SolidColorBrush Color="#f5ee67" x:Key="BackgroundColor"></SolidColorBrush>
         <SolidColorBrush Color="#FFFAFA" x:Key="BorderBlockColor"/>
         <SolidColorBrush Color="#2372DF" x:Key="userMesageColor"/>
+        <SolidColorBrush Color="#e8dc2e" x:Key="labelColor"/>
 
         <BitmapImage x:Key="LogoImage" UriSource="static/images/logo.png"/>
         <GridLength x:Key="marginWidth">20</GridLength>
@@ -17,6 +18,7 @@
             <Setter Property="FontSize" Value="15"></Setter>
             <Setter Property="FontWeight" Value="Bold"></Setter>
             <Setter Property="Margin" Value="4"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
 
 

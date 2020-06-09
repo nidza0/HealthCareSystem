@@ -33,12 +33,22 @@ namespace SIMS.View.ViewPatient
         }
 
         public Diagnosis Diagnosis { get => diagnosis; set => diagnosis = value; }
-        public Therapy Therapy {  get => Diagnosis.ActiveTherapy;}
+        public IEnumerable<Therapy> Therapy {  get => Diagnosis.ActiveTherapy;}
 
         public Disease DiagnosedDisease { get => Diagnosis.DiagnosedDisease; }
         public String DiagnosedDiseaseName { get => DiagnosedDisease.Name; }
         public String Overview { get => DiagnosedDisease.Overview; }
-        public Prescription Prescription { get => Diagnosis.ActiveTherapy.Prescription;  }
+        public Prescription Prescription {
+            get{
+                try
+                {
+                    return Diagnosis.Therapies.ToList()[0].Prescription;
+                }catch(ArgumentOutOfRangeException e)
+                {
+                    return null;
+                }
+            }
+        }
         public string Symptoms { get => string.Join(",", DiagnosedDisease.Symptoms.Select(symptom => symptom.Name)); }
 
         

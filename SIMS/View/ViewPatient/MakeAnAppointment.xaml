@@ -5,11 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SIMS.View.ViewPatient"
         mc:Ignorable="d"
-        Title="MakeAnAppointment" Height="450" Width="800">
+        Title="MakeAnAppointment" 
+        Height="{Binding Screen_height}" Width="{Binding Screen_width}" >
 
     <Window.Resources>
         <Style x:Key="doctorListBoxStyle" TargetType="{x:Type ListBox}" BasedOn="{StaticResource ListBoxStyle}">
-            <Setter Property="Background" Value="#80B3F9"/>
+            <Setter Property="Background" Value="{StaticResource backgroundGradient}"/>
             <Style.Triggers>
                 <DataTrigger 
             Binding="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=Items.Count}" 
@@ -28,6 +29,7 @@
 
         <Style x:Key="searchFieldLabel" TargetType="{x:Type Label}" BasedOn="{StaticResource SubtitleLabelStyle}">
             <Setter Property="FontSize" Value="13"/>
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
         </Style>
 
     </Window.Resources>
@@ -36,13 +38,10 @@
             <RowDefinition Height="auto"></RowDefinition>
             <!--Header-->
             <RowDefinition Height="*"></RowDefinition>
+            
         </Grid.RowDefinitions>
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-
-        <Border Grid.Row="0" Style="{StaticResource BorderBlockStyle}">
+        <Border x:Name="header" Grid.Row="0" Style="{StaticResource BorderBlockStyle}">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Label Content="Make an appointment" Style="{StaticResource LabelStyle}"/>
             </StackPanel>
@@ -51,7 +50,14 @@
 
 
         <Border Grid.Row="1" Style="{StaticResource BorderBlockStyle}">
-            <StackPanel Orientation="Vertical">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="120"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+            
+            
+            <StackPanel Grid.Row="0" Orientation="Vertical" x:Name="stack">
 
 
                 <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
@@ -89,8 +95,7 @@
                     </StackPanel>
                 </ScrollViewer>
 
-
-                <Border BorderBrush="Silver" BorderThickness="1">
+                <Border  BorderBrush="Silver" BorderThickness="1" >
                     <DockPanel>
                         <DockPanel DockPanel.Dock="Left">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
@@ -99,30 +104,35 @@
                                 <Label Style="{StaticResource searchFieldLabel}" Content="Last name: "/>
                                 <TextBox x:Name="last_name_textbox" Width="80"/>
                                 <Label Style="{StaticResource searchFieldLabel}" Content="Hospital: "/>
-                                <ComboBox Width="80" x:Name="hospital_checkbox" ItemsSource="{Binding Path=Hospitals}" DisplayMemberPath="Name" SelectedItem="{Binding Path=ChosenHospital}"></ComboBox>
+                                <ComboBox Width="80" x:Name="hospital_combobox" ItemsSource="{Binding Path=Hospitals}" DisplayMemberPath="Name" SelectedItem="{Binding Path=ChosenHospital}"></ComboBox>
                             </StackPanel>
                         </DockPanel>
 
                         <DockPanel DockPanel.Dock="Right">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
-                                <Button x:Name="resetFilterButton">
+                                <Button Click="ResetFilterButton_Click" x:Name="resetFilterButton">
                                     <Label Style="{StaticResource InputLabel}" Content="Reset"/>
                                 </Button>
 
-                                <Button x:Name="filterButton">
+                                <Button Click="FilterButton_Click" x:Name="filterButton">
                                     <Label Style="{StaticResource InputLabel}" Content="Filter"/>
                                 </Button>
                             </StackPanel>
                         </DockPanel>
                     </DockPanel>
                 </Border>
+               
 
-                <Separator/>
+           </StackPanel>
 
-                <!--Doctor list-->
-                <Border Grid.Row="1" x:Name="contentBorder">
-                    <ListBox  ScrollViewer.HorizontalScrollBarVisibility="Disabled" Width="{Binding RelativeSource={RelativeSource FindAncestor, 
-    AncestorType={x:Type Border}},Path=Width}"  Style="{StaticResource doctorListBoxStyle}"  VerticalAlignment="Top" ItemsSource="{Binding Path=Doctors}" x:Name="doctorsListBox" BorderThickness="0" >
+
+        
+          
+
+            <!--Doctor list-->
+                <Border Grid.Row="1"  x:Name="contentBorder"  Width="{Binding ElementName=header,Path=Width}">
+                    <ListBox  ScrollViewer.HorizontalScrollBarVisibility="Disabled"  Width="{Binding RelativeSource={RelativeSource FindAncestor, 
+    AncestorType={x:Type Border}},Path=Width}"   Style="{StaticResource doctorListBoxStyle}"  VerticalAlignment="Top" ItemsSource="{Binding Path=Doctors}" x:Name="doctorsListBox" BorderThickness="0" >
                         <!--ItemContainerStyle="{DynamicResource diagnosisListBoxItemStyle}" -->
 
                         <ListBox.ItemsPanel>
@@ -134,17 +144,97 @@
 
                         <ListBox.ItemTemplate >
                             <DataTemplate>
-                                <Border Style="{StaticResource showContentBorder}">
-                                    
+                                <Border Style="{StaticResource showContentBorder}" Width="{Binding RelativeSource={RelativeSource FindAncestor, 
+    AncestorType={x:Type ListBox}},Path=ActualWidth}" Padding="0 0 20 0">
+                                    <Grid >
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="85"/>
+                                            <!--Reserved for doctor image-->
+                                            <ColumnDefinition Width="*" />
+                                            <!--Reserved for doctor info-->
+                                        </Grid.ColumnDefinitions>
+                                        <Image VerticalAlignment="Top" Grid.Column="0" Source="static\images\test_image.png" Height="80"/>
+
+                                        <StackPanel Orientation="Vertical" Grid.Column="1" >
+                                            <DockPanel>
+                                                <DockPanel DockPanel.Dock="Left">
+                                                    <!--Name + rating-->
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <StackPanel Orientation="Vertical">
+                                                            <Label Style="{StaticResource SubtitleLabelStyle}" VerticalAlignment="Top">
+                                                                <TextBlock FontWeight="Bold" Foreground="{StaticResource labelColor}" VerticalAlignment="Center">
+                                                                    <TextBlock.Text>
+                                                                        <MultiBinding StringFormat="{} {0} {1}">
+                                                                            <Binding Path="Name"/>
+                                                                            <Binding Path="Surname"/>
+                                                                        </MultiBinding>
+                                                                    </TextBlock.Text>
+                                                                </TextBlock>
+                                                            </Label>
+                                                            <Label FontSize="12" Content="{Binding Path=DocTypeEnum}"/>
+                                                        </StackPanel>
+                                                        <Label VerticalAlignment="Top" Style="{StaticResource searchFieldLabel}" Margin="10 0 0 0" Content="Rating:"/>
+                                                        <Label VerticalAlignment="Top" Margin="5 0 0 0" Content="5"/>
+
+                                                    </StackPanel>
+                                                </DockPanel>
+
+                                                <DockPanel DockPanel.Dock="Right">
+                                                    <!--Send message button-->
+                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                                        <Button VerticalAlignment="Top" Content="Send message" Height="30"/>
+                                                    </StackPanel>
+
+                                                </DockPanel>
+                                            </DockPanel>
+
+                                            <DockPanel>
+                                                <DockPanel DockPanel.Dock="Left">
+                                                    <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+                                                        <Label Margin="0 0 10 0" Style="{StaticResource searchFieldLabel}" Content="Location"/>
+                                                        <Label x:Name="myLabel">
+                                                            <TextBlock>
+                                                                <TextBlock.Text>
+                                                                    <MultiBinding StringFormat="{}{0} - {1}">
+                                                                        <Binding Path= "Hospital.Address.Street" />
+                                                                        <Binding Path="Hospital.Address.Location.City" />
+                                                                    </MultiBinding>
+                                                                </TextBlock.Text>
+                                                            </TextBlock>
+                                                        </Label>
+                                                        <Label Margin="0 0 10 0" Style="{StaticResource searchFieldLabel}" Content="Areas of interest: "/>
+                                                        <Label Content="Medicine"/>
+                                                    </StackPanel>
+                                                </DockPanel>
+
+
+
+                                                <DockPanel DockPanel.Dock="Right">
+                                                    <!--Make an appointment button-->
+                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                                        <Button VerticalAlignment="Bottom" Content="Make an appointment" Click="MakeAnAppointment_Click" Height="30"/>
+                                                    </StackPanel>
+                                                </DockPanel>
+                                            </DockPanel>
+
+
+
+
+
+                                        </StackPanel>
+
+                                    </Grid>
                                 </Border>
 
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
-                    
-                    
+
+
                 </Border>
-            </StackPanel>
+            </Grid>
         </Border>
+                
+
     </Grid>
 </Window>

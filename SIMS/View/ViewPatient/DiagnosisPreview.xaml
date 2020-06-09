@@ -28,7 +28,7 @@
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate>
-                                <TextBlock Foreground="{StaticResource userMesageColor}" FontSize="20" Text="Hooray! No diagnosis to show! :)"></TextBlock>
+                                <TextBlock Foreground="{StaticResource userMesageColor}" FontSize="20" Text="Hooray! No  therapies to show! :)"></TextBlock>
                             </ControlTemplate>
                         </Setter.Value>
                     </Setter>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -214,8 +214,8 @@
     <Compile Include="Util\MedicineFilter.cs" />
     <Compile Include="Util\TherapyFilter.cs" />
     <Compile Include="Util\TimeInterval.cs" />
-    <Compile Include="View\ViewPatient\ConversationContent.xaml.cs">
-      <DependentUpon>ConversationContent.xaml</DependentUpon>
+    <Compile Include="View\ViewPatient\BookAnAppointment.xaml.cs">
+      <DependentUpon>BookAnAppointment.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ViewPatient\DiagnosisOverview.xaml.cs">
       <DependentUpon>DiagnosisOverview.xaml</DependentUpon>
@@ -234,6 +234,12 @@
     </Compile>
     <Compile Include="View\ViewPatient\Messages.xaml.cs">
       <DependentUpon>Messages.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewPatient\MyAppointments.xaml.cs">
+      <DependentUpon>MyAppointments.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewPatient\TherapyOverview.xaml.cs">
+      <DependentUpon>TherapyOverview.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -264,7 +270,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="View\ViewPatient\ConversationContent.xaml">
+    <Page Include="View\ViewPatient\BookAnAppointment.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -289,6 +295,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\ViewPatient\Messages.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewPatient\MyAppointments.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewPatient\TherapyOverview.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -370,7 +384,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="View\" />
+    <Resource Include="View\ViewPatient\static\images\test_image.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

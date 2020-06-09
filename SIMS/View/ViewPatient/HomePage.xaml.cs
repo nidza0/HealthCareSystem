@@ -23,6 +23,7 @@ namespace SIMS.View.ViewPatient
     /// </summary>
     public partial class HomePage : Window
     {
+        public static Patient loggedPatient = new Patient(new UserID("P123"));
         public ObservableCollection<Appointment> recentAppointments = new ObservableCollection<Appointment>();
         public ObservableCollection<Notification> notifications = new ObservableCollection<Notification>();
         public ObservableCollection<Article> articles = new ObservableCollection<Article>();
@@ -33,7 +34,7 @@ namespace SIMS.View.ViewPatient
             InitializeComponent();
             Doctor doctor = new Doctor(new UserID("D333"),"pera","pera",DateTime.Now,"Nikola","Dragic","Milos",Sex.MALE,DateTime.Now,"1234567",new Address("test",new Location(1)),"555-333","zzzz","zzz","zzzzz",new TimeTable(2),new Hospital(1),new Room(2),Model.DoctorModel.DocTypeEnum.SURGEON);
             Doctor doctor2 = new Doctor(new UserID("D333"), "pera", "pera", DateTime.Now, "Nikolsdasdadasddasdadasdasdasdasdasdasdasdasdadasdasdasda", "Dragic", "Milos", Sex.MALE, DateTime.Now, "1234567", new Address("test", new Location(1)), "555-333", "zzzz", "zzz", "zzzzz", new TimeTable(2), new Hospital(1), new Room(2), Model.DoctorModel.DocTypeEnum.SURGEON);
-            Room room = new Room(22, "O123", true, 2, RoomType.AFTERCARE, new List<Model.ManagerModel.InventoryItem>());
+            Room room = new Room(22, "O123", true, 2, RoomType.AFTERCARE);
             //AppointmentConverter appointmentConverter = new AppointmentConverter(",", ";");
             Appointment appointment = new Appointment(69, doctor, new Patient(new UserID("62")), room, AppointmentType.operation, new TimeInterval(DateTime.Now, DateTime.Now));
             Appointment appointment2 = new Appointment(70, doctor2, new Patient(new UserID("62")), new Room(3), AppointmentType.operation, new TimeInterval(DateTime.Now, DateTime.Now));
@@ -117,8 +118,17 @@ namespace SIMS.View.ViewPatient
 
         private void MakeAnAppointment(object sender, RoutedEventArgs e)
         {
-            MakeAnAppointment makeAnAppointment = new MakeAnAppointment();
+            
+            double height = Application.Current.MainWindow.Height - (Application.Current.MainWindow.Height * 0.1);
+            double width = Application.Current.MainWindow.Width - (Application.Current.MainWindow.Width * 0.2);
+
+            MakeAnAppointment makeAnAppointment = new MakeAnAppointment(height,width);
+            makeAnAppointment.Height = height;
+            makeAnAppointment.Width = width;
+            makeAnAppointment.Owner = Application.Current.MainWindow;
+            makeAnAppointment.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             makeAnAppointment.Show();
+            makeAnAppointment.Focus();
         }
 
         private void DismissNotificationClick(object sender, EventArgs e)

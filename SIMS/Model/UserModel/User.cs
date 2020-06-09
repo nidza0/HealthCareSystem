@@ -114,6 +114,7 @@ namespace SIMS.Model.UserModel
         public override bool Equals(object obj)
         {
             User otherUser = obj as User;
+            if (otherUser == null) return false;
             return _userID.Equals(otherUser.GetId());
         }
     }

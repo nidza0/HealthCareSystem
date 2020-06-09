@@ -41,7 +41,9 @@ namespace SIMS.Model.PatientModel
             _diagnosedDisease = disease;
             _date = DateTime.Now;
             if (therapies == null)
-                therapies = new List<Therapy>();
+                _therapies = new List<Therapy>();
+            else
+                _therapies = therapies;
         }
         public Diagnosis(long id, Disease disease, DateTime issuedOn, List<Therapy> therapies = null)
         {

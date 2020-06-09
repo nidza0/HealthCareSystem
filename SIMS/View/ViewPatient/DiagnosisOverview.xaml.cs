@@ -65,9 +65,11 @@ namespace SIMS.View.ViewPatient
             Prescription prescription = new Prescription(2, PrescriptionStatus.ACTIVE,doctor, dict);
 
             Therapy therapy = new Therapy(2, new TimeInterval(DateTime.Now, DateTime.Now), prescription);
+            List<Therapy> therapies = new List<Therapy>();
+            therapies.Add(therapy);
 
-            Diagnosis diagnosis = new Diagnosis(69, disease, therapy);
-            Diagnosis diagnosis1 = new Diagnosis(69, disease1, therapy);
+            Diagnosis diagnosis = new Diagnosis(69, disease, therapies);
+            Diagnosis diagnosis1 = new Diagnosis(69, disease1, therapies);
 
             diagnosisList.Add(diagnosis);
             diagnosisList.Add(diagnosis1);
@@ -78,7 +80,6 @@ namespace SIMS.View.ViewPatient
         }
 
         public ObservableCollection<Diagnosis> DiagnosisList { get => diagnosisList; set => diagnosisList = value; }
-        public ObservableCollection<Diagnosis> DiagnosisList1 { get => diagnosisList; set => diagnosisList = value; }
 
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
         {
@@ -113,8 +114,12 @@ namespace SIMS.View.ViewPatient
             Prescription prescription = new Prescription(2, PrescriptionStatus.ACTIVE, doctor, dict);
 
             Therapy therapy = new Therapy(2, new TimeInterval(DateTime.Now, DateTime.Now), prescription);
+            List<Therapy> therapies = new List<Therapy>();
+            therapies.Add(therapy);
 
-            Diagnosis diagnosis = new Diagnosis(69, disease, therapy);
+            Diagnosis diagnosis = new Diagnosis(69, disease, therapies);
+
+            test.Add(diagnosis);
             //test.Add(diagnosis);
 
             //this.diagnosisList = test;
