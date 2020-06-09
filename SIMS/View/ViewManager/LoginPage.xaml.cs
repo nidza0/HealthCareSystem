@@ -27,6 +27,9 @@ namespace SIMS.View.ViewManager
 
         public static ObservableCollection<Doctor> doctors;
         public static ObservableCollection<InventoryItem> items;
+        public static ObservableCollection<Room> rooms;
+
+        public static int iter = 3;
 
         public Login()
         {
@@ -41,6 +44,11 @@ namespace SIMS.View.ViewManager
 
             foreach (InventoryItem item in Dummies.DummyDoctors.itemsList)
                 items.Add(item);
+
+            rooms = new ObservableCollection<Room>();
+
+            foreach (Room room in Dummies.DummyDoctors.roomsList)
+                rooms.Add(room);
 
 
         }

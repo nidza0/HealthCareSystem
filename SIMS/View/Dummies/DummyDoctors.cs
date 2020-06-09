@@ -16,6 +16,8 @@ namespace SIMS.View.Dummies
 
         public static ObservableCollection<Model.ManagerModel.InventoryItem> itemsList;
 
+        public static ObservableCollection<Room> roomsList;
+
         public DummyDoctors()
         {
 
@@ -32,6 +34,15 @@ namespace SIMS.View.Dummies
 
             itemsList.Add(item1);
             itemsList.Add(item2);
+
+            roomsList = new ObservableCollection<Room>();
+            Room room1 = new Room(101);
+            Room room2 = new Room(102);
+            Room room3 = new Room(103);
+
+            roomsList.Add(room1);
+            roomsList.Add(room2);
+            roomsList.Add(room3);
 
         }
 
