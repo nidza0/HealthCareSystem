@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -262,6 +262,7 @@
     <Compile Include="View\ViewSecretary\Pages\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\ViewSecretary\SecretaryAppResources.cs" />
     <Compile Include="View\ViewSecretary\ViewModel\AppointmentsViewModel.cs" />
     <Compile Include="View\ViewSecretary\ViewModel\AppointmentViewModel.cs" />
     <Compile Include="View\ViewSecretary\ViewModel\DoctorsViewModel.cs" />
