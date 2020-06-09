@@ -23,6 +23,7 @@ namespace SIMS.View.ViewSecretary
         public MainSecretary()
         {
             InitializeComponent();
+            SecretaryAppResources.getInstance();
             MainFrame.Navigate(new LoginPage());
         }
     }
