@@ -36,6 +36,27 @@ namespace SIMS.Model.UserModel
             _hospital = hospital;
         }
 
+        public Employee(TimeTable timeTable,
+                        Hospital hospital,
+                        string userName,
+                        string password,
+                        string name,
+                        string surname,
+                        string middleName,
+                        Sex sex,
+                        DateTime dateOfBirth,
+                        string uidn,
+                        Address address,
+                        string homePhone,
+                        string cellPhone,
+                        string email1,
+                        string email2)
+            : base(userName, password, name, surname, middleName, sex, dateOfBirth, uidn, address, homePhone, cellPhone, email1, email2)
+        {
+            _timeTable = timeTable;
+            _hospital = hospital;
+        }
+
         public Employee(UserID id, 
                         TimeTable timeTable, 
                         Hospital hospital, 
@@ -84,6 +105,6 @@ namespace SIMS.Model.UserModel
             }
         }
 
-        public TimeTable TimeTable { get => _timeTable; }
+        public TimeTable TimeTable { get => _timeTable; set => _timeTable = value; }
     }
 }

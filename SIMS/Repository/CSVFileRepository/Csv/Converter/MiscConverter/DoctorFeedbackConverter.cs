@@ -20,12 +20,8 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.MiscConverter
         private readonly string _secondaryListDelimiter = "-";
         
 
-        public DoctorFeedbackConverter(string delimiter, string listDelimiter)
+        public DoctorFeedbackConverter()
         {
-            _delimiter = delimiter;
-            _listDelimiter = listDelimiter;
-            
-
         }
 
         public DoctorFeedback ConvertCSVToEntity(string csv)
@@ -52,12 +48,15 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.MiscConverter
         private List<Rating> GetList(string listString, char[] delimiter)
         {
             List<Rating> retVal = new List<Rating>();
-            string[] tokens = listString.Split(delimiter);
+            if(listString != "")
+            { 
+                string[] tokens = listString.Split(delimiter);
             
-            foreach(string entity in tokens)
-            {
-                string[] attributes = entity.Split(_secondaryListDelimiter.ToCharArray());
-                retVal.Add(GetRating(attributes));
+                foreach(string entity in tokens)
+                {
+                    string[] attributes = entity.Split(_secondaryListDelimiter.ToCharArray());
+                    retVal.Add(GetRating(attributes));
+                }
             }
 
             return retVal;

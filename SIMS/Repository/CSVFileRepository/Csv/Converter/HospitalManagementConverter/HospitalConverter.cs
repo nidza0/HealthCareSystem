@@ -12,23 +12,29 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.HospitalManagementConv
 {
     public class HospitalConverter : ICSVConverter<Hospital>
     {
-        private readonly string _delimiter = ",";
-        private readonly string _listDelimiter = ";"; //Delimiter used for separating room IDs.
+        private readonly string _delimiter = "?";
+        private readonly string _listDelimiter = "~"; //Delimiter used for separating room IDs.
 
-        public HospitalConverter(string delimiter, string listDelimiter)
+        public HospitalConverter()
         {
-            _delimiter = delimiter;
-            _listDelimiter = listDelimiter;
         }
 
         public Hospital ConvertCSVToEntity(string csv)
         {
             string[] tokens = SplitStringByDelimiter(csv, _delimiter);
             Address dummyAddress = GetDummyAddress(SplitStringByDelimiter(tokens[2], _listDelimiter));
-            List<Room> dummyRooms = GetDummyRooms(SplitStringByDelimiter(tokens[5], _listDelimiter));
-            List<Employee> dummyEmployees = GetDummyEmployee(SplitStringByDelimiter(tokens[6], _listDelimiter));
+            List<Room> dummyRooms = (tokens[5] == "" ? new List<Room>() : GetDummyRooms(SplitStringByDelimiter(tokens[5], _listDelimiter))); 
+            List<Employee> dummyEmployees = (tokens[6] == "" ? new List<Employee>() : GetDummyEmployee(SplitStringByDelimiter(tokens[6], _listDelimiter)));
 
-            return new Hospital(long.Parse(tokens[0]), tokens[1], dummyAddress, tokens[3], tokens[4], dummyRooms, dummyEmployees);
+            return new Hospital(
+                long.Parse(tokens[0]),
+                tokens[1],
+                dummyAddress, 
+                tokens[3], 
+                tokens[4], 
+                dummyRooms, 
+                dummyEmployees
+                );
         }
 
         public string ConvertEntityToCSV(Hospital entity)

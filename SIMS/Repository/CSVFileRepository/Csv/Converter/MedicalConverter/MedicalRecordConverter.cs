@@ -16,19 +16,19 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.MedicalConverter
         private readonly string _delimiter = ",";
         private readonly string _listDelimiter = ";";
 
-        public MedicalRecordConverter(string delimiter)
+        public MedicalRecordConverter()
         {
-            _delimiter = delimiter;
         }
 
         public MedicalRecord ConvertCSVToEntity(string medicalRecordCSVformat)
         {
-            string[] tokens = medicalRecordCSVformat.Split(_delimiter.ToCharArray());
+            string[] tokens = SplitStringByDelimiter(medicalRecordCSVformat, _delimiter);
             return new MedicalRecord(long.Parse(tokens[0]),
                                      new Patient(new UserID(tokens[1])),
                                      (BloodType)Enum.Parse(typeof(BloodType), tokens[2]),
-                                     GetDiagnosisCSVlist(tokens[3].Split(_listDelimiter.ToCharArray())),
-                                     GetAllergyCSVlist(tokens[4].Split(_listDelimiter.ToCharArray())));
+                                     tokens[3] == "" ? new List<Diagnosis>() : GetDiagnosisCSVlist(SplitStringByDelimiter(tokens[3],_listDelimiter)),
+                                     tokens[4] == "" ? new List<Allergy>() : GetAllergyCSVlist(SplitStringByDelimiter(tokens[4], _listDelimiter))
+                                     );
         }
 
         public string ConvertEntityToCSV(MedicalRecord medicalRecord)
@@ -51,5 +51,8 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.MedicalConverter
 
         private List<Allergy> GetAllergyCSVlist(string[] ids)
             => ids.ToList().ConvertAll(x => new Allergy(long.Parse(x)));
+
+        private string[] SplitStringByDelimiter(string stringToSplit, string delimiter)
+          => stringToSplit.Split(delimiter.ToCharArray());
     }
 }

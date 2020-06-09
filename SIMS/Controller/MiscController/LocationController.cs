@@ -13,12 +13,12 @@ namespace SIMS.Controller.MiscController
 {
     public class LocationController : IController<Location, long>
     {
-        public IEnumerable<Location> GetLocationByCountry(Country country)
+        public IEnumerable<Location> GetLocationByCountry(string country)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Country> GetAllCountries()
+        public IEnumerable<string> GetAllCountries()
         {
             throw new NotImplementedException();
         }

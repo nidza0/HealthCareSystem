@@ -211,5 +211,13 @@ namespace SIMS.Model.PatientModel
 
         public void SetId(long id)
             => _id = id;
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null) return false;
+
+            Disease otherDisease = obj as Disease;
+            return _id == otherDisease.GetId();
+        }
     }
 }

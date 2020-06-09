@@ -31,7 +31,5 @@ namespace SIMS.Repository.Abstract.MedicalAbstractRepository
 
         IEnumerable<Appointment> GetUpcomingAppointmentsForDoctor(Doctor doctor);
 
-        void AutoDeleteCanceledAppointments();
-
     }
 }

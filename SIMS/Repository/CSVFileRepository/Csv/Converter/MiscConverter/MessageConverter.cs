@@ -13,10 +13,8 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.MiscConverter
         private readonly string _delimiter = ",";
         private readonly string _dateTimeFormat = "dd/mm/yyyy HH:mm";
 
-        public MessageConverter(string delimiter, string dateTimeFormat)
+        public MessageConverter()
         {
-            _delimiter = delimiter;
-            _dateTimeFormat = dateTimeFormat;
         }
 
         public Message ConvertCSVToEntity(string csv)

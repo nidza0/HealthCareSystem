@@ -6,89 +6,102 @@
 using System;
 using System.Collections.Generic;
 using SIMS.Repository.Abstract;
+using System.Linq;
 
 namespace SIMS.Model.PatientModel
 {
     public class Diagnosis : IIdentifiable<long>
     {
         private long _id;
-        private Therapy _activeTherapy;
+        private List<Therapy> _therapies;
         private DateTime _date;
         private Disease _diagnosedDisease;
-        private List<Therapy> _previousTherapies;
 
         public Diagnosis(long id)
         {
             _id = id;
         }
 
-        public Diagnosis(Disease disease, Therapy activeTherapy, List<Therapy> previousTherapy = null)
+        public Diagnosis(Disease disease, List<Therapy> therapies = null)
         {
             //Constructor used when first created by Doctor.
             _diagnosedDisease = disease;
-            _activeTherapy = activeTherapy;
             _date = DateTime.Now;
 
-            if (previousTherapy == null)
-                _previousTherapies = new List<Therapy>();
+            if (therapies == null)
+                _therapies = new List<Therapy>();
             else
-                _previousTherapies = previousTherapy;
+                _therapies = therapies;
+
         }
 
-        public Diagnosis(long id, Disease disease, Therapy activeTherapy, List<Therapy> previousTherapy = null)
+        public Diagnosis(long id, Disease disease, List<Therapy> therapies = null)
         {
             _id = id;
             _diagnosedDisease = disease;
-            _activeTherapy = activeTherapy;
             _date = DateTime.Now;
-            if (previousTherapy == null)
-                _previousTherapies = new List<Therapy>();
-            else
-                _previousTherapies = previousTherapy;
+            if (therapies == null)
+                therapies = new List<Therapy>();
         }
-        public Diagnosis(Disease disease, Therapy activeTherapy,DateTime issuedOn, List<Therapy> previousTherapy = null)
+        public Diagnosis(long id, Disease disease, DateTime issuedOn, List<Therapy> therapies = null)
         {
             //Constructor used for complete initialization(eg. reading from the database)
+            _id = id;
             _diagnosedDisease = disease;
-            _activeTherapy = activeTherapy;
             _date = issuedOn;
 
-            if (previousTherapy == null)
-                _previousTherapies = new List<Therapy>();
+            if (therapies == null)
+                _therapies = new List<Therapy>();
             else
-                _previousTherapies = previousTherapy;
+                _therapies = therapies;
         }
 
-
-
-        private void ChangeActiveTherapy(Therapy therapy)
+        public IEnumerable<Therapy> ActiveTherapy
         {
-            if (_previousTherapies.Contains(therapy))
+            get
             {
-                //If we are choosing one from the previous therapies
-                RemovePreviousTherapies(therapy);
+                return Therapies.Where(therapy => therapy.TimeInterval.IsTimeBetween(DateTime.Now));
             }
-            else
-            {
-               //If it's not one from the previous therapies, we add the current therapy(if not null) to the list of previous therapies
-               if(_activeTherapy != null)
-                {
-                    AddPreviousTherapies(_activeTherapy); //We put the active therapy to the list of previous therapies
-                }
-            }
-
-            _activeTherapy = therapy; //We finally set the active therapy.
         }
 
-        public void RemoveActiveTherapy()
+        public IEnumerable<Therapy> InactiveTherapy
         {
-            if(_activeTherapy != null)
+            get
             {
-                //If there is active therapy at the moment, put it to the list of previous therapies.
-                _previousTherapies.Add(_activeTherapy);
+                return Therapies.Where(therapy => !therapy.TimeInterval.IsTimeBetween(DateTime.Now));
             }
-            _activeTherapy = null; //Remove active therapy.
         }
+
+
+
+        //private void ChangeActiveTherapy(Therapy therapy)
+        //{
+        //    if (_previousTherapies.Contains(therapy))
+        //    {
+        //        //If we are choosing one from the previous therapies
+        //        RemovePreviousTherapies(therapy);
+        //    }
+        //    else
+        //    {
+        //       //If it's not one from the previous therapies, we add the current therapy(if not null) to the list of previous therapies
+        //       if(_activeTherapy != null)
+        //        {
+        //            AddPreviousTherapies(_activeTherapy); //We put the active therapy to the list of previous therapies
+        //        }
+        //    }
+
+        //    _activeTherapy = therapy; //We finally set the active therapy.
+        //}
+
+        //public void RemoveActiveTherapy()
+        //{
+        //    if(_activeTherapy != null)
+        //    {
+        //        //If there is active therapy at the moment, put it to the list of previous therapies.
+        //        _previousTherapies.Add(_activeTherapy);
+        //    }
+        //    _activeTherapy = null; //Remove active therapy.
+        //}
 
 
 
@@ -96,27 +109,26 @@ namespace SIMS.Model.PatientModel
         /// Property for collection of Therapy
         /// </summary>
         /// <pdGenerated>Default opposite class collection property</pdGenerated>
-        public List<Therapy> PreviousTherapies
+        public List<Therapy> Therapies
         {
             get
             {
-                if (_previousTherapies == null)
-                    _previousTherapies = new List<Therapy>();
-                return _previousTherapies;
+                if (_therapies == null)
+                    _therapies = new List<Therapy>();
+                return _therapies;
             }
             set
             {
-                RemoveAllPreviousTherapies();
+                RemoveAllTherapies();
                 if (value != null)
                 {
                     foreach (Therapy oTherapy in value)
-                        AddPreviousTherapies(oTherapy);
+                        AddTherapy(oTherapy);
                 }
             }
         }
 
         //public long Id { get => _id; set => _id = value; }
-        public Therapy ActiveTherapy { get => _activeTherapy; set => ChangeActiveTherapy(value); }
         public DateTime Date { get => _date; set => _date = value; }
         public Disease DiagnosedDisease { get => _diagnosedDisease; set => _diagnosedDisease = value; }
 
@@ -124,37 +136,39 @@ namespace SIMS.Model.PatientModel
         /// Add a new Therapy in the collection
         /// </summary>
         /// <pdGenerated>Default Add</pdGenerated>
-        public void AddPreviousTherapies(Therapy newTherapy)
+        /// 
+
+        public void AddTherapy(Therapy newTherapy)
         {
             if (newTherapy == null)
                 return;
-            if (_previousTherapies == null)
-                _previousTherapies = new List<Therapy>();
-            if (!_previousTherapies.Contains(newTherapy))
-                _previousTherapies.Add(newTherapy);
+            if (_therapies == null)
+                _therapies = new List<Therapy>();
+            if (!_therapies.Contains(newTherapy))
+                _therapies.Add(newTherapy);
         }
 
         /// <summary>
         /// Remove an existing Therapy from the collection
         /// </summary>
         /// <pdGenerated>Default Remove</pdGenerated>
-        public void RemovePreviousTherapies(Therapy oldTherapy)
+        public void RemoveTherapy(Therapy oldTherapy)
         {
             if (oldTherapy == null)
                 return;
-            if (_previousTherapies != null)
-                if (_previousTherapies.Contains(oldTherapy))
-                    _previousTherapies.Remove(oldTherapy);
+            if (_therapies != null)
+                if (_therapies.Contains(oldTherapy))
+                    _therapies.Remove(oldTherapy);
         }
 
         /// <summary>
         /// Remove all instances of Therapy from the collection
         /// </summary>
         /// <pdGenerated>Default removeAll</pdGenerated>
-        public void RemoveAllPreviousTherapies()
+        public void RemoveAllTherapies()
         {
-            if (_previousTherapies != null)
-                _previousTherapies.Clear();
+            if (_therapies != null)
+                _therapies.Clear();
         }
 
         public long GetId() => _id;

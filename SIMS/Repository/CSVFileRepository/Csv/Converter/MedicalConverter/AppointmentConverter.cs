@@ -14,14 +14,10 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.MedicalConverter
     {
         private readonly string _delimiter = ",";
         private readonly string _listDelimiter = ";";
-        private readonly string _dateTimeFormat = "MM/dd/yyyy";
+        private readonly string _dateTimeFormat = "dd.MM.yyyy. HH:mm";
 
-        public AppointmentConverter(string delimiter, string listDelimiter)
+        public AppointmentConverter()
         {
-            //Date time format not allowed in the constructor intentionally. 
-            //TODO: Create an ENUM with datetimeFormat's so user can't enter a wrong format
-            _delimiter = delimiter;
-            _listDelimiter = listDelimiter;
         }
 
         public Appointment ConvertCSVToEntity(string csv)
@@ -64,10 +60,10 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.MedicalConverter
         private Patient GetDummyPatient(string id)
             => new Patient(new UserID(id));
 
-        private DateTime transformStringToDate(string date)
-            => DateTime.ParseExact(date, _dateTimeFormat, null);
+        private DateTime GetDateTimeFromString(string dateTime)
+            => DateTime.ParseExact(dateTime, _dateTimeFormat, null);
 
         private TimeInterval GetTimeInterval(string[] timeIntervalCSV)
-            => new TimeInterval(transformStringToDate(timeIntervalCSV[0]), transformStringToDate(timeIntervalCSV[1]));
+            => new TimeInterval(GetDateTimeFromString(timeIntervalCSV[0]), GetDateTimeFromString(timeIntervalCSV[1]));
     }
 }

@@ -11,13 +11,11 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.MiscConverter
 {
     public class ArticleConverter : ICSVConverter<Article>
     {
-        private string _delimiter;
-        private string _dateTimeFormat;
+        private string _delimiter = ",";
+        private string _dateTimeFormat = "dd.MM.yyyy. HH:mm";
 
-        public ArticleConverter(string delimiter, string dateTimeFormat)
+        public ArticleConverter()
         {
-            _delimiter = delimiter;
-            _dateTimeFormat = dateTimeFormat;
         }
 
         public Article ConvertCSVToEntity(string csv)

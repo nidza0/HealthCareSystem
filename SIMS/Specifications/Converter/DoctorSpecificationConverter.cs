@@ -5,30 +5,51 @@
 
 using SIMS.Model.DoctorModel;
 using SIMS.Model.UserModel;
+using SIMS.Util;
 using System;
 
 namespace SIMS.Specifications.Converter
 {
     public class DoctorSpecificationConverter
     {
-        private Specifications.ISpecification<Doctor> GetSpecificationByName(string name)
+        private DoctorFilter _filter;
+
+        public DoctorSpecificationConverter(DoctorFilter filter)
         {
-            throw new NotImplementedException();
+            _filter = filter;
         }
 
-        private Specifications.ISpecification<Doctor> GetSpecificationBySurname(string surname)
+        private ISpecification<Doctor> GetSpecificationByName(string name)
         {
-            throw new NotImplementedException();
+            return new ExpressionSpecification<Doctor>(o => o.Name.Equals(name));
         }
 
-        private Specifications.ISpecification<Doctor> GetSpecificationByType(DocTypeEnum type)
+        private ISpecification<Doctor> GetSpecificationBySurname(string surname)
         {
-            throw new NotImplementedException();
+            return new ExpressionSpecification<Doctor>(o => o.Surname.Equals(surname));
         }
 
-        public Specifications.ISpecification<Doctor> GetSpecification(Util.DoctorFilter filter)
+        private ISpecification<Doctor> GetSpecificationByType(DocTypeEnum type)
         {
-            throw new NotImplementedException();
+            return new ExpressionSpecification<Doctor>(o => o.DocTypeEnum.Equals(type));
+        }
+
+        public ISpecification<Doctor> GetSpecification()
+        {
+            bool andSpecification = true;
+            ISpecification<Doctor> specification = new ExpressionSpecification<Doctor>(o => andSpecification);
+
+            if (!String.IsNullOrEmpty(_filter.Name))
+            {
+                specification = specification.And(GetSpecificationByName(_filter.Name));
+            }
+
+            if (!String.IsNullOrEmpty(_filter.Surname))
+            {
+                specification = specification.And(GetSpecificationBySurname(_filter.Surname));
+            }
+
+            return specification;
         }
 
     }

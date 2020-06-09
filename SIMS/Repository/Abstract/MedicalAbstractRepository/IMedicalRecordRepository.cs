@@ -11,11 +11,10 @@ namespace SIMS.Repository.Abstract.MedicalAbstractRepository
 {
     public interface IMedicalRecordRepository : IRepository<MedicalRecord, long>
     {
-        Diagnosis AddDiagnosis(Patient patient, Diagnosis diagnosis);
 
         MedicalRecord GetPatientMedicalRecord(Patient patient);
 
-        MedicalRecord AddAllergy(MedicalRecord medicalRecord, Allergy allergy);
+
 
     }
 }
