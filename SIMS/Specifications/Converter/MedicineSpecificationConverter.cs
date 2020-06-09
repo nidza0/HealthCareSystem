@@ -42,32 +42,32 @@ namespace SIMS.Specifications.Converter
             return new ExpressionSpecification<Medicine>(o => o.Strength == strength);
         }
 
-        public ISpecification<Medicine> GetSpecification(MedicineFilter filter)
+        public ISpecification<Medicine> GetSpecification()
         {
             bool andFilter = true;
             ISpecification<Medicine> specification = new ExpressionSpecification<Medicine>(o => andFilter);
 
-            if(filter.Disease != null)
+            if(_filter.Disease != null)
             {
-                specification = specification.And(GetSpecificationByDisease(filter.Disease));
+                specification = specification.And(GetSpecificationByDisease(_filter.Disease));
             }
 
-            if(filter.Ingredient != null)
+            if(_filter.Ingredient != null)
             {
-                specification = specification.And(GetSpecificationByIngredient(filter.Ingredient));
+                specification = specification.And(GetSpecificationByIngredient(_filter.Ingredient));
             }
 
-            if(!String.IsNullOrEmpty(filter.Name))
+            if(!String.IsNullOrEmpty(_filter.Name))
             {
-                specification = specification.And(GetSpecificationByName(filter.Name));
+                specification = specification.And(GetSpecificationByName(_filter.Name));
             }
 
-            if(filter.Strength != default)
+            if(_filter.Strength != default)
             {
-                specification = specification.And(GetSpecificationByStrength(filter.Strength));
+                specification = specification.And(GetSpecificationByStrength(_filter.Strength));
             }
 
-            specification = specification.And(GetSpecificationByType(filter.Type));
+            specification = specification.And(GetSpecificationByType(_filter.Type));
 
             return specification;
         }

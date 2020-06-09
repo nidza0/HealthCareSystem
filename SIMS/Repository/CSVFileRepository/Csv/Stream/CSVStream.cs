@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 
 namespace SIMS.Repository.CSVFileRepository.Csv.Stream
 {
@@ -26,14 +27,15 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Stream
             => WriteAllLinesToFile(entities.Select(_converter.ConvertEntityToCSV).ToList());
         
         private void WriteAllLinesToFile(IEnumerable<string> list)
-            => File.WriteAllLines(_path, list.ToArray());
+            => File.WriteAllLines(_path, list.ToArray(), Encoding.UTF8);
+       
 
         public IEnumerable<T> ReadAll()
-            => File.ReadAllLines(_path)
+            => File.ReadAllLines(_path, Encoding.UTF8)
             .Select(_converter.ConvertCSVToEntity)
             .ToList();
 
         public void AppendToFile(T entity)
-            => File.AppendAllText(_path, _converter.ConvertEntityToCSV(entity) + Environment.NewLine);
+            => File.AppendAllText(_path, _converter.ConvertEntityToCSV(entity) + Environment.NewLine, Encoding.UTF8);
     }
 }

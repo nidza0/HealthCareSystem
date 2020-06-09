@@ -54,5 +54,11 @@ namespace SIMS.Model.PatientModel
         public long GetId() => _id;
 
         public void SetId(long id) => _id = id;
+
+        public bool IsCompleted()
+            => TimeInterval.EndTime <= DateTime.Now;
+
+        public bool IsInFuture()
+            => TimeInterval.StartTime >= DateTime.Now;
     }
 }

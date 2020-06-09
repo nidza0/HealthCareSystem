@@ -33,6 +33,12 @@ namespace SIMS.Repository.CSVFileRepository.MiscRepository
             _secretaryRepository = secretaryRepository;
         }
 
+        public new Message Create(Message message)
+        {
+            message.Date = DateTime.Now;
+            return base.Create(message);
+        }
+
         //Bindong with senders
         private void BindMessageWithPatient(IEnumerable<Patient> patients, IEnumerable<Message> messages)
             => messages.ToList().ForEach(message => message.Sender = getPatientById(patients, message.Sender.GetId()));

@@ -13,6 +13,8 @@ using SIMS.Model.PatientModel;
 
 using SIMS.Repository.CSVFileRepository.MedicalRepository;
 using SIMS.Repository.CSVFileRepository.HospitalManagementRepository;
+using SIMS.Util;
+using SIMS.Repository.CSVFileRepository.Csv.Converter.UsersConverter;
 
 namespace SIMS
 {
@@ -100,7 +102,7 @@ namespace SIMS
             //Console.WriteLine(retVal);
             //Console.WriteLine("TEST");
 
-            
+
             /*
             RoomConverter converter = new RoomConverter();
 
@@ -303,16 +305,310 @@ namespace SIMS
             */
 
 
+
+            //AppResources res = AppResources.getInstance();
+
+            //LocationRepoTest();
+            //SecretaryRepoTest();
+            //PatientRepoTest();
+            //TimeTableRepoTest();
+            //ManagerRepoTest();
+            //DoctorRepoTest();
+
+            //RoomRepoTest();
+
+            AppointmentRepoTest();
+
+        }
+
+        private void AppointmentRepoTest()
+        {
+            //CONVERTER
+            /*
+            Appointment ap1 = new Appointment(new Doctor(new UserID("d1")), new Patient(new UserID("p1")), new Room(2), AppointmentType.checkup, new TimeInterval(DateTime.Now, DateTime.Now.AddMinutes(20)));
+            Appointment ap2 = new Appointment(null, null, new Room(2), AppointmentType.renovation, new TimeInterval(DateTime.Now, DateTime.Now.AddMinutes(20)));
+
+            AppointmentConverter conv = new AppointmentConverter();
+            string s1 = conv.ConvertEntityToCSV(ap1);
+            string s2 = conv.ConvertEntityToCSV(conv.ConvertCSVToEntity(s1));
+            Console.WriteLine(s1.Equals(s2));
+
+            s1 = conv.ConvertEntityToCSV(ap2);
+            s2 = conv.ConvertEntityToCSV(conv.ConvertCSVToEntity(s1));
+            Console.WriteLine(s1.Equals(s2));
+            */
+
+            //TODO: AppointmentRepoTest
+
+        }
+
+        private void RoomRepoTest()
+        {
+            AppResources res = AppResources.getInstance();
+
+            Room r1 = new Room("a1", false, 1, RoomType.EXAMINATION);
+            Room r2 = new Room("b2", false, 2, RoomType.EXAMINATION);
+            Room r3 = new Room("c3", false, 2, RoomType.OPERATION);
+            Room r4 = new Room("d4", false, 4, RoomType.AFTERCARE);
+            Room r5 = new Room("b2", false, 4, RoomType.AFTERCARE);
+
+            //res.roomRepository.Create(r1);
+            //res.roomRepository.Create(r2);
+            //res.roomRepository.Create(r3);
+            //res.roomRepository.Create(r4);
+            //res.roomRepository.Create(r5);
+
+            Room room = res.roomRepository.GetRoomByName("b2");
+            Console.WriteLine("Room by name 'b2'");
+            Console.WriteLine(room.RoomNumber + " " + room.RoomType);
+
+            IEnumerable<Room> rooms2 = res.roomRepository.GetRoomsByFloor(2);
+            Console.WriteLine("Rooms by floor 2");
+            foreach(Room r in rooms2)
+            {
+                Console.WriteLine(r.RoomNumber);
+            }
+
+            IEnumerable<Room> rooms5 = res.roomRepository.GetRoomsByFloor(5);
+            Console.WriteLine("Rooms by floor 5");
+            foreach (Room r in rooms5)
+            {
+                Console.WriteLine(r.RoomNumber);
+            }
+
+            IEnumerable<Room> roomsExam = res.roomRepository.GetRoomsByType(RoomType.EXAMINATION);
+            Console.WriteLine("Examination rooms");
+            foreach (Room r in roomsExam)
+            {
+                Console.WriteLine(r.RoomNumber);
+            }
+
+
+        }
+
+        private void DoctorRepoTest()
+        {
+            AppResources res = AppResources.getInstance();
+
+            Doctor d1 = new Doctor("drstrange", "VVVVV", "Stephen", "Strange", "Doctor", Sex.MALE, DateTime.Now, "4578457854", null, "0081747474", "", "drstrange@marvel.com", "stephen.strange@marvel.com", null, null, null, DocTypeEnum.SURGEON);
+            Doctor d2 = new Doctor("p.kon", "", "Predrag", "Kon", "", Sex.MALE, DateTime.Now, "113543545488", null, "0118754786", "", "dr.kon@zdrav.gov.rs", "", null, null, null, DocTypeEnum.INFECTOLOGIST);
+            Doctor d3 = new Doctor("darija", "", "Darija", "Kisic", "", Sex.FEMALE, DateTime.Now, "251812065115", null, "0118798449", "", "darija.kk@gmail.com", "", null, null, null, DocTypeEnum.INFECTOLOGIST);
+            Doctor d4 = new Doctor("doktorr", "", "OKurrr", "Kisic", "", Sex.FEMALE, DateTime.Now, "251812065115", null, "0118798449", "", "darija.kk@gmail.com", "", null, null, null, DocTypeEnum.INFECTOLOGIST);
+
+            //res.doctorRepository.Create(d1);
+            //res.doctorRepository.Create(d2);
+            //res.doctorRepository.Create(d3);
+            //res.doctorRepository.Create(d4);
+            
+            IEnumerable<Doctor> docs = res.doctorRepository.GetDoctorByType(DocTypeEnum.CARDIOLOGIST);
+            Console.WriteLine("ByType(CARDIOLOGIST): " + (docs.ToList().Count == 0));
+
+            IEnumerable<Doctor> docs2 = res.doctorRepository.GetDoctorByType(DocTypeEnum.INFECTOLOGIST);
+            foreach(Doctor doc in docs2)
+            {
+                Console.WriteLine(doc.Name + " " + doc.Surname + " " + doc.DocTypeEnum);
+            }
+
+
+            Console.WriteLine("Doctor Filter");
+
+            DoctorFilter filter1 = new DoctorFilter("Stephen", null, DocTypeEnum.UNDEFINED);
+            Console.WriteLine("Only Stephen");
+            IEnumerable<Doctor> filtered1 = res.doctorRepository.GetFilteredDoctors(filter1);
+            foreach (Doctor doc in filtered1)
+            {
+                Console.WriteLine(doc.Name + " " + doc.Surname + " " + doc.DocTypeEnum);
+            }
+
+            DoctorFilter filter2 = new DoctorFilter("", null, DocTypeEnum.INFECTOLOGIST);
+            Console.WriteLine("Only infectologists");
+            IEnumerable<Doctor> filtered2 = res.doctorRepository.GetFilteredDoctors(filter2);
+            foreach (Doctor doc in filtered2)
+            {
+                Console.WriteLine(doc.Name + " " + doc.Surname + " " + doc.DocTypeEnum);
+            }
+
+            DoctorFilter filter3 = new DoctorFilter("", "Kisic", DocTypeEnum.INFECTOLOGIST);
+            Console.WriteLine("Only Kisic Infectologist");
+            IEnumerable<Doctor> filtered3 = res.doctorRepository.GetFilteredDoctors(filter3);
+            foreach (Doctor doc in filtered3)
+            {
+                Console.WriteLine(doc.Name + " " + doc.Surname + " " + doc.DocTypeEnum);
+            }
+
+            DoctorFilter filter4 = new DoctorFilter("Predrag", "Kon", DocTypeEnum.INFECTOLOGIST);
+            Console.WriteLine("Only Predrag Kon");
+            IEnumerable<Doctor> filtered4 = res.doctorRepository.GetFilteredDoctors(filter4);
+            foreach (Doctor doc in filtered4)
+            {
+                Console.WriteLine(doc.Name + " " + doc.Surname + " " + doc.DocTypeEnum);
+            }
+
+            DoctorFilter filter5 = new DoctorFilter("Predrag", "Kon", DocTypeEnum.DERMATOLOGIST);
+            Console.WriteLine("Empty");
+            IEnumerable<Doctor> filtered5 = res.doctorRepository.GetFilteredDoctors(filter5);
+            Console.WriteLine(filtered5.Count() == 0);
+            foreach (Doctor doc in filtered5)
+            {
+                Console.WriteLine(doc.Name + " " + doc.Surname + " " + doc.DocTypeEnum);
+            }
+
+            filtered4.ToList()[0].TimeTable = res.timeTableRepository.GetByID(1);
+            res.doctorRepository.Update(filtered4.ToList()[0]);
+
+            res.doctorRepository.GetAllEager();
+            
+        }
+
+        private void ManagerRepoTest()
+        {
+            AppResources res = AppResources.getInstance();
+
+            Manager manager = new Manager("vucajj", "PASSWRD", "Aleksa", "Vucaj", "", Sex.MALE, new DateTime(1998, 4, 16), "8646532184", new Address("fukdhfid", new Location(659, "Serbia", "Novi Sad")), "", "", "", "", null, null);
+            Manager manager2 = new Manager("dragic", "PASSWRD", "Aleksa", "Vucaj", "", Sex.MALE, new DateTime(1998, 4, 16), "8646532184", null, "", "", "", "", null, null);
+
+            //res.managerRepository.Create(manager);
+            //res.managerRepository.Create(manager2);
+            
+            IEnumerable<Manager> managers = res.managerRepository.GetAllEager();
+            managers.ToList()[0].Address = new Address("fukdhfid", res.locationRepository.GetByID(659));
+            res.managerRepository.Update(managers.ToList()[0]);
+            res.managerRepository.GetAllEager();
+        
+        }
+
+        private void PatientRepoTest()
+        {
+            AppResources res = AppResources.getInstance();
+
+            Patient p = new Patient(
+                                        "ppppp",
+                                        "PASSWORD",
+                                        "Pera",
+                                        "Perić",
+                                        "P.",
+                                        Sex.MALE,
+                                        new DateTime(1987, 10, 12),
+                                        "01234678",
+                                        null,
+                                        "0217878787",
+                                        "25848596532",
+                                        "pera@peric.rs",
+                                        "",
+                                        new EmergencyContact("Milan", "Milanović", "", "025478956325"),
+                                        PatientType.GUEST,
+                                        null);
+            Patient p2 = new Patient(
+                                        "milic",
+                                        "PASSWORD",
+                                        "Milica",
+                                        "Mikic",
+                                        "M.",
+                                        Sex.FEMALE,
+                                        new DateTime(1992, 11, 7),
+                                        "9876543221",
+                                        new Address("Partizanska 5", new Location(1, "Serbia", "Novi Sad")),
+                                        "0213698569",
+                                        "06454545454",
+                                        "milica@gmail.com",
+                                        "",
+                                        new EmergencyContact("Milana", "Milanović", "", "0217474859"),
+                                        PatientType.GENERAL,
+                                        null);
+
+            //res.patientRepository.Create(p);
+            //res.patientRepository.Create(p2);
+
+            Patient patient1 = res.patientRepository.GetByID(new UserID("p7"));
+            patient1.SelectedDoctor = res.doctorRepository.GetByID(new UserID("d1"));
+            res.patientRepository.Update(patient1);
+
+            Patient patient2 = res.patientRepository.GetByID(new UserID("p6"));
+            patient2.SelectedDoctor = res.doctorRepository.GetByID(new UserID("d1"));
+            res.patientRepository.Update(patient2);
+
+            Patient patient3 = res.patientRepository.GetByID(new UserID("p3"));
+            patient3.SelectedDoctor = res.doctorRepository.GetByID(new UserID("d3"));
+            res.patientRepository.Update(patient3);
+
+            IEnumerable<Patient> patients1 =  res.patientRepository.GetPatientByDoctor(new Doctor(new UserID("d1")));
+            IEnumerable<Patient> patients2 =  res.patientRepository.GetPatientByDoctor(new Doctor(new UserID("d3")));
+            IEnumerable<Patient> patients3 =  res.patientRepository.GetPatientByDoctor(new Doctor(new UserID("d2")));
+
+            Console.WriteLine("D1 doctor's patients");
+            foreach(Patient pp in patients1)
+            {
+                Console.WriteLine(pp.GetId().ToString());
+            }
+
+            Console.WriteLine("D3 doctor's patients");
+            foreach (Patient pp in patients2)
+            {
+                Console.WriteLine(pp.GetId().ToString());
+            }
+
+            Console.WriteLine("D2 doctor's patients");
+            foreach (Patient pp in patients3)
+            {
+                Console.WriteLine(pp.GetId().ToString());
+            }
+
+        }
+
+        private void TimeTableRepoTest()
+        {
+            AppResources res = AppResources.getInstance();
+
+            Dictionary<WorkingDaysEnum, TimeInterval> shifts = new Dictionary<WorkingDaysEnum, TimeInterval>();
+            shifts.Add(WorkingDaysEnum.MONDAY, new TimeInterval(new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 8, 0, 0), new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 14, 0, 0)));
+            shifts.Add(WorkingDaysEnum.TUESDAY, new TimeInterval(new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 12, 0, 0), new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 20, 0, 0)));
+            shifts.Add(WorkingDaysEnum.WEDNESDAY, new TimeInterval(new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 8, 0, 0), new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 14, 0, 0)));
+            shifts.Add(WorkingDaysEnum.THURSDAY, new TimeInterval(new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 12, 0, 0), new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 20, 0, 0)));
+            shifts.Add(WorkingDaysEnum.FRIDAY, new TimeInterval(new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 8, 0, 0), new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 14, 0, 0)));
+            shifts.Add(WorkingDaysEnum.SATURDAY, new TimeInterval(new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 0, 0, 0), new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 0, 0, 0)));
+            shifts.Add(WorkingDaysEnum.SUNDAY, new TimeInterval(new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 0, 0, 0), new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 0, 0, 0)));
+            TimeTable tt = new TimeTable(shifts);
+            //res.timeTableRepository.Create(tt);
+            
+        }
+
+        private void SecretaryRepoTest()
+        {
+            /*
+            Secretary secretary = new Secretary(new UserID("s1"),"secr3450", "passwd", DateTime.Now, "SekretarIme", "SekretarPrezime", null, Sex.MALE, new DateTime(1999, 5, 5), "4578145236", null, null, null, null, null, null, null);
+            SecretaryConverter con = new SecretaryConverter();
+            string sec1 = con.ConvertEntityToCSV(secretary);
+            Console.WriteLine(sec1);
+            string sec2 = con.ConvertEntityToCSV(con.ConvertCSVToEntity(sec1));
+            Console.WriteLine(sec2);
+            */
+            
+            //Secretary secretary2 = new Secretary("jidhsdi", "123456", "SekretarIme2", "SekretarPrezime2", null, Sex.MALE, new DateTime(2000, 5, 5), "164410546", null, null, null, null, null, null, null);
+
             
             AppResources res = AppResources.getInstance();
+            IEnumerable<Secretary> s = res.secretaryRepository.GetAllEager();
+            s.ToList()[1].TimeTable = res.timeTableRepository.GetByID(1);
+            res.secretaryRepository.Update(s.ToList()[1]);
+            res.secretaryRepository.GetAllEager();
             
-            /*
-            Secretary secretary = new Secretary("secr3450", "passwd", "SekretarIme", "SekretarPrezime", null, Sex.MALE, new DateTime(1999, 5, 5), "4578145236", null, null, null, null, null, null, null);
-            Secretary secretary2 = new Secretary("jidhsdi", "123456", "SekretarIme2", "SekretarPrezime2", null, Sex.MALE, new DateTime(2000, 5, 5), "164410546", null, null, null, null, null, null, null);
+        }
 
-            res.secretaryRepository.Create(secretary);
-            res.secretaryRepository.Create(secretary2);
-            */
+        private void LocationRepoTest()
+        {
+            AppResources res = AppResources.getInstance();
+
+            IEnumerable<string> countries = res.locationRepository.GetAllCountries();
+
+            string country = countries.ToList()[50];
+            Console.WriteLine("Selected country: " + country);
+            Console.WriteLine("Cities: ");
+
+            IEnumerable<Location> locs = res.locationRepository.GetLocationByCountry(country);
+            foreach(Location l in locs)
+            {
+                Console.WriteLine(l.City + " " + l.Country);
+            }
         }
     }
 }

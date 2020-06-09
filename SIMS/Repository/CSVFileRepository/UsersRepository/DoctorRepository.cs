@@ -70,16 +70,25 @@ namespace SIMS.Repository.CSVFileRepository.UsersRepository
             var doctor = GetByID(id);
 
             var hospitals = _hospitalRepository.GetAll();
-            doctor.Hospital = hospitals.SingleOrDefault(hospital => hospital.GetId() == doctor.Hospital.GetId());
+            doctor.Hospital = GetHospitalById(doctor.Hospital, hospitals);
 
             var timetables = _timeTableRepository.GetAll();
-            doctor.TimeTable = timetables.SingleOrDefault(timetable => timetable.GetId() == doctor.TimeTable.GetId());
+            doctor.TimeTable = GetTimeTableById(doctor.TimeTable, timetables);
 
             var rooms = _roomRepository.GetAll();
-            doctor.Office = rooms.SingleOrDefault(room => room.GetId() == doctor.Office.GetId());
+            doctor.Office = GetOfficeById(doctor.Office, rooms);
 
             return doctor;
         }
+
+        private Room GetOfficeById(Room officeId, IEnumerable<Room> rooms)
+            => officeId == null ? null : rooms.SingleOrDefault(r => r.GetId() == officeId.GetId());
+
+        private TimeTable GetTimeTableById(TimeTable timeTableId, IEnumerable<TimeTable> timetables)
+            => timeTableId == null ? null : timetables.SingleOrDefault(t => t.GetId() == timeTableId.GetId());
+
+        private Hospital GetHospitalById(Hospital hospitalId, IEnumerable<Hospital> hospitals)
+            => hospitalId == null ? null : hospitals.SingleOrDefault(h => h.GetId() == hospitalId.GetId());
 
         public IEnumerable<Doctor> GetAllEager()
         {
@@ -100,13 +109,13 @@ namespace SIMS.Repository.CSVFileRepository.UsersRepository
         }
 
         private void BindDoctorsWithRooms(IEnumerable<Doctor> doctors, IEnumerable<Room> rooms)
-            => doctors.ToList().ForEach(doctor => doctor.Office = rooms.SingleOrDefault(room => room.GetId() == doctor.Office.GetId()));
+            => doctors.ToList().ForEach(doctor => doctor.Office = GetOfficeById(doctor.Office, rooms));
 
         private void BindDoctorsWithTimeTables(IEnumerable<Doctor> doctors, IEnumerable<TimeTable> timetables)
-            => doctors.ToList().ForEach(doctor => doctor.TimeTable = timetables.SingleOrDefault(timetable => timetable.GetId() == doctor.TimeTable.GetId()));
+            => doctors.ToList().ForEach(doctor => doctor.TimeTable = GetTimeTableById(doctor.TimeTable, timetables));
 
         private void BindDoctorsWithHospitals(IEnumerable<Doctor> doctors, IEnumerable<Hospital> hospitals)
-            => doctors.ToList().ForEach(doctor => doctor.Hospital = hospitals.SingleOrDefault(hospital => hospital.GetId() == doctor.Hospital.GetId()));
+            => doctors.ToList().ForEach(doctor => doctor.Hospital = GetHospitalById(doctor.Hospital, hospitals));
 
     }
 }

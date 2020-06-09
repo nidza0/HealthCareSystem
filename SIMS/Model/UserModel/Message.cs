@@ -13,7 +13,7 @@ namespace SIMS.Model.UserModel
         private User _recipient;
         private User _sender;
 
-        public Message(string text, User recipient, User sender, DateTime dateCreated) : base(text, dateCreated)
+        public Message(string text, User recipient, User sender) : base(text)
         {
             _opened = false;
             _recipient = recipient;

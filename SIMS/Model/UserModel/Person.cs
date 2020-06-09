@@ -54,10 +54,10 @@ namespace SIMS.Model.UserModel
         public string MiddleName { get => _middleName; }
         public DateTime DateOfBirth { get => _dateOfBirth; }
         public string HomePhone { get => _homePhone; }
-        public string CellPhone { get => _cellPhone; }
+        public string CellPhone { get => _cellPhone; set => _cellPhone = value; }
         public string Email1 { get => _email1; }
         public string Email2 { get => _email2; }
-        public Address Address { get => _address; }
+        public Address Address { get => _address; set => _address = value; }
         public Sex Sex { get => _sex; }
         public string FullName { get => _name + " " + _middleName + " " + _surname; }
 

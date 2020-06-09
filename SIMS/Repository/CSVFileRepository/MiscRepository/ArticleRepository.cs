@@ -32,6 +32,12 @@ namespace SIMS.Repository.CSVFileRepository.MiscRepository
             _secretaryRepository = secretaryRepository;
         }
 
+        public new Article Create(Article article)
+        {
+            article.Date = DateTime.Now;
+            return base.Create(article);
+        }
+
         public void BindArticlesWithAuthors(IEnumerable<Article> articles)
         {
             IEnumerable<Article> doctorArticles = articles.ToList().Where(article => article._author.GetId().ToString().ToLower().StartsWith("d"));
@@ -43,6 +49,8 @@ namespace SIMS.Repository.CSVFileRepository.MiscRepository
             IEnumerable<Secretary> secretaries = _secretaryRepository.GetAll();
 
             BindArticlesWithDoctor(doctors, doctorArticles);
+            BindArticlesWithManager(managers, managerArticles);
+            BindArticlesWithSecretary(secretaries, secretaryArticles);
         }
 
         public void BindArticlesWithDoctor(IEnumerable<Doctor> doctors, IEnumerable<Article> articles)
@@ -73,12 +81,10 @@ namespace SIMS.Repository.CSVFileRepository.MiscRepository
 
         public IEnumerable<Article> GetAllEager()
         {
-            throw new NotImplementedException();
+            var articles = GetAll();
+            BindArticlesWithAuthors(articles);
+            return articles;
         }
-
-        public DoctorRepository doctorRepository;
-        public SecretaryRepository secretaryRepository;
-        public ManagerRepository managerRepository;
 
     }
 }

@@ -11,6 +11,8 @@ using SIMS.Repository.CSVFileRepository.MedicalRepository;
 using SIMS.Repository.Sequencer;
 using SIMS.Model.PatientModel;
 using System;
+using SIMS.Repository.CSVFileRepository.MiscRepository;
+using SIMS.Repository.CSVFileRepository.Csv.Converter.MiscConverter;
 
 namespace SIMS
 {
@@ -27,6 +29,9 @@ namespace SIMS
         private readonly String roomFile = @"..\..\Files\HospitalManagementFiles\rooms.txt";
         private readonly String medicineFile = @"..\..\Files\HospitalManagementFiles\medicines.txt";
         private readonly String inventoryItemFile = @"..\..\Files\HospitalManagementFiles\inventoryItems.txt";
+
+        //MiscFiles
+        private readonly String locationFile = @"..\..\Files\MiscFiles\locations.txt";
 
      
 
@@ -52,6 +57,10 @@ namespace SIMS
         public HospitalRepository hospitalRepository;
         public RoomRepository roomRepository;
         public InventoryItemRepository inventoryItemRepository;
+
+        //Misc repositories
+        public LocationRepository locationRepository;
+
 
         //Hospital management
         public MedicineRepository medicineRepository;
@@ -81,6 +90,9 @@ namespace SIMS
             managerRepository = new ManagerRepository(new CSVStream<Manager>(managerFile, new ManagerConverter()), new ComplexSequencer(), timeTableRepository, hospitalRepository, userRepository);
             doctorRepository = new DoctorRepository(new CSVStream<Doctor>(doctorFile, new DoctorConverter()), new ComplexSequencer(), timeTableRepository, hospitalRepository, roomRepository, userRepository);
             patientRepository = new PatientRepository(new CSVStream<Patient>(patientFile, new PatientConverter()), new ComplexSequencer(), doctorRepository, userRepository);
+
+            //Misc repositories
+            locationRepository = new LocationRepository(new CSVStream<Location>(locationFile, new LocationConverter()), new LongSequencer());
 
             //Hospital management repositories
             symptomRepository = new SymptomRepository(new CSVStream<Symptom>(symptomsFile, new SymptomConverter()), new LongSequencer());

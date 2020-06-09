@@ -215,7 +215,6 @@ namespace SIMS.Model.UserModel
         public void SetId(long id)
             => _id = id;
 
-
         //Properties
         public string Name
         {

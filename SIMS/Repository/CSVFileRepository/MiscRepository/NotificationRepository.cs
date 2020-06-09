@@ -24,6 +24,12 @@ namespace SIMS.Repository.CSVFileRepository.MiscRepository
             _userRepository = userRepository;
         }
 
+        public new Notification Create(Notification notification)
+        {
+            notification.Date = DateTime.Now;
+            return base.Create(notification);
+        }
+
         public IEnumerable<Notification> GetAllEager()
         {
             IEnumerable<Notification> notifications = GetAll();
