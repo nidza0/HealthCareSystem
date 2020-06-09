@@ -11,15 +11,12 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.MedicalConverter
 {
     public class TherapyConverter : ICSVConverter<Therapy>
     {
-        private readonly string _delimiter;
-        private readonly string _listDelimiter;
-        private readonly string _dateTimeFormat;
+        private readonly string _delimiter = ",";
+        private readonly string _listDelimiter = ";";
+        private readonly string _dateTimeFormat = "dd.MM.yyyy. HH:mm";
 
-        public TherapyConverter(string delimiter, string listDelimiter, string dateTimeFormat = "dd.MM.yyyy. HH:mm")
+        public TherapyConverter()
         {
-            _delimiter = delimiter;
-            _listDelimiter = listDelimiter;
-            _dateTimeFormat = dateTimeFormat;
         }
 
         public Therapy ConvertCSVToEntity(string csv)

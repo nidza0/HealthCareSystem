@@ -10,21 +10,15 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.MedicalConverter
 {
     class PrescriptionConverter : ICSVConverter<Prescription>
     {
-        private readonly string _delimiter;
-        private readonly string _listDelimiter;
-        private readonly string _secondaryListDelimiter;
-        private readonly string _thirdListDelimiter;
-        private readonly string _fourthListDelimiter;
-        private readonly string _dateTimeFormat;
+        private readonly string _delimiter = ",";
+        private readonly string _listDelimiter = ";";
+        private readonly string _secondaryListDelimiter ="?";
+        private readonly string _thirdListDelimiter = "~";
+        private readonly string _fourthListDelimiter = "#";
+        private readonly string _dateTimeFormat = "dd.MM.yyyy. HH:mm";
 
-        public PrescriptionConverter(string delimiter, string listDelimiter,string secondaryListDelimiter, string thirdListDelimiter, string fourthListDelimiter, string dateTimeFormat = "dd.MM.yyyy. HH:mm")
+        public PrescriptionConverter()
         {
-            _delimiter = delimiter;
-            _listDelimiter = listDelimiter;
-            _dateTimeFormat = dateTimeFormat;
-            _secondaryListDelimiter = secondaryListDelimiter;
-            _thirdListDelimiter = thirdListDelimiter;
-            _fourthListDelimiter = fourthListDelimiter;
         }
 
         public Prescription ConvertCSVToEntity(string csv)

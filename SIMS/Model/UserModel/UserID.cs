@@ -67,7 +67,7 @@ namespace SIMS.Model.UserModel
 
         public UserID increment()
         {
-            this._number++;
+            _number++;
             return this;
         }
     }

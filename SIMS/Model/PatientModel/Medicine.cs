@@ -32,6 +32,7 @@ namespace SIMS.Model.PatientModel
             _usedFor = new List<Disease>();
         }
 
+
         public Medicine(string name, double strength, MedicineType medicineType,bool isValid,List<Disease> usedFor, List<Ingredient> ingredient,int inStock, int minNumber) : base(name, inStock, minNumber)
         {
             _strength = strength;

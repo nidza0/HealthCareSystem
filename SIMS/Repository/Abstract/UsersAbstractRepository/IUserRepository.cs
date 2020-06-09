@@ -12,5 +12,7 @@ namespace SIMS.Repository.Abstract.UsersAbstractRepository
     {
         User GetByUsername(string username);
 
+        User AddUser(User user);
+
     }
 }

@@ -14,10 +14,8 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.HospitalManagementConv
     {
         private readonly string _delimiter = ",";
         private readonly string _listDelimiter = ";";
-        public MedicineConverter(string delimiter, string listDelimiter)
+        public MedicineConverter()
         {
-            _delimiter = delimiter;
-            _listDelimiter = listDelimiter;
         }
 
 

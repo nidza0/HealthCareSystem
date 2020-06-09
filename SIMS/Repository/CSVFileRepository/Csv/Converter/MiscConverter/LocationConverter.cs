@@ -10,11 +10,10 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.MiscConverter
 {
     public class LocationConverter : ICSVConverter<Location>
     {
-        private string _delimiter;
+        private string _delimiter = ",";
 
-        public LocationConverter(string delimiter)
+        public LocationConverter()
         {
-            _delimiter = delimiter;
         }
 
         public Location ConvertCSVToEntity(string csv)

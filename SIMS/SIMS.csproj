@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -38,8 +38,6 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -58,6 +56,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AppResources.cs" />
+    <Compile Include="Repository\Abstract\HospitalManagementAbstractRepository\IDoctorStatisticRepository.cs" />
+    <Compile Include="Repository\Abstract\HospitalManagementAbstractRepository\IInventoryStatisticsRepository.cs" />
+    <Compile Include="Repository\Abstract\HospitalManagementAbstractRepository\IRoomStatisticsRepository.cs" />
+    <Compile Include="Repository\CSVFileRepository\Csv\Converter\HospitalManagementConverter\DoctorStatisticsConverter.cs" />
+    <Compile Include="Repository\CSVFileRepository\Csv\Converter\HospitalManagementConverter\InventoryStatisticsConverter.cs" />
+    <Compile Include="Repository\CSVFileRepository\Csv\Converter\HospitalManagementConverter\RoomStatisticsConverter.cs" />
+    <Compile Include="Repository\CSVFileRepository\HospitalManagementRepository\DoctorStatisticRepository.cs" />
+    <Compile Include="Repository\CSVFileRepository\HospitalManagementRepository\InventoryStatisticsRepository.cs" />
+    <Compile Include="Repository\CSVFileRepository\HospitalManagementRepository\RoomStatisticsRepository.cs" />
     <Compile Include="Exceptions\EntityNotFoundException.cs" />
     <Compile Include="Exceptions\InvalidUserIdException.cs" />
     <Compile Include="Model\UserModel\EmergencyContact.cs" />
@@ -98,6 +106,7 @@
     <Compile Include="Repository\CSVFileRepository\Csv\Converter\HospitalManagementConverter\StatisticsConverter.cs" />
     <Compile Include="Repository\CSVFileRepository\Csv\Converter\HospitalManagementConverter\TimeTableConverter.cs" />
     <Compile Include="Repository\CSVFileRepository\Csv\Converter\MedicalConverter\AllergyConverter.cs" />
+    <Compile Include="Repository\CSVFileRepository\Csv\IdGenerator\UserIdGeneratorStrategy.cs" />
     <Compile Include="Repository\CSVFileRepository\HospitalManagementRepository\TimeTableRepository.cs" />
     <Compile Include="Repository\CSVFileRepository\Csv\Converter\ICSVConverter.cs" />
     <Compile Include="Repository\CSVFileRepository\Csv\Converter\MedicalConverter\AppointmentConverter.cs" />
@@ -151,6 +160,7 @@
     <Compile Include="Repository\CSVFileRepository\MiscRepository\MessageRepository.cs" />
     <Compile Include="Repository\CSVFileRepository\MiscRepository\NotificationRepository.cs" />
     <Compile Include="Repository\CSVFileRepository\UsersRepository\DoctorRepository.cs" />
+    <Compile Include="Exceptions\IllegalUserCreationException.cs" />
     <Compile Include="Repository\CSVFileRepository\UsersRepository\ManagerRepository.cs" />
     <Compile Include="Exceptions\NotUniqueException.cs" />
     <Compile Include="Repository\CSVFileRepository\UsersRepository\PatientRepository.cs" />
@@ -312,9 +322,7 @@
     <Compile Include="Model\PatientModel\TherapyTime.cs" />
     <Compile Include="Model\UserModel\Address.cs" />
     <Compile Include="Model\UserModel\Article.cs" />
-    <Compile Include="Model\UserModel\City.cs" />
     <Compile Include="Model\UserModel\Content.cs" />
-    <Compile Include="Model\UserModel\Country.cs" />
     <Compile Include="Model\UserModel\Doctor.cs" />
     <Compile Include="Model\UserModel\Employee.cs" />
     <Compile Include="Model\UserModel\Feedback.cs" />
@@ -357,17 +365,12 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="View\readme.md" />
-    <None Include="View\ViewPatient\README.md" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="View\ViewPatient\static\images\logo.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="View\ViewPatient\helpClass\" />
+    <Folder Include="View\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

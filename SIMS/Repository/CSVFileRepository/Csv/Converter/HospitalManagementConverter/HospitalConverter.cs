@@ -12,13 +12,11 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.HospitalManagementConv
 {
     public class HospitalConverter : ICSVConverter<Hospital>
     {
-        private readonly string _delimiter = ",";
-        private readonly string _listDelimiter = ";"; //Delimiter used for separating room IDs.
+        private readonly string _delimiter = "?";
+        private readonly string _listDelimiter = "~"; //Delimiter used for separating room IDs.
 
-        public HospitalConverter(string delimiter, string listDelimiter)
+        public HospitalConverter()
         {
-            _delimiter = delimiter;
-            _listDelimiter = listDelimiter;
         }
 
         public Hospital ConvertCSVToEntity(string csv)

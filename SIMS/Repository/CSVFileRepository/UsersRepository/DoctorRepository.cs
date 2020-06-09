@@ -29,18 +29,24 @@ namespace SIMS.Repository.CSVFileRepository.UsersRepository
         private readonly IUserRepository _userRepository;
         private const string NOT_UNIQUE_ERROR = "Doctor username {0} is not unique!";
 
-        public DoctorRepository(ICSVStream<Doctor> stream, ISequencer<UserID> sequencer, ITimeTableRepository timeTableRepository, IHospitalRepository hospitalRepository, IRoomRepository roomRepository)
+        public DoctorRepository(ICSVStream<Doctor> stream, ISequencer<UserID> sequencer, ITimeTableRepository timeTableRepository, IHospitalRepository hospitalRepository, IRoomRepository roomRepository, IUserRepository userRepository)
             : base(ENTITY_NAME, stream, sequencer, new DoctorIdGeneratorStrategy())
         {
             _timeTableRepository = timeTableRepository;
             _hospitalRepository = hospitalRepository;
             _roomRepository = roomRepository;
+            _userRepository = userRepository;
         }
 
         public new Doctor Create(Doctor doctor)
         {
             if (IsUsernameUnique(doctor.UserName))
-                return base.Create(doctor);
+            {
+                doctor.DateCreated = DateTime.Now;
+                doctor = base.Create(doctor);
+                _userRepository.AddUser(doctor);
+                return doctor;
+            }
             else
                 throw new NotUniqueException(string.Format(NOT_UNIQUE_ERROR, doctor.UserName));
         }
@@ -77,7 +83,9 @@ namespace SIMS.Repository.CSVFileRepository.UsersRepository
 
         public IEnumerable<Doctor> GetAllEager()
         {
-            throw new NotImplementedException();
+            var doctors = GetAll();
+            Bind(doctors);
+            return doctors;
         }
         private void Bind(IEnumerable<Doctor> doctors)
         {

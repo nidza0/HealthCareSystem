@@ -6,6 +6,7 @@
 using SIMS.Model.PatientModel;
 using SIMS.Model.UserModel;
 using SIMS.Repository.Abstract.MedicalAbstractRepository;
+using SIMS.Repository.Abstract.UsersAbstractRepository;
 using SIMS.Repository.CSVFileRepository.Csv;
 using SIMS.Repository.CSVFileRepository.Csv.IdGenerator;
 using SIMS.Repository.CSVFileRepository.Csv.Stream;
@@ -13,63 +14,76 @@ using SIMS.Repository.CSVFileRepository.UsersRepository;
 using SIMS.Repository.Sequencer;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SIMS.Repository.CSVFileRepository.MedicalRepository
 {
     public class MedicalRecordRepository : CSVRepository<MedicalRecord, long>, IMedicalRecordRepository, IEagerCSVRepository<MedicalRecord, long>
     {
-        public MedicalRecordRepository(string entityName, ICSVStream<MedicalRecord> stream, ISequencer<long> sequencer) : base(entityName, stream, sequencer, new LongIdGeneratorStrategy<MedicalRecord>())
+        private const string ENTITY_NAME = "MedicalRecord";
+        private IPatientRepository _patientRepository;
+        private IDiagnosisRepository _diagnosisRepository;
+        private IAllergyRepository _allergyRepository;
+
+        public IPatientRepository PatientRepository { get => _patientRepository; set => _patientRepository = value; }
+        public IDiagnosisRepository DiagnosisRepository { get => _diagnosisRepository; set => _diagnosisRepository = value; }
+        public IAllergyRepository AllergyRepository { get => _allergyRepository; set => _allergyRepository = value; }
+
+        public MedicalRecordRepository(ICSVStream<MedicalRecord> stream, ISequencer<long> sequencer, IPatientRepository patientRepository, IDiagnosisRepository diagnosisRepository, IAllergyRepository allergyRepository) : base(ENTITY_NAME, stream, sequencer, new LongIdGeneratorStrategy<MedicalRecord>())
         {
+            _patientRepository = patientRepository;
+            _diagnosisRepository = diagnosisRepository;
+            _allergyRepository = allergyRepository;
         }
 
-        private void Bind(IEnumerable<MedicalRecord> medicalRecords)
+        private void Bind(IEnumerable<MedicalRecord> medicalRecords, IEnumerable<Patient> patients, IEnumerable<Diagnosis> diagnoses, IEnumerable<Allergy> allergies ) 
         {
-            throw new NotImplementedException();
+            BindMedicalRecordsWithAllergies(medicalRecords, allergies);
+            BindMedicalRecordsWithDiagnosis(medicalRecords, diagnoses);
+            BindMedicalRecordsWithPatients(medicalRecords, patients);
         }
 
         private void BindMedicalRecordsWithDiagnosis(IEnumerable<MedicalRecord> medicalRecords, IEnumerable<Diagnosis> diagnosis)
-        {
-            throw new NotImplementedException();
-        }
+            => medicalRecords.ToList().ForEach(medicalRecord =>
+            {
+                medicalRecord.PatientDiagnosis = GetDiagnosisByIds(diagnosis, medicalRecord.PatientDiagnosis.Select(diag => diag.GetId())).ToList();
+            });
 
         private void BindMedicalRecordsWithAllergies(IEnumerable<MedicalRecord> medicalRecords, IEnumerable<Allergy> allergies)
-        {
-            throw new NotImplementedException();
-        }
+            => medicalRecords.ToList().ForEach(medicalRecord =>
+           {
+               medicalRecord.Allergy = GetAlergiesByIds(allergies, medicalRecord.Allergy.Select(allergy => allergy.GetId())).ToList();
+           });
 
         private void BindMedicalRecordsWithPatients(IEnumerable<MedicalRecord> medicalRecords, IEnumerable<Patient> patients)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Diagnosis AddDiagnosis(Patient patient, Diagnosis diagnosis)
-        {
-            throw new NotImplementedException();
-        }
+            => medicalRecords.ToList().ForEach(medicalRecord => medicalRecord.Patient = GetPatientById(patients, medicalRecord.Patient.GetId()));
 
         public MedicalRecord GetPatientMedicalRecord(Patient patient)
-        {
-            throw new NotImplementedException();
-        }
-
-        public MedicalRecord AddAllergy(MedicalRecord medicalRecord, Allergy allergy)
-        {
-            throw new NotImplementedException();
-        }
+            => GetAllEager().SingleOrDefault(medicalRecord => medicalRecord.Patient.Equals(patient));
 
         public MedicalRecord GetEager(long id)
-        {
-            throw new NotImplementedException();
-        }
+            => GetAllEager().SingleOrDefault(medicalRecord => medicalRecord.GetId() == id);
 
         public IEnumerable<MedicalRecord> GetAllEager()
         {
-            throw new NotImplementedException();
+            IEnumerable<MedicalRecord> medicalRecords = GetAll();
+
+            IEnumerable<Patient> patients = _patientRepository.GetAll();
+            IEnumerable<Diagnosis> diagnoses = _diagnosisRepository.GetAll();
+            IEnumerable<Allergy> allergies = _allergyRepository.GetAll();
+
+            Bind(medicalRecords, patients, diagnoses, allergies);
+
+            return medicalRecords;
         }
 
-        public DiagnosisRepository diagnosisRepository;
-        public AllergyRepository allergyRepository;
-        public PatientRepository patientRepository;
+        private IEnumerable<Diagnosis> GetDiagnosisByIds(IEnumerable<Diagnosis> diagnoses, IEnumerable<long> ids)
+            => diagnoses.Where(diagnosis => ids.Contains(diagnosis.GetId()));
 
+        private IEnumerable<Allergy> GetAlergiesByIds(IEnumerable<Allergy> allergies, IEnumerable<long> ids)
+            => allergies.Where(allergy => ids.Contains(allergy.GetId()));
+
+        private Patient GetPatientById(IEnumerable<Patient> patients, UserID id)
+            => patients.ToList().SingleOrDefault(patient => patient.GetId().Equals(id));
     }
 }

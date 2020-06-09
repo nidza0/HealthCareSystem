@@ -15,34 +15,19 @@ using System.Linq;
 
 namespace SIMS.Repository.CSVFileRepository.MiscRepository
 {
-    public class LocationRepository : CSVRepository<Location, long>, ILocationRepository, IEagerCSVRepository<Location, long>
+    public class LocationRepository : CSVRepository<Location, long>, ILocationRepository
     {
         public LocationRepository(string entityName, ICSVStream<Location> stream, ISequencer<long> sequencer) : base(entityName, stream, sequencer, new LongIdGeneratorStrategy<Location>())
         {
         }
 
-        public IEnumerable<Country> GetAllCountries()
+        public IEnumerable<string> GetAllCountries()
         {
             throw new NotImplementedException();
         }
-
-
-
-        // TODO: Obsolete
-        public IEnumerable<Location> GetAllEager()
-        {
-            return GetAll();
-        }
-
-        public Location GetEager(long id)
-            => GetAllEager().ToList().SingleOrDefault(location => location.GetId() == id);
 
         public IEnumerable<Location> GetLocationByCountry(string country)
             => GetAll().ToList().Where(location => location.Country == country);
 
-        public IEnumerable<Location> GetLocationByCountry(Country country)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

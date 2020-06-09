@@ -9,11 +9,10 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.MedicalConverter
 {
     class IngredientConverter : ICSVConverter<Ingredient>
     {
-        private readonly string _delimiter;
+        private readonly string _delimiter = ",";
         
-        public IngredientConverter(string delimiter)
+        public IngredientConverter()
         {
-            _delimiter = delimiter;
         }
 
         //private string _name;

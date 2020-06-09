@@ -11,19 +11,14 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.HospitalManagementConv
 {
     class TimeTableConverter : ICSVConverter<TimeTable>
     {
-        private readonly string _delimiter;
-        private readonly string _listDelimiter;
-        private readonly string _secondListDelimiter;
-        private readonly string _dateTimeFormat;
+        private readonly string _delimiter = ">";
+        private readonly string _listDelimiter = "~";
+        private readonly string _secondListDelimiter = "_";
+        private readonly string _dateTimeFormat = "dd.MM.yyyy. HH:mm";
 
-        public TimeTableConverter(string delimiter, string listDelimiter, string secondListDelimiter, string dateTimeFormat = "dd.MM.yyyy. HH:mm")
+        public TimeTableConverter()
         {
-            _delimiter = delimiter;
-            _listDelimiter = listDelimiter;
-            _secondListDelimiter = secondListDelimiter;
-            _dateTimeFormat = dateTimeFormat;
         }
-
 
         public TimeTable ConvertCSVToEntity(string csv)
         {
@@ -33,7 +28,6 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.HospitalManagementConv
                     long.Parse(tokens[0]),
                     GetWorkTime(tokens[1])
                 );
-
         }
 
         public string ConvertEntityToCSV(TimeTable entity)
