@@ -1,0 +1,169 @@
+﻿<Page x:Class="SIMS.View.ViewDoctor.Settings.Podesavanja"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SIMS.View.ViewDoctor.Settings"
+      mc:Ignorable="d" 
+      d:DesignHeight="768" d:DesignWidth="1024"
+      Title="Podesavanja">
+
+    <Page.Resources>
+        <SolidColorBrush x:Key="BackgroundColor" Color="White" />
+        <SolidColorBrush x:Key="PrimaryColor" Color="DarkOliveGreen" />
+        <SolidColorBrush x:Key="SecondaryColor" Color="#FF494949"/>
+    </Page.Resources>
+
+    <Border Background="{StaticResource  ResourceKey=BackgroundColor}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="89.302"/>
+
+                <RowDefinition Height="*" />
+                <RowDefinition Height="35.878"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.1*" />
+
+                <ColumnDefinition Width="*" />
+
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="0.1*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Podešavanja" Grid.ColumnSpan="5" Grid.Row="0" TextAlignment="Center" 
+                       Height="192" VerticalAlignment="Center" Padding="66" FontFamily="Helvetica"
+                       FontSize="48" Foreground="{StaticResource ResourceKey=BackgroundColor}" 
+                       Background="{StaticResource ResourceKey=PrimaryColor}" />
+
+            <Button Grid.Column="0" Grid.Row="0" 
+                    Background="{StaticResource ResourceKey=PrimaryColor}" Click="Back_Button_Click"
+                    BorderThickness="0" />
+            <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2">
+                <StackPanel Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Height="641.82">
+
+                    <Grid Height="641.82">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="0.2*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <!-- Nalog -->
+                        <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" CornerRadius="10" BorderThickness="5" BorderBrush="#eee">
+                            <Button  Background="Transparent" Click="Account_Button_Click"
+                                Content="Podešavanje naloga" FontFamily="Helvetica" FontSize="24" Foreground="{StaticResource ResourceKey=SecondaryColor}" BorderThickness="0" />
+                        </Border>
+
+                        <!-- Obavestenja -->
+                        <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" CornerRadius="10" BorderThickness="5" BorderBrush="#eee">
+                            <Button  Background="Transparent"
+                                Content="Obaveštenja" FontFamily="Helvetica" FontSize="24" Foreground="{StaticResource ResourceKey=SecondaryColor}" BorderThickness="0" 
+                                 Click="Notifications_Button_Click"/>
+
+                        </Border>
+
+                        <CheckBox x:Name="CheckBox_Notifications" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" RenderTransformOrigin="0.5,0.5" Margin="49,0,0,0" >
+                            <CheckBox.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform ScaleX="2" ScaleY="2"/>
+                                    <SkewTransform/>
+                                    <RotateTransform/>
+                                    <TranslateTransform X="20"/>
+                                </TransformGroup>
+                            </CheckBox.RenderTransform>
+                        </CheckBox>
+
+                        <!-- NOVI LEK -->
+                        <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" CornerRadius="10" BorderThickness="5" BorderBrush="#eee">
+                            <Button x:Name="newMedBtn"  Background="Transparent"
+                                Content="Novi lek" FontFamily="Helvetica" FontSize="24" Foreground="{StaticResource ResourceKey=SecondaryColor}" BorderThickness="0" 
+                                 Click="NewMed_Button_Click"/>
+
+                        </Border>
+
+                        <CheckBox x:Name="CheckBox_NewMed" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" RenderTransformOrigin="0.5,0.5" Margin="49,0,0,0" >
+                            <CheckBox.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform ScaleX="2" ScaleY="2"/>
+                                    <SkewTransform/>
+                                    <RotateTransform/>
+                                    <TranslateTransform X="20"/>
+                                </TransformGroup>
+                            </CheckBox.RenderTransform>
+                        </CheckBox>
+
+                        <!-- Administracija -->
+                        <Border Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" CornerRadius="10" BorderThickness="5" BorderBrush="#eee">
+                            <Button x:Name="adminBtn"  Background="Transparent"
+                                Content="Administracija" FontFamily="Helvetica" FontSize="24" Foreground="{StaticResource ResourceKey=SecondaryColor}" BorderThickness="0" 
+                                 Click="adminBtn_Click"/>
+
+                        </Border>
+
+                        <CheckBox x:Name="CheckBox_Admin" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" RenderTransformOrigin="0.5,0.5" Margin="49,0,0,0" >
+                            <CheckBox.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform ScaleX="2" ScaleY="2"/>
+                                    <SkewTransform/>
+                                    <RotateTransform/>
+                                    <TranslateTransform X="20"/>
+                                </TransformGroup>
+                            </CheckBox.RenderTransform>
+                        </CheckBox>
+
+                        <!-- Pacijenti -->
+                        <Border Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" CornerRadius="10" BorderThickness="5" BorderBrush="#eee">
+                            <Button x:Name="patientBtn"  Background="Transparent"
+                                Content="Pacijenti" FontFamily="Helvetica" FontSize="24" Foreground="{StaticResource ResourceKey=SecondaryColor}" BorderThickness="0" 
+                                 Click="patientBtn_Click"/>
+
+                        </Border>
+
+                        <CheckBox x:Name="CheckBox_Patient" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" RenderTransformOrigin="0.5,0.5" Margin="49,0,0,0" >
+                            <CheckBox.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform ScaleX="2" ScaleY="2"/>
+                                    <SkewTransform/>
+                                    <RotateTransform/>
+                                    <TranslateTransform X="20"/>
+                                </TransformGroup>
+                            </CheckBox.RenderTransform>
+                        </CheckBox>
+
+                        <!-- Appointmenti -->
+                        <Border Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" CornerRadius="10" BorderThickness="5" BorderBrush="#eee">
+                            <Button x:Name="appointmentBtn"  Background="Transparent"
+                                Content="Zakazani termini" FontFamily="Helvetica" FontSize="24" Foreground="{StaticResource ResourceKey=SecondaryColor}" BorderThickness="0" 
+                                 Click="appointmentBtn_Click"/>
+
+                        </Border>
+
+                        <CheckBox x:Name="CheckBox_Appointments" Grid.Row="5" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" RenderTransformOrigin="0.5,0.5" Margin="49,0,0,0" >
+                            <CheckBox.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform ScaleX="2" ScaleY="2"/>
+                                    <SkewTransform/>
+                                    <RotateTransform/>
+                                    <TranslateTransform X="20"/>
+                                </TransformGroup>
+                            </CheckBox.RenderTransform>
+                        </CheckBox>
+
+
+
+
+                    </Grid>
+
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+
+    </Border>
+</Page>

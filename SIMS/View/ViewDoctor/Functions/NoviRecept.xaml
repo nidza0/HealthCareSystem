@@ -1,0 +1,129 @@
+﻿<Page x:Class="SIMS.View.ViewDoctor.Functions.NoviRecept"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SIMS.View.ViewDoctor.Functions"
+      mc:Ignorable="d" 
+      d:DesignHeight="768" d:DesignWidth="1024"
+      Title="NoviRecept">
+
+    <Page.Resources>
+        <SolidColorBrush x:Key="BackgroundColor" Color="White" />
+        <SolidColorBrush x:Key="PrimaryColor" Color="DarkOliveGreen" />
+        <SolidColorBrush x:Key="SecondaryColor" Color="#FF494949"/>
+    </Page.Resources>
+
+    <Border Background="{StaticResource  ResourceKey=BackgroundColor}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="89.302"/>
+                <RowDefinition Height="0.1*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+
+                <RowDefinition Height="35.878"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.1*" />
+
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="0.1*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Novi recept" Grid.ColumnSpan="5" Grid.Row="0" TextAlignment="Center" 
+                       Height="192" VerticalAlignment="Center" Padding="66" FontFamily="Helvetica"
+                       FontSize="48" Foreground="{StaticResource ResourceKey=BackgroundColor}" 
+                       Background="{StaticResource ResourceKey=PrimaryColor}" />
+
+            <Button Grid.Column="0" Grid.Row="0" 
+                    Background="{StaticResource ResourceKey=PrimaryColor}" Click="Back_Button_Click"
+                    BorderThickness="0" />
+
+            <!-- Datum pregleda -->
+            <TextBlock Grid.Row="2" Grid.Column="1" Text="Datum pregleda" FontFamily="Helvetica" 
+                       FontSize="24" Foreground="{StaticResource ResourceKey=SecondaryColor}"
+                       VerticalAlignment="Center"/>
+
+            <Grid Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <DatePicker x:Name="DatePicker" Grid.Column="0"  Background="{StaticResource ResourceKey=BackgroundColor}"
+                      FontFamily="Helvetica" FontSize="24"/>
+                <Button x:Name="CheckBoxBtn" Click="CheckBoxBtn_Click" Grid.Column="1" Background="{StaticResource ResourceKey=BackgroundColor}"
+                        BorderThickness="0">
+                    <CheckBox x:Name="Today_CheckBox" Content="Danas" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"
+                          FontSize="18" FontFamily="Helvetica"></CheckBox>
+                </Button>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                </Grid>
+            </Grid>
+
+            <!-- Naziv leka -->
+            <TextBlock Grid.Row="4" Grid.Column="1" Text="Naziv leka" FontFamily="Helvetica" 
+                       FontSize="24" Foreground="{StaticResource ResourceKey=SecondaryColor}"
+                       VerticalAlignment="Center"/>
+
+            <TextBox Grid.Column="1" Grid.Row="5" Background="{StaticResource ResourceKey=BackgroundColor}"
+                     Grid.ColumnSpan="2" FontFamily="Helvetica" FontSize="24"/>
+
+            <!-- Kolicina -->
+            <TextBlock Grid.Row="6" Grid.Column="1" Text="Dnevna količina" FontFamily="Helvetica" 
+                       FontSize="24" Foreground="{StaticResource ResourceKey=SecondaryColor}"
+                       VerticalAlignment="Center"/>
+            <TextBlock Grid.Row="6" Grid.Column="2" Text="Koliko dana" FontFamily="Helvetica" 
+                       FontSize="24" Foreground="{StaticResource ResourceKey=SecondaryColor}"
+                       VerticalAlignment="Center"/>
+
+            <TextBlock Grid.Row="8" Grid.Column="1" Text="Dijagnoza" FontFamily="Helvetica" 
+                       FontSize="24" Foreground="{StaticResource ResourceKey=SecondaryColor}"
+                       VerticalAlignment="Center"/>
+
+
+            <TextBox x:Name="DailyAmount_TextBox" Grid.Column="1" Grid.Row="7" Background="{StaticResource ResourceKey=BackgroundColor}"
+                       FontFamily="Helvetica" FontSize="24"/>
+
+            <TextBox x:Name="DayCount_TextBox" Grid.Column="2" Grid.Row="7" Background="{StaticResource ResourceKey=BackgroundColor}"
+                       FontFamily="Helvetica" FontSize="24"/>
+
+            <TextBox x:Name="Diagnosis_TextBox" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="9" Background="{StaticResource ResourceKey=BackgroundColor}"
+                       FontFamily="Helvetica" FontSize="24"/>
+
+
+
+            <!-- Yes/No -->
+
+            <Button Width="100" Grid.Column="1" Grid.Row="10" HorizontalAlignment="Right" Margin ="0 10 50 0" Click="OK_Button_Click">
+                <Image Source="/View/ok.png"/>
+                <!-- Implementiraj popup! -->
+            </Button>
+            <Button Width="100" Grid.Column="2" Grid.Row="10" HorizontalAlignment="Left" Margin ="50 10 0 0" Click="CANCEL_Button_Click">
+                <Image Source="/View/cancel.png"/>
+                <!-- Implementiraj popup! -->
+            </Button>
+
+            <TextBlock Text="Potvrdi" FontSize="18" FontFamily="Helvetica" Grid.Column="1"
+                       Grid.Row="11" HorizontalAlignment="Right" Margin="0 0 72 0" Foreground="{StaticResource ResourceKey=SecondaryColor}"/>
+
+            <TextBlock Text="Otkaži" FontSize="18" FontFamily="Helvetica" Grid.Column="2"
+                       Grid.Row="11" HorizontalAlignment="Left" Margin="72 0 0 0" Foreground="{StaticResource ResourceKey=SecondaryColor}"/>
+
+
+        </Grid>
+
+    </Border>
+</Page>

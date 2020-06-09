@@ -14,8 +14,8 @@
         <SolidColorBrush x:Key="SecondaryColor" Color="#FF494949"/>
     </Page.Resources>
 
-    <Border Background="{StaticResource  ResourceKey=BackgroundColor}">
-        <Grid>
+    <Border Background="{StaticResource  ResourceKey=BackgroundColor}" >
+        <Grid MouseLeftButtonDown="Border_MouseLeftButtonDown" MouseMove="Border_MouseMove">
             <Grid.RowDefinitions>
                 <RowDefinition Height="0.5*"/>
                 <RowDefinition Height="*"/>
@@ -37,8 +37,7 @@
                        Height="192" VerticalAlignment="Center" Padding="66" FontFamily="Helvetica"
                        FontSize="48" Foreground="{StaticResource ResourceKey=BackgroundColor}" 
                        Background="{StaticResource ResourceKey=PrimaryColor}" />
-            <Button x:Name="RightPageBtn" Click="RightPageBtn_Click"
-                    Grid.Column="4" Background="Transparent"/>
+            
 
             <!-- Lista pacijenata -->
             <Button Grid.Row="1" Grid.Column="1" Click="PatientList_Button_Click"

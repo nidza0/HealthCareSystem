@@ -1,0 +1,111 @@
+﻿<Page x:Class="SIMS.View.ViewDoctor.PatientList.SelektovaniPacijent"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SIMS.View.ViewDoctor.PatientList"
+      mc:Ignorable="d" 
+      d:DesignHeight="768" d:DesignWidth="1024"
+      Title="SelektovaniPacijent">
+
+    <Page.Resources>
+        <SolidColorBrush x:Key="BackgroundColor" Color="White" />
+        <SolidColorBrush x:Key="PrimaryColor" Color="DarkOliveGreen" />
+        <SolidColorBrush x:Key="SecondaryColor" Color="#FF494949"/>
+    </Page.Resources>
+
+    <Border Background="{StaticResource  ResourceKey=BackgroundColor}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="89.302"/>
+                <RowDefinition Height="0.2*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="35.878"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.1*" />
+
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="0.1*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Ime Prezime - Panel"  TextAlignment="Center" Grid.ColumnSpan="5" Grid.Row="0"
+                       Height="192" VerticalAlignment="Center" Padding="66" FontFamily="Helvetica"
+                       FontSize="48" Foreground="{StaticResource ResourceKey=BackgroundColor}" 
+                       Background="{StaticResource ResourceKey=PrimaryColor}" />
+
+            <Button Grid.Column="0" Grid.Row="0" 
+                    Background="{StaticResource ResourceKey=PrimaryColor}" Click="Back_Button_Click"
+                    BorderThickness="0" />
+
+            <Grid Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="0.2*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="0.2*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <!-- Karton pacijenta -->
+
+                <Button x:Name="KartonBtn" Height="240" Background="{StaticResource ResourceKey=BackgroundColor}" BorderThickness="0"></Button>
+                <TextBlock Grid.Row="1" Text="Karton pacijenta" FontFamily="Helvetica" FontSize="17"
+                               VerticalAlignment="Center" HorizontalAlignment="Center"
+                               Foreground="{StaticResource ResourceKey=SecondaryColor}"/>
+
+
+                <!-- Izmeni pacijenta -->
+
+
+                <Button x:Name="EditPatientBtn" Grid.Row="0" Grid.Column="1" Height="240" Background="{StaticResource ResourceKey=BackgroundColor}" BorderThickness="0"></Button>
+                <TextBlock Text="Izmeni pacijenta" Grid.Row="1" Grid.Column="1" FontFamily="Helvetica" FontSize="17"
+                               VerticalAlignment="Center" HorizontalAlignment="Center"
+                               Foreground="{StaticResource ResourceKey=SecondaryColor}"/>
+
+
+
+                <!-- Pregledi -->
+
+                <Button x:Name="AppointmentBtn" Grid.Row="0" Grid.Column="2" Height="240" Background="{StaticResource ResourceKey=BackgroundColor}" BorderThickness="0"></Button>
+                <TextBlock Text="Kontrole" Grid.Row="1" Grid.Column="2" FontFamily="Helvetica" FontSize="17"
+                               VerticalAlignment="Center" HorizontalAlignment="Center"
+                               Foreground="{StaticResource ResourceKey=SecondaryColor}"/>
+
+
+                <!-- Stacionarno lecenje -->
+
+                <Button Click="StacionarnoLecenjeBtn_Click" x:Name="StacionarnoLecenjeBtn" Grid.Row="2" Grid.Column="0" Height="240" Background="{StaticResource ResourceKey=BackgroundColor}" BorderThickness="0"></Button>
+                <TextBlock Text="Uput za stacionarno lečenje" Grid.Row="3" Grid.Column="0" FontFamily="Helvetica" FontSize="17"
+                               VerticalAlignment="Center" HorizontalAlignment="Center"
+                               Foreground="{StaticResource ResourceKey=SecondaryColor}"/>
+
+
+                <!-- Specijalisticki pregled -->
+
+                <Button Click="SpecijalistickiBtn_Click"  x:Name="SpecijalistickiBtn" Grid.Row="2" Grid.Column="1" Height="240" Background="{StaticResource ResourceKey=BackgroundColor}" BorderThickness="0"></Button>
+                <TextBlock Text="Uput za specijalistički pregled" Grid.Row="3" Grid.Column="1" FontFamily="Helvetica" FontSize="17"
+                               VerticalAlignment="Center" HorizontalAlignment="Center"
+                               Foreground="{StaticResource ResourceKey=SecondaryColor}"/>
+
+
+                <!-- Laboratorijski pregled -->
+
+                <Button Click="LaboratorijaBtn_Click" Grid.Row="2" Grid.Column="2" x:Name="LaboratorijaBtn" Height="240" Background="{StaticResource ResourceKey=BackgroundColor}" BorderThickness="0"></Button>
+                <TextBlock Grid.Row="3" Grid.Column="2" Text="Uput za laboratorijski pregled" FontFamily="Helvetica" FontSize="17"
+                               VerticalAlignment="Center" HorizontalAlignment="Center"
+                               Foreground="{StaticResource ResourceKey=SecondaryColor}"/>
+
+            </Grid>
+
+
+
+
+        </Grid>
+
+    </Border>
+</Page>
