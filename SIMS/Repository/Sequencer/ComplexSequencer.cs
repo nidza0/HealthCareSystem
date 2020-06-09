@@ -12,14 +12,16 @@ namespace SIMS.Repository.Sequencer
     {
         private UserID nextID;
 
-        public UserID GenerateID()
+        public UserID GenerateID() 
         {
-            throw new NotImplementedException();
+            nextID = nextID.increment();
+            return new UserID(nextID.ToString());
         }
 
         public void Initialize(UserID initID)
         {
-            throw new NotImplementedException();
+            nextID = new UserID(initID.ToString());
         }
+        
     }
 }

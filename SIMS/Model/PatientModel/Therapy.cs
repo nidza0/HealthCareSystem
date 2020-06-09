@@ -3,93 +3,46 @@
 // Created: 15. april 2020 22:03:13
 // Purpose: Definition of Class Therapy
 
-using Model.Patient;
+using SIMS.Repository.Abstract;
+using SIMS.Util;
 using System;
+using System.Collections.Generic;
 
 namespace SIMS.Model.PatientModel
 {
-    public class Therapy
+    public class Therapy : IIdentifiable<long>
     {
-        private long id;
+        private long _id;
+        private TimeInterval _timeInterval;
+        private Prescription _prescription;
 
-        public bool AddMedicine()
+        public TimeInterval TimeInterval { get => _timeInterval; set => _timeInterval = value; }
+        public Prescription Prescription { get => _prescription; set => _prescription = value; }
+
+        public Therapy(long id)
         {
-            throw new NotImplementedException();
+            _id = id;
         }
 
-        public void RemoveMedicine()
+        public Therapy(long id, TimeInterval timeInterval, Prescription prescription)
         {
-            throw new NotImplementedException();
+            _id = id;
+            _timeInterval = timeInterval;
+            _prescription = prescription;
         }
 
-        public void SetTherapyTime()
+        public Therapy(TimeInterval timeInterval, Prescription prescription)
         {
-            throw new NotImplementedException();
+            _timeInterval = timeInterval;
+            _prescription = prescription;
         }
 
-        public Util.TimeInterval timeInterval;
-        public System.Collections.Generic.List<TherapyDose> therapyDose;
+        public long GetId()
+            => _id;
 
-        /// <summary>
-        /// Property for collection of TherapyDose
-        /// </summary>
-        /// <pdGenerated>Default opposite class collection property</pdGenerated>
-        public System.Collections.Generic.List<TherapyDose> TherapyDose
-        {
-            get
-            {
-                if (therapyDose == null)
-                    therapyDose = new System.Collections.Generic.List<TherapyDose>();
-                return therapyDose;
-            }
-            set
-            {
-                RemoveAllTherapyDose();
-                if (value != null)
-                {
-                    foreach (TherapyDose oTherapyDose in value)
-                        AddTherapyDose(oTherapyDose);
-                }
-            }
-        }
+        public void SetId(long id)
+            => _id = id;
 
-        /// <summary>
-        /// Add a new TherapyDose in the collection
-        /// </summary>
-        /// <pdGenerated>Default Add</pdGenerated>
-        public void AddTherapyDose(TherapyDose newTherapyDose)
-        {
-            if (newTherapyDose == null)
-                return;
-            if (therapyDose == null)
-                therapyDose = new System.Collections.Generic.List<TherapyDose>();
-            if (!therapyDose.Contains(newTherapyDose))
-                therapyDose.Add(newTherapyDose);
-        }
-
-        /// <summary>
-        /// Remove an existing TherapyDose from the collection
-        /// </summary>
-        /// <pdGenerated>Default Remove</pdGenerated>
-        public void RemoveTherapyDose(TherapyDose oldTherapyDose)
-        {
-            if (oldTherapyDose == null)
-                return;
-            if (therapyDose != null)
-                if (therapyDose.Contains(oldTherapyDose))
-                    therapyDose.Remove(oldTherapyDose);
-        }
-
-        /// <summary>
-        /// Remove all instances of TherapyDose from the collection
-        /// </summary>
-        /// <pdGenerated>Default removeAll</pdGenerated>
-        public void RemoveAllTherapyDose()
-        {
-            if (therapyDose != null)
-                therapyDose.Clear();
-        }
-        public Prescription prescription;
 
     }
 }

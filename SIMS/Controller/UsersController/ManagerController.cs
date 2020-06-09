@@ -7,37 +7,30 @@ using System;
 using System.Collections.Generic;
 using Controller;
 using SIMS.Model.UserModel;
+using SIMS.Service;
 using SIMS.Service.UsersService;
 
 namespace SIMS.Controller.UsersController
 {
     public class ManagerController : IController<Manager, UserID>
     {
+
         public ManagerService managerService;
 
-        public Manager Create(Manager entity)
+        public ManagerController(ManagerService service)
         {
-            throw new NotImplementedException();
+            managerService = service;
         }
 
-        public void Delete(Manager entity)
-        {
-            throw new NotImplementedException();
-        }
+        public Manager Create(Manager manager) => managerService.Create(manager);
 
-        public IEnumerable<Manager> GetAll()
-        {
-            throw new NotImplementedException();
-        }
+        public void Delete(Manager manager) => managerService.Delete(manager);
 
-        public Manager GetByID(UserID id)
-        {
-            throw new NotImplementedException();
-        }
+        public IEnumerable<Manager> GetAll() => managerService.GetAll();
 
-        public Manager Update(Manager entity)
-        {
-            throw new NotImplementedException();
-        }
+        public Manager GetByID(UserID id) => managerService.GetByID(id);
+
+        public Manager Update(Manager manager) => managerService.Update(manager);
+
     }
 }

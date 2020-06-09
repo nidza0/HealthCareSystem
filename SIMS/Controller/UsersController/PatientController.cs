@@ -15,15 +15,30 @@ namespace SIMS.Controller.UsersController
 {
     public class PatientController : IController<Patient, UserID>
     {
+        public PatientService patientService;
+        public MedicalRecordService medicalRecordService;
+        public TherapyService therapyService;
+        public DiagnosisService diagnosisService;
+
+        public PatientController(PatientService patientService, MedicalRecordService medicalRecordService, TherapyService therapyService, DiagnosisService diagnosisService)
+        {
+            this.patientService = patientService;
+            this.medicalRecordService = medicalRecordService;
+            this.therapyService = therapyService;
+            this.diagnosisService = diagnosisService;
+        }
+
+        public IEnumerable<MedicalRecord> GetMedicalRecordByPatient(Patient patient)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<Patient> GetPatientByType(PatientType patientType)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Patient> GetPatientByDoctor(Doctor doctor)
-        {
-            throw new NotImplementedException();
-        }
+        public IEnumerable<Patient> GetPatientByDoctor(Doctor doctor) => patientService.GetPatientByDoctor(doctor);
 
         public IEnumerable<Diagnosis> GetAllDiagnosisForPatient(Patient patient)
         {
@@ -84,11 +99,5 @@ namespace SIMS.Controller.UsersController
         {
             throw new NotImplementedException();
         }
-
-        public PatientService patientService;
-        public MedicalRecordService medicalRecordService;
-        public TherapyService therapyService;
-        public DiagnosisService diagnosisService;
-
     }
 }

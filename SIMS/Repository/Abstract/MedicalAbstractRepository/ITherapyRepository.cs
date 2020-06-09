@@ -5,7 +5,6 @@
 
 using System;
 using System.Collections.Generic;
-using Model.Patient;
 using SIMS.Model.PatientModel;
 using SIMS.Model.UserModel;
 
@@ -13,7 +12,6 @@ namespace SIMS.Repository.Abstract.MedicalAbstractRepository
 {
     public interface ITherapyRepository : IRepository<Therapy, long>
     {
-        Prescription AddPrescription(Therapy therapy, Prescription perscription);
 
         IEnumerable<Therapy> GetTherapyByDate(Util.TimeInterval dateRange);
 

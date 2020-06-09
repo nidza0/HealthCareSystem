@@ -9,9 +9,9 @@ namespace SIMS.Model.UserModel
 {
     public enum UserType
     {
-        patient,
-        doctor,
-        secretary,
-        manager
+        PATIENT,
+        DOCTOR,
+        SECRETARY,
+        MANAGER
     }
 }

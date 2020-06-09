@@ -9,23 +9,42 @@ namespace SIMS.Util
 {
     public class TimeInterval
     {
-        private DateTime startTime;
-        private DateTime endTime;
+        private DateTime _startTime;
+        private DateTime _endTime;
+
+        public DateTime StartTime { get => _startTime; set => _startTime = value; }
+        public DateTime EndTime { get => _endTime; set => _endTime = value; }
+
+        public TimeInterval(DateTime startTime, DateTime endTime)
+        {
+            //TODO: Enforce endTime >= startTime
+            _startTime = startTime;
+            _endTime = endTime;
+        }
 
         public bool IsTimeBetween(DateTime dateTime)
+            => ((dateTime >= StartTime) && (dateTime <= EndTime));
+
+        public bool IsTimeBetween(TimeInterval timeInterval)
         {
-            throw new NotImplementedException();
+            return (timeInterval.StartTime >= StartTime) && (timeInterval.EndTime <= EndTime);
         }
 
         public bool IsOverlappingWith(TimeInterval timeInterval)
         {
-            throw new NotImplementedException();
+            //(StartA <(=) EndB) and (EndA >(=) StartB)
+            return ((StartTime < timeInterval.EndTime) && (EndTime > timeInterval.StartTime));
         }
 
-        public DateTime Duration()
+        public TimeSpan Duration()
+            => EndTime.Subtract(StartTime);
+
+        public override bool Equals(object obj)
         {
-            throw new NotImplementedException();
-        }
+            if (obj == null) return false;
+            TimeInterval otherTime = obj as TimeInterval;
 
+            return StartTime.Equals(otherTime.StartTime) && EndTime.Equals(otherTime.EndTime);
+        }
     }
 }

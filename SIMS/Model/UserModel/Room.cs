@@ -5,44 +5,56 @@
  ***********************************************************************/
 
 using System;
+using System.Collections.Generic;
 using SIMS.Model.ManagerModel;
+using SIMS.Repository.Abstract;
 
 namespace SIMS.Model.UserModel
 {
-    public class Room
+    public class Room: IIdentifiable<long>
     {
-        private long id;
-        private string roomNumber;
-        private bool occupied;
-        private int floor;
+        private long _id;
+        private string _roomNumber;
+        private bool _occupied;
+        private int _floor;
+        private RoomType _roomType;
 
-        public bool Reserve()
+        public Room(long id)
         {
-            throw new NotImplementedException();
+            _id = id;
+        }
+        
+
+        public Room(string roomNumber, bool occupied, int floor, RoomType roomType)
+        {
+            _roomNumber = roomNumber;
+            _occupied = occupied;
+            _floor = floor;
+            _roomType = roomType;
         }
 
-        public int Filter()
+        public Room(long id, string roomNumber, bool occupied, int floor, RoomType roomType)
         {
-            throw new NotImplementedException();
+            _id = id;
+            _roomNumber = roomNumber;
+            _occupied = occupied;
+            _floor = floor;
+            _roomType = roomType;
         }
 
-        public bool AddAppointment()
+        public string RoomNumber { get => _roomNumber; set => _roomNumber = value; }
+        public bool Occupied { get => _occupied; set => _occupied = value; }
+        public int Floor { get => _floor; set => _floor = value; }
+        public RoomType RoomType { get => _roomType; set => _roomType = value; }
+
+        public long GetId()
         {
-            throw new NotImplementedException();
+            return _id;
         }
 
-        public bool RemoveAppointment()
+        public void SetId(long id)
         {
-            throw new NotImplementedException();
+            _id = id;
         }
-
-        public bool EditAppointment()
-        {
-            throw new NotImplementedException();
-        }
-
-        public RoomType roomType;
-        public InventoryItem inventoryItem;
-
     }
 }

@@ -4,110 +4,59 @@
 // Purpose: Definition of Class SpecialistBookingLicence
 
 using SIMS.Model.DoctorModel;
+using SIMS.Model.UserModel;
+using SIMS.Repository.Abstract;
 using SIMS.Util;
 using System;
+using System.Collections.Generic;
+using System.Runtime.InteropServices;
 
-namespace Model.Patient
+namespace SIMS.Model.PatientModel
 {
-    public class SpecialistBookingLicence
-   {
-      private long id;
-      private DocTypeEnum doctorAllowed;
-      private int numberOfAppointments;
-      private bool active;
-      
-      public TimeInterval timeInterval;
-      public System.Collections.Generic.List<SIMS.Model.UserModel.Doctor> handsOutLicence;
-      
-      /// <summary>
-      /// Property for collection of Model.User.Doctor
-      /// </summary>
-      /// <pdGenerated>Default opposite class collection property</pdGenerated>
-      public System.Collections.Generic.List<SIMS.Model.UserModel.Doctor> HandsOutLicence
-      {
-         get
-         {
-            if (handsOutLicence == null)
-               handsOutLicence = new System.Collections.Generic.List<SIMS.Model.UserModel.Doctor>();
-            return handsOutLicence;
-         }
-         set
-         {
-            RemoveAllHandsOutLicence();
-            if (value != null)
-            {
-               foreach (SIMS.Model.UserModel.Doctor oDoctor in value)
-                  AddHandsOutLicence(oDoctor);
-            }
-         }
-      }
-      
-      /// <summary>
-      /// Add a new Model.User.Doctor in the collection
-      /// </summary>
-      /// <pdGenerated>Default Add</pdGenerated>
-      public void AddHandsOutLicence(SIMS.Model.UserModel.Doctor newDoctor)
-      {
-         if (newDoctor == null)
-            return;
-         if (this.handsOutLicence == null)
-            this.handsOutLicence = new System.Collections.Generic.List<SIMS.Model.UserModel.Doctor>();
-         if (!this.handsOutLicence.Contains(newDoctor))
-            this.handsOutLicence.Add(newDoctor);
-      }
-      
-      /// <summary>
-      /// Remove an existing Model.User.Doctor from the collection
-      /// </summary>
-      /// <pdGenerated>Default Remove</pdGenerated>
-      public void RemoveHandsOutLicence(SIMS.Model.UserModel.Doctor oldDoctor)
-      {
-         if (oldDoctor == null)
-            return;
-         if (this.handsOutLicence != null)
-            if (this.handsOutLicence.Contains(oldDoctor))
-               this.handsOutLicence.Remove(oldDoctor);
-      }
-      
-      /// <summary>
-      /// Remove all instances of Model.User.Doctor from the collection
-      /// </summary>
-      /// <pdGenerated>Default removeAll</pdGenerated>
-      public void RemoveAllHandsOutLicence()
-      {
-         if (handsOutLicence != null)
-            handsOutLicence.Clear();
-      }
-      public SIMS.Model.UserModel.Patient patient;
-      
-      /// <summary>
-      /// Property for Model.User.Patient
-      /// </summary>
-      /// <pdGenerated>Default opposite class property</pdGenerated>
-      public SIMS.Model.UserModel.Patient Patient
-      {
-         get
-         {
-            return patient;
-         }
-         set
-         {
-            if (this.patient == null || !this.patient.Equals(value))
-            {
-               if (this.patient != null)
-               {
-                        SIMS.Model.UserModel.Patient oldPatient = this.patient;
-                  this.patient = null;
-                  oldPatient.RemoveSpecialistBookingPermissions(this);
-               }
-               if (value != null)
-               {
-                  this.patient = value;
-                  this.patient.AddSpecialistBookingPermissions(this);
-               }
-            }
-         }
-      }
-   
-   }
+    public class SpecialistBookingLicence : IIdentifiable<long>
+    {
+        private long _id;
+        private DocTypeEnum _doctorAllowed;
+        private int _numberOfAppointments;
+        private bool _active;
+        public Patient _patient;
+
+        public TimeInterval _timeInterval;
+        public List<Doctor> _handsOutLicence;
+
+        //TODO: Constructors
+
+        public SpecialistBookingLicence(long id, DocTypeEnum doctorAllowed, int numberOfAppointments, bool Active, Patient patient, TimeInterval timeInterval, List<Doctor> handsOutLicence) 
+        {
+            _id = id;
+            _doctorAllowed = doctorAllowed;
+            _numberOfAppointments = numberOfAppointments;
+            _active = Active;
+            _patient = patient;
+            _timeInterval = timeInterval;
+            _handsOutLicence = handsOutLicence;
+        }
+
+        public SpecialistBookingLicence (DocTypeEnum doctorAllowed, int numberOfAppointments, bool Active, Patient patient, TimeInterval timeInterval, List<Doctor> handsOutLicence)
+        {
+            _doctorAllowed = doctorAllowed;
+            _numberOfAppointments = numberOfAppointments;
+            _active = Active;
+            _patient = patient;
+            _timeInterval = timeInterval;
+            _handsOutLicence = handsOutLicence;
+        }
+
+
+        public long GetId()
+        {
+            return _id;
+        }
+
+        public void SetId(long id)
+        {
+            _id = id;
+        }
+
+    }
 }

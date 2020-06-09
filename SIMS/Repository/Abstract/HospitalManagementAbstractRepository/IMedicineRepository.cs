@@ -15,7 +15,7 @@ namespace SIMS.Repository.Abstract.HospitalManagementAbstractRepository
 
         IEnumerable<Medicine> GetMedicineByIngredient(Ingredient ingredient);
 
-        IEnumerable<Medicine> GetMedicineByName(string name);
+        Medicine GetMedicineByName(string name);
 
         IEnumerable<Medicine> GetFilteredMedicine(Util.MedicineFilter medicineFilter);
 

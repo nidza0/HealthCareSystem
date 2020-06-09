@@ -5,60 +5,84 @@
 
 using SIMS.Model.PatientModel;
 using System;
+using SIMS.Repository.Abstract;
+using System.Collections.Generic;
+using SIMS.Model.UserModel;
 
-namespace Model.Patient
+namespace SIMS.Model.PatientModel
 {
-    public class Prescription
+    public class Prescription : IIdentifiable<long>
    {
-        private long id;
-      
-      public void Activate()
-      {
-         throw new NotImplementedException();
-      }
-      
-      public void Deactivate()
-      {
-         throw new NotImplementedException();
-      }
-      
-      public System.Collections.Generic.List<Medicine> medicine;
+        private long _id;
+        private PrescriptionStatus _status;
+        private Doctor _doctor;
+        private Dictionary<Medicine,TherapyDose> _medicine;
+
+        public Prescription(long id)
+        {
+            _id = id;
+        }
+        public Prescription(long id, PrescriptionStatus status, Doctor doctor,Dictionary<Medicine, TherapyDose> medicine)
+        {
+            _id = id;
+            _status = status;
+            _doctor = doctor;
+            _medicine = medicine;
+        }
+
+        public Prescription(PrescriptionStatus status, Doctor doctor,Dictionary<Medicine,TherapyDose> medicine)
+        {
+            _status = status;
+            _doctor = doctor;
+            _medicine = medicine;
+        }
+
+        public Prescription(Dictionary<Medicine, TherapyDose> medicines)
+        {
+            _status = PrescriptionStatus.ACTIVE;
+            _medicine = medicines;
+        }
+
+
       
       /// <summary>
       /// Property for collection of Medicine
       /// </summary>
       /// <pdGenerated>Default opposite class collection property</pdGenerated>
-      public System.Collections.Generic.List<Medicine> Medicine
+      public Dictionary<Medicine, TherapyDose> Medicine
       {
          get
          {
-            if (medicine == null)
-               medicine = new System.Collections.Generic.List<Medicine>();
-            return medicine;
+                if (_medicine == null)
+                    _medicine = new Dictionary<Medicine, TherapyDose>();
+            return _medicine;
          }
          set
          {
             RemoveAllMedicine();
             if (value != null)
             {
-               foreach (Medicine oMedicine in value)
-                  AddMedicine(oMedicine);
+               foreach (Medicine oMedicine in value.Keys)
+                  AddMedicine(oMedicine, _medicine[oMedicine]);
             }
          }
       }
-      
-      /// <summary>
-      /// Add a new Medicine in the collection
-      /// </summary>
-      /// <pdGenerated>Default Add</pdGenerated>
-      public void AddMedicine(Medicine newMedicine)
+
+        public PrescriptionStatus Status { get => _status; set => _status = value; }
+        public Doctor Doctor { get => _doctor; set => _doctor = value; }
+
+        /// <summary>
+        /// Add a new Medicine in the collection
+        /// </summary>
+        /// <pdGenerated>Default Add</pdGenerated>
+        public void AddMedicine(Medicine newMedicine,TherapyDose therapyDose)
       {
          if (newMedicine == null)
             return;
-         if (this.medicine == null)
-            this.medicine = new System.Collections.Generic.List<Medicine>();
-         if (!this.medicine.Contains(newMedicine))
-            this.medicine.Add(newMedicine);
+         if (this._medicine == null)
+            this._medicine = new Dictionary<Medicine, TherapyDose>();
+         if (!this._medicine.ContainsKey(newMedicine))
+            this._medicine.Add(newMedicine, therapyDose);
       }
       
       /// <summary>
@@ -69,9 +93,9 @@ namespace Model.Patient
       {
          if (oldMedicine == null)
             return;
-         if (this.medicine != null)
-            if (this.medicine.Contains(oldMedicine))
-               this.medicine.Remove(oldMedicine);
+         if (this._medicine != null)
+            if (this._medicine.ContainsKey(oldMedicine))
+               this._medicine.Remove(oldMedicine);
       }
       
       /// <summary>
@@ -80,9 +104,14 @@ namespace Model.Patient
       /// <pdGenerated>Default removeAll</pdGenerated>
       public void RemoveAllMedicine()
       {
-         if (medicine != null)
-            medicine.Clear();
+         if (_medicine != null)
+            _medicine.Clear();
       }
-   
-   }
+
+        public long GetId()
+            => _id;
+
+        public void SetId(long id)
+            => _id = id;
+    }
 }

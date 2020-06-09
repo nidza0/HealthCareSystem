@@ -13,34 +13,51 @@ namespace SIMS.Specifications.Converter
 {
     public class AppointmentSpecificationConverter
     {
-        private Specifications.ISpecification<Appointment> GetSpecificationByDoctorType(DocTypeEnum type)
+        private AppointmentFilter _filter;
+
+        public AppointmentSpecificationConverter(AppointmentFilter filter)
         {
-            throw new NotImplementedException();
+            _filter = filter;
+        }
+        private ISpecification<Appointment> GetSpecificationByDoctorType(DocTypeEnum type)
+        {
+            return new ExpressionSpecification<Appointment>(o => o.DoctorInAppointment.DocTypeEnum == type);
         }
 
-        private Specifications.ISpecification<Appointment> GetSpecificationByDoctor(Doctor doctor)
+        private ISpecification<Appointment> GetSpecificationByDoctor(Doctor doctor)
         {
-            throw new NotImplementedException();
+            return new ExpressionSpecification<Appointment>(o => o.DoctorInAppointment.Equals(doctor));
         }
 
-        private Specifications.ISpecification<Appointment> GetSpecificationByTimeInterval(Util.TimeInterval timeInterval)
+        private ISpecification<Appointment> GetSpecificationByTimeInterval(Util.TimeInterval timeInterval)
         {
-            throw new NotImplementedException();
+            return new ExpressionSpecification<Appointment>(o => o.TimeInterval.Equals(timeInterval));
         }
 
-        private Specifications.ISpecification<Appointment> GetSpecificationByType(AppointmentType type)
+        private ISpecification<Appointment> GetSpecificationByType(AppointmentType type)
         {
-            throw new NotImplementedException();
+            return new ExpressionSpecification<Appointment>(o => o.AppointmentType.Equals(type));
         }
 
-        private Specifications.ISpecification<Appointment> GetSpecificationForUpcoming()
+        public ISpecification<Appointment> GetSpecification()
         {
-            throw new NotImplementedException();
-        }
+            ISpecification<Appointment> specification = new ExpressionSpecification<Appointment>(o => true);
+            
+            specification = specification.And(GetSpecificationByType(_filter.Type));
 
-        public Specifications.ISpecification<Appointment> GetSpecification(AppointmentFilter filter)
-        {
-            throw new NotImplementedException();
+            if(_filter.TimeInterval != null)
+            {
+                specification = specification.And(GetSpecificationByTimeInterval(_filter.TimeInterval));
+            }
+
+            if(_filter.Doctor != null)
+            {
+                specification = specification.And(GetSpecificationByDoctor(_filter.Doctor));
+            }
+
+            specification = specification.And(GetSpecificationByDoctorType(_filter.DoctorType));
+
+            return specification;
         }
 
     }
