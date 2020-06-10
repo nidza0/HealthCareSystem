@@ -316,8 +316,38 @@ namespace SIMS
             //DoctorRepoTest();
 
             //RoomRepoTest();
+            //AppointmentRepoTest();
 
-            AppointmentRepoTest();
+            NotificationRepoTest();
+
+        }
+
+        private void NotificationRepoTest()
+        {
+            AppResources res = AppResources.getInstance();
+            Notification n1 = new Notification("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi non felis auctor, bibendum sapien ut, tristique arcu. Nullam sed sem quis lectus vestibulum efficitur eu sed dui. Vivamus porttitor nibh. ", res.patientRepository.GetByID(new UserID("p1")));
+            Notification n2 = new Notification("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam dignissim malesuada turpis, vel fringilla velit dapibus non. Pellentesque pellentesque nibh sed nunc auctor, sed aliquet justo rhoncus. Nunc odio diam. ", res.patientRepository.GetByID(new UserID("p5")));
+            Notification n3 = new Notification("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur porta ut enim aliquam commodo. Pellentesque commodo sodales pretium. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia. ", res.patientRepository.GetByID(new UserID("p5")));
+            Notification n4 = new Notification("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur porta ut enim aliquam commodo. Pellentesque commodo sodales pretium. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia. ", res.patientRepository.GetByID(new UserID("p2")));
+            Notification n5 = new Notification("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur porta ut enim aliquam commodo. Pellentesque commodo sodales pretium. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia. ", res.secretaryRepository.GetByID(new UserID("s2")));
+
+            res.notificationRepository.Create(n1);
+            res.notificationRepository.Create(n2);
+            res.notificationRepository.Create(n3);
+            res.notificationRepository.Create(n4);
+            res.notificationRepository.Create(n5);
+
+            foreach(Notification n in res.notificationRepository.GetAllEager())
+            {
+                Console.WriteLine(n.Recipient.GetId().ToString() + " " + n.Recipient.Name);
+            }
+
+            var notifications = res.notificationRepository.GetNotificationByUser(new User(new UserID("p5")));
+            Console.WriteLine("Get notifications by user: " + (notifications.Count() == 2));
+
+            notifications = res.notificationRepository.GetNotificationByUser(new User(new UserID("m5")));
+            Console.WriteLine("Get notifications by user: " + (notifications.Count() == 0));
+
 
         }
 

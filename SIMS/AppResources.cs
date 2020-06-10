@@ -32,6 +32,7 @@ namespace SIMS
 
         //MiscFiles
         private readonly String locationFile = @"..\..\Files\MiscFiles\locations.txt";
+        private readonly String notificationFile = @"..\..\Files\MiscFiles\notifications.txt";
 
      
 
@@ -60,6 +61,7 @@ namespace SIMS
 
         //Misc repositories
         public LocationRepository locationRepository;
+        public NotificationRepository notificationRepository;
 
 
         //Hospital management
@@ -93,6 +95,7 @@ namespace SIMS
 
             //Misc repositories
             locationRepository = new LocationRepository(new CSVStream<Location>(locationFile, new LocationConverter()), new LongSequencer());
+            notificationRepository = new NotificationRepository(new CSVStream<Notification>(notificationFile, new NotificationConverter()), new LongSequencer(), patientRepository, doctorRepository, managerRepository, secretaryRepository);
 
             //Hospital management repositories
             symptomRepository = new SymptomRepository(new CSVStream<Symptom>(symptomsFile, new SymptomConverter()), new LongSequencer());

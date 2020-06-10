@@ -18,10 +18,17 @@ namespace SIMS.Repository.CSVFileRepository.MiscRepository
 {
     public class NotificationRepository : CSVRepository<Notification, long>, INotificationRepository, IEagerCSVRepository<Notification, long>
     {
-        IUserRepository _userRepository;
-        public NotificationRepository(string entityName, IUserRepository userRepository, ICSVStream<Notification> stream, ISequencer<long> sequencer) : base(entityName, stream, sequencer, new LongIdGeneratorStrategy<Notification>())
+        private const string ENTITY_NAME = "Notification";
+        private readonly IPatientRepository _patientRepository;
+        private readonly IDoctorRepository _doctorRepository;
+        private readonly IManagerRepository _managerRepository;
+        private readonly ISecretaryRepository _secretaryRepository;
+        public NotificationRepository(ICSVStream<Notification> stream, ISequencer<long> sequencer, IPatientRepository patientRepository, IDoctorRepository doctorRepository, IManagerRepository managerRepository, ISecretaryRepository secretaryRepository) : base(ENTITY_NAME, stream, sequencer, new LongIdGeneratorStrategy<Notification>())
         {
-            _userRepository = userRepository;
+            _patientRepository = patientRepository;
+            _doctorRepository = doctorRepository;
+            _managerRepository = managerRepository;
+            _secretaryRepository = secretaryRepository;
         }
 
         public new Notification Create(Notification notification)
@@ -32,21 +39,48 @@ namespace SIMS.Repository.CSVFileRepository.MiscRepository
 
         public IEnumerable<Notification> GetAllEager()
         {
-            IEnumerable<Notification> notifications = GetAll();
-            IEnumerable<User> users = _userRepository.GetAll();
+            var notifications = GetAll();
+            BindNotificationsWithUser(notifications);
             return notifications;
+        }
+
+        private void BindNotificationsWithUser(IEnumerable<Notification> notifications)
+        {
+            var patients = _patientRepository.GetAll();
+            var doctors = _doctorRepository.GetAll();
+            var managers = _managerRepository.GetAll();
+            var secretaries = _secretaryRepository.GetAll();
+
+            foreach(Notification notification in notifications)
+            {
+                if(notification.Recipient != null)
+                {
+                    switch (notification.Recipient.GetUserType())
+                    {
+                        case UserType.PATIENT:
+                            notification.Recipient = GetUserById(patients, notification.Recipient);
+                                break;
+                        case UserType.DOCTOR:
+                            notification.Recipient = GetUserById(doctors, notification.Recipient);
+                            break;
+                        case UserType.MANAGER:
+                            notification.Recipient = GetUserById(managers, notification.Recipient);
+                            break;
+                        case UserType.SECRETARY:
+                            notification.Recipient = GetUserById(secretaries, notification.Recipient);
+                            break;
+                    }
+                }
+            }
         }
 
         public Notification GetEager(long id)
             => GetAllEager().ToList().SingleOrDefault(notification => notification.GetId() == id);
 
         public IEnumerable<Notification> GetNotificationByUser(User user)
-            => GetAll().ToList().Where(notification => notification.Recipient.GetId().Equals(user.GetId()));
+            => GetAll().ToList().Where(notification => notification.Recipient == null ? false : notification.Recipient.GetId().Equals(user.GetId()));
 
-        private void BindNotificationWithUser(IEnumerable<User> recipients)
-            => GetAll().ToList().ForEach(notification => notification.Recipient = getUserById(recipients, notification.Recipient.GetId()));
-
-        private User getUserById(IEnumerable<User> users, UserID id)
-            => users.ToList().SingleOrDefault(user => user.GetId().Equals(id));
+        private User GetUserById(IEnumerable<User> users, User userId)
+            => userId == null ? null : users.SingleOrDefault(user => user.GetId().Equals(userId.GetId()));
     }
 }
