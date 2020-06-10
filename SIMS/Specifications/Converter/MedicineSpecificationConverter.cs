@@ -24,7 +24,7 @@ namespace SIMS.Specifications.Converter
 
         private ISpecification<Medicine> GetSpecificationByDisease(Disease disease)
         {
-            return new ExpressionSpecification<Medicine>(o => o.UsedFor.Contains(disease));
+            return new ExpressionSpecification<Medicine>(o => o.UsedFor == null ? false : o.UsedFor.Contains(disease));
         }
 
         private ISpecification<Medicine> GetSpecificationByType(MedicineType type)
@@ -34,7 +34,7 @@ namespace SIMS.Specifications.Converter
 
         private ISpecification<Medicine> GetSpecificationByIngredient(Ingredient ingredient)
         {
-            return new ExpressionSpecification<Medicine>(o => o.Ingredient.Equals(ingredient));
+            return new ExpressionSpecification<Medicine>(o => o.Ingredient == null ? false : o.Ingredient.Equals(ingredient));
         }
 
         private ISpecification<Medicine> GetSpecificationByStrength(double strength)

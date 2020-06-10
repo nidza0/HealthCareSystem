@@ -31,7 +31,8 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.MedicalConverter
                     GetDummyPatient(tokens[2]),
                     GetDummyRoom(tokens[3]),
                     appointmentType,
-                    GetTimeInterval(SplitStringByDelimiter(tokens[5], _listDelimiter))
+                    GetTimeInterval(SplitStringByDelimiter(tokens[5], _listDelimiter)),
+                    bool.Parse(tokens[6])
                     );
         }
 
@@ -43,7 +44,8 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.MedicalConverter
                 entity.Patient == null ? "" : entity.Patient.GetId().ToString(),
                 entity.Room == null ? "" : entity.Room.GetId().ToString(),
                 entity.AppointmentType,
-                transformTimeIntervalToCSV(entity.TimeInterval)
+                transformTimeIntervalToCSV(entity.TimeInterval),
+                entity.Canceled
                 );
         private string transformTimeIntervalToCSV(TimeInterval timeInterval)
             => string.Join(_listDelimiter, timeInterval.StartTime.ToString(_dateTimeFormat), timeInterval.EndTime.ToString(_dateTimeFormat));

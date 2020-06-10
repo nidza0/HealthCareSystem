@@ -340,6 +340,58 @@ namespace SIMS
 
             //TODO: AppointmentRepoTest
 
+            AppResources res = AppResources.getInstance();
+            Appointment ap1 = new Appointment(res.doctorRepository.GetByID(new UserID("d1")), res.patientRepository.GetByID(new UserID("p3")), res.roomRepository.GetByID(2), AppointmentType.checkup, new TimeInterval(new DateTime(2020,6,10,14,0,0), new DateTime(2020, 6, 10, 14, 15, 0)));
+            Appointment ap2 = new Appointment(res.doctorRepository.GetByID(new UserID("d2")), res.patientRepository.GetByID(new UserID("p1")), res.roomRepository.GetByID(1), AppointmentType.checkup, new TimeInterval(new DateTime(2020, 6, 10, 15, 0, 0), new DateTime(2020, 6, 10, 15, 15, 0)));
+            Appointment ap3 = new Appointment(res.doctorRepository.GetByID(new UserID("d2")), res.patientRepository.GetByID(new UserID("p1")), res.roomRepository.GetByID(3), AppointmentType.checkup, new TimeInterval(new DateTime(2020, 6, 10, 15, 0, 0), new DateTime(2020, 6, 10, 15, 15, 0)));
+            Appointment ap4 = new Appointment(res.doctorRepository.GetByID(new UserID("d3")), res.patientRepository.GetByID(new UserID("p1")), res.roomRepository.GetByID(1), AppointmentType.checkup, new TimeInterval(new DateTime(2020,6,10,14,0,0), new DateTime(2020, 6, 10, 14, 15, 0)));
+
+            //res.appointmentRepository.Create(ap1);
+            //res.appointmentRepository.Create(ap2);
+            //ap3 = res.appointmentRepository.Create(ap3);
+            //res.appointmentRepository.Create(ap4);
+
+            //ap3.Canceled = true;
+            //res.appointmentRepository.Update(ap3);
+
+            //GET PATIENTS APPOINTMENTS:
+            /*
+            Console.WriteLine("GET PATIENTS APPOINTMENTS:");
+            Console.WriteLine(res.appointmentRepository.GetPatientAppointments(res.patientRepository.GetByID(new UserID("p5"))).Count() == 0);
+
+            Console.WriteLine("GET PATIENTS APPOINTMENTS:");
+            Console.WriteLine(res.appointmentRepository.GetPatientAppointments(res.patientRepository.GetByID(new UserID("p3"))).ToList()[0].DoctorInAppointment.GetId().Equals(new UserID("d1")));
+
+            Console.WriteLine("GET APPOINTMENTS BY TIME:");
+            Console.WriteLine(res.appointmentRepository.GetAppointmentsByTime(new TimeInterval(new DateTime(2020, 6, 10, 14, 10, 0), new DateTime(2020, 6, 10, 15, 5, 0))).Count() == 4);
+
+            Console.WriteLine("GET APPOINTMENTS BY DOCTOR:");
+            Console.WriteLine(res.appointmentRepository.GetAppointmentsByDoctor(res.doctorRepository.GetByID(new UserID("d2"))).ToList()[0].Room.GetId() == 1);
+
+            Console.WriteLine("GET CANCELLED APPOINTMENTS:");
+            Console.WriteLine(res.appointmentRepository.GetCanceledAppointments().ToList()[0].Patient.GetId().Equals(new UserID("p1")));
+
+            Console.WriteLine("GET COMPLETED APPOINTMENTS BY PATIENT:");
+            Console.WriteLine(res.appointmentRepository.GetCompletedAppointmentsByPatient(res.patientRepository.GetByID(new UserID("p1"))).Count() == 1);
+
+            Console.WriteLine("GET APPOINTMENTS BY ROOM:");
+            Console.WriteLine(res.appointmentRepository.GetAppointmentsByRoom(res.roomRepository.GetByID(1)).Count() == 2);
+
+            Console.WriteLine("GET UPCOMING APPOINTMENTS BY PATIENT:");
+            Console.WriteLine(res.appointmentRepository.GetUpcomingAppointmentsForPatient(res.patientRepository.GetByID(new UserID("p1"))).Count() == 1);
+
+            Console.WriteLine("GET UPCOMING APPOINTMENTS BY DOCTOR:");
+            Console.WriteLine(res.appointmentRepository.GetUpcomingAppointmentsForDoctor(res.doctorRepository.GetByID(new UserID("d2"))).Count() == 1);
+            */
+
+            Appointment ap5 = new Appointment(null, null, res.roomRepository.GetByID(1), AppointmentType.renovation, new TimeInterval(new DateTime(2020,6,10,14,0,0), new DateTime(2020, 6, 11, 14, 15, 0)));
+            res.appointmentRepository.Create(ap5);
+
+            res.appointmentRepository.GetAllEager();
+
+            AppointmentFilter filter = new AppointmentFilter(res.doctorRepository.GetByID(new UserID("d1")), DocTypeEnum.UNDEFINED, null, AppointmentType.checkup);
+            res.appointmentRepository.GetFilteredAppointment(filter);
+
         }
 
         private void RoomRepoTest()
