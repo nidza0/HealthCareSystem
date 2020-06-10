@@ -37,7 +37,7 @@ namespace SIMS.Model.UserModel
 
         public Article(long id) : base(id) { }
 
-        public string Title { get { return _title; } }
+        public string Title { get => _title; set => _title = value; }
         public string ShortDescription { get { return _shortDescription; } }
         public Employee Author { get { return _author; } set { _author = value; } }
     }

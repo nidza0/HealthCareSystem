@@ -319,7 +319,38 @@ namespace SIMS
             //AppointmentRepoTest();
 
             //NotificationRepoTest();
-            MessageRepoTest();
+            //MessageRepoTest();
+            ArticleRepoTest();
+        }
+
+        private void ArticleRepoTest()
+        {
+            AppResources res = AppResources.getInstance();
+
+            Article a1 = new Article("Title jshkj", "short descjiddhj", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi non felis auctor, bibendum sapien ut, tristique arcu. Nullam sed sem quis lectus vestibulum efficitur eu sed dui. Vivamus porttitor nibh. ", res.secretaryRepository.GetByID(new UserID("s1")));
+            Article a2 = new Article("Title jshkj", "short descjiddhj", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam dignissim malesuada turpis, vel fringilla velit dapibus non. Pellentesque pellentesque nibh sed nunc auctor, sed aliquet justo rhoncus. Nunc odio diam. ", res.secretaryRepository.GetByID(new UserID("s1")));
+            Article a3 = new Article("Title jshkj", "short descjiddhj", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur porta ut enim aliquam commodo. Pellentesque commodo sodales pretium. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia. ", res.managerRepository.GetByID(new UserID("m1")));
+            Article a4 = new Article("Title jshkj", "short descjiddhj", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur porta ut enim aliquam commodo. Pellentesque commodo sodales pretium. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia. ", res.doctorRepository.GetByID(new UserID("d3")));
+            Article a5 = new Article("Title jshkj", "short descjiddhj", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur porta ut enim aliquam commodo. Pellentesque commodo sodales pretium. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia. ", res.doctorRepository.GetByID(new UserID("d3")));
+
+            res.articleRepository.Create(a1);
+            res.articleRepository.Create(a2);
+            res.articleRepository.Create(a3);
+            res.articleRepository.Create(a4);
+            a5 = res.articleRepository.Create(a5);
+            a5.Title = "New title";
+            res.articleRepository.Update(a5);
+
+            foreach (Article a in res.articleRepository.GetAllEager())
+            {
+                Console.WriteLine(a.Author.GetId().ToString() + " " + a.Author.Name);
+            }
+
+            var articles = res.articleRepository.GetArticleByAuthor(new Employee(new UserID("d3")));
+            Console.WriteLine("Get articles by author: " + (articles.Count() == 2));
+
+            articles = res.articleRepository.GetArticleByAuthor(new Employee(new UserID("m5")));
+            Console.WriteLine("Get articles by author: " + (articles.Count() == 0));
 
         }
 
@@ -376,7 +407,7 @@ namespace SIMS
             res.notificationRepository.Create(n4);
             res.notificationRepository.Create(n5);
 
-            foreach(Notification n in res.notificationRepository.GetAllEager())
+            foreach (Notification n in res.notificationRepository.GetAllEager())
             {
                 Console.WriteLine(n.Recipient.GetId().ToString() + " " + n.Recipient.Name);
             }
@@ -386,7 +417,6 @@ namespace SIMS
 
             notifications = res.notificationRepository.GetNotificationByUser(new User(new UserID("m5")));
             Console.WriteLine("Get notifications by user: " + (notifications.Count() == 0));
-
 
         }
 
