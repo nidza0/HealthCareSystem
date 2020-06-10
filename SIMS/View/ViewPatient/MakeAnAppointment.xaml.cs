@@ -30,12 +30,8 @@ namespace SIMS.View.ViewPatient
 
         private Hospital _chosenHospital = null;
 
-        private double screen_height;
-        private double screen_width;
-        public MakeAnAppointment(double screen_height, double screen_width)
+        public MakeAnAppointment()
         {
-            this.screen_height = screen_height;
-            this.screen_width = screen_width;
             this.DataContext = this;
             InitializeComponent();
             RecentChecked(this, null); //Refreshes list.
@@ -232,8 +228,6 @@ namespace SIMS.View.ViewPatient
             }
         }
 
-        public double Screen_height { get => screen_height; set => screen_height = value; }
-        public double Screen_width { get => screen_width; set => screen_width = value; }
 
         private void ResetFilterButton_Click(object sender, RoutedEventArgs e)
         {

@@ -12,51 +12,50 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-using SIMS.Model.DoctorModel;
 using SIMS.Model.UserModel;
 using SIMS.Model.PatientModel;
-using System.Collections.ObjectModel;
+using SIMS.Model.DoctorModel;
 using SIMS.Util;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 
 namespace SIMS.View.ViewPatient
 {
     /// <summary>
-    /// Interaction logic for MyAppointments.xaml
+    /// Interaction logic for EditAnAppointment.xaml
     /// </summary>
-    public partial class MyAppointments : Window
+    public partial class EditAnAppointment : Window
     {
-        private DocTypeEnum selectedFilterDoctorType;
-        private Doctor selectedFilterDoctor;
-        private DateTime firstAllowedDate;
-        private AppointmentType selectedFilterAppointmentType;
-        private ObservableCollection<Appointment> allAppointments;
-        private Appointment selectedAppointment;
-
-        private DateTime selectedStartDate = DateTime.Now;
-
-        private DateTime selectedEndDate = DateTime.Now;
-
-        public MyAppointments()
+        private Appointment appointment;
+        private Doctor selectedDoctor;
+        private DateTime newDate;
+        private ObservableCollection<DateTime> availableTime;
+        private DateTime selectedNewTime;
+        public EditAnAppointment(Appointment appointment)
         {
-            firstAllowedDate = DateTime.Now.AddDays(1);
-            AllAppointments = GetAllObservablePatientAppointments();
+            
+            this.appointment = appointment;
             this.DataContext = this;
+
+            NewDate = appointment.TimeInterval.StartTime;
+            SelectedDoctor = appointment.DoctorInAppointment;
+
             InitializeComponent();
 
-            doctorTypeComboBox.ItemsSource = Enum.GetValues(typeof(DocTypeEnum)).Cast<DocTypeEnum>();
-            appointmentTypeComboBox.ItemsSource = Enum.GetValues(typeof(AppointmentType)).Cast<AppointmentType>();
-        }
 
-        public DocTypeEnum SelectedFilterDoctorType { get => selectedFilterDoctorType; set => selectedFilterDoctorType = value; }
-        public Doctor SelectedFilterDoctor { get => selectedFilterDoctor; set => selectedFilterDoctor = value; }
 
-        public ObservableCollection<Doctor> PatientDoctors
+
+
+        } 
+
+        public ObservableCollection<Doctor> Doctors
         {
-            get { 
-                List<Doctor> patientDoctors = GetAllPatientAppointments().ToList().Select(appointment => appointment.DoctorInAppointment).Distinct().ToList();
+            //returns doctors of the same type
+            get
+            {
                 ObservableCollection<Doctor> retVal = new ObservableCollection<Doctor>();
-                foreach(Doctor doctor in patientDoctors)
+                Console.WriteLine(GetDoctorsOfDoctorType(appointment.DoctorInAppointment.DocTypeEnum).Count);
+                foreach(Doctor doctor in GetDoctorsOfDoctorType(appointment.DoctorInAppointment.DocTypeEnum))
                 {
                     retVal.Add(doctor);
                 }
@@ -65,27 +64,13 @@ namespace SIMS.View.ViewPatient
             }
         }
 
-        public DateTime FirstAllowedDate { get => firstAllowedDate; set => firstAllowedDate = value; }
-        public DateTime SelectedStartDate { get => selectedStartDate; set => selectedStartDate = value; }
-        public DateTime SelectedEndDate { get => selectedEndDate; set => selectedEndDate = value; }
-        public AppointmentType SelectedFilterAppointmentType { get => selectedFilterAppointmentType; set => selectedFilterAppointmentType = value; }
-        public ObservableCollection<Appointment> AllAppointments { get => allAppointments; set => allAppointments = value; }
-        public Appointment SelectedAppointment { get => selectedAppointment; set => selectedAppointment = value; }
-
-        private ObservableCollection<Appointment> GetAllObservablePatientAppointments()
+        private List<Doctor> GetDoctorsOfDoctorType(DocTypeEnum docTypeEnum)
         {
-            ObservableCollection<Appointment> retVal = new ObservableCollection<Appointment>();
+            List<Doctor> retVal = new List<Doctor>();
 
-            foreach (Appointment appointment in GetAllPatientAppointments())
-                retVal.Add(appointment);
+            //call controller...
 
-            return retVal;
-        }
-        
-        private IEnumerable<Appointment> GetAllPatientAppointments()
-        {
-            //call controller
-
+            //dummy data
 
             TimeInterval timeInterval = new TimeInterval(new DateTime(2020, 10, 6, 8, 0, 0), new DateTime(2020, 10, 6, 16, 0, 0));
             Dictionary<WorkingDaysEnum, TimeInterval> dict = new Dictionary<WorkingDaysEnum, TimeInterval>();
@@ -103,13 +88,53 @@ namespace SIMS.View.ViewPatient
             Doctor doctor3 = new Doctor(new UserID("d1262"), "pera", "pera123", DateTime.Now, "Pera", "Petkovic", "Puck", Sex.MALE, DateTime.Now, "12345667", new Address("Bulevar Mihajla Pupina 5", new Location(45, "Srbija", "Novi Sad")), "555-444", "0613021959858", "nikola@gmail.com", "pera111@gmail.com", timeTable, new Hospital("test", new Address("Koste Sokice 2", new Location(45, "Srbija", "Novi Sad")), "555-6666666", "zzzz"), new Room("B126", false, 5, RoomType.EXAMINATION), DocTypeEnum.INFECTOLOGIST);
             Doctor doctor4 = new Doctor(new UserID("d1262"), "pera", "pera123", DateTime.Now, "Pera", "Peric", "Puck", Sex.MALE, DateTime.Now, "12345667", new Address("Bulevar Mihajla Pupina 5", new Location(45, "Srbija", "Novi Sad")), "555-444", "0613021959858", "nikola@gmail.com", "pera111@gmail.com", timeTable, new Hospital("test", new Address("Koste Sokice 2", new Location(45, "Srbija", "Novi Sad")), "555-TEST-123", "zzzz"), new Room("B127", false, 5, RoomType.EXAMINATION), DocTypeEnum.DERMATOLOGIST);
             Doctor doctor5 = new Doctor(new UserID("d1262"), "pera", "pera123", DateTime.Now, "Pera", "Zeljic", "Puck", Sex.MALE, DateTime.Now, "12345667", new Address("Bulevar Mihajla Pupina 5", new Location(45, "Srbija", "Novi Sad")), "555-444", "0613021959858", "nikola@gmail.com", "pera111@gmail.com", timeTable, new Hospital("test", new Address("Koste Sokice 2", new Location(45, "Srbija", "Novi Sad")), "555-TEST2-132", "zzzz"), new Room("B128", false, 5, RoomType.EXAMINATION), DocTypeEnum.DERMATOLOGIST);
-            Doctor doctor6 = new Doctor(new UserID("d1262"), "pera", "pera123", DateTime.Now, "Pera", "Kupusarevic", "Puck", Sex.MALE, DateTime.Now, "12345667", new Address("Bulevar Mihajla Pupina 5", new Location(45, "Srbija", "Novi Sad")), "555-444", "0613021959858", "nikola@gmail.com", "pera111@gmail.com", timeTable, new Hospital("test", new Address("Koste Sokice 2", new Location(45, "Srbija", "Novi Sad")), "555-333", "zzzz"), new Room("B129", false, 5, RoomType.EXAMINATION), DocTypeEnum.DERMATOLOGIST);
 
-            Appointment appointment = new Appointment(doctor1, HomePage.loggedPatient, doctor1.Office, AppointmentType.checkup, timeInterval);
+            retVal.Add(doctor);
+            retVal.Add(doctor1);
+            retVal.Add(doctor2);
+            retVal.Add(doctor3);
+            retVal.Add(doctor4);
+            retVal.Add(doctor5);
+            return retVal;
+        }
+
+        public Appointment Appointment { get => appointment; set => appointment = value; }
+        public Doctor SelectedDoctor { get => selectedDoctor; set => selectedDoctor = value; }
+        public DateTime NewDate { get => newDate; set => newDate = value; }
+        public ObservableCollection<DateTime> AvailableTime {
+            get
+            {
+                List<Appointment> appointments = GetAvailableAppointments().ToList();
+
+                ObservableCollection<DateTime> retVal = new ObservableCollection<DateTime>();
+                Console.WriteLine("TEST");
+                Console.WriteLine(appointments.Count);
+                foreach(Appointment appointment in appointments)
+                {
+                    retVal.Add(appointment.TimeInterval.StartTime);
+                }
+
+
+                return retVal;
+            }
+
+
+            set => availableTime = value; }
+        public DateTime SelectedNewTime { get => selectedNewTime; set => selectedNewTime = value; }
+
+
+
+        private IEnumerable<Appointment> GetAvailableAppointments()
+        {
+            TimeInterval timeInterval = new TimeInterval(new DateTime(2020, 10, 6, 8, 0, 0), new DateTime(2020, 10, 6, 16, 0, 0));
+            //Cpozivamo kontroler koji nam vraca slobodne termine za doktora za izabrani datum
+            List<Appointment> retVal = new List<Appointment>();
+
+            Appointment appointment = new Appointment(Appointment.DoctorInAppointment, HomePage.loggedPatient, Appointment.DoctorInAppointment.Office, AppointmentType.checkup, timeInterval);
             DateTime temp = timeInterval.StartTime.AddMinutes(20);
             DateTime tempEnd = temp.AddMinutes(20);
             timeInterval = new TimeInterval(temp, tempEnd);
-            Appointment appointment1 = new Appointment(doctor2, HomePage.loggedPatient, doctor2.Office, AppointmentType.operation, timeInterval);
+            Appointment appointment1 = new Appointment(Appointment.DoctorInAppointment, HomePage.loggedPatient, Appointment.DoctorInAppointment.Office, AppointmentType.operation, timeInterval);
             temp = timeInterval.StartTime.AddMinutes(20);
             tempEnd = temp.AddMinutes(20);
             timeInterval = new TimeInterval(temp, tempEnd);
@@ -122,25 +147,42 @@ namespace SIMS.View.ViewPatient
             temp = timeInterval.StartTime.AddMinutes(20);
             tempEnd = temp.AddMinutes(20);
             timeInterval = new TimeInterval(temp, tempEnd);
-            Appointment appointment2 = new Appointment(doctor3, HomePage.loggedPatient, doctor3.Office, AppointmentType.operation, timeInterval);
+            Appointment appointment2 = new Appointment(Appointment.DoctorInAppointment, HomePage.loggedPatient, Appointment.DoctorInAppointment.Office, AppointmentType.operation, timeInterval);
             temp = timeInterval.StartTime.AddMinutes(20);
             tempEnd = temp.AddMinutes(20);
             timeInterval = new TimeInterval(temp, tempEnd);
-            Appointment appointment3 = new Appointment(doctor4, HomePage.loggedPatient, doctor4.Office, AppointmentType.checkup, timeInterval);
+            Appointment appointment3 = new Appointment(Appointment.DoctorInAppointment, HomePage.loggedPatient, Appointment.DoctorInAppointment.Office, AppointmentType.checkup, timeInterval);
             timeInterval = new TimeInterval(new DateTime(2020, 6, 10, 8, 0, 0), new DateTime(2020, 6, 10, 16, 0, 0));
             temp = timeInterval.StartTime.AddMinutes(20);
             tempEnd = temp.AddMinutes(20);
             timeInterval = new TimeInterval(temp, tempEnd);
+            Appointment appointment4 = new Appointment(Appointment.DoctorInAppointment, HomePage.loggedPatient, Appointment.DoctorInAppointment.Office, AppointmentType.checkup, timeInterval);
+
+            temp = timeInterval.StartTime.AddMinutes(20);
+            tempEnd = temp.AddMinutes(20);
+            timeInterval = new TimeInterval(temp, tempEnd);
+            Appointment appointment5 = new Appointment(Appointment.DoctorInAppointment, HomePage.loggedPatient, Appointment.DoctorInAppointment.Office, AppointmentType.checkup, timeInterval);
+
+
+            timeInterval = new TimeInterval(new DateTime(2020, 10, 7, 8, 0, 0), new DateTime(2020, 10, 7, 16, 0, 0));
+
+
+            Appointment appointment6 = new Appointment(Appointment.DoctorInAppointment, HomePage.loggedPatient, Appointment.DoctorInAppointment.Office, AppointmentType.operation, timeInterval);
+            temp = timeInterval.StartTime.AddMinutes(20);
+            tempEnd = temp.AddMinutes(20);
+            timeInterval = new TimeInterval(temp, tempEnd);
 
             temp = timeInterval.StartTime.AddMinutes(20);
             tempEnd = temp.AddMinutes(20);
             timeInterval = new TimeInterval(temp, tempEnd);
 
-            Appointment appointment4 = new Appointment(doctor6, HomePage.loggedPatient, doctor5.Office, AppointmentType.checkup, timeInterval);
+
             temp = timeInterval.StartTime.AddMinutes(20);
             tempEnd = temp.AddMinutes(20);
             timeInterval = new TimeInterval(temp, tempEnd);
-            Appointment appointment5 = new Appointment(doctor6, HomePage.loggedPatient, doctor5.Office, AppointmentType.checkup, timeInterval);
+            Appointment appointment7 = new Appointment(Appointment.DoctorInAppointment, HomePage.loggedPatient, Appointment.DoctorInAppointment.Office, AppointmentType.operation, timeInterval);
+
+
 
 
             List<Appointment> patientAppointments = new List<Appointment>();
@@ -151,76 +193,70 @@ namespace SIMS.View.ViewPatient
             patientAppointments.Add(appointment3);
             patientAppointments.Add(appointment4);
             patientAppointments.Add(appointment5);
+            patientAppointments.Add(appointment6);
+            patientAppointments.Add(appointment7);
 
-
-            return patientAppointments;
-
-        }
-
-        private void ExportButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void FilterButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void EditAnAppointmentButton_Click(object sender, RoutedEventArgs e)
-        {
-            Button button = (Button)sender;
-            Appointment appointment = button.DataContext as Appointment;
-
-            if (!CheckIfAppointmentEditable(appointment))
+            foreach(Appointment app in patientAppointments)
             {
-                MessageBox.Show("Appointment can't be changed now!");
-                return;
+                //ako je onog dana kada je izabrano, prikazacemo
+                //if (NewDate.Date.Equals(app.TimeInterval.StartTime.Date))
+                Console.WriteLine(app.TimeInterval.StartTime.Date);
+                Console.WriteLine(NewDate.Date);
+                if (NewDate.Date.Equals(app.TimeInterval.StartTime.Date)) 
+                {
+                    retVal.Add(app);
+                }
+                    
             }
 
-            EditAnAppointment editAnAppointment = new EditAnAppointment(appointment);
-            editAnAppointment.ShowDialog();
+            return retVal;
 
+        }
 
+        private void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(timeComboBox != null)
+            {
+                Int32 selectedIndex = timeComboBox.SelectedIndex;
+                timeComboBox.SelectedIndex = -1;
+                timeComboBox.Items.Refresh();
+                timeComboBox.SelectedIndex = selectedIndex;
+
+            }
 
             refreshAppointmentList();
-
-            
         }
 
         private void refreshAppointmentList()
         {
-            ICollectionView view = CollectionViewSource.GetDefaultView(AllAppointments);
+            AvailableTime.Clear();
+            ICollectionView view = CollectionViewSource.GetDefaultView(AvailableTime);
             view.Refresh();
         }
 
-        private bool CheckIfAppointmentEditable(Appointment appointment)
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            if (appointment.TimeInterval.StartTime < DateTime.Now.AddDays(1)) //ako je manje od 24 sata, ovo ce se proveravati na backendu ali i ovde ajde
-                return false;
-
-            return true;
-        }
-
-        private void CancelAnAppointmentButton_Click(object sender, RoutedEventArgs e)
-        {
-            Button button = (Button)sender;
-            Appointment appointment = button.DataContext as Appointment;
-
-            if (!CheckIfAppointmentEditable(appointment))
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to cancel this action?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.No)
             {
-                MessageBox.Show("Appointment can't be canceled now!");
                 return;
             }
 
-            AllAppointments.Remove(appointment);
-
-
+            //else
+            this.Close();
         }
 
+        private void ConfirmButton_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to edit this appointment?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.No)
+            {
+                return;
+            }
 
-
-        //cancel an appointment
-        //-> call update(set appointment.canceled = true)
+            //Call controller and check if everythign okey
+            this.Close();
+            MessageBox.Show("Appointment successfully changed!");
+        }
     }
 }

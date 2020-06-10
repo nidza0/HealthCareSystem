@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:SIMS.View.ViewPatient"
         mc:Ignorable="d"
         Title="MakeAnAppointment" 
-        Height="{Binding Screen_height}" Width="{Binding Screen_width}" >
+        Height="500" Width="800" >
 
     <Window.Resources>
         <Style x:Key="doctorListBoxStyle" TargetType="{x:Type ListBox}" BasedOn="{StaticResource ListBoxStyle}">
@@ -25,11 +25,6 @@
                     </Setter>
                 </DataTrigger>
             </Style.Triggers>
-        </Style>
-
-        <Style x:Key="searchFieldLabel" TargetType="{x:Type Label}" BasedOn="{StaticResource SubtitleLabelStyle}">
-            <Setter Property="FontSize" Value="13"/>
-            <Setter Property="VerticalAlignment" Value="Center"></Setter>
         </Style>
 
     </Window.Resources>
@@ -78,7 +73,7 @@
                         </RadioButton>
 
                         <RadioButton Width="150" Checked="InfectologistChecked" IsChecked="True" Style="{StaticResource ButtonStyle}">
-                            <Label Content="Infectologist" Style="{StaticResource SubtitleLabelStyle}"></Label>
+                                <Label Content="Infectologist" Style="{StaticResource SubtitleLabelStyle}"></Label>
                         </RadioButton>
 
                         <RadioButton Width="150" Checked="OphtamologistChecked" IsChecked="True" Style="{StaticResource ButtonStyle}">

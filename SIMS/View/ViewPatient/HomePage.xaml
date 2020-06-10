@@ -89,12 +89,13 @@
                     <Image Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="1" Grid.RowSpan="3" Source="{StaticResource LogoImage}"/>
 
                     <!--Navigation items definition-->
-                    <Button   Click="MakeAnAppointment" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="5">Make an appointment</Button>
-                    <Button   Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="5">My appointments</Button>
-                    <Button   Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="1" Grid.RowSpan="2" Margin="5">My therapy</Button>
-                    <Button   Click = "MyDiagnosis_Button_Click" Grid.Row="1" Grid.Column="7" Grid.ColumnSpan="1" Grid.RowSpan="2" Margin="5">My diagnosis</Button>
-                    <Button   Click= "Messages_Button_Click" Grid.Row="1" Grid.Column="8" Grid.ColumnSpan="1" Grid.RowSpan="2" Margin="5">Messages</Button>
-                    <Button   Click = "ExitButton_Closing" Grid.Row="1" Grid.Column="9" Grid.ColumnSpan="1" Grid.RowSpan="2" Margin="5">Exit</Button>
+                    <Button Width="130"   Click="MakeAnAppointment" Margin="5">Make an appointment</Button>
+                    <Button Width="130" Click="MyAppointments_Click"  Margin="5">My appointments</Button>
+                    <Button Width="130"   Margin="5">My therapy</Button>
+                    <Button Width="130"  Click = "MyDiagnosis_Button_Click"   Margin="5">My diagnosis</Button>
+                    <Button Width="130"  Click= "Messages_Button_Click"  Margin="5">Messages</Button>
+                    <Button Width="130"  x:Name="myProfileButton" Click= "MyProfileButton_Click"  Margin="5">My profile</Button>
+                    <Button Width="130"  Click = "ExitButton_Closing" Margin="5">Exit</Button>
 
                 </StackPanel>
 

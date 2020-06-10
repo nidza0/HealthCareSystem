@@ -122,9 +122,7 @@ namespace SIMS.View.ViewPatient
             double height = Application.Current.MainWindow.Height - (Application.Current.MainWindow.Height * 0.1);
             double width = Application.Current.MainWindow.Width - (Application.Current.MainWindow.Width * 0.2);
 
-            MakeAnAppointment makeAnAppointment = new MakeAnAppointment(height,width);
-            makeAnAppointment.Height = height;
-            makeAnAppointment.Width = width;
+            MakeAnAppointment makeAnAppointment = new MakeAnAppointment();
             makeAnAppointment.Owner = Application.Current.MainWindow;
             makeAnAppointment.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             makeAnAppointment.Show();
@@ -142,6 +140,35 @@ namespace SIMS.View.ViewPatient
         private void ViewArticleButton_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("View article button clicked, TODO..");
+        }
+
+        private void MyAppointments_Click(object sender, RoutedEventArgs e)
+        {
+            MyAppointments myAppointments = new MyAppointments();
+            myAppointments.Show();
+        }
+
+        private void MyProfileButton_Click(object sender, RoutedEventArgs e)
+        {
+            Patient p2 = new Patient(
+                                      "milic",
+                                      "PASSWORD",
+                                      "Milica",
+                                      "Mikic",
+                                      "Milos",
+                                      Sex.FEMALE,
+                                      new DateTime(1992, 11, 7),
+                                      "9876543221",
+                                      new Address("Partizanska 5", new Location(1, "Serbia", "Novi Sad")),
+                                      "0213698569",
+                                      "06454545454",
+                                      "milica@gmail.com",
+                                      "",
+                                      new EmergencyContact("Milana", "Milanović", "", "0217474859"),
+                                      PatientType.GENERAL,
+                                      null);
+            Registration editProfile = new Registration(p2);
+            editProfile.Show();
         }
     }
 }

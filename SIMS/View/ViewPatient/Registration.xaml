@@ -1,0 +1,275 @@
+﻿<Window x:Class="SIMS.View.ViewPatient.Registration"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SIMS.View.ViewPatient"
+        mc:Ignorable="d"
+        Title="Registration" Height="620" Width="800">
+
+    <Window.Resources>
+        <GridLength x:Key="rowHeight">30</GridLength>
+    </Window.Resources>
+    <Grid Background="{StaticResource BackgroundColor}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Style="{StaticResource BorderBlockStyle}" >
+            <Label Style="{StaticResource LabelStyle}" Content="Registration" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Border>
+
+        <Border Grid.Row="1" Style="{StaticResource BorderBlockStyle}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" MinWidth="250"/>
+                    <ColumnDefinition Width="*" MinWidth="250"/>
+                    <ColumnDefinition Width="*" MinWidth="250"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="{StaticResource rowHeight}"/>
+                    <RowDefinition Height="{StaticResource rowHeight}"/>
+                    <RowDefinition Height="{StaticResource rowHeight}"/>
+                    <RowDefinition Height="{StaticResource rowHeight}"/>
+                    <RowDefinition Height="{StaticResource rowHeight}"/>
+                    <RowDefinition Height="{StaticResource rowHeight}"/>
+                    <RowDefinition Height="{StaticResource rowHeight}"/>
+                    <RowDefinition Height="{StaticResource rowHeight}"/>
+                    <RowDefinition Height="{StaticResource rowHeight}"/>
+                    <RowDefinition Height="{StaticResource rowHeight}"/>
+                    <RowDefinition Height="{StaticResource rowHeight}"/>
+                    <RowDefinition Height="{StaticResource rowHeight}"/>
+                    <RowDefinition Height="{StaticResource rowHeight}"/>
+                    <RowDefinition Height="{StaticResource rowHeight}"/>
+                    <RowDefinition Height="{StaticResource rowHeight}"/>
+                    <RowDefinition Height="{StaticResource rowHeight}"/>
+                    <RowDefinition Height="{StaticResource rowHeight}"/>
+
+
+
+
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0" Grid.ColumnSpan="2" Style="{StaticResource SubtitleLabelStyle}">
+                    <TextBlock TextDecorations="Underline" Text="Basic information"/>
+                </Label>
+
+                <DockPanel  Grid.Row="1" Grid.Column="0">
+                    <DockPanel DockPanel.Dock="Left" Width="130">
+                        <Label Style="{StaticResource searchFieldLabel}" Content="First name*: "/>
+                    </DockPanel>
+                    <DockPanel DockPanel.Dock="Right">
+                        <TextBox x:Name="firstNameTextBox" TextChanged="FirstNameTextBox_TextChanged" Text="{Binding Path=FirstName, Mode=TwoWay}" Margin="3" HorizontalAlignment="Stretch"/>
+                    </DockPanel>
+                </DockPanel>
+                
+                <DockPanel  Grid.Row="1" Grid.Column="1">
+                    <DockPanel DockPanel.Dock="Left" Width="130">
+                        <Label Style="{StaticResource searchFieldLabel}" Content="Middle name: "/>
+                    </DockPanel>
+                    <DockPanel DockPanel.Dock="Right">
+                        <TextBox x:Name="middleNameTextBox" TextChanged="MiddleNameTextBox_TextChanged" Text="{Binding Path=MiddleName, Mode=TwoWay}" Margin="3" HorizontalAlignment="Stretch"/>
+                    </DockPanel>
+                </DockPanel>  
+                
+                <DockPanel  Grid.Row="1" Grid.Column="2">
+                    <DockPanel DockPanel.Dock="Left" Width="130">
+                        <Label Style="{StaticResource searchFieldLabel}" Content="Last name*: "/>
+                    </DockPanel>
+                    <DockPanel DockPanel.Dock="Right">
+                        <TextBox x:Name="lastNameTextBox" TextChanged="LastNameTextBox_TextChanged" Text="{Binding Path=LastName, Mode=TwoWay}" Margin="3" HorizontalAlignment="Stretch"/>
+                    </DockPanel>
+                </DockPanel>
+                
+                <DockPanel  Grid.Row="2" Grid.Column="0">
+                    <DockPanel DockPanel.Dock="Left" Width="130">
+                        <Label Style="{StaticResource searchFieldLabel}" Content="Date of birth*: "/>
+                    </DockPanel>
+                    <DockPanel DockPanel.Dock="Right">
+                        <DatePicker x:Name="dateOfBirthDatePicker" SelectedDateChanged="DateOfBirthDatePicker_SelectedDateChanged" SelectedDate="{Binding Path=DateOfBirth, Mode=OneWay}"/>
+                    </DockPanel>
+                </DockPanel> 
+                
+
+                
+            
+
+                <DockPanel  Grid.Row="2" Grid.Column="1">
+                    <DockPanel DockPanel.Dock="Left" Width="130">
+                        <Label Style="{StaticResource searchFieldLabel}" Content="Country of origin*: "/>
+                    </DockPanel>
+                    <DockPanel DockPanel.Dock="Right">
+                        <ComboBox ItemsSource="{Binding Countries}" x:Name="countryOfOriginComboBox" SelectedItem="{Binding Path=CountryOfOrigin, Mode=TwoWay}"/>
+                    </DockPanel>
+                </DockPanel>
+
+                <DockPanel  Grid.Row="2" Grid.Column="2">
+                    <DockPanel DockPanel.Dock="Left" Width="130">
+                        <Label Style="{StaticResource searchFieldLabel}" Content="Gender: "/>
+                    </DockPanel>
+                    <DockPanel DockPanel.Dock="Right">
+                        <ComboBox ItemsSource="{Binding Genders}" x:Name="genderComboBox" SelectedItem="{Binding Path=Gender,Mode=TwoWay}"/>
+                    </DockPanel>
+                </DockPanel>
+
+                <DockPanel  Grid.Row="3" Grid.Column="0">
+                    <DockPanel DockPanel.Dock="Left" Width="130">
+                        <Label Style="{StaticResource searchFieldLabel}" Content="UIDN*: "/>
+                    </DockPanel>
+                    <DockPanel DockPanel.Dock="Right">
+                        <TextBox Margin="3" HorizontalAlignment="Stretch" TextChanged="UidnTextBox_TextChanged" x:Name="uidnTextBox"  Text="{Binding Path=Uidn,Mode=TwoWay}" />
+                    </DockPanel>
+                </DockPanel>
+
+
+
+                <Label Grid.Row="4" Grid.ColumnSpan="2" Style="{StaticResource SubtitleLabelStyle}">
+                    <TextBlock TextDecorations="Underline" Text="Contact information"/>
+                </Label>
+
+
+                <DockPanel  Grid.Row="5" Grid.Column="0">
+                    <DockPanel DockPanel.Dock="Left" Width="130">
+                        <Label Style="{StaticResource searchFieldLabel}" Content="Address*: " />
+                    </DockPanel>
+                    <DockPanel DockPanel.Dock="Right">
+                        <TextBox Margin="3" HorizontalAlignment="Stretch" TextChanged="AddressTextBox_TextChanged" x:Name="addressTextBox" Text="{Binding Path=Address, Mode=TwoWay}"/>
+                    </DockPanel>
+                </DockPanel>
+
+                <DockPanel  Grid.Row="5" Grid.Column="1">
+                    <DockPanel DockPanel.Dock="Left" Width="130">
+                        <Label Style="{StaticResource searchFieldLabel}" Content="Country*: "/>
+                    </DockPanel>
+                    <DockPanel DockPanel.Dock="Right">
+                        <ComboBox ItemsSource="{Binding Countries}" SelectedItem="{Binding Path=Country, Mode=TwoWay}" x:Name="countryComboBox"/>
+                    </DockPanel>
+                </DockPanel>
+
+                <DockPanel  Grid.Row="5" Grid.Column="2">
+                    <DockPanel DockPanel.Dock="Left" Width="130">
+                        <Label Style="{StaticResource searchFieldLabel}" Content="City*: "/>
+                    </DockPanel>
+                    <DockPanel DockPanel.Dock="Right">
+                        <TextBox Margin="3" HorizontalAlignment="Stretch" TextChanged="CityTextBox_TextChanged" x:Name="cityTextBox" Text="{Binding Path=City, Mode=TwoWay}"/>
+                    </DockPanel>
+                </DockPanel>
+
+                <DockPanel  Grid.Row="6" Grid.Column="0">
+                    <DockPanel DockPanel.Dock="Left" Width="130">
+                        <Label Style="{StaticResource searchFieldLabel}" Content="Home phone: "/>
+                    </DockPanel>
+                    <DockPanel DockPanel.Dock="Right">
+                        <TextBox Margin="3" HorizontalAlignment="Stretch" TextChanged="HomePhoneTextBox_TextChanged" x:Name="homePhoneTextBox" Text="{Binding Path=HomePhone, Mode=TwoWay}"/>
+                    </DockPanel>
+                </DockPanel>
+
+                <DockPanel  Grid.Row="6" Grid.Column="1">
+                    <DockPanel DockPanel.Dock="Left" Width="130">
+                        <Label Style="{StaticResource searchFieldLabel}" Content="Mobile phone*: "/>
+                    </DockPanel>
+                    <DockPanel DockPanel.Dock="Right">
+                        <TextBox Margin="3" HorizontalAlignment="Stretch" TextChanged="MobilePhoneTextBox_TextChanged" x:Name="mobilePhoneTextBox" Text="{Binding MobilePhone, Mode=TwoWay}"/>
+                    </DockPanel>
+                </DockPanel>
+
+                <DockPanel  Grid.Row="7" Grid.Column="0">
+                    <DockPanel DockPanel.Dock="Left" Width="130">
+                        <Label Style="{StaticResource searchFieldLabel}" Content="Email address*: "/>
+                    </DockPanel>
+                    <DockPanel DockPanel.Dock="Right">
+                        <TextBox Margin="3" HorizontalAlignment="Stretch" TextChanged="EmailTextBox_TextChanged" x:Name="emailTextBox" Text="{Binding Email, Mode=TwoWay}"/>
+                    </DockPanel>
+                </DockPanel>
+
+                <DockPanel  Grid.Row="7" Grid.Column="1">
+                    <DockPanel DockPanel.Dock="Left" Width="130">
+                        <Label Style="{StaticResource searchFieldLabel}" Content="Email address(sec): "/>
+                    </DockPanel>
+                    <DockPanel DockPanel.Dock="Right">
+                        <TextBox Margin="3" HorizontalAlignment="Stretch" TextChanged="SecondaryEmailTextBox_TextChanged" x:Name="secondaryEmailTextBox" Text="{Binding SecondaryEmail, Mode=TwoWay}"/>
+                    </DockPanel>
+                </DockPanel>
+
+                <Label Grid.Row="8" Grid.ColumnSpan="2" Style="{StaticResource SubtitleLabelStyle}">
+                    <TextBlock TextDecorations="Underline" Text="Emergency contact information"/>
+                </Label>
+
+                <DockPanel  Grid.Row="9" Grid.Column="0">
+                    <DockPanel DockPanel.Dock="Left" Width="130">
+                        <Label Style="{StaticResource searchFieldLabel}" Content="First name*: "/>
+                    </DockPanel>
+                    <DockPanel DockPanel.Dock="Right">
+                        <TextBox Margin="3" HorizontalAlignment="Stretch" TextChanged="EmergencyFirstNameTextBox_TextChanged" x:Name="emergencyFirstNameTextBox" Text="{Binding Path=EmergencyFirstName, Mode=TwoWay}"/>
+                    </DockPanel>
+                </DockPanel>
+                
+                <DockPanel  Grid.Row="9" Grid.Column="1">
+                    <DockPanel DockPanel.Dock="Left" Width="130">
+                        <Label Style="{StaticResource searchFieldLabel}" Content="Last name*: "/>
+                    </DockPanel>
+                    <DockPanel DockPanel.Dock="Right">
+                        <TextBox Margin="3" HorizontalAlignment="Stretch" TextChanged="EmergencyLastNameTextBox_TextChanged" x:Name="emergencyLastNameTextBox" Text="{Binding Path=EmergencyLastName, Mode=TwoWay}"/>
+                    </DockPanel>
+                </DockPanel>
+
+                <DockPanel  Grid.Row="10" Grid.Column="0">
+                    <DockPanel DockPanel.Dock="Left" Width="130">
+                        <Label Style="{StaticResource searchFieldLabel}" Content="Phone number*: "/>
+                    </DockPanel>
+                    <DockPanel DockPanel.Dock="Right">
+                        <TextBox Margin="3" HorizontalAlignment="Stretch"  TextChanged="EmergencyPhoneNumberTextBox_TextChanged" x:Name="emergencyPhoneNumberTextBox" Text="{Binding Path=EmergencyPhoneNumber, Mode=TwoWay}"/>
+                    </DockPanel>
+                </DockPanel>
+
+                <DockPanel  Grid.Row="10" Grid.Column="1">
+                    <DockPanel DockPanel.Dock="Left" Width="130">
+                        <Label Style="{StaticResource searchFieldLabel}" Content="Email address*: "/>
+                    </DockPanel>
+                    <DockPanel DockPanel.Dock="Right">
+                        <TextBox Margin="3" HorizontalAlignment="Stretch"  TextChanged="EmergencyEmailTextBox_TextChanged" x:Name="emergencyEmailTextBox" Text="{Binding Path=EmergencyEmail, Mode=TwoWay}"/>
+                    </DockPanel>
+                </DockPanel>
+
+                <Label Grid.Row="11" Grid.ColumnSpan="2" Style="{StaticResource SubtitleLabelStyle}">
+                    <TextBlock TextDecorations="Underline" Text="Login information"/>
+                </Label>
+
+
+                <DockPanel  Grid.Row="12" Grid.Column="0">
+                    <DockPanel DockPanel.Dock="Left" Width="130">
+                        <Label Style="{StaticResource searchFieldLabel}" Content="Username*: "/>
+                    </DockPanel>
+                    <DockPanel DockPanel.Dock="Right">
+                        <TextBox Margin="3" HorizontalAlignment="Stretch" x:Name="usernameTextBox" TextChanged="UsernameTextBox_TextChanged" Text="{Binding Path=Username, Mode=TwoWay}"/>
+                    </DockPanel>
+                </DockPanel>
+
+                <DockPanel  Grid.Row="12" Grid.Column="1">
+                    <DockPanel DockPanel.Dock="Left" Width="130">
+                        <Label Style="{StaticResource searchFieldLabel}" Content="Password*: "/>
+                    </DockPanel>
+                    <DockPanel DockPanel.Dock="Right">
+                        <PasswordBox Margin="3" HorizontalAlignment="Stretch" PasswordChanged="PasswordTextBox_PasswordChanged" x:Name="passwordTextBox"/>
+                    </DockPanel>
+                </DockPanel>
+
+
+                <CheckBox x:Name="termsCheckBox" Checked="TermsCheckBox_Checked" Grid.Row="14" Grid.ColumnSpan="2" Foreground="{StaticResource labelColor}" Content="I accept terms and agreements."/>
+
+                <Button Grid.Row="15" Grid.Column="1" Click="CancelButton_Click"  x:Name="cancelButton" Margin="5 0 5 0">
+                    <Label Style="{StaticResource searchFieldLabel}" Content="Cancel"/>
+                </Button>
+                <Button IsEnabled="False" Grid.Row="15" Grid.Column="2" Click="SubmitButton_Click"  x:Name="submitButton" Margin="5 0 5 0">
+                    <Label Style="{StaticResource searchFieldLabel}" Content="Submit"/>
+                </Button>
+
+            </Grid>
+            
+            
+            
+        </Border>
+    </Grid>
+</Window>

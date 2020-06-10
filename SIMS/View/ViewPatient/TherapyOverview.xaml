@@ -6,7 +6,131 @@
         xmlns:local="clr-namespace:SIMS.View.ViewPatient"
         mc:Ignorable="d"
         Title="TherapyOverview" Height="450" Width="800">
+
+    <Window.Resources>
+        <Style TargetType="{x:Type CheckBox}">
+            <Setter Property="Foreground" Value="{StaticResource labelColor}"/>
+        </Style>
+    </Window.Resources>
     <Grid>
-        
+        <Grid Background="{StaticResource BackgroundColor}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="80"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Border Grid.Row="0" Style="{StaticResource BorderBlockStyle}" >
+                <Label Style="{StaticResource LabelStyle}" Content="My appointments" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+
+            <Border Grid.Row="1" Style="{StaticResource BorderBlockStyle}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Expander IsExpanded="True">
+
+
+                        <DockPanel Grid.Row="0">
+                            <!--Filter-->
+
+                            <DockPanel DockPanel.Dock="Left" VerticalAlignment="Center">
+                                <StackPanel Orientation="Horizontal">
+
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="110"/>
+                                            <ColumnDefinition Width="130"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="35"></RowDefinition>
+                                            <RowDefinition Height="2"></RowDefinition>
+                                            <RowDefinition Height="35"></RowDefinition>
+                                        </Grid.RowDefinitions>
+
+                                        <Label Grid.Row="0" Grid.Column="0" x:Name="drugNameLabel" Style="{StaticResource searchFieldLabel}" Content="Drug name: "></Label>
+                                        <TextBox Grid.Row="0" Grid.Column="1"  Text = "{Binding Path=SelectedFilterDrugName, Mode=TwoWay}" x:Name="drugNameTextBox"/>
+                                        <Separator Grid.Row="1" Foreground="Transparent" Background="Transparent" Margin="1"/>
+                                        <Label Grid.Row="2" Grid.Column="0"  x:Name="doctorLabel" Style="{StaticResource searchFieldLabel}" Content="Doctor: "></Label>
+                                        <ComboBox ItemsSource="{Binding Path=PatientDoctors}"  Grid.Row="2" Grid.Column="1"  SelectedItem ="{Binding Path=SelectedFilterDoctor, Mode=TwoWay}" x:Name="doctorComboBox">
+                                            <ComboBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock>
+                                                        <TextBlock.Text>
+                                                            <MultiBinding StringFormat="{}{0} {1}">
+                                                                <Binding Path="Name"/>
+                                                                <Binding Path="Surname"/>
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </DataTemplate>
+                                            </ComboBox.ItemTemplate>
+                                        </ComboBox>
+                                    </Grid>
+
+
+
+
+
+
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="100"/>
+                                            <ColumnDefinition Width="300"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="35"></RowDefinition>
+                                            <RowDefinition Height="2"></RowDefinition>
+                                            <RowDefinition Height="35"></RowDefinition>
+                                        </Grid.RowDefinitions>
+
+                                        <Label Grid.Row="0" Content="Date: " Style="{StaticResource searchFieldLabel}"/>
+                                        <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
+                                            <DatePicker Background="Transparent" HorizontalAlignment="Left" SelectedDate="{Binding Path=SelectedStartDate}" >
+
+                                            </DatePicker>
+                                            <Label Content="to" Margin="5 0 5 0"/>
+
+                                            <DatePicker Background="Transparent" HorizontalAlignment="Left" SelectedDate="{Binding Path=SelectedEndDate}">
+
+                                            </DatePicker>
+                                        </StackPanel>
+
+                                        <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource searchFieldLabel}" Content="When to take: "/>
+                                        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                                            <CheckBox IsChecked="{Binding Path=SelectedWhenIGetUpCheckBox, Mode=TwoWay}" Content="When I get up"/>
+                                            <CheckBox IsChecked="{Binding Path=SelectedInTheAfternoonCheckBox, Mode=TwoWay}" Content="In the afternoon"/>
+                                            <CheckBox IsChecked="{Binding Path=SelectedInTheEveningCheckBox, Mode=TwoWay}" Content="In the evening"/>
+                                            <CheckBox IsChecked="{Binding Path=SelectedBeforeBedCheckBox, Mode=TwoWay}" Content="Before bed"/>
+
+                                           
+                                        </StackPanel>
+                                    </Grid>
+                                </StackPanel>
+                            </DockPanel>
+
+
+                            <DockPanel DockPanel.Dock="Right">
+                                <StackPanel Orientation="Vertical" VerticalAlignment="Bottom">
+                                    
+
+                                    <Button HorizontalAlignment="Right" Width="70" Margin="5 5 5 0" x:Name="filterButton" Click="FilterButton_Click">
+                                        <Label Style="{StaticResource InputLabel}" Content="Filter"/>
+                                    </Button>
+                                </StackPanel>
+                            </DockPanel>
+                        </DockPanel>
+                    </Expander>
+
+                    
+
+                </Grid>
+            </Border>
+
+        </Grid>
     </Grid>
 </Window>
