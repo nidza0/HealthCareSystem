@@ -216,6 +216,9 @@
     <Compile Include="Util\MedicineFilter.cs" />
     <Compile Include="Util\TherapyFilter.cs" />
     <Compile Include="Util\TimeInterval.cs" />
+    <Compile Include="View\ViewDoctor\Forms\Login.xaml.cs">
+      <DependentUpon>Login.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\ViewDoctor\Forms\SaveOrPrint.xaml.cs">
       <DependentUpon>SaveOrPrint.xaml</DependentUpon>
     </Compile>
@@ -307,6 +310,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\ViewDoctor\Forms\Login.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\ViewDoctor\Forms\SaveOrPrint.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

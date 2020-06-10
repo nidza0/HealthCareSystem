@@ -80,6 +80,7 @@ namespace SIMS.View.ViewDoctor
 
         private void Border_MouseMove(object sender, MouseEventArgs e)
         {
+            /*
             Point currPos = e.GetPosition(null);
             Vector differential = currPos - startPoint;
             Vector backUp = currPos - startPoint;
@@ -91,6 +92,22 @@ namespace SIMS.View.ViewDoctor
                     NavigationService.Navigate(new MainPageRight());
                 else if (backUp.X < 0)
                     NavigationService.Navigate(new MainPageLeft());
+            }*/
+        }
+
+        private void Grid_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            Point endP = e.GetPosition(null);
+            if (Math.Abs(endP.X - startPoint.X) > SystemParameters.MinimumHorizontalDragDistance)
+            {
+                if (endP.X - startPoint.X > 0)
+                {
+                    NavigationService.Navigate(new MainPageLeft());
+                }
+                else if (endP.X - startPoint.X < 0)
+                {
+                    NavigationService.Navigate(new MainPageRight());
+                }
             }
         }
     }

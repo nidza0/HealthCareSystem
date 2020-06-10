@@ -5,8 +5,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SIMS.View.ViewDoctor"
       mc:Ignorable="d" 
-      d:DesignHeight="768" d:DesignWidth="1024"
-      Title="MainPageCenter">
+      d:DesignHeight="768" d:DesignWidth="1024" ShowsNavigationUI="False"
+      Title="MainPageCenter" MouseLeftButtonUp="Grid_MouseLeftButtonUp">
 
     <Page.Resources>
         <SolidColorBrush x:Key="BackgroundColor" Color="White" />
@@ -15,7 +15,7 @@
     </Page.Resources>
 
     <Border Background="{StaticResource  ResourceKey=BackgroundColor}" >
-        <Grid MouseLeftButtonDown="Border_MouseLeftButtonDown" MouseMove="Border_MouseMove">
+        <Grid MouseLeftButtonDown="Border_MouseLeftButtonDown" MouseMove="Border_MouseMove" MouseLeftButtonUp="Grid_MouseLeftButtonUp">
             <Grid.RowDefinitions>
                 <RowDefinition Height="0.5*"/>
                 <RowDefinition Height="*"/>
@@ -113,7 +113,7 @@
                            VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"
                            FontSize="22" FontFamily="Helvetica" Foreground="{StaticResource ResourceKey=SecondaryColor}"/>
 
-
+            
 
         </Grid>
 

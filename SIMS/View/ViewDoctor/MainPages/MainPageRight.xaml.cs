@@ -48,7 +48,7 @@ namespace SIMS.View.ViewDoctor.MainPages
         }
 
         private void Grid_MouseMove(object sender, MouseEventArgs e)
-        {
+        {/*
             Point currPos = e.GetPosition(null);
             Vector differential = currPos - startPoint;
 
@@ -57,6 +57,20 @@ namespace SIMS.View.ViewDoctor.MainPages
             {
                 if (differential.X < 0)
                     NavigationService.Navigate(new MainPageCenter());
+                
+            }
+            */
+        }
+
+        private void Page_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            Point endP = e.GetPosition(null);
+            if (Math.Abs(endP.X - startPoint.X) > SystemParameters.MinimumHorizontalDragDistance)
+            {
+                if (endP.X - startPoint.X > 0)
+                {
+                    NavigationService.Navigate(new MainPageCenter());
+                }
                 
             }
         }

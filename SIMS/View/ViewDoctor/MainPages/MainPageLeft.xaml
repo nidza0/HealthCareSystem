@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:SIMS.View.ViewDoctor.MainPages"
       mc:Ignorable="d" 
       d:DesignHeight="768" d:DesignWidth="1024"
-      Title="MainPageLeft">
+      Title="MainPageLeft" MouseLeftButtonDown="Page_MouseLeftButtonDown" MouseLeftButtonUp="Page_MouseLeftButtonUp">
 
     <Page.Resources>
         <SolidColorBrush x:Key="BackgroundColor" Color="White" />
@@ -44,14 +44,15 @@
 
                 </Grid.ColumnDefinitions>
 
-                <DatePicker Grid.ColumnSpan="2" FontFamily="Helvetica" FontSize="20" />
+                <DatePicker x:Name="ActiveDate" Grid.ColumnSpan="2" FontFamily="Helvetica" FontSize="20" SelectedDateChanged="ActiveDate_SelectedDateChanged"/>
 
 
 
             </Grid>
 
-            <DataGrid Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" x:Name="PacijentiSpisak" ItemsSource="{Binding Path=Model/lekoviNaValidaciji}" AutoGenerateColumns="True"
-                      SelectionMode="Single" IsReadOnly="True" SelectedCellsChanged="PacijentiSpisak_SelectedCellsChanged" FontFamily="Helvetica" FontSize="18" ColumnWidth="*" MouseDoubleClick="PacijentiSpisak_MouseDoubleClick">
+            <DataGrid Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" x:Name="SpisakObaveza"  AutoGenerateColumns="True"
+                      SelectionMode="Single" IsReadOnly="True" SelectedCellsChanged="PacijentiSpisak_SelectedCellsChanged" FontFamily="Helvetica" FontSize="18" ColumnWidth="*" MouseDoubleClick="PacijentiSpisak_MouseDoubleClick"
+                      MouseLeftButtonDown="SpisakObaveza_MouseLeftButtonDown" MouseMove="SpisakObaveza_MouseMove" MouseLeftButtonUp="SpisakObaveza_MouseLeftButtonUp">
 
 
             </DataGrid>
