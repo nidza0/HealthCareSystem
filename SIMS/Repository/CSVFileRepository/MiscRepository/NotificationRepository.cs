@@ -46,32 +46,13 @@ namespace SIMS.Repository.CSVFileRepository.MiscRepository
 
         private void BindNotificationsWithUser(IEnumerable<Notification> notifications)
         {
-            var patients = _patientRepository.GetAll();
-            var doctors = _doctorRepository.GetAll();
-            var managers = _managerRepository.GetAll();
-            var secretaries = _secretaryRepository.GetAll();
+            IEnumerable<User> patients = _patientRepository.GetAll();
+            IEnumerable<User> doctors = _doctorRepository.GetAll();
+            IEnumerable<User> managers = _managerRepository.GetAll();
+            IEnumerable<User> secretaries = _secretaryRepository.GetAll();
+            IEnumerable<User> users = patients.Concat(doctors).Concat(managers).Concat(secretaries);
 
-            foreach(Notification notification in notifications)
-            {
-                if(notification.Recipient != null)
-                {
-                    switch (notification.Recipient.GetUserType())
-                    {
-                        case UserType.PATIENT:
-                            notification.Recipient = GetUserById(patients, notification.Recipient);
-                                break;
-                        case UserType.DOCTOR:
-                            notification.Recipient = GetUserById(doctors, notification.Recipient);
-                            break;
-                        case UserType.MANAGER:
-                            notification.Recipient = GetUserById(managers, notification.Recipient);
-                            break;
-                        case UserType.SECRETARY:
-                            notification.Recipient = GetUserById(secretaries, notification.Recipient);
-                            break;
-                    }
-                }
-            }
+            notifications.ToList().ForEach(n => n.Recipient = GetUserById(users, n.Recipient));
         }
 
         public Notification GetEager(long id)

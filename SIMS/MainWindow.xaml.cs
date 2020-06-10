@@ -318,8 +318,47 @@ namespace SIMS
             //RoomRepoTest();
             //AppointmentRepoTest();
 
-            NotificationRepoTest();
+            //NotificationRepoTest();
+            MessageRepoTest();
 
+        }
+
+        private void MessageRepoTest()
+        {
+            AppResources res = AppResources.getInstance();
+            Message m1 = new Message("Lorem ipsum dolor sit amet, consectetur adipiscing elit. In magna mi, posuere id ex ac, egestas congue risus. Sed varius mollis eros, rutrum venenatis urna auctor cursus. Sed non neque.", recipient: new User(new UserID("p5")), sender: new User(new UserID("s1")));
+            Message m2 = new Message("Lorem ipsum dolor sit amet, consectetur adipiscing elit. In magna mi, posuere id ex ac, egestas congue risus. Sed varius mollis eros, rutrum venenatis urna auctor cursus. Sed non neque.", recipient: new User(new UserID("p3")), sender: new User(new UserID("d1")));
+            Message m3 = new Message("Lorem ipsum dolor sit amet, consectetur adipiscing elit. In magna mi, posuere id ex ac, egestas congue risus. Sed varius mollis eros, rutrum venenatis urna auctor cursus. Sed non neque.", recipient: new User(new UserID("p3")), sender: new User(new UserID("s1")));
+            Message m4 = new Message("Lorem ipsum dolor sit amet, consectetur adipiscing elit. In magna mi, posuere id ex ac, egestas congue risus. Sed varius mollis eros, rutrum venenatis urna auctor cursus. Sed non neque.", recipient: new User(new UserID("d1")), sender: new User(new UserID("p3")));
+            Message m5 = new Message("Lorem ipsum dolor sit amet, consectetur adipiscing elit. In magna mi, posuere id ex ac, egestas congue risus. Sed varius mollis eros, rutrum venenatis urna auctor cursus. Sed non neque.", recipient: new User(new UserID("m1")), sender: new User(new UserID("s1")));
+
+            //res.messageRepository.Create(m1);
+            //res.messageRepository.Create(m2);
+            //res.messageRepository.Create(m3);
+            //res.messageRepository.Create(m4);
+            //m5 = res.messageRepository.Create(m5);
+            //m5.Opened = true;
+
+            res.messageRepository.Update(m5);
+
+            Console.WriteLine("Sent messages: " + (res.messageRepository.GetSent(new User(new UserID("d99"))).Count() == 0));
+
+            foreach(Message m in res.messageRepository.GetReceived(new User(new UserID("p3"))))
+            {
+                Console.WriteLine(m.Recipient.GetId().ToString() + " " + m.Recipient.Name);
+            }
+
+            foreach (Message m in res.messageRepository.GetSent(new User(new UserID("s1"))))
+            {
+                Console.WriteLine(m.Recipient.GetId().ToString() + " " + m.Recipient.Name);
+            }
+
+            Console.WriteLine("Received messages: " + (res.messageRepository.GetReceived(new User(new UserID("m99"))).Count() == 0));
+
+            foreach (Message m in res.messageRepository.GetAllEager())
+            {
+                Console.WriteLine(m.Recipient.Name + " " + m.Sender.Name);
+            }
         }
 
         private void NotificationRepoTest()

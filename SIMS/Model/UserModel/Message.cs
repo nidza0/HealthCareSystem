@@ -36,7 +36,7 @@ namespace SIMS.Model.UserModel
 
         public Message(long id) : base(id) { }
 
-        public bool Opened { get => _opened; }
+        public bool Opened { get => _opened; set => _opened = value; }
         public User Recipient { get => _recipient; set { _recipient = value; } }
         public User Sender { get => _sender; set { _sender = value; } }
     }
