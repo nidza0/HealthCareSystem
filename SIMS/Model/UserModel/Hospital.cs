@@ -216,27 +216,12 @@ namespace SIMS.Model.UserModel
             => _id = id;
 
         //Properties
-        public string Name
-        {
-            get { return _name; }
-            set { _name = value; }
-        }
+        public string Name { get => _name; set => _name = value; }
 
-        public Address Address {
-            get { return _address; }
-            set { _address = value;  }
-        }
+        public Address Address { get => _address; set => _address = value; }
 
-        public string Telephone
-        {
-            get { return _telephone; }
-            set { _telephone = value; }
-        }
+        public string Telephone { get => _telephone; set => _telephone = value; }
 
-        public string Website
-        {
-            get { return _website;  }
-            set { _website = value;  }
-        }
+        public string Website { get => _website; set => _website = value; }
     }
 }

@@ -323,7 +323,36 @@ namespace SIMS
             //MessageRepoTest();
             //ArticleRepoTest();
             //QuestionRepoTest();
-            FeedbackTest();
+            //FeedbackTest();
+
+            HospitalRepoTest();
+        }
+
+        private void HospitalRepoTest()
+        {
+            AppResources res = AppResources.getInstance();
+            Hospital h1 = new Hospital("mndjns", new Address("sowijdwlk", res.locationRepository.GetLocationByCountry("Serbia").ToList()[5]), "jsihkjsd", "shjdhsk");
+            h1.AddRoom(res.roomRepository.GetAll().ToList()[0]);
+            h1.AddRoom(res.roomRepository.GetAll().ToList()[1]);
+            h1.AddEmployee(res.managerRepository.GetAllEager().ToList()[0]);
+            h1.AddEmployee(res.secretaryRepository.GetAllEager().ToList()[0]);
+            h1.AddEmployee(res.doctorRepository.GetAllEager().ToList()[0]);
+
+            res.hospitalRepository.Create(h1);
+
+            foreach(Hospital h in res.hospitalRepository.GetAllEager())
+            {
+                Console.WriteLine("Rooms: ");
+                foreach(Room r in h.Room)
+                {
+                    Console.WriteLine(r.GetId() + " " + r.RoomNumber);
+                }
+                Console.WriteLine("Employees: ");
+                foreach (Employee e in h.Employee)
+                {
+                    Console.WriteLine(e.GetId().ToString() + " " + e.Name);
+                }
+            }
         }
 
         private void QuestionRepoTest()

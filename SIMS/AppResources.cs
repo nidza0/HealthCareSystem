@@ -101,7 +101,7 @@ namespace SIMS
             timeTableRepository = new TimeTableRepository(new CSVStream<TimeTable>(timeTableFile, new TimeTableConverter()), new LongSequencer());
             // TIMETABLE OK
             hospitalRepository = new HospitalRepository(new CSVStream<Hospital>(hospitalFile, new HospitalConverter()), new LongSequencer(), roomRepository);
-
+            // HOSPITAL OK
 
             secretaryRepository = new SecretaryRepository(new CSVStream<Secretary>(secretaryFile, new SecretaryConverter()), new ComplexSequencer(), timeTableRepository, hospitalRepository, userRepository);
             // SECRETARY OK
@@ -112,6 +112,11 @@ namespace SIMS
             patientRepository = new PatientRepository(new CSVStream<Patient>(patientFile, new PatientConverter()), new ComplexSequencer(), doctorRepository, userRepository);
             // PATIENT OK
 
+            hospitalRepository.DoctorRepository = doctorRepository;
+            hospitalRepository.ManagerRepository = managerRepository;
+            hospitalRepository.SecretaryRepository = secretaryRepository;
+            
+            
             //Misc repositories
             locationRepository = new LocationRepository(new CSVStream<Location>(locationFile, new LocationConverter()), new LongSequencer());
             // LOCATION OK
