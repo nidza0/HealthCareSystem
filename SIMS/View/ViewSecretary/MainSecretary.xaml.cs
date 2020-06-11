@@ -1,4 +1,6 @@
-﻿using SIMS.View.ViewSecretary.Pages;
+﻿using SIMS.Model.UserModel;
+using SIMS.Util;
+using SIMS.View.ViewSecretary.Pages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +25,8 @@ namespace SIMS.View.ViewSecretary
         public MainSecretary()
         {
             InitializeComponent();
-            SecretaryAppResources.getInstance();
+            SecretaryAppResources.GetInstance();
+
             MainFrame.Navigate(new LoginPage());
         }
     }

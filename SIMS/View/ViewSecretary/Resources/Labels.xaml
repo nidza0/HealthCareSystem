@@ -25,6 +25,8 @@
     <sys:String x:Key="EmergencyContactInfoHeader">Emergency Contact</sys:String>
     <sys:String x:Key="SelectedDoctorInfoHeader">Selected Doctor</sys:String>
     <sys:String x:Key="WorkingHours">Working Hours</sys:String>
+    <sys:String x:Key="MyProfile">My profile</sys:String>
+    <sys:String x:Key="NewReport">New Report</sys:String>
 
     <sys:String x:Key="errNoPatients">No patients found</sys:String>
     <sys:String x:Key="errNoSelectedDoctor">No selected doctor found</sys:String>
@@ -32,7 +34,9 @@
     <sys:String x:Key="errNoDoctors">No doctors found</sys:String>
     <sys:String x:Key="errNoAvailableRooms">No available rooms found</sys:String>
     <sys:String x:Key="errTimeInvalid">Error: End time before start time</sys:String>
+    <sys:String x:Key="errDateInvalid">Error: End date before start date</sys:String>
     <sys:String x:Key="errNoAvailableDoctors">No available doctors found</sys:String>
+    <sys:String x:Key="errWrongUsernamePassword">Wrong username or password.</sys:String>
 
     <!-- DateTime Format -->
     <sys:String x:Key="TimeFormat">HH:mm</sys:String>
@@ -104,14 +108,18 @@
     <sys:String x:Key="lblSelectedDoctor">Selected Doctor</sys:String>
     <sys:String x:Key="lblSelectedPatient">Selected Patient</sys:String>
     <sys:String x:Key="lblSelectedRoom">Selected Room</sys:String>
+    <sys:String x:Key="lblStartDate">Start Date</sys:String>
+    <sys:String x:Key="lblEndDate">End Date</sys:String>
 
     <sys:String x:Key="btnOK">OK</sys:String>
     <sys:String x:Key="btnCancel">Cancel</sys:String>
     <sys:String x:Key="btnCreate">Create</sys:String>
     <sys:String x:Key="btnSchedule">Schedule</sys:String>
+    <sys:String x:Key="btnLogout">Logout</sys:String>
     
     <sys:String x:Key="btnEdit">Edit</sys:String>
     <sys:String x:Key="btnMessage">Message</sys:String>
     <sys:String x:Key="btnYesterday">Yesterday</sys:String>
     <sys:String x:Key="btnTomorrow">Tomorrow</sys:String>
+    <sys:String x:Key="btnGenerate">Generate</sys:String>
 </ResourceDictionary>

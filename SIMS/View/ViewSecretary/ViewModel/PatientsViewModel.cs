@@ -27,25 +27,30 @@ namespace SIMS.View.ViewSecretary.ViewModel
         private void loadPatients()
         {
             //TODO: PatientController > Get All Patients
+            patients = new ObservableCollection<Patient>(SecretaryAppResources.GetInstance().patientRepository.GetAllEager());
+            //LoadDummyPatients();
+        }
 
+        private void LoadDummyPatients()
+        {
             Patients.Add(new Patient(new UserID("p1"),
-                                        "peraaa13",
-                                        "",
-                                        DateTime.Now,
-                                        "Pera",
-                                        "Peric",
-                                        "P.",
-                                        Sex.MALE,
-                                        new DateTime(1987, 10, 12),
-                                        "01234678",
-                                        new Address("Bul. Mihajla Pupina 6", new Location(1, "Serbia", "Novi Sad")),
-                                        "0217878787",
-                                        "25848596532",
-                                        "pera@peric.rs",
-                                        "",
-                                        new EmergencyContact("Milan", "Milanovic", "", "025478956325"),
-                                        PatientType.GENERAL,
-                                        null));
+                            "peraaa13",
+                            "",
+                            DateTime.Now,
+                            "Pera",
+                            "Peric",
+                            "P.",
+                            Sex.MALE,
+                            new DateTime(1987, 10, 12),
+                            "01234678",
+                            new Address("Bul. Mihajla Pupina 6", new Location(1, "Serbia", "Novi Sad")),
+                            "0217878787",
+                            "25848596532",
+                            "pera@peric.rs",
+                            "",
+                            new EmergencyContact("Milan", "Milanovic", "", "025478956325"),
+                            PatientType.GENERAL,
+                            null));
 
             Patients.Add(new Patient(new UserID("p3"),
                                         "milica92",

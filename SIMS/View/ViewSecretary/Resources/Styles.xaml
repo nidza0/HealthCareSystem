@@ -37,6 +37,21 @@
         <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
     </Style>
 
+    <Style x:Key="errorLabel" TargetType="Label">
+        <Setter Property="Foreground" Value="Red"></Setter>
+    </Style>
+
+    <Style TargetType="{x:Type DatePickerTextBox}">
+        <Setter Property="Control.Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <TextBox x:Name="PART_TextBox"
+                        Text="{Binding Path=SelectedDate, StringFormat='dd.MM.yyyy.', RelativeSource={RelativeSource AncestorType={x:Type DatePicker}}}" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <ControlTemplate x:Key="SidebarButtons" TargetType="RadioButton">
         <Border x:Name="brdr">
             <ContentPresenter></ContentPresenter>

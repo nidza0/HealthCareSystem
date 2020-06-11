@@ -22,7 +22,6 @@ namespace SIMS.View.ViewSecretary.ViewModel
         public DoctorViewModel(Doctor doctor)
         {
             LoadEagerDoctor(doctor);
-            this.doctor = doctor;
             LoadDoctorsAppointments();
             ConvertDoctorTimetableToList();
         }
@@ -30,26 +29,31 @@ namespace SIMS.View.ViewSecretary.ViewModel
         private void ConvertDoctorTimetableToList()
         {
             TimeTable timetable = doctor.TimeTable;
-            if(timetable != null)
+
+            if (timetable != null)
             {
-                Shifts.Add(timetable.getWorkingHours()[WorkingDaysEnum.MONDAY]);
-                Shifts.Add(timetable.getWorkingHours()[WorkingDaysEnum.TUESDAY]);
-                Shifts.Add(timetable.getWorkingHours()[WorkingDaysEnum.WEDNESDAY]);
-                Shifts.Add(timetable.getWorkingHours()[WorkingDaysEnum.THURSDAY]);
-                Shifts.Add(timetable.getWorkingHours()[WorkingDaysEnum.FRIDAY]);
-                Shifts.Add(timetable.getWorkingHours()[WorkingDaysEnum.SATURDAY]);
-                Shifts.Add(timetable.getWorkingHours()[WorkingDaysEnum.SUNDAY]);
+                Dictionary<WorkingDaysEnum, TimeInterval> sh = timetable.getWorkingHours();
+                shifts.Add(sh.ContainsKey(WorkingDaysEnum.MONDAY) ? sh[WorkingDaysEnum.MONDAY] : null);
+                shifts.Add(sh.ContainsKey(WorkingDaysEnum.TUESDAY) ? sh[WorkingDaysEnum.TUESDAY] : null);
+                shifts.Add(sh.ContainsKey(WorkingDaysEnum.WEDNESDAY) ? sh[WorkingDaysEnum.WEDNESDAY] : null);
+                shifts.Add(sh.ContainsKey(WorkingDaysEnum.THURSDAY) ? sh[WorkingDaysEnum.THURSDAY] : null);
+                shifts.Add(sh.ContainsKey(WorkingDaysEnum.FRIDAY) ? sh[WorkingDaysEnum.FRIDAY] : null);
+                shifts.Add(sh.ContainsKey(WorkingDaysEnum.SATURDAY) ? sh[WorkingDaysEnum.SATURDAY] : null);
+                shifts.Add(sh.ContainsKey(WorkingDaysEnum.SUNDAY) ? sh[WorkingDaysEnum.SUNDAY] : null);
             }
         }
 
-        private void LoadEagerDoctor(Doctor doctor)
+        private void LoadEagerDoctor(Doctor d)
         {
-            //TODO: Load Doctor With Timetable
+            doctor = SecretaryAppResources.GetInstance().doctorRepository.GetEager(d.GetId());
         }
 
         private void LoadDoctorsAppointments()
         {
             //TODO: Load doctors appointments
+
+            appointments = new ObservableCollection<Appointment>(SecretaryAppResources.GetInstance().appointmentRepository.GetUpcomingAppointmentsForDoctor(doctor));
+            return;
 
             Appointments.Add(new Appointment(78,
                             new Doctor(new UserID("d678"),
@@ -72,7 +76,7 @@ namespace SIMS.View.ViewSecretary.ViewModel
                                         new EmergencyContact("Milana", "Milanovic", "", "0217474859"),
                                         PatientType.GENERAL,
                                         null),
-                            new Room(2, "A456", false, 3, RoomType.EXAMINATION, null),
+                            new Room(2, "A456", false, 3, RoomType.EXAMINATION),
                             AppointmentType.checkup,
                             new TimeInterval(DateTime.Now.AddMinutes(5), DateTime.Now.AddMinutes(20))));
 
@@ -97,7 +101,7 @@ namespace SIMS.View.ViewSecretary.ViewModel
                                         new EmergencyContact("Milan", "Milanovic", "", "025478956325"),
                                         PatientType.GENERAL,
                                         null),
-                            new Room(3, "B34", false, 3, RoomType.EXAMINATION, null),
+                            new Room(3, "B34", false, 3, RoomType.EXAMINATION),
                             AppointmentType.checkup,
                             new TimeInterval(DateTime.Now.AddMinutes(20), DateTime.Now.AddMinutes(35))));
 

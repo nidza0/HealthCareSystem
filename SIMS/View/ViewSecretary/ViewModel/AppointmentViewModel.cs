@@ -15,13 +15,12 @@ namespace SIMS.View.ViewSecretary.ViewModel
 
         public AppointmentViewModel(Appointment a)
         {
-            GetEagerAppointment();
-            appointment = a;
+            GetEagerAppointment(a);
         }
 
-        private void GetEagerAppointment()
+        private void GetEagerAppointment(Appointment a)
         {
-            //TODO: Get eager appointment
+            appointment = SecretaryAppResources.GetInstance().appointmentRepository.GetEager(a.GetId());
         }
     }
 }

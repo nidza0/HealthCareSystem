@@ -263,6 +263,9 @@
     <Compile Include="View\ViewSecretary\Pages\ProfilePage.xaml.cs">
       <DependentUpon>ProfilePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\ViewSecretary\Pages\ReportPage.xaml.cs">
+      <DependentUpon>ReportPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\ViewSecretary\Pages\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
@@ -274,6 +277,7 @@
     <Compile Include="View\ViewSecretary\ViewModel\PatientsViewModel.cs" />
     <Compile Include="View\ViewSecretary\ViewModel\PatientViewModel.cs" />
     <Compile Include="View\ViewSecretary\ViewModel\RoomsViewModel.cs" />
+    <Compile Include="View\ViewSecretary\ViewModel\UserViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -356,6 +360,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\ViewSecretary\Pages\ProfilePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewSecretary\Pages\ReportPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

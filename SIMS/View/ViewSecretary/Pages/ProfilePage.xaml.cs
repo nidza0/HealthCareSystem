@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SIMS.View.ViewSecretary.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,22 @@ namespace SIMS.View.ViewSecretary.Pages
         public ProfilePage()
         {
             InitializeComponent();
+            DataContext = UserViewModel.GetInstance();
+        }
+
+        private void btnClose_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnEdit_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnLogout_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

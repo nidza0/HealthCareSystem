@@ -1,4 +1,5 @@
-﻿using SIMS.Model.UserModel;
+﻿using SIMS.Model.PatientModel;
+using SIMS.Model.UserModel;
 using SIMS.Util;
 using System;
 using System.Collections.Generic;
@@ -26,8 +27,19 @@ namespace SIMS.View.ViewSecretary.ViewModel
         public void LoadAllAvailableRooms(TimeInterval time)
         {
             //TODO: Load all available rooms by time
+            var appointments = SecretaryAppResources.GetInstance().appointmentRepository.GetAppointmentsByTime(time);
+            var allRooms = SecretaryAppResources.GetInstance().roomRepository.GetAll();
 
-            LoadDummyRooms();
+            foreach(Appointment a in appointments)
+            {
+                if(a.Room != null)
+                {
+                    allRooms = allRooms.Where(r => r.GetId() == a.Room.GetId());
+                }
+            }
+
+            rooms = new ObservableCollection<Room>(allRooms);
+            //LoadDummyRooms();
         }
 
         public void LoadRooms()
@@ -39,12 +51,12 @@ namespace SIMS.View.ViewSecretary.ViewModel
 
         private void LoadDummyRooms()
         {
-            Rooms.Add(new Room(47, "A456", false, 7, RoomType.EXAMINATION, null));
-            Rooms.Add(new Room(47, "A4", false, 8, RoomType.EXAMINATION, null));
-            Rooms.Add(new Room(47, "F89", false, 3, RoomType.AFTERCARE, null));
-            Rooms.Add(new Room(47, "E45", false, 2, RoomType.EXAMINATION, null));
-            Rooms.Add(new Room(47, "C3", false, 2, RoomType.OPERATION, null));
-            Rooms.Add(new Room(47, "B567", false, 1, RoomType.OPERATION, null));
+            Rooms.Add(new Room(47, "A456", false, 7, RoomType.EXAMINATION));
+            Rooms.Add(new Room(47, "A4", false, 8, RoomType.EXAMINATION));
+            Rooms.Add(new Room(47, "F89", false, 3, RoomType.AFTERCARE));
+            Rooms.Add(new Room(47, "E45", false, 2, RoomType.EXAMINATION));
+            Rooms.Add(new Room(47, "C3", false, 2, RoomType.OPERATION));
+            Rooms.Add(new Room(47, "B567", false, 1, RoomType.OPERATION));
         }
 
         #region Filtering

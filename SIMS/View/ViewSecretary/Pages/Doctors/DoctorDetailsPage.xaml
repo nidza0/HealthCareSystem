@@ -35,7 +35,7 @@
                                 <RowDefinition></RowDefinition>
                             </Grid.RowDefinitions>
                             <Label Grid.Row="0" Grid.Column="0" Content="{StaticResource lblDateOfBirth}" Style="{StaticResource LabelInfo}"></Label>
-                            <Label Grid.Row="0" Grid.Column="1" Content="{Binding Doctor.DateOfBirth}"></Label>
+                            <TextBlock Grid.Row="0" Grid.Column="1" Padding="5" Text="{Binding Doctor.DateOfBirth, StringFormat={StaticResource DateFormat}}"></TextBlock>
                             <Label Grid.Row="1" Grid.Column="0" Content="{StaticResource lblPID}" Style="{StaticResource LabelInfo}"></Label>
                             <Label Grid.Row="1" Grid.Column="1" Content="{Binding Doctor.Uidn}"></Label>
                             <Label Grid.Row="2" Grid.Column="0" Content="{StaticResource lblGender}" Style="{StaticResource LabelInfo}"></Label>

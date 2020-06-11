@@ -5,10 +5,184 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SIMS.View.ViewSecretary.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="500" d:DesignWidth="600"
       Title="ProfilePage">
 
-    <Grid>
-        
-    </Grid>
+    <DockPanel>
+        <DockPanel DockPanel.Dock="Top" Style="{StaticResource PanelHeader}">
+            <Label DockPanel.Dock="Left" Content="{StaticResource MyProfile}" Foreground="{DynamicResource FontLightColor}" Height="auto" Width="auto"></Label>
+            <Button x:Name="btnClose" DockPanel.Dock="Right" Content="X" Width="29" HorizontalAlignment="Right" Style="{StaticResource HeaderCloseButton}" VerticalContentAlignment="Center" Click="btnClose_Click"></Button>
+        </DockPanel>
+
+        <DockPanel DockPanel.Dock="Bottom">
+            <DockPanel DockPanel.Dock="Top">
+                <Label Content="{Binding LoggedInUser.FullName}" FontSize="30" DockPanel.Dock="Left"></Label>
+                <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" HorizontalAlignment="Right" Margin="6">
+                    <Button x:Name="btnEdit" Content="{StaticResource btnEdit}" Style="{StaticResource StyleOrdinaryButton}" Click="btnEdit_Click"  HorizontalAlignment="Center" Margin="0 0 10 0"></Button>
+                    <Button x:Name="btnLogout" Content="{StaticResource btnLogout}" Style="{StaticResource StyleOrdinaryButton}" Click="btnLogout_Click" HorizontalAlignment="Center"></Button>
+                </StackPanel>
+            </DockPanel>
+            <ScrollViewer DockPanel.Dock="Bottom" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                <StackPanel x:Name="InfoPanel">
+                    <Grid Margin="6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Row="0" Grid.Column="0" Content="{StaticResource lblUsername}" Style="{StaticResource LabelInfo}"></Label>
+                        <Label Grid.Row="0" Grid.Column="1" Content="{Binding LoggedInUser.UserName}"></Label>
+                    </Grid>
+
+                    <Grid Margin="6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource LabelInfo}" Content="{StaticResource PersonalInfoHeader}"></Label>
+                        <Separator Grid.Row="0" Grid.Column="1" Width="auto" Style="{StaticResource HorizontalSeparatorStyle}"></Separator>
+                        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Content="{StaticResource lblDateOfBirth}" Style="{StaticResource LabelInfo}"></Label>
+                            <TextBlock Grid.Row="0" Grid.Column="1" Padding="5" Text="{Binding LoggedInUser.DateOfBirth, StringFormat={StaticResource DateFormat}}"></TextBlock>
+                            <Label Grid.Row="1" Grid.Column="0" Content="{StaticResource lblPID}" Style="{StaticResource LabelInfo}"></Label>
+                            <Label Grid.Row="1" Grid.Column="1" Content="{Binding LoggedInUser.Uidn}"></Label>
+                            <Label Grid.Row="2" Grid.Column="0" Content="{StaticResource lblGender}" Style="{StaticResource LabelInfo}"></Label>
+                            <Label Grid.Row="3" Grid.Column="1" Content="{Binding LoggedInUser.Sex}"></Label>
+                        </Grid>
+                    </Grid>
+
+                    <Grid Margin="6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource LabelInfo}" Content="{StaticResource ContactInfoHeader}"></Label>
+                        <Separator Grid.Row="0" Grid.Column="1" Width="auto" Style="{StaticResource HorizontalSeparatorStyle}"></Separator>
+
+                        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Content="{StaticResource lblAddress}" Style="{StaticResource LabelInfo}"></Label>
+                            <Label Grid.Row="0" Grid.Column="1" Content="{Binding LoggedInUser.Address.Street}"></Label>
+                            <Label Grid.Row="1" Grid.Column="0" Content="{StaticResource lblTelephone}" Style="{StaticResource LabelInfo}"></Label>
+                            <Label Grid.Row="1" Grid.Column="1" Content="{Binding LoggedInUser.HomePhone}"></Label>
+                            <Label Grid.Row="2" Grid.Column="0" Content="{StaticResource lblCellPhone}" Style="{StaticResource LabelInfo}"></Label>
+                            <Label Grid.Row="2" Grid.Column="1" Content="{Binding LoggedInUser.CellPhone}"></Label>
+                            <Label Grid.Row="3" Grid.Column="0" Content="{StaticResource lblEmail1}" Style="{StaticResource LabelInfo}"></Label>
+                            <Label Grid.Row="3" Grid.Column="1" Content="{Binding LoggedInUser.Email1}"></Label>
+                            <Label Grid.Row="4" Grid.Column="0" Content="{StaticResource lblEmail2}" Style="{StaticResource LabelInfo}"></Label>
+                            <Label Grid.Row="4" Grid.Column="1" Content="{Binding LoggedInUser.Email2}"></Label>
+                        </Grid>
+                    </Grid>
+
+                    <Grid Margin="6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource LabelInfo}" Content="{StaticResource WorkingHours}"></Label>
+                        <Separator Grid.Row="0" Grid.Column="1" Width="auto" Style="{StaticResource HorizontalSeparatorStyle}"></Separator>
+                        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.Resources>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Padding" Value="5"></Setter>
+                                </Style>
+                            </Grid.Resources>
+                            <Label Grid.Row="0" Grid.Column="0" Content="{StaticResource lblMonday}" Style="{StaticResource LabelInfo}"></Label>
+                            <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
+                                <TextBlock Text="{Binding Shifts[0].StartTime, StringFormat={StaticResource TimeFormat}}"></TextBlock>
+                                <Label Content="{StaticResource timeSeparator}"></Label>
+                                <TextBlock Text="{Binding Shifts[0].EndTime, StringFormat={StaticResource TimeFormat}}"></TextBlock>
+                            </StackPanel>
+                            <Label Grid.Row="1" Grid.Column="0" Content="{StaticResource lblTuesday}" Style="{StaticResource LabelInfo}"></Label>
+                            <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
+                                <TextBlock Text="{Binding Shifts[1].StartTime, StringFormat={StaticResource TimeFormat}}"></TextBlock>
+                                <Label Content="{StaticResource timeSeparator}"></Label>
+                                <TextBlock Text="{Binding Shifts[1].EndTime, StringFormat={StaticResource TimeFormat}}"></TextBlock>
+                            </StackPanel>
+                            <Label Grid.Row="2" Grid.Column="0" Content="{StaticResource lblWednesday}" Style="{StaticResource LabelInfo}"></Label>
+                            <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
+                                <TextBlock Text="{Binding Shifts[2].StartTime, StringFormat={StaticResource TimeFormat}}"></TextBlock>
+                                <Label Content="{StaticResource timeSeparator}"></Label>
+                                <TextBlock Text="{Binding Shifts[2].EndTime, StringFormat={StaticResource TimeFormat}}"></TextBlock>
+                            </StackPanel>
+                            <Label Grid.Row="3" Grid.Column="0" Content="{StaticResource lblThursday}" Style="{StaticResource LabelInfo}"></Label>
+                            <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
+                                <TextBlock Text="{Binding Shifts[3].StartTime, StringFormat={StaticResource TimeFormat}}"></TextBlock>
+                                <Label Content="{StaticResource timeSeparator}"></Label>
+                                <TextBlock Text="{Binding Shifts[3].EndTime, StringFormat={StaticResource TimeFormat}}"></TextBlock>
+                            </StackPanel>
+                            <Label Grid.Row="4" Grid.Column="0" Content="{StaticResource lblFriday}" Style="{StaticResource LabelInfo}"></Label>
+                            <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal">
+                                <TextBlock Text="{Binding Shifts[4].StartTime, StringFormat={StaticResource TimeFormat}}"></TextBlock>
+                                <Label Content="{StaticResource timeSeparator}"></Label>
+                                <TextBlock Text="{Binding Shifts[4].EndTime, StringFormat={StaticResource TimeFormat}}"></TextBlock>
+                            </StackPanel>
+                            <Label Grid.Row="5" Grid.Column="0" Content="{StaticResource lblSaturday}" Style="{StaticResource LabelInfo}"></Label>
+                            <StackPanel Grid.Row="5" Grid.Column="1" Orientation="Horizontal">
+                                <TextBlock Text="{Binding Shifts[5].StartTime, StringFormat={StaticResource TimeFormat}}"></TextBlock>
+                                <Label Content="{StaticResource timeSeparator}"></Label>
+                                <TextBlock Text="{Binding Shifts[5].EndTime, StringFormat={StaticResource TimeFormat}}"></TextBlock>
+                            </StackPanel>
+                            <Label Grid.Row="6" Grid.Column="0" Content="{StaticResource lblSunday}" Style="{StaticResource LabelInfo}"></Label>
+                            <StackPanel Grid.Row="6" Grid.Column="1" Orientation="Horizontal">
+                                <TextBlock Text="{Binding Shifts[6].StartTime, StringFormat={StaticResource TimeFormat}}"></TextBlock>
+                                <Label Content="{StaticResource timeSeparator}"></Label>
+                                <TextBlock Text="{Binding Shifts[6].EndTime, StringFormat={StaticResource TimeFormat}}"></TextBlock>
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+                </StackPanel>
+            </ScrollViewer>
+        </DockPanel>
+    </DockPanel>
 </Page>

@@ -1,4 +1,5 @@
-﻿using SIMS.Model.UserModel;
+﻿using SIMS.Model.PatientModel;
+using SIMS.Model.UserModel;
 using SIMS.Util;
 using System;
 using System.Collections.Generic;
@@ -30,14 +31,60 @@ namespace SIMS.View.ViewSecretary.ViewModel
         public void LoadAllAvailableDoctors(TimeInterval time)
         {
             //TODO: Load all available doctors
+            var appointments = SecretaryAppResources.GetInstance().appointmentRepository.GetAppointmentsByTime(time);
+            var allDoctors = SecretaryAppResources.GetInstance().doctorRepository.GetAllEager();
 
-            LoadDummyDoctors();
+            foreach(Appointment a in appointments)
+            {
+                if(a.DoctorInAppointment != null)
+                {
+                    allDoctors = allDoctors.Where(d => !d.GetId().Equals(a.DoctorInAppointment.GetId()));
+                }
+            }
+
+            List<Doctor> availableDoctors = new List<Doctor>();
+
+            foreach(Doctor doctor in allDoctors)
+            {
+                if(doctor.TimeTable != null)
+                {
+                    WorkingDaysEnum day = GetWorkingDay(time.StartTime.DayOfWeek);
+                    if (doctor.TimeTable.getWorkingHours().ContainsKey(day))
+                    {
+                        if (doctor.TimeTable.getWorkingHours()[day].IsTimeBetween(time))
+                        {
+                            availableDoctors.Add(doctor);
+                        }
+                    }
+                }
+            }
+
+            doctors = new ObservableCollection<Doctor>(availableDoctors);
+
+            //LoadDummyDoctors();
         }
+
+        private WorkingDaysEnum GetWorkingDay(DayOfWeek d)
+        {
+            switch (d)
+            {
+                case DayOfWeek.Monday: return WorkingDaysEnum.MONDAY;
+                case DayOfWeek.Tuesday: return WorkingDaysEnum.TUESDAY;
+                case DayOfWeek.Wednesday: return WorkingDaysEnum.WEDNESDAY;
+                case DayOfWeek.Thursday: return WorkingDaysEnum.THURSDAY;
+                case DayOfWeek.Friday: return WorkingDaysEnum.FRIDAY;
+                case DayOfWeek.Saturday: return WorkingDaysEnum.SATURDAY;
+                case DayOfWeek.Sunday: return WorkingDaysEnum.SUNDAY;
+                default: return WorkingDaysEnum.MONDAY;
+            }
+
+        }
+
         public void LoadAllDoctors()
         {
             //TODO: Load all doctors
-
-            LoadDummyDoctors();
+            doctors = new ObservableCollection<Doctor>(SecretaryAppResources.GetInstance().doctorRepository.GetAllEager());
+            //LoadDummyDoctors();
         }
 
         private void LoadDummyDoctors()

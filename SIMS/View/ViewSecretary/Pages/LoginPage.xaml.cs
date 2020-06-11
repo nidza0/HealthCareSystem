@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SIMS.Model.UserModel;
+using SIMS.View.ViewSecretary.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,9 +28,25 @@ namespace SIMS.View.ViewSecretary.Pages
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
             //TODO: Login
+            String username = txtUsername.Text;
+            String password = passwordBox.Password.ToString();
 
+            User user = SecretaryAppResources.GetInstance().userRepository.GetByUsername(username);
 
+            if(user == null)
+            {
+                errLogin.Visibility = Visibility.Visible;
+                return;
+            }
 
+            if(user.Password != password)
+            {
+                errLogin.Visibility = Visibility.Visible;
+                return;
+            }
+
+            errLogin.Visibility = Visibility.Collapsed;
+            UserViewModel.GetInstance().LoggedInUser = SecretaryAppResources.GetInstance().secretaryRepository.GetEager(user.GetId());
 
             //NAVIGATE TO MAIN WINDOW
 

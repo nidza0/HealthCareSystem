@@ -34,9 +34,10 @@ namespace SIMS.View.ViewSecretary.ViewModel
 
         public void LoadAppointments(DateTime date)
         {
-            //TODO: Load Appointments for givenDate
+            TimeInterval time = new TimeInterval(new DateTime(date.Year, date.Month, date.Day, 0, 0, 0), new DateTime(date.Year, date.Month, date.Day, 0, 0, 0).AddDays(1));
+            Appointments = new ObservableCollection<Appointment>(SecretaryAppResources.GetInstance().appointmentRepository.GetAppointmentsByTime(time));
 
-            LoadDummyAppointments();
+            //LoadDummyAppointments();
         }
 
         private void LoadDummyAppointments()
@@ -62,7 +63,7 @@ namespace SIMS.View.ViewSecretary.ViewModel
                                         new EmergencyContact("Milana", "Milanovic", "", "0217474859"),
                                         PatientType.GENERAL,
                                         null),
-                            new Room(2, "A456", false, 3, RoomType.EXAMINATION, null),
+                            new Room(2, "A456", false, 3, RoomType.EXAMINATION),
                             AppointmentType.checkup,
                             new TimeInterval(DateTime.Now.AddMinutes(5), DateTime.Now.AddMinutes(20))));
 
@@ -87,7 +88,7 @@ namespace SIMS.View.ViewSecretary.ViewModel
                                         new EmergencyContact("Milan", "Milanovic", "", "025478956325"),
                                         PatientType.GENERAL,
                                         null),
-                            new Room(3, "B34", false, 3, RoomType.EXAMINATION, null),
+                            new Room(3, "B34", false, 3, RoomType.EXAMINATION),
                             AppointmentType.checkup,
                             new TimeInterval(DateTime.Now.AddMinutes(20), DateTime.Now.AddMinutes(35))));
         }
@@ -95,11 +96,11 @@ namespace SIMS.View.ViewSecretary.ViewModel
         private void LoadRooms()
         {
             //TODO Load all rooms
-            Rooms.Add(new Room(401, "A4", false, 4, RoomType.EXAMINATION, null));
-            Rooms.Add(new Room(503, "C5", false, 5, RoomType.EXAMINATION, null));
-            Rooms.Add(new Room(302, "B3", false, 3, RoomType.EXAMINATION, null));
+            Rooms.Add(new Room(401, "A4", false, 4, RoomType.EXAMINATION));
+            Rooms.Add(new Room(503, "C5", false, 5, RoomType.EXAMINATION));
+            Rooms.Add(new Room(302, "B3", false, 3, RoomType.EXAMINATION));
 
-            Rooms.Insert(0, new Room(0, "", false, 0, RoomType.EXAMINATION, null));
+            Rooms.Insert(0, new Room(0, "", false, 0, RoomType.EXAMINATION));
         }
 
         #region Filtering

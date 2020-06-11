@@ -119,5 +119,10 @@ namespace SIMS.View.ViewSecretary.Pages
         {
             CentralFrame.Navigate(new SettingsPage());
         }
+
+        private void btn_report_Click(object sender, RoutedEventArgs e)
+        {
+            FrameManager.getInstance().CentralFrame.Navigate(new ReportPage());
+        }
     }
 }

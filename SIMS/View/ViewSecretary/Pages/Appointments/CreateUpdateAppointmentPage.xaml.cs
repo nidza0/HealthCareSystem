@@ -1,4 +1,5 @@
-﻿using SIMS.Model.UserModel;
+﻿using SIMS.Model.PatientModel;
+using SIMS.Model.UserModel;
 using SIMS.Util;
 using SIMS.View.ViewSecretary.ViewModel;
 using System;
@@ -215,10 +216,17 @@ namespace SIMS.View.ViewSecretary.Pages.Appointments
             if(doctor!=null && patient!=null && room != null)
             {
                 //TODO: Try create new appointment
+                SecretaryAppResources.GetInstance().appointmentRepository.Create(new Appointment(doctor, patient, room, AppointmentType.checkup, time));
+                MessageBox.Show(time.StartTime.ToString("dd.MM.yyyy. HH:mm") + " - " + time.EndTime.ToString("HH:mm") + "\nPatient: " + patient.FullName + "\nDoctor: " + doctor.FullName + "\nRoom: " + room.RoomNumber + "\n" + AppointmentType.checkup,
+                    "Appointment Added",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+
             }
             else
             {
                 //TODO: Raise error, all entities must be filled
+                MessageBox.Show("Doctor, patient and room must be filled.", "Appointment Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

@@ -21,6 +21,14 @@ namespace SIMS.View.ViewSecretary.Pages
         public HomePage()
         {
             InitializeComponent();
+            DateTime dt1 = DateTime.Now;
+            DateTime dt2 = DateTime.Now.AddHours(3);
+
+            TimeSpan dt = dt2 - dt1;
+            Console.WriteLine(dt.Days);
+            Console.WriteLine(dt.Hours);
+            Console.WriteLine(dt.Minutes);
+            Console.WriteLine(dt.TotalMinutes);
         }
     }
 }

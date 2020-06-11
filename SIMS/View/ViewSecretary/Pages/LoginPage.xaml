@@ -18,10 +18,11 @@
 
         <StackPanel Width="200" Margin="20">
             <Label x:Name="lblUsername" Content="{StaticResource lblUsername}"></Label>
-            <TextBox x:Name="txtUsername"></TextBox>
+            <TextBox x:Name="txtUsername" Height="22" VerticalContentAlignment="Center"></TextBox>
             <Label x:Name="lblPassword" Content="{StaticResource lblPassword}"></Label>
-            <PasswordBox x:Name="txtPassword"></PasswordBox>
+            <PasswordBox x:Name="passwordBox" Height="22" VerticalContentAlignment="Center"></PasswordBox>
         </StackPanel>
+        <Label x:Name="errLogin" Content="{StaticResource errWrongUsernamePassword}" Visibility="Collapsed" Style="{StaticResource errorLabel}" HorizontalAlignment="Center" Margin="0 0 0 20"></Label>
         <Button x:Name="btnLogin" Content="{StaticResource Login}" Style="{StaticResource StyleOKButton}" HorizontalAlignment="Center" Click="btnLogin_Click"></Button>
     </StackPanel>
 </Page>
