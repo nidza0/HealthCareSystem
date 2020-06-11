@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:SIMS.View.ViewPatient"
         mc:Ignorable="d"
         Title="MakeAnAppointment" 
-        Height="500" Width="800" >
+        Height="500" Width="800" 
+        WindowStartupLocation="CenterOwner">
 
     <Window.Resources>
         <Style x:Key="doctorListBoxStyle" TargetType="{x:Type ListBox}" BasedOn="{StaticResource ListBoxStyle}">
@@ -58,34 +59,74 @@
                 <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
                     <StackPanel Orientation="Horizontal" Height="50">
                         <RadioButton Width="150" IsChecked="True" Checked="RecentChecked" Style="{StaticResource ButtonStyle}">
-                            <Label Content="Recent" Style="{StaticResource SubtitleLabelStyle}"></Label>
+                                <RadioButton.ToolTip>
+                                    <ToolTip>
+                                        Click here to see your recent doctors
+                                    </ToolTip>
+                                </RadioButton.ToolTip>
+                                <Label Content="Recent" Style="{StaticResource SubtitleLabelStyle}"></Label>
                         </RadioButton>
                         <RadioButton Width="150" Checked="FamilyMedicineChecked" IsChecked="True" Style="{StaticResource ButtonStyle}">
-                            <Label Content="Family medicine" Style="{StaticResource SubtitleLabelStyle}"></Label>
+                                <RadioButton.ToolTip>
+                                    <ToolTip>
+                                        Click here to see family medicine doctors
+                                    </ToolTip>
+                                </RadioButton.ToolTip>
+                                <Label Content="Family medicine" Style="{StaticResource SubtitleLabelStyle}"></Label>
                         </RadioButton>
 
                         <RadioButton Width="150" Checked="CardiologistChecked" IsChecked="True" Style="{StaticResource ButtonStyle}">
-                            <Label Content="Cardiologist" Style="{StaticResource SubtitleLabelStyle}"></Label>
+                                <RadioButton.ToolTip>
+                                    <ToolTip>
+                                        Click here to see cardiologist doctors
+                                    </ToolTip>
+                                </RadioButton.ToolTip>
+                                <Label Content="Cardiologist" Style="{StaticResource SubtitleLabelStyle}"></Label>
                         </RadioButton>
 
                         <RadioButton Width="150" Checked="DermatologistChecked" IsChecked="True" Style="{StaticResource ButtonStyle}">
-                            <Label Content="Dermatologist" Style="{StaticResource SubtitleLabelStyle}"></Label>
+                                <RadioButton.ToolTip>
+                                    <ToolTip>
+                                        Click here to see dermatologist doctors
+                                    </ToolTip>
+                                </RadioButton.ToolTip>
+                                <Label Content="Dermatologist" Style="{StaticResource SubtitleLabelStyle}"></Label>
                         </RadioButton>
 
                         <RadioButton Width="150" Checked="InfectologistChecked" IsChecked="True" Style="{StaticResource ButtonStyle}">
+                                <RadioButton.ToolTip>
+                                    <ToolTip>
+                                        Click here to see infectionist doctors
+                                    </ToolTip>
+                                </RadioButton.ToolTip>
                                 <Label Content="Infectologist" Style="{StaticResource SubtitleLabelStyle}"></Label>
                         </RadioButton>
 
                         <RadioButton Width="150" Checked="OphtamologistChecked" IsChecked="True" Style="{StaticResource ButtonStyle}">
-                            <Label Content="Ophtamologist" Style="{StaticResource SubtitleLabelStyle}"></Label>
+                                <RadioButton.ToolTip>
+                                    <ToolTip>
+                                        Click here to see ophtamologist doctors
+                                    </ToolTip>
+                                </RadioButton.ToolTip>
+                                <Label Content="Ophtamologist" Style="{StaticResource SubtitleLabelStyle}"></Label>
                         </RadioButton>
 
                         <RadioButton Width="150" Checked="EndocriniologistChecked" IsChecked="True" Style="{StaticResource ButtonStyle}">
-                            <Label Content="Endocriniologist" Style="{StaticResource SubtitleLabelStyle}"></Label>
+                                <RadioButton.ToolTip>
+                                    <ToolTip>
+                                        Click here to see endocrionology doctors
+                                    </ToolTip>
+                                </RadioButton.ToolTip>
+                                <Label Content="Endocriniologist" Style="{StaticResource SubtitleLabelStyle}"></Label>
                         </RadioButton>
 
                         <RadioButton Width="150" Checked="GastroenerologistChecked" IsChecked="True" Style="{StaticResource ButtonStyle}">
-                            <Label Content="Gastroenerologist" Style="{StaticResource SubtitleLabelStyle}"></Label>
+                                <RadioButton.ToolTip>
+                                    <ToolTip>
+                                        Click here to see gastroenerologist doctors
+                                    </ToolTip>
+                                </RadioButton.ToolTip>
+                                <Label Content="Gastroenerologist" Style="{StaticResource SubtitleLabelStyle}"></Label>
                         </RadioButton>
                     </StackPanel>
                 </ScrollViewer>
@@ -106,11 +147,21 @@
                         <DockPanel DockPanel.Dock="Right">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
                                 <Button Click="ResetFilterButton_Click" x:Name="resetFilterButton">
-                                    <Label Style="{StaticResource InputLabel}" Content="Reset"/>
+                                        <Button.ToolTip>
+                                            <ToolTip>
+                                                Click here to reset filter
+                                            </ToolTip>
+                                        </Button.ToolTip>
+                                        <Label Style="{StaticResource InputLabel}" Content="Reset"/>
                                 </Button>
 
                                 <Button Click="FilterButton_Click" x:Name="filterButton">
-                                    <Label Style="{StaticResource InputLabel}" Content="Filter"/>
+                                        <Button.ToolTip>
+                                            <ToolTip>
+                                                Click here to activate filter
+                                            </ToolTip>
+                                        </Button.ToolTip>
+                                        <Label Style="{StaticResource InputLabel}" Content="Filter"/>
                                 </Button>
                             </StackPanel>
                         </DockPanel>
@@ -177,7 +228,13 @@
                                                 <DockPanel DockPanel.Dock="Right">
                                                     <!--Send message button-->
                                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                                        <Button VerticalAlignment="Top" Content="Send message" Height="30"/>
+                                                        <Button VerticalAlignment="Top" Content="Send message" Height="30">
+                                                            <Button.ToolTip>
+                                                                <ToolTip>
+                                                                    Click here to send a message
+                                                                </ToolTip>
+                                                            </Button.ToolTip>
+                                                        </Button>
                                                     </StackPanel>
 
                                                 </DockPanel>
@@ -207,7 +264,13 @@
                                                 <DockPanel DockPanel.Dock="Right">
                                                     <!--Make an appointment button-->
                                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                                        <Button VerticalAlignment="Bottom" Content="Make an appointment" Click="MakeAnAppointment_Click" Height="30"/>
+                                                        <Button VerticalAlignment="Bottom" Content="Make an appointment" Click="MakeAnAppointment_Click" Height="30">
+                                                            <Button.ToolTip>
+                                                                <ToolTip>
+                                                                    Click here to make an appointment
+                                                                </ToolTip>
+                                                            </Button.ToolTip>
+                                                        </Button>
                                                     </StackPanel>
                                                 </DockPanel>
                                             </DockPanel>

@@ -17,6 +17,12 @@ namespace SIMS.Model.UserModel
 
         private UserID _userID;
 
+        public string UserName { get => _userName; set => _userName = value; }
+        public string Password { get => _password; set => _password = value; }
+        public DateTime DateCreated { get => _dateCreated; set => _dateCreated = value; }
+        public bool Deleted { get => _deleted; set => _deleted = value; }
+        public UserID UserID { get => _userID; set => _userID = value; }
+
         public User(UserID id) : base() { _userID = id; }
 
         public User(string userName,
@@ -106,10 +112,7 @@ namespace SIMS.Model.UserModel
             _userID = id;
         }
 
-        public string UserName { get => _userName; }
-        public string Password { get => _password; }
-        public DateTime DateCreated { get => _dateCreated; set => _dateCreated = value; }
-        public bool Deleted { get => _deleted; }
+
 
         public override bool Equals(object obj)
         {

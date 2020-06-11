@@ -12,6 +12,12 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
+using SIMS.View;
+
+using System.Text.RegularExpressions;
+using SIMS.Model.UserModel;
+using SIMS.View.ViewPatient.Exceptions;
+using SIMS.View.ViewPatient.RepoSimulator;
 
 namespace SIMS.View.ViewPatient
 {
@@ -20,9 +26,19 @@ namespace SIMS.View.ViewPatient
     /// </summary>
     public partial class Login : Window
     {
+
+        private ValidationRegex validationRegex;
+        private UserRepo userRepo;
+        private bool usernameValid;
+        private bool passwordValid;
+
+        private Brush defaultBorderColor;
         public Login()
         {
+            validationRegex = new ValidationRegex();
+            userRepo = UserRepo.Instance;
             InitializeComponent();
+            defaultBorderColor = username.BorderBrush;
         }
 
         private void ResetButton_Click(object sender, RoutedEventArgs e)
@@ -30,9 +46,28 @@ namespace SIMS.View.ViewPatient
             this.username.Text = "";
             this.password.Password = "";
             confirmButton.IsEnabled = false;
+            usernameValid = false;
+            passwordValid = false;
 
         }
 
+
+        private void verifyForm()
+        {
+            if (confirmButton != null)
+            {
+                if (formValid())
+                    confirmButton.IsEnabled = true;
+                else
+                    confirmButton.IsEnabled = false;
+            }
+        }
+
+        private bool formValid()
+        {
+            return usernameValid && passwordValid;
+
+        }
 
 
         private void ConfirmButton_Click_1(object sender, RoutedEventArgs e)
@@ -43,34 +78,66 @@ namespace SIMS.View.ViewPatient
             //TODO: Check if username and password valid.
 
 
+            Patient loggedInPatient = null;
+            loggedInPatient = userRepo.login(username, password);
 
-            HomePage homePage = new HomePage();
-            homePage.WindowState = WindowState.Maximized;
+            if(loggedInPatient == null)
+            {
+                //ako nismo nasli  user sa tim username i password, obavesriti korisnika
+                MessageBox.Show("User with entered credentials was not found, please try again!");
+            }
+            else
+            {
+                HomePage homePage = new HomePage(loggedInPatient);
+                homePage.WindowState = WindowState.Maximized;
 
-            this.Close();
-            homePage.Show();
+                this.Close();
+                homePage.Show();
+            }
+
+
+
+            
         }
 
         private void validateInput(object sender, TextChangedEventArgs e)
         {
-            if(username == null || password == null)
-            {
-                confirmButton.IsEnabled = false;
-                return;
-            }
+            var match = Regex.Match(username.Text, ValidationRegex.GetUserNameRegex());
 
-            if (username.Text != "" && password.Password != "") confirmButton.IsEnabled = true;
+            if (!match.Success)
+            {
+                usernameValid = false;
+                username.BorderBrush = Brushes.Red;
+            }
+            else
+            {
+                usernameValid = true;
+                username.BorderBrush = defaultBorderColor;
+            }
+            verifyForm();
         }
 
         private void Password_PasswordChanged(object sender, RoutedEventArgs e)
         {
-            if (username == null || password == null)
-            {
-                confirmButton.IsEnabled = false;
-                return;
-            }
+            var match = Regex.Match(password.Password, ValidationRegex.GetPasswordRegex());
 
-            if (username.Text != "" && password.Password != "") confirmButton.IsEnabled = true;
+            if (!match.Success)
+            {
+                passwordValid = false;
+                password.BorderBrush = Brushes.Red;
+            }
+            else
+            {
+                passwordValid = true;
+                password.BorderBrush = defaultBorderColor;
+            }
+            verifyForm();
+        }
+
+        private void RegisterLinkClick(object sender, RoutedEventArgs e)
+        {
+            Registration registration = new Registration();
+            registration.ShowDialog();
         }
     }
 }

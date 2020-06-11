@@ -23,14 +23,15 @@ namespace SIMS.View.ViewPatient
     /// </summary>
     public partial class HomePage : Window
     {
-        public static Patient loggedPatient = new Patient(new UserID("P123"));
+        public static Patient loggedPatient;
         public ObservableCollection<Appointment> recentAppointments = new ObservableCollection<Appointment>();
         public ObservableCollection<Notification> notifications = new ObservableCollection<Notification>();
         public ObservableCollection<Article> articles = new ObservableCollection<Article>();
         public ObservableCollection<Diagnosis> diagnosisList = new ObservableCollection<Diagnosis>();
 
-        public HomePage()
+        public HomePage(Patient loggedInPatient)
         {
+            loggedPatient = loggedInPatient;
             InitializeComponent();
             Doctor doctor = new Doctor(new UserID("D333"),"pera","pera",DateTime.Now,"Nikola","Dragic","Milos",Sex.MALE,DateTime.Now,"1234567",new Address("test",new Location(1)),"555-333","zzzz","zzz","zzzzz",new TimeTable(2),new Hospital(1),new Room(2),Model.DoctorModel.DocTypeEnum.SURGEON);
             Doctor doctor2 = new Doctor(new UserID("D333"), "pera", "pera", DateTime.Now, "Nikolsdasdadasddasdadasdasdasdasdasdasdasdasdadasdasdasda", "Dragic", "Milos", Sex.MALE, DateTime.Now, "1234567", new Address("test", new Location(1)), "555-333", "zzzz", "zzz", "zzzzz", new TimeTable(2), new Hospital(1), new Room(2), Model.DoctorModel.DocTypeEnum.SURGEON);
@@ -89,13 +90,13 @@ namespace SIMS.View.ViewPatient
         {
             Messages messagesWindow = new Messages();
             messagesWindow.WindowState = WindowState.Maximized;
-            messagesWindow.Show();
+            messagesWindow.ShowDialog();
         }
 
         private void MyDiagnosis_Button_Click(object sender, RoutedEventArgs e)
         {
             DiagnosisOverview diagnosisOverview = new DiagnosisOverview();
-            diagnosisOverview.Show();
+            diagnosisOverview.ShowDialog();
         }
 
         private void ExitButton_Closing(object sender, RoutedEventArgs e)
@@ -145,30 +146,36 @@ namespace SIMS.View.ViewPatient
         private void MyAppointments_Click(object sender, RoutedEventArgs e)
         {
             MyAppointments myAppointments = new MyAppointments();
-            myAppointments.Show();
+            myAppointments.ShowDialog();
         }
 
         private void MyProfileButton_Click(object sender, RoutedEventArgs e)
         {
-            Patient p2 = new Patient(
-                                      "milic",
-                                      "PASSWORD",
-                                      "Milica",
-                                      "Mikic",
-                                      "Milos",
-                                      Sex.FEMALE,
-                                      new DateTime(1992, 11, 7),
-                                      "9876543221",
-                                      new Address("Partizanska 5", new Location(1, "Serbia", "Novi Sad")),
-                                      "0213698569",
-                                      "06454545454",
-                                      "milica@gmail.com",
-                                      "",
-                                      new EmergencyContact("Milana", "Milanović", "", "0217474859"),
-                                      PatientType.GENERAL,
-                                      null);
-            Registration editProfile = new Registration(p2);
-            editProfile.Show();
+            //Patient p2 = new Patient(
+            //                          "milic",
+            //                          "PASSWORD",
+            //                          "Milica",
+            //                          "Mikic",
+            //                          "Milos",
+            //                          Sex.FEMALE,
+            //                          new DateTime(1992, 11, 7),
+            //                          "9876543221",
+            //                          new Address("Partizanska 5", new Location(1, "Serbia", "Novi Sad")),
+            //                          "0213698569",
+            //                          "06454545454",
+            //                          "milica@gmail.com",
+            //                          "",
+            //                          new EmergencyContact("Milana", "Milanović", "", "0217474859"),
+            //                          PatientType.GENERAL,
+            //                          null);
+            Registration editProfile = new Registration(loggedPatient);
+            editProfile.ShowDialog();
+        }
+
+        private void TherapyButton_Click(object sender, RoutedEventArgs e)
+        {
+            TherapyOverview therapyOverview = new TherapyOverview();
+            therapyOverview.ShowDialog();
         }
     }
 }

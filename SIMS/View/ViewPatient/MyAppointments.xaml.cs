@@ -18,6 +18,13 @@ using SIMS.Model.PatientModel;
 using System.Collections.ObjectModel;
 using SIMS.Util;
 using System.ComponentModel;
+using SIMS.View.ViewPatient.RepoSimulator;
+using Microsoft.Win32;
+using System.IO;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using Paragraph = iTextSharp.text.Paragraph;
+using System.Data;
 
 namespace SIMS.View.ViewPatient
 {
@@ -26,6 +33,9 @@ namespace SIMS.View.ViewPatient
     /// </summary>
     public partial class MyAppointments : Window
     {
+
+        private MyAppointmentsRepo myAppointmentsRepo = MyAppointmentsRepo.Instance;
+
         private DocTypeEnum selectedFilterDoctorType;
         private Doctor selectedFilterDoctor;
         private DateTime firstAllowedDate;
@@ -85,82 +95,133 @@ namespace SIMS.View.ViewPatient
         private IEnumerable<Appointment> GetAllPatientAppointments()
         {
             //call controller
-
-
-            TimeInterval timeInterval = new TimeInterval(new DateTime(2020, 10, 6, 8, 0, 0), new DateTime(2020, 10, 6, 16, 0, 0));
-            Dictionary<WorkingDaysEnum, TimeInterval> dict = new Dictionary<WorkingDaysEnum, TimeInterval>();
-            dict.Add(WorkingDaysEnum.MONDAY, timeInterval);
-            dict.Add(WorkingDaysEnum.TUESDAY, timeInterval);
-            dict.Add(WorkingDaysEnum.WEDNESDAY, timeInterval);
-            dict.Add(WorkingDaysEnum.THURSDAY, timeInterval);
-            dict.Add(WorkingDaysEnum.FRIDAY, timeInterval);
-            dict.Add(WorkingDaysEnum.SATURDAY, timeInterval);
-            dict.Add(WorkingDaysEnum.SUNDAY, timeInterval);
-            TimeTable timeTable = new TimeTable(dict);
-            Doctor doctor = new Doctor(new UserID("d123"), "pera", "pera123", DateTime.Now, "Pera", "Vunic", "Puck", Sex.MALE, DateTime.Now, "12345667", new Address("Bulevar Mihajla Pupina 5", new Location(45, "Srbija", "Novi Sad")), "555-333", "06130959858", "pera@gmail.com", "pera111@gmail.com", timeTable, new Hospital("test", new Address("Bulevar Oslobodjenja 69", new Location(45, "Srbija", "Novi Sad")), "555-333", "zzzz"), new Room("B123", false, 5, RoomType.EXAMINATION), DocTypeEnum.CARDIOLOGIST);
-            Doctor doctor1 = new Doctor(new UserID("d1266"), "pera", "pera123", DateTime.Now, "Nikola", "Dragic", "Puck", Sex.MALE, DateTime.Now, "12345667", new Address("Bulevar Mihajla Pupina 5", new Location(45, "Srbija", "Novi Sad")), "555-444", "0613021959858", "nikola@gmail.com", "pera111@gmail.com", timeTable, new Hospital("test", new Address("Koste Sokice 2", new Location(45, "Srbija", "Novi Sad")), "555-367", "zzzz"), new Room("B124", false, 5, RoomType.EXAMINATION), DocTypeEnum.CARDIOLOGIST);
-            Doctor doctor2 = new Doctor(new UserID("d1267"), "pera", "pera123", DateTime.Now, "Veljko", "Dragic", "Puck", Sex.MALE, DateTime.Now, "12345667", new Address("Bulevar Mihajla Pupina 5", new Location(45, "Srbija", "Novi Sad")), "555-444", "0613021959858", "nikola@gmail.com", "pera111@gmail.com", timeTable, new Hospital("test", new Address("Koste Sokice 2", new Location(45, "Srbija", "Novi Sad")), "555-321321", "zzzz"), new Room("B125", false, 5, RoomType.EXAMINATION), DocTypeEnum.INFECTOLOGIST);
-            Doctor doctor3 = new Doctor(new UserID("d1262"), "pera", "pera123", DateTime.Now, "Pera", "Petkovic", "Puck", Sex.MALE, DateTime.Now, "12345667", new Address("Bulevar Mihajla Pupina 5", new Location(45, "Srbija", "Novi Sad")), "555-444", "0613021959858", "nikola@gmail.com", "pera111@gmail.com", timeTable, new Hospital("test", new Address("Koste Sokice 2", new Location(45, "Srbija", "Novi Sad")), "555-6666666", "zzzz"), new Room("B126", false, 5, RoomType.EXAMINATION), DocTypeEnum.INFECTOLOGIST);
-            Doctor doctor4 = new Doctor(new UserID("d1262"), "pera", "pera123", DateTime.Now, "Pera", "Peric", "Puck", Sex.MALE, DateTime.Now, "12345667", new Address("Bulevar Mihajla Pupina 5", new Location(45, "Srbija", "Novi Sad")), "555-444", "0613021959858", "nikola@gmail.com", "pera111@gmail.com", timeTable, new Hospital("test", new Address("Koste Sokice 2", new Location(45, "Srbija", "Novi Sad")), "555-TEST-123", "zzzz"), new Room("B127", false, 5, RoomType.EXAMINATION), DocTypeEnum.DERMATOLOGIST);
-            Doctor doctor5 = new Doctor(new UserID("d1262"), "pera", "pera123", DateTime.Now, "Pera", "Zeljic", "Puck", Sex.MALE, DateTime.Now, "12345667", new Address("Bulevar Mihajla Pupina 5", new Location(45, "Srbija", "Novi Sad")), "555-444", "0613021959858", "nikola@gmail.com", "pera111@gmail.com", timeTable, new Hospital("test", new Address("Koste Sokice 2", new Location(45, "Srbija", "Novi Sad")), "555-TEST2-132", "zzzz"), new Room("B128", false, 5, RoomType.EXAMINATION), DocTypeEnum.DERMATOLOGIST);
-            Doctor doctor6 = new Doctor(new UserID("d1262"), "pera", "pera123", DateTime.Now, "Pera", "Kupusarevic", "Puck", Sex.MALE, DateTime.Now, "12345667", new Address("Bulevar Mihajla Pupina 5", new Location(45, "Srbija", "Novi Sad")), "555-444", "0613021959858", "nikola@gmail.com", "pera111@gmail.com", timeTable, new Hospital("test", new Address("Koste Sokice 2", new Location(45, "Srbija", "Novi Sad")), "555-333", "zzzz"), new Room("B129", false, 5, RoomType.EXAMINATION), DocTypeEnum.DERMATOLOGIST);
-
-            Appointment appointment = new Appointment(doctor1, HomePage.loggedPatient, doctor1.Office, AppointmentType.checkup, timeInterval);
-            DateTime temp = timeInterval.StartTime.AddMinutes(20);
-            DateTime tempEnd = temp.AddMinutes(20);
-            timeInterval = new TimeInterval(temp, tempEnd);
-            Appointment appointment1 = new Appointment(doctor2, HomePage.loggedPatient, doctor2.Office, AppointmentType.operation, timeInterval);
-            temp = timeInterval.StartTime.AddMinutes(20);
-            tempEnd = temp.AddMinutes(20);
-            timeInterval = new TimeInterval(temp, tempEnd);
-
-            temp = timeInterval.StartTime.AddMinutes(20);
-            tempEnd = temp.AddMinutes(20);
-            timeInterval = new TimeInterval(temp, tempEnd);
-
-
-            temp = timeInterval.StartTime.AddMinutes(20);
-            tempEnd = temp.AddMinutes(20);
-            timeInterval = new TimeInterval(temp, tempEnd);
-            Appointment appointment2 = new Appointment(doctor3, HomePage.loggedPatient, doctor3.Office, AppointmentType.operation, timeInterval);
-            temp = timeInterval.StartTime.AddMinutes(20);
-            tempEnd = temp.AddMinutes(20);
-            timeInterval = new TimeInterval(temp, tempEnd);
-            Appointment appointment3 = new Appointment(doctor4, HomePage.loggedPatient, doctor4.Office, AppointmentType.checkup, timeInterval);
-            timeInterval = new TimeInterval(new DateTime(2020, 6, 10, 8, 0, 0), new DateTime(2020, 6, 10, 16, 0, 0));
-            temp = timeInterval.StartTime.AddMinutes(20);
-            tempEnd = temp.AddMinutes(20);
-            timeInterval = new TimeInterval(temp, tempEnd);
-
-            temp = timeInterval.StartTime.AddMinutes(20);
-            tempEnd = temp.AddMinutes(20);
-            timeInterval = new TimeInterval(temp, tempEnd);
-
-            Appointment appointment4 = new Appointment(doctor6, HomePage.loggedPatient, doctor5.Office, AppointmentType.checkup, timeInterval);
-            temp = timeInterval.StartTime.AddMinutes(20);
-            tempEnd = temp.AddMinutes(20);
-            timeInterval = new TimeInterval(temp, tempEnd);
-            Appointment appointment5 = new Appointment(doctor6, HomePage.loggedPatient, doctor5.Office, AppointmentType.checkup, timeInterval);
-
-
-            List<Appointment> patientAppointments = new List<Appointment>();
-
-            patientAppointments.Add(appointment);
-            patientAppointments.Add(appointment1);
-            patientAppointments.Add(appointment2);
-            patientAppointments.Add(appointment3);
-            patientAppointments.Add(appointment4);
-            patientAppointments.Add(appointment5);
-
-
-            return patientAppointments;
-
+            return myAppointmentsRepo.MyAppointments;
+            
+           
         }
 
         private void ExportButton_Click(object sender, RoutedEventArgs e)
         {
+            SaveFileDialog savefile = new SaveFileDialog();
+            // set a default file name
+            savefile.FileName = "appointment_export.pdf";
+            // set filters - this can be done in properties as well
+            savefile.Filter = "PDF files (*.pdf)|*.pdf|All files (*.*)|*.*";
 
+            Nullable<bool> result = savefile.ShowDialog();
+
+            // Process save file dialog box results
+            if (result == true)
+            {
+                // Save document
+                string filename = savefile.FileName;
+
+
+                Console.WriteLine(filename);
+
+                if (File.Exists(filename))
+                {
+                    File.Delete(filename);
+                
+                }
+
+                PerformAppointmentExport(savefile.FileName);
+            }
         }
+
+        private void PerformAppointmentExport(string filename)
+        {
+            FileStream fileStream = new FileStream(filename, FileMode.Create, FileAccess.ReadWrite);
+            Document document = new Document(PageSize.A3, 25, 25, 30, 50);
+            PdfWriter pdfWriter = PdfWriter.GetInstance(document, fileStream);
+
+            document.AddAuthor("Health care clinic Zdravo");
+            document.AddCreator("Health care clinic Zdravo");
+            document.AddSubject("Appointment report " + SelectedStartDate.ToString("MM-dd-yy") + " - " + SelectedEndDate.ToString("MM-dd-yy"));
+            document.AddTitle("Appointment report");
+            document.Open();
+            //pdfWriter.PageEvent = new FooterPDFEvent();
+            pdfWriter.PageEvent = new PDFWaterMarkEvent("Health clinic Zdravo");
+            BaseFont baseFont = BaseFont.CreateFont(BaseFont.TIMES_ROMAN, BaseFont.CP1252, false);
+            Font titleFont = new Font(baseFont, 22);
+
+            
+            Paragraph title = new Paragraph("Appointment report", titleFont);
+            title.Alignment = Element.ALIGN_CENTER;
+
+            document.Add(title);
+
+            Font dateInfoFont = new Font(baseFont, 18, 0);
+
+            string text = SelectedStartDate.ToString("MM-dd-yy") + "      " + "to      " + SelectedEndDate.ToString("MM-dd-yy");
+            Paragraph dateSubtitle = new Paragraph(text, dateInfoFont);
+            dateSubtitle.Alignment = Element.ALIGN_CENTER;
+
+            document.Add(dateSubtitle);
+
+            Paragraph separator = new Paragraph(Chunk.NEWLINE);
+            document.Add(separator);
+            document.Add(separator);
+            document.Add(separator);
+
+            //odavde na dole je generisanje tabele
+            float[] pointColumnWidths = { 10F, 10F, 9F, 20F, 5F, 10F, 8F };
+
+            PdfPTable table = new PdfPTable(pointColumnWidths);
+            DataTable dataTable = new DataTable();
+
+
+            string[] tableHeaders = { "Date", "Time", "Location", "Type", "Doctor", "Phone number", "Ordination" };
+
+
+            foreach(string header in tableHeaders)
+            {
+                table.AddCell(new PdfPCell(new Phrase(header)));
+            }
+
+            table.HeaderRows = 1;
+
+            foreach (Appointment appointment in GetAllPatientAppointments())
+            {
+                PdfPCell timeCell = new PdfPCell();
+                PdfPCell dateCell = new PdfPCell();
+                PdfPCell locationCell = new PdfPCell();
+                PdfPCell typeCell = new PdfPCell();
+                PdfPCell doctorCell = new PdfPCell();
+                PdfPCell phoneNumberCell = new PdfPCell();
+                PdfPCell ordinationCell = new PdfPCell();
+                dateCell.AddElement(new Phrase(appointment.TimeInterval.StartTime.ToString("MM-dd-yy")));
+                timeCell.AddElement(new Phrase(appointment.TimeInterval.StartTime.ToString("HH:mm")));
+                locationCell.AddElement(new Phrase(appointment.DoctorInAppointment.Hospital.Address.Location.City + ", " + appointment.DoctorInAppointment.Hospital.Address.Location.Country +", " + appointment.DoctorInAppointment.Office.RoomNumber));
+                typeCell.AddElement(new Phrase(appointment.AppointmentType.ToString()));
+                doctorCell.AddElement(new Phrase(appointment.DoctorInAppointment.Name + ", " + appointment.DoctorInAppointment.Surname));
+                phoneNumberCell.AddElement(new Phrase(appointment.DoctorInAppointment.CellPhone));
+                ordinationCell.AddElement(new Phrase(appointment.Room.RoomNumber));
+
+
+           
+
+                    table.AddCell(timeCell);
+                    table.AddCell(dateCell);
+                    table.AddCell(locationCell);
+                    table.AddCell(typeCell);
+                    table.AddCell(doctorCell);
+                    table.AddCell(phoneNumberCell);
+                    table.AddCell(ordinationCell);
+            }
+
+            document.Add(table);
+
+
+
+            document.Close();
+            pdfWriter.Close();
+            fileStream.Close();
+         
+         
+        }
+
+        
 
         private void FilterButton_Click(object sender, RoutedEventArgs e)
         {
@@ -177,6 +238,8 @@ namespace SIMS.View.ViewPatient
                 MessageBox.Show("Appointment can't be changed now!");
                 return;
             }
+
+
 
             EditAnAppointment editAnAppointment = new EditAnAppointment(appointment);
             editAnAppointment.ShowDialog();
@@ -212,10 +275,21 @@ namespace SIMS.View.ViewPatient
                 MessageBox.Show("Appointment can't be canceled now!");
                 return;
             }
+            MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("Are you sure you want to cancel this appointment?", "Cancel appointment confirmation", System.Windows.MessageBoxButton.YesNo);
+            if (messageBoxResult == MessageBoxResult.Yes)
+            {
+                myAppointmentsRepo.cancelAppointment(appointment);
+                AllAppointments.Remove(appointment);
 
-            AllAppointments.Remove(appointment);
+                MessageBox.Show("Appointment successfully canceled!");
+            }
 
 
+
+
+           
+
+            refreshAppointmentList();
         }
 
 

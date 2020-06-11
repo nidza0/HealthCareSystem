@@ -1,0 +1,67 @@
+﻿<Window x:Class="SIMS.View.ViewPatient.VideoTutorial"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SIMS.View.ViewPatient"
+        mc:Ignorable="d"
+        Title="VideoTutorial" Height="450" Width="800">
+    <Grid Background="{StaticResource BackgroundColor}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <!--Header-->
+            <RowDefinition Height="*"></RowDefinition>
+
+        </Grid.RowDefinitions>
+
+        <Border x:Name="header" Grid.Row="0" Style="{StaticResource BorderBlockStyle}">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Label Content="Make an appointment" Style="{StaticResource LabelStyle}"/>
+            </StackPanel>
+        </Border>
+
+
+
+        <Border Grid.Row="1" Style="{StaticResource BorderBlockStyle}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="120"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+
+                <StackPanel Grid.Row="0" Orientation="Vertical" x:Name="stack">
+
+
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                        <StackPanel Orientation="Horizontal" Height="50">
+                            <RadioButton Width="200" IsChecked="True" x:Name="makeAnAppointmentButton" Checked="MakeAnAppointmentButton_Checked"  Style="{StaticResource ButtonStyle}">
+                                <Label Content="Make an appointment" Style="{StaticResource SubtitleLabelStyle}"></Label>
+                            </RadioButton>
+                            <RadioButton Width="200" Checked="CancelAnAppointmentButton_Checked" x:Name="cancelAnAppointmentButton"    Style="{StaticResource ButtonStyle}">
+                                <Label Content="Cancel an appointment" Style="{StaticResource SubtitleLabelStyle}"></Label>
+                            </RadioButton>
+
+                            <RadioButton Width="200" Checked="MyTherapyButton_Checked" x:Name="myTherapyButton" Style="{StaticResource ButtonStyle}">
+                                <Label Content="My therapy" Style="{StaticResource SubtitleLabelStyle}"></Label>
+                            </RadioButton>
+
+                            <RadioButton Width="200" Checked="MyDiagnosisButton_Checked" x:Name="myDiagnosisButton" Style="{StaticResource ButtonStyle}">
+                                <Label Content="My diagnosis" Style="{StaticResource SubtitleLabelStyle}"></Label>
+                            </RadioButton>
+
+                            <RadioButton Width="200" Checked="EditProfileButton_Checked" x:Name="editProfileButton"  Style="{StaticResource ButtonStyle}">
+                                <Label Content="Edit profile" Style="{StaticResource SubtitleLabelStyle}"></Label>
+                            </RadioButton>
+
+                            <RadioButton Width="200" Checked="MessagingButton_Checked" x:Name="messagingButton"  Style="{StaticResource ButtonStyle}">
+                                <Label Content="Messaging" Style="{StaticResource SubtitleLabelStyle}"></Label>
+                            </RadioButton>
+
+                        </StackPanel>
+                    </ScrollViewer>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

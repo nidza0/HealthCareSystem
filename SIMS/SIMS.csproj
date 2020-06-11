@@ -36,6 +36,9 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="itextsharp, Version=5.5.13.1, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.13.1\lib\itextsharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -217,6 +220,12 @@
     <Compile Include="View\ViewPatient\BookAnAppointment.xaml.cs">
       <DependentUpon>BookAnAppointment.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\ViewPatient\Exceptions\RegistrationException.cs" />
+    <Compile Include="View\ViewPatient\FooterPDFEvent.cs" />
+    <Compile Include="View\ViewPatient\PDFWaterMarkEvent.cs" />
+    <Compile Include="View\ViewPatient\RepoSimulator\DoctorAppointmentsRepo.cs" />
+    <Compile Include="View\ViewPatient\RepoSimulator\TherapyRepo.cs" />
+    <Compile Include="View\ViewPatient\RepoSimulator\UsersRepo.cs" />
     <Compile Include="View\ViewPatient\DAOclass\PatientSingleTherapy.cs" />
     <Compile Include="View\ViewPatient\DiagnosisOverview.xaml.cs">
       <DependentUpon>DiagnosisOverview.xaml</DependentUpon>
@@ -245,10 +254,14 @@
     <Compile Include="View\ViewPatient\Registration.xaml.cs">
       <DependentUpon>Registration.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\ViewPatient\RepoSimulator\MyAppointmentsRepo.cs" />
     <Compile Include="View\ViewPatient\TherapyOverview.xaml.cs">
       <DependentUpon>TherapyOverview.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ViewPatient\ValidationRegex.cs" />
+    <Compile Include="View\ViewPatient\VideoTutorial.xaml.cs">
+      <DependentUpon>VideoTutorial.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -322,6 +335,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\ViewPatient\VideoTutorial.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\DoctorModel\DoctorFeedback.cs" />
@@ -391,6 +408,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -402,5 +420,6 @@
   <ItemGroup>
     <Resource Include="View\ViewPatient\static\images\test_image.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

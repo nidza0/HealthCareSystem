@@ -89,13 +89,63 @@
                     <Image Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="1" Grid.RowSpan="3" Source="{StaticResource LogoImage}"/>
 
                     <!--Navigation items definition-->
-                    <Button Width="130"   Click="MakeAnAppointment" Margin="5">Make an appointment</Button>
-                    <Button Width="130" Click="MyAppointments_Click"  Margin="5">My appointments</Button>
-                    <Button Width="130"   Margin="5">My therapy</Button>
-                    <Button Width="130"  Click = "MyDiagnosis_Button_Click"   Margin="5">My diagnosis</Button>
-                    <Button Width="130"  Click= "Messages_Button_Click"  Margin="5">Messages</Button>
-                    <Button Width="130"  x:Name="myProfileButton" Click= "MyProfileButton_Click"  Margin="5">My profile</Button>
-                    <Button Width="130"  Click = "ExitButton_Closing" Margin="5">Exit</Button>
+                    <Button Width="130"   Click="MakeAnAppointment" Margin="5">
+                        <Button.ToolTip>
+                            <ToolTip>
+                                Click here to make an appointment
+                            </ToolTip>
+                        </Button.ToolTip>
+                        Make an appointment
+                    
+                    </Button>
+                    <Button Width="130" Click="MyAppointments_Click"  Margin="5">
+                        <Button.ToolTip>
+                            <ToolTip>
+                                Click here to see your appointments
+                            </ToolTip>
+                        </Button.ToolTip>
+                        My appointments
+                    </Button>
+                    <Button Width="130" x:Name="therapyButton" Click="TherapyButton_Click"  Margin="5">
+                        <Button.ToolTip>
+                            <ToolTip>
+                                Click here to see your therapies
+                            </ToolTip>
+                        </Button.ToolTip>
+                        My therapy
+                    </Button>
+                    <Button Width="130"  Click = "MyDiagnosis_Button_Click"   Margin="5">
+                        <Button.ToolTip>
+                            <ToolTip>
+                                Click here to see your diagnosis
+                            </ToolTip>
+                        </Button.ToolTip>
+                        My diagnosis
+                    </Button>
+                    <Button Width="130"  Click= "Messages_Button_Click"  Margin="5">
+                        <Button.ToolTip>
+                            <ToolTip>
+                                Click here to see your messages
+                            </ToolTip>
+                        </Button.ToolTip>
+                        Messages
+                    </Button>
+                    <Button Width="130"  x:Name="myProfileButton" Click= "MyProfileButton_Click"  Margin="5">
+                        <Button.ToolTip>
+                            <ToolTip>
+                                Click here to see profile information
+                            </ToolTip>
+                        </Button.ToolTip>
+                        My profile
+                    </Button>
+                    <Button Width="130"  Click = "ExitButton_Closing" Margin="5">
+                        <Button.ToolTip>
+                            <ToolTip>
+                                Click here to exit application
+                            </ToolTip>
+                        </Button.ToolTip>
+                        Exit
+                    </Button>
 
                 </StackPanel>
 

@@ -104,7 +104,7 @@
 
 
                     <Label Grid.Row="4" Grid.Column="0">
-                        <Hyperlink >No account? Register.</Hyperlink>
+                        <Hyperlink Click="RegisterLinkClick">No account? Register.</Hyperlink>
                     </Label>
                 </Grid>
 
@@ -117,9 +117,19 @@
 
                     <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
                         <Button x:Name="resetButton" Margin="5 0 0 0" Click="ResetButton_Click" >
+                            <Button.ToolTip>
+                                <ToolTip>
+                                    Click here to reset login form
+                                </ToolTip>
+                            </Button.ToolTip>
                             <Label Style="{StaticResource InputLabel}">Reset</Label>
                         </Button>
                         <Button IsEnabled="False" x:Name="confirmButton" Click="ConfirmButton_Click_1" >
+                            <Button.ToolTip>
+                                <ToolTip>
+                                    Click here to login
+                                </ToolTip>
+                            </Button.ToolTip>
                             <Label Content="Confirm" Style="{StaticResource InputLabel}"></Label>
                         </Button>
                     </StackPanel>

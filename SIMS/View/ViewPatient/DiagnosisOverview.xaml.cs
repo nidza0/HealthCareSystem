@@ -46,30 +46,47 @@ namespace SIMS.View.ViewPatient
                                         "endocrine system, which produces hormones that sadadthyroid, a small gland at the base of your neck" +
                                         "below your Adam's apple.", true, new DiseaseType(true, true, "nmp"), lista);
 
-            Disease disease1 = new Disease(23, "Throat cancer", " Hashimoto's disease is a condition in which your immune system" +
+            Disease disease1 = new Disease(23, "Throat cancer", " Throat cancer is a serious disease that" +
                                         "attacks your thyroid, a small gland at the base of your neck" +
                                         "below your Adam's apple. The thyroid gland is part of your" +
                                         "endocrine system, which produces hormones that sadadthyroid, a small gland at the base of your neck" +
                                         "below your Adam's apple.", true, new DiseaseType(true, true, "nmp"), lista);
             Medicine medicine = new Medicine("Xanax", 20, MedicineType.PILL, 5, 2);
             Medicine medicine1 = new Medicine("Pera", 10, MedicineType.PILL, 5, 2);
+            Medicine medicine2 = new Medicine("Oljaprofen", 6, MedicineType.PILL, 5, 2);
+            Medicine medicine3 = new Medicine("Ketaprofen", 7, MedicineType.PILL, 5, 2);
+            Medicine medicine4 = new Medicine("Zeljkoprofen", 8, MedicineType.PILL, 5, 2);
             Dictionary<Medicine, TherapyDose> dict = new Dictionary<Medicine, TherapyDose>();
+            Dictionary<Medicine, TherapyDose> dict1 = new Dictionary<Medicine, TherapyDose>();
             Dictionary<TherapyTime, double> dict_ther = new Dictionary<TherapyTime, double>();
+            Dictionary<TherapyTime, double> dict_ther1 = new Dictionary<TherapyTime, double>();
             dict_ther.Add(TherapyTime.BeforeBed, 20);
             dict_ther.Add(TherapyTime.AsNeeded, 1);
+            dict_ther1.Add(TherapyTime.WhenIWakeUp, 20);
             TherapyDose therapyDose = new TherapyDose(dict_ther);
+            TherapyDose therapyDose1 = new TherapyDose(dict_ther1);
             dict.Add(medicine, therapyDose);
             dict.Add(medicine1, therapyDose);
 
+            dict1.Add(medicine2, therapyDose);
+            dict1.Add(medicine3, therapyDose1);
+            dict1.Add(medicine4, therapyDose1);
+
             Doctor doctor = new Doctor(new UserID("D123"));
             Prescription prescription = new Prescription(2, PrescriptionStatus.ACTIVE,doctor, dict);
+            Prescription prescription1 = new Prescription(3, PrescriptionStatus.ACTIVE,doctor, dict1);
+
 
             Therapy therapy = new Therapy(2, new TimeInterval(DateTime.Now, DateTime.Now), prescription);
+            Therapy therapy1 = new Therapy(3, new TimeInterval(DateTime.Now, DateTime.Now), prescription1);
             List<Therapy> therapies = new List<Therapy>();
+            List<Therapy> therapies1 = new List<Therapy>();
             therapies.Add(therapy);
 
-            Diagnosis diagnosis = new Diagnosis(69, disease, therapies);
-            Diagnosis diagnosis1 = new Diagnosis(69, disease1, therapies);
+            therapies1.Add(therapy1);
+            
+            Diagnosis diagnosis = new Diagnosis(68, disease, therapies);
+            Diagnosis diagnosis1 = new Diagnosis(61, disease1, therapies1);
 
             diagnosisList.Add(diagnosis);
             diagnosisList.Add(diagnosis1);

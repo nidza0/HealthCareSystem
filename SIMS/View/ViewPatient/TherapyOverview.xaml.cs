@@ -15,8 +15,12 @@ using System.Windows.Shapes;
 using SIMS.Model.PatientModel;
 using SIMS.Util;
 using SIMS.Model.UserModel;
+using SIMS.View.ViewPatient.DAOclass;
 
 using System.Collections.ObjectModel;
+using SIMS.Model.DoctorModel;
+using SIMS.View.ViewPatient.RepoSimulator;
+
 
 namespace SIMS.View.ViewPatient
 {
@@ -25,10 +29,12 @@ namespace SIMS.View.ViewPatient
     /// </summary>
     public partial class TherapyOverview : Window
     {
+
+        private TherapyRepo therapyRepo = TherapyRepo.Instance;
         private string selectedFilterDrugName;
         private string selectedFilterDoctor;
-        private DateTime selectedStartDate;
-        private DateTime selectedEndDate;
+        private DateTime selectedStartDate = DateTime.Now;
+        private DateTime selectedEndDate = DateTime.Now;
 
         private bool selectedWhenIGetUpCheckBox;
         private bool selectedInTheAfternoonCheckBox;
@@ -36,14 +42,19 @@ namespace SIMS.View.ViewPatient
         private bool selectedBeforeBedCheckBox;
 
 
-        private ObservableCollection<Therapy> AllTherapies; //za naseg pacijenta, podrazumeva se
+        private ObservableCollection<PatientSingleTherapy> allTherapies; //za naseg pacijenta, podrazumeva se
 
 
         
         public TherapyOverview()
         {
-            
+            this.DataContext = this;
             InitializeComponent();
+
+
+            doctorComboBox.ItemsSource = Doctors;
+
+            
         }
 
         public string SelectedFilterDrugName { get => selectedFilterDrugName; set => selectedFilterDrugName = value; }
@@ -54,21 +65,12 @@ namespace SIMS.View.ViewPatient
         public bool SelectedInTheAfternoonCheckBox { get => selectedInTheAfternoonCheckBox; set => selectedInTheAfternoonCheckBox = value; }
         public bool SelectedInTheEveningCheckBox { get => selectedInTheEveningCheckBox; set => selectedInTheEveningCheckBox = value; }
         public bool SelectedBeforeBedCheckBox { get => selectedBeforeBedCheckBox; set => selectedBeforeBedCheckBox = value; }
-        public ObservableCollection<Therapy> AllTherapies1 {
+        public ObservableCollection<PatientSingleTherapy> AllTherapies {
             get
             {
-                List<Therapy> allTherapies = GetAllTherapies().ToList();
-
-                ObservableCollection<Therapy> retVal = new ObservableCollection<Therapy>();
-
-                foreach(Therapy therapy in allTherapies)
-                {
-                    retVal.Add(therapy);
-                }
-
-                return retVal;
+                return GetObservablePatientSingleTherapies();
             }
-            set => AllTherapies = value;
+            set => allTherapies = value;
         }
 
         private void FilterButton_Click(object sender, RoutedEventArgs e)
@@ -80,40 +82,65 @@ namespace SIMS.View.ViewPatient
         {
             //poziv kontrolera
 
-            //dummy data
-            Medicine medicine1 = new Medicine("Brufen", 50, MedicineType.PILL, 5, 7);
-            Medicine medicine2 = new Medicine("Kapi za nos", 10, MedicineType.DROPS, 5, 7);
-            Medicine medicine3 = new Medicine("Perobrufen", 68, MedicineType.PILL, 5, 7);
-
-            Dictionary<Medicine, TherapyDose> medicine = new Dictionary<Medicine, TherapyDose>();
-            Dictionary<TherapyTime, double> dosage1 = new Dictionary<TherapyTime, double>();
-            Dictionary<TherapyTime, double> dosage2 = new Dictionary<TherapyTime, double>();
-            Dictionary<TherapyTime, double> dosage3 = new Dictionary<TherapyTime, double>();
-            dosage1.Add(TherapyTime.Afternoon, 7);
-            dosage1.Add(TherapyTime.BeforeBed, 3);
-            dosage1.Add(TherapyTime.WhenIWakeUp, 2);
-
-            dosage2.Add(TherapyTime.BeforeBed, 1);
-            dosage2.Add(TherapyTime.AsNeeded, 6);
-
-            dosage3.Add(TherapyTime.Afternoon, 22);
-
-            medicine.Add(medicine1, new TherapyDose(dosage1));
-            medicine.Add(medicine2, new TherapyDose(dosage2));
-            medicine.Add(medicine3, new TherapyDose(dosage3));
-
-            Prescription p1 = new Prescription(78, PrescriptionStatus.ACTIVE, new Doctor(new UserID("d78")), medicine);
-            Prescription p2 = new Prescription(78, PrescriptionStatus.ACTIVE, new Doctor(new UserID("d78")), medicine);
-            Prescription p3 = new Prescription(78, PrescriptionStatus.ACTIVE, new Doctor(new UserID("d78")), medicine);
-
-            Therapy therapy1 = new Therapy(new TimeInterval(DateTime.Now, DateTime.Now.AddDays(18)), p1);
-            Therapy therapy2 = new Therapy(new TimeInterval(DateTime.Now, DateTime.Now.AddDays(18)), p2);
-
-            //retVal.Add(therapy1);
-            //retVal.Add(therapy2);
+            return therapyRepo.TherapyList;
+        }
 
 
-            return null;
+
+        private List<PatientSingleTherapy> GetPatientSingleTherapies()
+        {
+            List<PatientSingleTherapy> retVal = new List<PatientSingleTherapy>();
+
+            List<Therapy> allTherapies = GetAllTherapies().ToList();
+
+            foreach(Therapy therapy in allTherapies)
+            {
+                Prescription therapyPrescription = therapy.Prescription;
+
+                foreach(KeyValuePair<Medicine,TherapyDose> pair in therapyPrescription.Medicine)
+                {
+                    //za svaki lek
+                    PatientSingleTherapy patientSingleTherapy = new PatientSingleTherapy(pair.Key, therapy.TimeInterval, pair.Value.Dosage,therapyPrescription.Doctor);
+                    retVal.Add(patientSingleTherapy);
+                }
+            }
+
+
+
+
+
+            return retVal;
+        }
+
+
+        private ObservableCollection<PatientSingleTherapy> GetObservablePatientSingleTherapies()
+        {
+            List<PatientSingleTherapy> patientSingleTherapies = GetPatientSingleTherapies();
+            Console.WriteLine(patientSingleTherapies.Count);
+            ObservableCollection<PatientSingleTherapy> retVal = new ObservableCollection<PatientSingleTherapy>();
+
+            foreach(PatientSingleTherapy therapy in patientSingleTherapies)
+            {
+                retVal.Add(therapy);
+            }
+
+
+            return retVal;
+        }
+
+        private ObservableCollection<Doctor> Doctors
+        {
+            get
+            {
+                List<Doctor> doctors = GetPatientSingleTherapies().ToList().Select(therapy => therapy.Doctor).Distinct().ToList();
+
+                ObservableCollection<Doctor> retVal = new ObservableCollection<Doctor>();
+
+                foreach (Doctor doc in doctors)
+                    retVal.Add(doc);
+
+                return retVal;
+            }
         }
     }
 }

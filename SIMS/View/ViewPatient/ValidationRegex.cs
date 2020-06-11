@@ -14,7 +14,8 @@ namespace SIMS.View.ViewPatient
             //return @"\(?\d{3}\)?-? *\d{3}-? *-?\d{4}";
             //return "/^[0-9()-]+$/";
             //return @"/^[0-9()-]+$/";
-            return @"[0-9\-]{4,}";
+            //return @"\b[0-9/-]{5,}\b";
+            return @"^\b[0-9\.\-\/]+\b$";
         }
 
         public static string GetUserNameRegex()
@@ -29,23 +30,23 @@ namespace SIMS.View.ViewPatient
 
         public static string GetNameRegex()
         {
-            return @"[A-Z a-z\.]{4,}";
+            return @"\b[A-Z a-z\.]{4,}\b";
             //return @"[A-Za-z]+[\s][A-Za-z]+[.][A-Za-z]+";
         }
 
         public static string GetAddressRegex()
         {
-            return @".{4,}";
+            return @"\b.{4,}\b";
         }
 
         public static string GetUIDNRegex()
         {
-            return @"[0-9]{5,}";
+            return @"\b[0-9]{5,}\b";
         }
 
         public static string GetEmailRegex()
         {
-            return @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$";
+            return @"^\b([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)\b$";
         }
     }
 }

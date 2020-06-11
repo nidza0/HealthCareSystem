@@ -25,12 +25,13 @@ namespace SIMS.View.ViewPatient
     public partial class Messages : Window
     {
         public ObservableCollection<Message> myMessages = new ObservableCollection<Message>();
+        private ObservableCollection<User> distinctConversationist;
 
         public Messages()
         {
             InitializeComponent();
 
-            InitializeComponent();
+            this.DataContext = this;
             //Patient p = new Patient();
 
             //HospitalConverter converter = new HospitalConverter(",");
@@ -50,8 +51,9 @@ namespace SIMS.View.ViewPatient
 
 
             Message message1 = new Message(69, "Cao ja sam Nikola", doctor1, doctor1, DateTime.Now);
-            Message message2 = new Message(69, "Cao ja sam Nikola", doctor2, doctor2, DateTime.Now);
-            Message message3 = new Message(69, "Cao ja sam Nikola", doctor3, doctor3, DateTime.Now);
+            Message message2 = new Message(61, "Cao ja sam Nikola", doctor2, doctor2, DateTime.Now);
+            Message message3 = new Message(62, "Cao ja sam Nikola", doctor3, doctor3, DateTime.Now);
+            Message message4 = new Message(668, "Caooooo", doctor1, doctor3, DateTime.Now);
 
 
             myMessages.Add(message1);
@@ -59,8 +61,10 @@ namespace SIMS.View.ViewPatient
             myMessages.Add(message3);
 
 
-            distinctConvListBox.DataContext = DistinctConversationist;
+           
         }
+
+      
 
         private ObservableCollection<User> DistinctConversationist
         {
@@ -72,5 +76,7 @@ namespace SIMS.View.ViewPatient
             }
 
         }
+
+
     }
 }

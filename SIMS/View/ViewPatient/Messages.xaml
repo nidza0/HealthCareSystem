@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SIMS.View.ViewPatient"
         mc:Ignorable="d"
-        Title="Messages" Height="450" Width="800">
+        Title="Messages" Height="450" Width="800"
+        WindowStartupLocation="CenterOwner">
     <Window.Resources>
 
 
@@ -340,7 +341,7 @@
                         <Separator Grid.Row="3" Background="Silver"/>
 
                         <ListBox Grid.Row="4" Width="{Binding RelativeSource={RelativeSource FindAncestor, 
-    AncestorType={x:Type Border}},Path=Width}"  Style="{StaticResource conversationListBoxStyle}"  VerticalAlignment="Top" ItemsSource="{Binding}" x:Name="distinctConvListBox" BorderThickness="0" ItemContainerStyle="{DynamicResource _ListBoxItemStyle}">
+    AncestorType={x:Type Border}},Path=Width}"  Style="{StaticResource conversationListBoxStyle}"  VerticalAlignment="Top" ItemsSource="{Binding Path=DistinctConversationist}" x:Name="distinctConvListBox" BorderThickness="0" ItemContainerStyle="{DynamicResource _ListBoxItemStyle}">
                             <ListBox.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <StackPanel Orientation="Vertical"/>
@@ -443,11 +444,7 @@
 
 
                         <Border Grid.Row="2">
-                            <!-- Choosen conversation -->
-                            <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                <!--TODO: PAGES-->
-                                <Frame Source="ConversationContent.xaml"/>
-                            </ScrollViewer>
+                           
                         </Border>
 
                         <Border Grid.Row="4" >

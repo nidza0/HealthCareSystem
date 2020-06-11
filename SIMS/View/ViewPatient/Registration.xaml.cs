@@ -15,8 +15,11 @@ using SIMS.Model.UserModel;
 using SIMS.Model.PatientModel;
 using System.Collections.ObjectModel;
 using SIMS.Util;
+using SIMS.View.ViewPatient.Exceptions;
 
 using System.Text.RegularExpressions;
+using SIMS.View.ViewPatient.RepoSimulator;
+using SIMS.Repository.CSVFileRepository.UsersRepository;
 
 namespace SIMS.View.ViewPatient
 {
@@ -51,12 +54,12 @@ namespace SIMS.View.ViewPatient
 
         private bool firstNameValid;
         private bool lastNameValid;
-        private bool middleNameValid;
+        private bool middleNameValid = true;
         private bool dateOfBirthValid;
         private bool uidnValid;
         private bool addressValid;
         private bool cityValid;
-        private bool homePhoneValid;
+        private bool homePhoneValid = true;
         private bool mobilePhoneValid;
         private bool emailValid;
         private bool secondaryEmailValid = true;
@@ -73,13 +76,16 @@ namespace SIMS.View.ViewPatient
 
         private bool update;
 
-
+        
 
         private ObservableCollection<string> countries;
+
+        private UserRepo userRepo;
 
 
         public Registration(Patient patient)
         {
+            userRepo = UserRepo.Instance;
             this.DataContext = this;
             FirstName = patient.Name;
             LastName = patient.Surname;
@@ -99,6 +105,8 @@ namespace SIMS.View.ViewPatient
             EmergencyEmail = patient.EmergencyContact.Email;
             Username = patient.UserName;
             Uidn = patient.Uidn;
+            City = patient.Address.Location.City;
+
           
             InitializeComponent();
 
@@ -116,10 +124,14 @@ namespace SIMS.View.ViewPatient
 
             termsCheckBox.IsEnabled = false;
             update = true;
+
+            usernameTextBox.IsEnabled = false;
+            passwordTextBox.IsEnabled = false;
         }
 
         public Registration()
         {
+            userRepo = UserRepo.Instance;
             this.DataContext = this;
             InitializeComponent();
 
@@ -192,10 +204,35 @@ namespace SIMS.View.ViewPatient
             if (update)
             {
                 //call controller to update patient profile
+                //UPDATE IN USERSREPO
+                //TODO: UBACI DOKTORE U USERREPO I ONDA NAKACI TAMO KADA ZAKAZUCES APPOINTMENTS
+                //DIAGNOSIS REPO ISTO
+                //THERAPY ISOT
+                try { 
+                    userRepo.updatePatient(new Patient(HomePage.loggedPatient.GetId(), Username, passwordTextBox.Password, DateTime.Now,FirstName,LastName, MiddleName, Gender, DateOfBirth, Uidn, new Address(Address, new Location(Country, City)), HomePhone, MobilePhone, Email, SecondaryEmail, new EmergencyContact(emergencyFirstName, EmergencyLastName, EmergencyEmail, EmergencyPhoneNumber), HomePage.loggedPatient.PatientType, HomePage.loggedPatient.SelectedDoctor));
+                    MessageBox.Show("Successfully changed profile!");
+                } catch(RegistrationException exc)
+                {
+                    MessageBox.Show(exc.Message);
+                }
             }
             else
             {
                 //call controller to register patient profile
+                try { 
+                Patient patient = userRepo.register(new Patient(Username, passwordTextBox.Password,FirstName, LastName, MiddleName, Gender, DateOfBirth, Uidn, new Address(Address, new Location(Country, City)), HomePhone, MobilePhone, Email, SecondaryEmail, new EmergencyContact(emergencyFirstName, EmergencyLastName, EmergencyEmail, EmergencyPhoneNumber), PatientType.GENERAL, null));
+
+
+                MessageBox.Show("Account successfully created, you can login now.");
+
+                this.Close();
+                }catch(RegistrationException exc)
+                {
+                    MessageBox.Show(exc.Message);
+                }
+
+
+
             }
         }
 

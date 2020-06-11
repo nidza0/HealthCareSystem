@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SIMS.View.ViewPatient"
         mc:Ignorable="d"
-        Title="TherapyOverview" Height="450" Width="800">
+        Title="TherapyOverview" Height="450" Width="800"
+        WindowStartupLocation="CenterOwner">
 
     <Window.Resources>
         <Style TargetType="{x:Type CheckBox}">
@@ -20,7 +21,7 @@
             </Grid.RowDefinitions>
 
             <Border Grid.Row="0" Style="{StaticResource BorderBlockStyle}" >
-                <Label Style="{StaticResource LabelStyle}" Content="My appointments" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Label Style="{StaticResource LabelStyle}" Content="My therapies" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </Border>
 
             <Border Grid.Row="1" Style="{StaticResource BorderBlockStyle}">
@@ -30,8 +31,12 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <Expander IsExpanded="True">
-
+                    <Expander IsExpanded="False">
+                        <Expander.ToolTip>
+                            <ToolTip>
+                                Click here to open filter
+                            </ToolTip>
+                        </Expander.ToolTip>
 
                         <DockPanel Grid.Row="0">
                             <!--Filter-->
@@ -90,12 +95,12 @@
 
                                         <Label Grid.Row="0" Content="Date: " Style="{StaticResource searchFieldLabel}"/>
                                         <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
-                                            <DatePicker Background="Transparent" HorizontalAlignment="Left" SelectedDate="{Binding Path=SelectedStartDate}" >
+                                            <DatePicker Background="Transparent" HorizontalAlignment="Left" SelectedDate="{Binding Path=SelectedStartDate, Mode=TwoWay}" >
 
                                             </DatePicker>
                                             <Label Content="to" Margin="5 0 5 0"/>
 
-                                            <DatePicker Background="Transparent" HorizontalAlignment="Left" SelectedDate="{Binding Path=SelectedEndDate}">
+                                            <DatePicker Background="Transparent" HorizontalAlignment="Left" SelectedDate="{Binding Path=SelectedEndDate,Mode=TwoWay}">
 
                                             </DatePicker>
                                         </StackPanel>
@@ -126,7 +131,93 @@
                         </DockPanel>
                     </Expander>
 
-                    
+                    <DataGrid  Grid.Row="1" x:Name="patientTherapyDataGrid" ItemsSource="{Binding Path=AllTherapies}" IsReadOnly="True" VerticalAlignment="Stretch" AutoGenerateColumns="False" SelectionMode="Single">
+                        <DataGrid.Resources>
+                            <Style TargetType="{x:Type DataGrid}">
+                                <Setter Property="Background" Value="Transparent"/>
+                            </Style>
+                        </DataGrid.Resources>
+
+                        <DataGrid.CellStyle>
+                            <Style TargetType="{x:Type DataGridCell}">
+                                <Style.Triggers>
+                                    <Trigger Property="DataGridCell.IsSelected" Value="True">
+                                        <Setter Property="BorderBrush">
+                                            <Setter.Value>
+                                                <SolidColorBrush Color="Transparent"/>
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Setter Property="Foreground"
+                            Value="{DynamicResource
+                                   {x:Static SystemColors.ControlTextBrushKey}}"/>
+                                        <Setter Property="Background">
+                                            <Setter.Value>
+                                                <SolidColorBrush Color="Transparent"/>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGrid.CellStyle>
+
+                        <DataGrid.RowStyle>
+                            <Style TargetType="DataGridRow">
+                                <Setter Property="Background" Value="#ffcccb"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=Patient}" Value="{x:Null}">
+                                        <Setter Property="Background" Value="LightBlue"></Setter>
+                                    </DataTrigger>
+                                </Style.Triggers>
+
+                            </Style>
+                        </DataGrid.RowStyle>
+
+                        <DataGrid.Columns>
+                            <DataGridTextColumn  Width="200" Header="Drug name" CanUserResize ="False" CanUserReorder="False">
+                                <DataGridTextColumn.Binding>
+                                    <Binding Path="Medicine.Name"/>
+                                </DataGridTextColumn.Binding>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn  Width="150" Header="Dosage" CanUserResize ="False" CanUserReorder="False">
+                                <DataGridTextColumn.Binding>
+                                    <Binding Path="Dosage"/>
+                                </DataGridTextColumn.Binding>
+                            </DataGridTextColumn>
+                            
+                            <DataGridTextColumn  Width="150" Header="How I take it" CanUserResize ="False" CanUserReorder="False">
+                                <DataGridTextColumn.Binding>
+                                    <Binding Path="Medicine.MedicineType"/>
+                                </DataGridTextColumn.Binding>
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn  Width="150" Header="Start taking on" CanUserResize ="False" CanUserReorder="False">
+                                <DataGridTextColumn.Binding>
+                                    <Binding Path="TimeInterval.StartTime" StringFormat="dd/MM/yyyy"/>
+                                </DataGridTextColumn.Binding>
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn  Width="150" Header="Stop taking on" CanUserResize ="False" CanUserReorder="False">
+                                <DataGridTextColumn.Binding>
+                                    <Binding Path="TimeInterval.EndTime" StringFormat="dd/MM/yyyy"/>
+                                </DataGridTextColumn.Binding>
+                            </DataGridTextColumn>
+                            
+                            
+                            <DataGridTextColumn Width ="*" Header="Who told me to take it"  CanUserResize ="False" CanUserReorder="False">
+                                <DataGridTextColumn.Binding>
+                                    <MultiBinding StringFormat="{}{0}  {1} , {2}">
+                                        <Binding Path="Doctor.Name" />
+                                        <Binding Path="Doctor.Surname"/>
+                                        <Binding Path="Doctor.DocTypeEnum"/>
+                               
+                                    </MultiBinding>
+                                </DataGridTextColumn.Binding>
+                            </DataGridTextColumn>
+                           
+
+                           
+                        </DataGrid.Columns>
+                    </DataGrid>
 
                 </Grid>
             </Border>

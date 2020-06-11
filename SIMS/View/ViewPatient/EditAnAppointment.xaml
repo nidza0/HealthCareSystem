@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SIMS.View.ViewPatient"
         mc:Ignorable="d"
-        Title="EditAnAppointment" Height="450" Width="500">
+        Title="EditAnAppointment" Height="450" Width="500"
+        WindowStartupLocation="CenterOwner">
     <Grid Background="{StaticResource BackgroundColor}">
 
         <Border Width="500" Height="400" Style="{StaticResource BorderBlockStyle}">
@@ -45,7 +46,7 @@
                             </Grid.ColumnDefinitions>
 
                             <Label Grid.Column="0" Content="Date: " Style="{StaticResource searchFieldLabel}"/>
-                            <DatePicker Grid.Column="1" SelectedDateChanged="DatePicker_SelectedDateChanged" SelectedDate="{Binding Path=NewDate, Mode=TwoWay}">
+                            <DatePicker Grid.Column="1" SelectedDateChanged="DatePicker_SelectedDateChanged" SelectedDate="{Binding Path=NewDate, Mode=TwoWay}" DisplayDateStart="{Binding Path=FirstAllowedDate}">
                         
                             </DatePicker>
                         </Grid>
@@ -71,11 +72,19 @@
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Height="50" HorizontalAlignment="Right">
 
                             <Button Content="Cancel" Width="100" Margin="10" x:Name="CancelButton" Click="CancelButton_Click">
-                                
+                                <Button.ToolTip>
+                                    <ToolTip>
+                                        Click here to cancel appointment editing
+                                    </ToolTip>
+                                </Button.ToolTip>
                             </Button>
 
                             <Button Content="Confirm changes" Width="100" Margin="10 10 40 10" x:Name="ConfirmButton" Click="ConfirmButton_Click" >
-                                
+                                <Button.ToolTip>
+                                    <ToolTip>
+                                        Click here to confirm your changes
+                                    </ToolTip>
+                                </Button.ToolTip>
                             </Button>
                         </StackPanel>
                     </DockPanel>

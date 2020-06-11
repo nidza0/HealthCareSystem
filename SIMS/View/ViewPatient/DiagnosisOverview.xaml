@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:SIMS.View.ViewPatient"
         mc:Ignorable="d"
         Title="DiagnosisOverview" Height="600" Width="900"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterOwner">
     <Window.Resources>
 
 

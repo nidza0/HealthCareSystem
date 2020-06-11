@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SIMS.View.ViewPatient"
         mc:Ignorable="d"
-        Title="MyAppointments" Height="600" Width="800">
+        Title="MyAppointments" Height="600" Width="800"
+        WindowStartupLocation="CenterOwner">
 
     <Window.Resources>
       
@@ -27,10 +28,14 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <Expander IsExpanded="True">
-                    
-                
-                <DockPanel Grid.Row="0">
+                <Expander IsExpanded="False">
+                    <Expander.ToolTip>
+                        <ToolTip>
+                            Click here to expand appointment filter
+                        </ToolTip>
+                    </Expander.ToolTip>
+
+                    <DockPanel Grid.Row="0">
                     <!--Filter-->
 
                     <DockPanel DockPanel.Dock="Left" VerticalAlignment="Center">
@@ -109,10 +114,20 @@
                         <StackPanel Orientation="Vertical">
                             <Button HorizontalAlignment="Right" Width="70" Margin="5" x:Name="exportButton" Click="ExportButton_Click">
                                 <Label Style="{StaticResource InputLabel}" Content="Export"/>
-                            </Button>
+                                    <Button.ToolTip>
+                                        <ToolTip>
+                                            Click here to export appointment
+                                        </ToolTip>
+                                    </Button.ToolTip>
+                                </Button>
 
                             <Button HorizontalAlignment="Right" Width="70" Margin="5 5 5 0" x:Name="filterButton" Click="FilterButton_Click">
-                                <Label Style="{StaticResource InputLabel}" Content="Filter"/>
+                                    <Button.ToolTip>
+                                        <ToolTip>
+                                            Click here to activate filter
+                                        </ToolTip>
+                                    </Button.ToolTip>
+                                    <Label Style="{StaticResource InputLabel}" Content="Filter"/>
                             </Button>
                         </StackPanel>
                     </DockPanel>
@@ -151,12 +166,8 @@
 
                     <DataGrid.RowStyle>
                         <Style TargetType="DataGridRow">
-                            <Setter Property="Background" Value="#ffcccb"/>
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding Path=Patient}" Value="{x:Null}">
-                                    <Setter Property="Background" Value="LightBlue"></Setter>
-                                </DataTrigger>
-                            </Style.Triggers>
+                            <Setter Property="Background" Value="LightBlue"></Setter>
+                            
 
                         </Style>
                     </DataGrid.RowStyle>
@@ -212,6 +223,11 @@
                             <DataGridTemplateColumn.CellTemplate >
                                 <DataTemplate>
                                     <Button Content="+" x:Name="editAnAppointmentButton" Click="EditAnAppointmentButton_Click">
+                                        <Button.ToolTip>
+                                            <ToolTip>
+                                                Click here to edit an appointment
+                                            </ToolTip>
+                                        </Button.ToolTip>
                                     </Button>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
@@ -222,6 +238,12 @@
                             <DataGridTemplateColumn.CellTemplate >
                                 <DataTemplate>
                                     <Button Content="+" x:Name="cancelAnAppointmentButton" Click="CancelAnAppointmentButton_Click">
+                                        <Button.ToolTip>
+                                            <ToolTip>
+                                                Click here to cancel an appointment
+                                            </ToolTip>
+                                        </Button.ToolTip>
+
                                     </Button>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>

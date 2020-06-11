@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:SIMS.View.ViewPatient"
         mc:Ignorable="d"
         Title="BookAnAppointment" Height="450" Width="800"
+        WindowStartupLocation="CenterOwner"
         >
     <Grid Background="{StaticResource BackgroundColor}">
         <Grid.RowDefinitions>
@@ -138,7 +139,12 @@
                         <DataGridTemplateColumn.CellTemplate >
                             <DataTemplate>
                                 <Button Content="+" x:Name="bookAnAppointmentButton" Click="BookAnAppointmentButton_Click">
-                                    <Button.Style>
+                                        <Button.ToolTip>
+                                            <ToolTip>
+                                                Click here to make an appointment
+                                            </ToolTip>
+                                        </Button.ToolTip>
+                                        <Button.Style>
                                         <Style TargetType="Button">
                                             <Setter Property="IsEnabled" Value="False"/>
                                             <Style.Triggers>

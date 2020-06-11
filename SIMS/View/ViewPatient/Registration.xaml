@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SIMS.View.ViewPatient"
         mc:Ignorable="d"
-        Title="Registration" Height="620" Width="800">
+        Title="Registration" Height="620" Width="800"
+        WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
         <GridLength x:Key="rowHeight">30</GridLength>
@@ -88,7 +89,7 @@
                         <Label Style="{StaticResource searchFieldLabel}" Content="Date of birth*: "/>
                     </DockPanel>
                     <DockPanel DockPanel.Dock="Right">
-                        <DatePicker x:Name="dateOfBirthDatePicker" SelectedDateChanged="DateOfBirthDatePicker_SelectedDateChanged" SelectedDate="{Binding Path=DateOfBirth, Mode=OneWay}"/>
+                        <DatePicker x:Name="dateOfBirthDatePicker" SelectedDateChanged="DateOfBirthDatePicker_SelectedDateChanged" SelectedDate="{Binding Path=DateOfBirth, Mode=TwoWay}"/>
                     </DockPanel>
                 </DockPanel> 
                 
@@ -199,7 +200,7 @@
 
                 <DockPanel  Grid.Row="9" Grid.Column="0">
                     <DockPanel DockPanel.Dock="Left" Width="130">
-                        <Label Style="{StaticResource searchFieldLabel}" Content="First name*: "/>
+                        <Label Style="{StaticResource searchFieldLabel}" Content="First name: "/>
                     </DockPanel>
                     <DockPanel DockPanel.Dock="Right">
                         <TextBox Margin="3" HorizontalAlignment="Stretch" TextChanged="EmergencyFirstNameTextBox_TextChanged" x:Name="emergencyFirstNameTextBox" Text="{Binding Path=EmergencyFirstName, Mode=TwoWay}"/>
@@ -208,7 +209,7 @@
                 
                 <DockPanel  Grid.Row="9" Grid.Column="1">
                     <DockPanel DockPanel.Dock="Left" Width="130">
-                        <Label Style="{StaticResource searchFieldLabel}" Content="Last name*: "/>
+                        <Label Style="{StaticResource searchFieldLabel}" Content="Last name: "/>
                     </DockPanel>
                     <DockPanel DockPanel.Dock="Right">
                         <TextBox Margin="3" HorizontalAlignment="Stretch" TextChanged="EmergencyLastNameTextBox_TextChanged" x:Name="emergencyLastNameTextBox" Text="{Binding Path=EmergencyLastName, Mode=TwoWay}"/>
@@ -217,7 +218,7 @@
 
                 <DockPanel  Grid.Row="10" Grid.Column="0">
                     <DockPanel DockPanel.Dock="Left" Width="130">
-                        <Label Style="{StaticResource searchFieldLabel}" Content="Phone number*: "/>
+                        <Label Style="{StaticResource searchFieldLabel}" Content="Phone number: "/>
                     </DockPanel>
                     <DockPanel DockPanel.Dock="Right">
                         <TextBox Margin="3" HorizontalAlignment="Stretch"  TextChanged="EmergencyPhoneNumberTextBox_TextChanged" x:Name="emergencyPhoneNumberTextBox" Text="{Binding Path=EmergencyPhoneNumber, Mode=TwoWay}"/>
@@ -226,7 +227,7 @@
 
                 <DockPanel  Grid.Row="10" Grid.Column="1">
                     <DockPanel DockPanel.Dock="Left" Width="130">
-                        <Label Style="{StaticResource searchFieldLabel}" Content="Email address*: "/>
+                        <Label Style="{StaticResource searchFieldLabel}" Content="Email address: "/>
                     </DockPanel>
                     <DockPanel DockPanel.Dock="Right">
                         <TextBox Margin="3" HorizontalAlignment="Stretch"  TextChanged="EmergencyEmailTextBox_TextChanged" x:Name="emergencyEmailTextBox" Text="{Binding Path=EmergencyEmail, Mode=TwoWay}"/>
@@ -260,9 +261,19 @@
                 <CheckBox x:Name="termsCheckBox" Checked="TermsCheckBox_Checked" Grid.Row="14" Grid.ColumnSpan="2" Foreground="{StaticResource labelColor}" Content="I accept terms and agreements."/>
 
                 <Button Grid.Row="15" Grid.Column="1" Click="CancelButton_Click"  x:Name="cancelButton" Margin="5 0 5 0">
+                    <Button.ToolTip>
+                        <ToolTip>
+                            Click here to cancel registration process
+                        </ToolTip>
+                    </Button.ToolTip>
                     <Label Style="{StaticResource searchFieldLabel}" Content="Cancel"/>
                 </Button>
                 <Button IsEnabled="False" Grid.Row="15" Grid.Column="2" Click="SubmitButton_Click"  x:Name="submitButton" Margin="5 0 5 0">
+                    <Button.ToolTip>
+                        <ToolTip>
+                            Click here to register your account
+                        </ToolTip>
+                    </Button.ToolTip>
                     <Label Style="{StaticResource searchFieldLabel}" Content="Submit"/>
                 </Button>
 

@@ -24,7 +24,7 @@ namespace SIMS.Model.UserModel
 
         public UserID(string id)
         {
-            if(id == null || id.Length < 2)
+            if (id == null || id.Length < 2)
             {
                 throw new InvalidUserIdException();
             }
@@ -34,7 +34,7 @@ namespace SIMS.Model.UserModel
             {
                 Number = Convert.ToInt32(id.Substring(1));
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw new InvalidUserIdException("Invalid User ID", e);
             }
@@ -49,7 +49,7 @@ namespace SIMS.Model.UserModel
             if (obj == null) return 1;
 
             UserID otherID = obj as UserID;
-            if(Code == otherID.Code)
+            if (Code == otherID.Code)
             {
                 return Number.CompareTo(otherID.Number);
             }
@@ -69,6 +69,18 @@ namespace SIMS.Model.UserModel
         {
             _number++;
             return this;
+        }
+
+        public UserType GetUserType()
+        {
+            switch (_code)
+            {
+                case 'p': return UserType.PATIENT;
+                case 'd': return UserType.DOCTOR;
+                case 'm': return UserType.MANAGER;
+                case 's': return UserType.SECRETARY;
+                default: throw new InvalidUserIdException(this.ToString());
+            }
         }
     }
 }
