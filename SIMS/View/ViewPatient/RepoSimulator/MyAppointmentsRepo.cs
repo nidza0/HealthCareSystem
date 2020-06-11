@@ -15,6 +15,8 @@ namespace SIMS.View.ViewPatient.RepoSimulator
     {
 
         private static MyAppointmentsRepo instance = null;
+        private DoctorAppointmentsRepo doctorAppointmentsRepo = DoctorAppointmentsRepo.Instance;
+        private UserRepo userRepo = UserRepo.Instance;
 
 
         public static MyAppointmentsRepo Instance
@@ -106,14 +108,21 @@ namespace SIMS.View.ViewPatient.RepoSimulator
             dict.Add(WorkingDaysEnum.SATURDAY, timeInterval);
             dict.Add(WorkingDaysEnum.SUNDAY, timeInterval);
             TimeTable timeTable = new TimeTable(dict);
-            Doctor doctor = new Doctor(new UserID("d123"), "pera", "pera123", DateTime.Now, "Pera", "Vunic", "Puck", Sex.MALE, DateTime.Now, "12345667", new Address("Bulevar Mihajla Pupina 5", new Location(45, "Srbija", "Novi Sad")), "555-333", "06130959858", "pera@gmail.com", "pera111@gmail.com", timeTable, new Hospital("test", new Address("Bulevar Oslobodjenja 69", new Location(45, "Srbija", "Novi Sad")), "555-333", "zzzz"), new Room("B123", false, 5, RoomType.EXAMINATION), DocTypeEnum.CARDIOLOGIST);
-            Doctor doctor1 = new Doctor(new UserID("d1266"), "pera", "pera123", DateTime.Now, "Nikola", "Dragic", "Puck", Sex.MALE, DateTime.Now, "12345667", new Address("Bulevar Mihajla Pupina 5", new Location(45, "Srbija", "Novi Sad")), "555-444", "0613021959858", "nikola@gmail.com", "pera111@gmail.com", timeTable, new Hospital("test", new Address("Koste Sokice 2", new Location(45, "Srbija", "Novi Sad")), "555-367", "zzzz"), new Room("B124", false, 5, RoomType.EXAMINATION), DocTypeEnum.CARDIOLOGIST);
-            Doctor doctor2 = new Doctor(new UserID("d1267"), "pera", "pera123", DateTime.Now, "Veljko", "Dragic", "Puck", Sex.MALE, DateTime.Now, "12345667", new Address("Bulevar Mihajla Pupina 5", new Location(45, "Srbija", "Novi Sad")), "555-444", "0613021959858", "nikola@gmail.com", "pera111@gmail.com", timeTable, new Hospital("test", new Address("Koste Sokice 2", new Location(45, "Srbija", "Novi Sad")), "555-321321", "zzzz"), new Room("B125", false, 5, RoomType.EXAMINATION), DocTypeEnum.INFECTOLOGIST);
-            Doctor doctor3 = new Doctor(new UserID("d1262"), "pera", "pera123", DateTime.Now, "Pera", "Petkovic", "Puck", Sex.MALE, DateTime.Now, "12345667", new Address("Bulevar Mihajla Pupina 5", new Location(45, "Srbija", "Novi Sad")), "555-444", "0613021959858", "nikola@gmail.com", "pera111@gmail.com", timeTable, new Hospital("test", new Address("Koste Sokice 2", new Location(45, "Srbija", "Novi Sad")), "555-6666666", "zzzz"), new Room("B126", false, 5, RoomType.EXAMINATION), DocTypeEnum.INFECTOLOGIST);
-            Doctor doctor4 = new Doctor(new UserID("d1262"), "pera", "pera123", DateTime.Now, "Pera", "Peric", "Puck", Sex.MALE, DateTime.Now, "12345667", new Address("Bulevar Mihajla Pupina 5", new Location(45, "Srbija", "Novi Sad")), "555-444", "0613021959858", "nikola@gmail.com", "pera111@gmail.com", timeTable, new Hospital("test", new Address("Koste Sokice 2", new Location(45, "Srbija", "Novi Sad")), "555-TEST-123", "zzzz"), new Room("B127", false, 5, RoomType.EXAMINATION), DocTypeEnum.DERMATOLOGIST);
-            Doctor doctor5 = new Doctor(new UserID("d1262"), "pera", "pera123", DateTime.Now, "Pera", "Zeljic", "Puck", Sex.MALE, DateTime.Now, "12345667", new Address("Bulevar Mihajla Pupina 5", new Location(45, "Srbija", "Novi Sad")), "555-444", "0613021959858", "nikola@gmail.com", "pera111@gmail.com", timeTable, new Hospital("test", new Address("Koste Sokice 2", new Location(45, "Srbija", "Novi Sad")), "555-TEST2-132", "zzzz"), new Room("B128", false, 5, RoomType.EXAMINATION), DocTypeEnum.DERMATOLOGIST);
-            Doctor doctor6 = new Doctor(new UserID("d1262"), "pera", "pera123", DateTime.Now, "Pera", "Kupusarevic", "Puck", Sex.MALE, DateTime.Now, "12345667", new Address("Bulevar Mihajla Pupina 5", new Location(45, "Srbija", "Novi Sad")), "555-444", "0613021959858", "nikola@gmail.com", "pera111@gmail.com", timeTable, new Hospital("test", new Address("Koste Sokice 2", new Location(45, "Srbija", "Novi Sad")), "555-333", "zzzz"), new Room("B129", false, 5, RoomType.EXAMINATION), DocTypeEnum.DERMATOLOGIST);
-
+            List<Doctor> doctorList = userRepo.DoctorList;
+            Doctor doctor = doctorList.ElementAt(0);
+            Doctor doctor1 = doctorList.ElementAt(1);
+            Doctor doctor2 = doctorList.ElementAt(2);
+            Doctor doctor3 = doctorList.ElementAt(3);
+            Doctor doctor4 = doctorList.ElementAt(4);
+            Doctor doctor5 = doctorList.ElementAt(5);
+            //Doctor doctor = new Doctor(new UserID("d123"), "pera", "pera123", DateTime.Now, "Pera", "Vunic", "Puck", Sex.MALE, DateTime.Now, "12345667", new Address("Bulevar Mihajla Pupina 5", new Location(45, "Srbija", "Novi Sad")), "555-333", "06130959858", "pera@gmail.com", "pera111@gmail.com", timeTable, new Hospital("test", new Address("Bulevar Oslobodjenja 69", new Location(45, "Srbija", "Novi Sad")), "555-333", "zzzz"), new Room("B123", false, 5, RoomType.EXAMINATION), DocTypeEnum.CARDIOLOGIST);
+            //Doctor doctor1 = new Doctor(new UserID("d1266"), "pera", "pera123", DateTime.Now, "Nikola", "Dragic", "Puck", Sex.MALE, DateTime.Now, "12345667", new Address("Bulevar Mihajla Pupina 5", new Location(45, "Srbija", "Novi Sad")), "555-444", "0613021959858", "nikola@gmail.com", "pera111@gmail.com", timeTable, new Hospital("test", new Address("Koste Sokice 2", new Location(45, "Srbija", "Novi Sad")), "555-367", "zzzz"), new Room("B124", false, 5, RoomType.EXAMINATION), DocTypeEnum.CARDIOLOGIST);
+            //Doctor doctor2 = new Doctor(new UserID("d1267"), "pera", "pera123", DateTime.Now, "Veljko", "Dragic", "Puck", Sex.MALE, DateTime.Now, "12345667", new Address("Bulevar Mihajla Pupina 5", new Location(45, "Srbija", "Novi Sad")), "555-444", "0613021959858", "nikola@gmail.com", "pera111@gmail.com", timeTable, new Hospital("test", new Address("Koste Sokice 2", new Location(45, "Srbija", "Novi Sad")), "555-321321", "zzzz"), new Room("B125", false, 5, RoomType.EXAMINATION), DocTypeEnum.INFECTOLOGIST);
+            //Doctor doctor3 = new Doctor(new UserID("d1262"), "pera", "pera123", DateTime.Now, "Pera", "Petkovic", "Puck", Sex.MALE, DateTime.Now, "12345667", new Address("Bulevar Mihajla Pupina 5", new Location(45, "Srbija", "Novi Sad")), "555-444", "0613021959858", "nikola@gmail.com", "pera111@gmail.com", timeTable, new Hospital("test", new Address("Koste Sokice 2", new Location(45, "Srbija", "Novi Sad")), "555-6666666", "zzzz"), new Room("B126", false, 5, RoomType.EXAMINATION), DocTypeEnum.INFECTOLOGIST);
+            //Doctor doctor4 = new Doctor(new UserID("d1262"), "pera", "pera123", DateTime.Now, "Pera", "Peric", "Puck", Sex.MALE, DateTime.Now, "12345667", new Address("Bulevar Mihajla Pupina 5", new Location(45, "Srbija", "Novi Sad")), "555-444", "0613021959858", "nikola@gmail.com", "pera111@gmail.com", timeTable, new Hospital("test", new Address("Koste Sokice 2", new Location(45, "Srbija", "Novi Sad")), "555-TEST-123", "zzzz"), new Room("B127", false, 5, RoomType.EXAMINATION), DocTypeEnum.DERMATOLOGIST);
+            //Doctor doctor5 = new Doctor(new UserID("d1262"), "pera", "pera123", DateTime.Now, "Pera", "Zeljic", "Puck", Sex.MALE, DateTime.Now, "12345667", new Address("Bulevar Mihajla Pupina 5", new Location(45, "Srbija", "Novi Sad")), "555-444", "0613021959858", "nikola@gmail.com", "pera111@gmail.com", timeTable, new Hospital("test", new Address("Koste Sokice 2", new Location(45, "Srbija", "Novi Sad")), "555-TEST2-132", "zzzz"), new Room("B128", false, 5, RoomType.EXAMINATION), DocTypeEnum.DERMATOLOGIST);
+            //Doctor doctor6 = new Doctor(new UserID("d1262"), "pera", "pera123", DateTime.Now, "Pera", "Kupusarevic", "Puck", Sex.MALE, DateTime.Now, "12345667", new Address("Bulevar Mihajla Pupina 5", new Location(45, "Srbija", "Novi Sad")), "555-444", "0613021959858", "nikola@gmail.com", "pera111@gmail.com", timeTable, new Hospital("test", new Address("Koste Sokice 2", new Location(45, "Srbija", "Novi Sad")), "555-333", "zzzz"), new Room("B129", false, 5, RoomType.EXAMINATION), DocTypeEnum.DERMATOLOGIST);
+            
             Appointment appointment = new Appointment(1,doctor1, HomePage.loggedPatient, doctor1.Office, AppointmentType.checkup, timeInterval);
             DateTime temp = timeInterval.StartTime.AddMinutes(20);
             DateTime tempEnd = temp.AddMinutes(20);
@@ -145,24 +154,28 @@ namespace SIMS.View.ViewPatient.RepoSimulator
             tempEnd = temp.AddMinutes(20);
             timeInterval = new TimeInterval(temp, tempEnd);
 
-            Appointment appointment4 = new Appointment(5,doctor6, HomePage.loggedPatient, doctor5.Office, AppointmentType.checkup, timeInterval);
-            temp = timeInterval.StartTime.AddMinutes(20);
-            tempEnd = temp.AddMinutes(20);
-            timeInterval = new TimeInterval(temp, tempEnd);
-            Appointment appointment5 = new Appointment(6,doctor6, HomePage.loggedPatient, doctor5.Office, AppointmentType.checkup, timeInterval);
+            //Appointment appointment4 = new Appointment(5,doctor6, HomePage.loggedPatient, doctor5.Office, AppointmentType.checkup, timeInterval);
+            //temp = timeInterval.StartTime.AddMinutes(20);
+            //tempEnd = temp.AddMinutes(20);
+            //timeInterval = new TimeInterval(temp, tempEnd);
+            //Appointment appointment5 = new Appointment(6,doctor6, HomePage.loggedPatient, doctor5.Office, AppointmentType.checkup, timeInterval);
 
 
             List<Appointment> patientAppointments = new List<Appointment>();
 
            myAppointments.Add(appointment);
+            doctorAppointmentsRepo.takeAnAppointment(appointment);
            myAppointments.Add(appointment1);
            myAppointments.Add(appointment2);
            myAppointments.Add(appointment3);
-           myAppointments.Add(appointment4);
-            myAppointments.Add(appointment5);
+            doctorAppointmentsRepo.takeAnAppointment(appointment1);
+            doctorAppointmentsRepo.takeAnAppointment(appointment2);
+            doctorAppointmentsRepo.takeAnAppointment(appointment3);
+            //myAppointments.Add(appointment4);
+            // myAppointments.Add(appointment5);
 
 
-            
+
         }
 
 

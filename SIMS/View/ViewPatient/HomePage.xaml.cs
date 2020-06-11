@@ -34,7 +34,7 @@ namespace SIMS.View.ViewPatient
             loggedPatient = loggedInPatient;
             InitializeComponent();
             Doctor doctor = new Doctor(new UserID("D333"),"pera","pera",DateTime.Now,"Nikola","Dragic","Milos",Sex.MALE,DateTime.Now,"1234567",new Address("test",new Location(1)),"555-333","zzzz","zzz","zzzzz",new TimeTable(2),new Hospital(1),new Room(2),Model.DoctorModel.DocTypeEnum.SURGEON);
-            Doctor doctor2 = new Doctor(new UserID("D333"), "pera", "pera", DateTime.Now, "Nikolsdasdadasddasdadasdasdasdasdasdasdasdasdadasdasdasda", "Dragic", "Milos", Sex.MALE, DateTime.Now, "1234567", new Address("test", new Location(1)), "555-333", "zzzz", "zzz", "zzzzz", new TimeTable(2), new Hospital(1), new Room(2), Model.DoctorModel.DocTypeEnum.SURGEON);
+            Doctor doctor2 = new Doctor(new UserID("D333"), "pera", "pera", DateTime.Now, "Pera", "Peric", "Milos", Sex.MALE, DateTime.Now, "1234567", new Address("test", new Location(1)), "555-333", "zzzz", "zzz", "zzzzz", new TimeTable(2), new Hospital(1), new Room(2), Model.DoctorModel.DocTypeEnum.SURGEON);
             Room room = new Room(22, "O123", true, 2, RoomType.AFTERCARE);
             //AppointmentConverter appointmentConverter = new AppointmentConverter(",", ";");
             Appointment appointment = new Appointment(69, doctor, new Patient(new UserID("62")), room, AppointmentType.operation, new TimeInterval(DateTime.Now, DateTime.Now));
@@ -61,7 +61,6 @@ namespace SIMS.View.ViewPatient
             notifications.Add(notification5);
 
             NotificationsListBox.DataContext = notifications;
-
             //public Article(long id, string title, string shortDescription, string text, Employee author, DateTime dateCreated) : base(id, text, dateCreated)
             Article article1 = new Article(68, "COVID-19", "An article about COVID19 effect on human body", "The COVID-19 pandemic in Serbia is a current outbreak of Coronavirus disease 2019 in Serbia caused by SARS-CoV-2. Its first case in Serbia was reported on 6 March 2020,[1] and confirmed by Minister of Health Zlatibor Lončar,[2] the case was a 43-year-old man from Bačka Topola who had travelled to Budapest.[3]"
 
@@ -140,7 +139,10 @@ namespace SIMS.View.ViewPatient
 
         private void ViewArticleButton_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("View article button clicked, TODO..");
+            Button button = (Button)sender;
+            Article article = button.DataContext as Article;
+            ArticlePreview articlePreview = new ArticlePreview(article);
+            articlePreview.Show();
         }
 
         private void MyAppointments_Click(object sender, RoutedEventArgs e)

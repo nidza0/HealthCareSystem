@@ -35,6 +35,7 @@ namespace SIMS.View.ViewPatient
     {
 
         private MyAppointmentsRepo myAppointmentsRepo = MyAppointmentsRepo.Instance;
+        private DoctorAppointmentsRepo doctorAppointmentsRepo = DoctorAppointmentsRepo.Instance;
 
         private DocTypeEnum selectedFilterDoctorType;
         private Doctor selectedFilterDoctor;
@@ -46,6 +47,8 @@ namespace SIMS.View.ViewPatient
         private DateTime selectedStartDate = DateTime.Now;
 
         private DateTime selectedEndDate = DateTime.Now;
+
+        
 
         public MyAppointments()
         {
@@ -164,42 +167,46 @@ namespace SIMS.View.ViewPatient
             document.Add(separator);
             document.Add(separator);
 
-            //odavde na dole je generisanje tabele
-            float[] pointColumnWidths = { 10F, 10F, 9F, 20F, 5F, 10F, 8F };
+            List<Appointment> appointments = GetAllPatientAppointments().ToList();
 
-            PdfPTable table = new PdfPTable(pointColumnWidths);
-            DataTable dataTable = new DataTable();
-
-
-            string[] tableHeaders = { "Date", "Time", "Location", "Type", "Doctor", "Phone number", "Ordination" };
-
-
-            foreach(string header in tableHeaders)
+            if(appointments.Count >= 0)
             {
-                table.AddCell(new PdfPCell(new Phrase(header)));
-            }
+                //odavde na dole je generisanje tabele
+                float[] pointColumnWidths = { 10F, 10F, 9F, 20F, 5F, 10F, 8F };
 
-            table.HeaderRows = 1;
-
-            foreach (Appointment appointment in GetAllPatientAppointments())
-            {
-                PdfPCell timeCell = new PdfPCell();
-                PdfPCell dateCell = new PdfPCell();
-                PdfPCell locationCell = new PdfPCell();
-                PdfPCell typeCell = new PdfPCell();
-                PdfPCell doctorCell = new PdfPCell();
-                PdfPCell phoneNumberCell = new PdfPCell();
-                PdfPCell ordinationCell = new PdfPCell();
-                dateCell.AddElement(new Phrase(appointment.TimeInterval.StartTime.ToString("MM-dd-yy")));
-                timeCell.AddElement(new Phrase(appointment.TimeInterval.StartTime.ToString("HH:mm")));
-                locationCell.AddElement(new Phrase(appointment.DoctorInAppointment.Hospital.Address.Location.City + ", " + appointment.DoctorInAppointment.Hospital.Address.Location.Country +", " + appointment.DoctorInAppointment.Office.RoomNumber));
-                typeCell.AddElement(new Phrase(appointment.AppointmentType.ToString()));
-                doctorCell.AddElement(new Phrase(appointment.DoctorInAppointment.Name + ", " + appointment.DoctorInAppointment.Surname));
-                phoneNumberCell.AddElement(new Phrase(appointment.DoctorInAppointment.CellPhone));
-                ordinationCell.AddElement(new Phrase(appointment.Room.RoomNumber));
+                PdfPTable table = new PdfPTable(pointColumnWidths);
+                DataTable dataTable = new DataTable();
 
 
-           
+                string[] tableHeaders = { "Date", "Time", "Location", "Type", "Doctor", "Phone number", "Ordination" };
+
+
+                foreach (string header in tableHeaders)
+                {
+                    table.AddCell(new PdfPCell(new Phrase(header)));
+                }
+
+                table.HeaderRows = 1;
+
+                foreach (Appointment appointment in GetAllPatientAppointments())
+                {
+                    PdfPCell timeCell = new PdfPCell();
+                    PdfPCell dateCell = new PdfPCell();
+                    PdfPCell locationCell = new PdfPCell();
+                    PdfPCell typeCell = new PdfPCell();
+                    PdfPCell doctorCell = new PdfPCell();
+                    PdfPCell phoneNumberCell = new PdfPCell();
+                    PdfPCell ordinationCell = new PdfPCell();
+                    dateCell.AddElement(new Phrase(appointment.TimeInterval.StartTime.ToString("MM-dd-yy")));
+                    timeCell.AddElement(new Phrase(appointment.TimeInterval.StartTime.ToString("HH:mm")));
+                    locationCell.AddElement(new Phrase(appointment.DoctorInAppointment.Hospital.Address.Location.City + ", " + appointment.DoctorInAppointment.Hospital.Address.Location.Country + ", " + appointment.DoctorInAppointment.Office.RoomNumber));
+                    typeCell.AddElement(new Phrase(appointment.AppointmentType.ToString()));
+                    doctorCell.AddElement(new Phrase(appointment.DoctorInAppointment.Name + ", " + appointment.DoctorInAppointment.Surname));
+                    phoneNumberCell.AddElement(new Phrase(appointment.DoctorInAppointment.CellPhone));
+                    ordinationCell.AddElement(new Phrase(appointment.Room.RoomNumber));
+
+
+
 
                     table.AddCell(timeCell);
                     table.AddCell(dateCell);
@@ -208,9 +215,22 @@ namespace SIMS.View.ViewPatient
                     table.AddCell(doctorCell);
                     table.AddCell(phoneNumberCell);
                     table.AddCell(ordinationCell);
-            }
+                }
 
-            document.Add(table);
+                document.Add(table);
+            }
+            else
+            {
+                document.Add(separator);
+                document.Add(separator);
+                document.Add(separator);
+                document.Add(separator);
+                document.Add(separator);
+                document.Add(separator);
+                Paragraph error = new Paragraph("No appointments to show!", titleFont);
+                document.Add(error);
+
+            }
 
 
 
@@ -280,6 +300,8 @@ namespace SIMS.View.ViewPatient
             {
                 myAppointmentsRepo.cancelAppointment(appointment);
                 AllAppointments.Remove(appointment);
+
+                doctorAppointmentsRepo.cancelAnAppointment(appointment);
 
                 MessageBox.Show("Appointment successfully canceled!");
             }

@@ -369,7 +369,11 @@
 
 
                                                 <StackPanel Grid.Row="2" Orientation="Vertical" VerticalAlignment="Bottom">
-                                                <Button  Content="View article" Name="viewArticleButton"  HorizontalAlignment="Stretch"  Click="ViewArticleButton_Click"/>
+                                                <Button  Content="View article" Name="viewArticleButton"  HorizontalAlignment="Stretch"  Click="ViewArticleButton_Click">
+                                                    <Button.ToolTip>
+                                                        Click here to open an article
+                                                    </Button.ToolTip>
+                                                    </Button>
                                                 </StackPanel>
 
                                             

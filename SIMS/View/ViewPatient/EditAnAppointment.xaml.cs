@@ -30,6 +30,7 @@ namespace SIMS.View.ViewPatient
     {
 
         private MyAppointmentsRepo myAppointmentsRepo;
+        private DoctorAppointmentsRepo doctorAppointmentsRepo;
         private UserRepo userRepo;
         private DateTime firstAllowedDate;
         private Appointment appointment;
@@ -43,6 +44,7 @@ namespace SIMS.View.ViewPatient
         public EditAnAppointment(Appointment appointment)
         {
             myAppointmentsRepo = MyAppointmentsRepo.Instance;
+            doctorAppointmentsRepo = DoctorAppointmentsRepo.Instance;
             userRepo = UserRepo.Instance;
             this.appointment = appointment;
             this.DataContext = this;
@@ -300,6 +302,7 @@ namespace SIMS.View.ViewPatient
 
             //Call controller and check if everythign okey
             this.Close();
+            doctorAppointmentsRepo.cancelAnAppointment(appointment);
 
             Doctor newDoctor = (Doctor)doctorComboBox.SelectedItem;
             DateTime newStartTime = (DateTime)timeComboBox.SelectedItem;
@@ -308,6 +311,7 @@ namespace SIMS.View.ViewPatient
             Appointment newAppointment = new Appointment(appointment.GetId(),newDoctor,appointment.Patient,appointment.Room,appointment.AppointmentType,newTimeInterval);
 
             myAppointmentsRepo.updateAppointment(newAppointment);
+            doctorAppointmentsRepo.takeAnAppointment(newAppointment);
 
             
             MessageBox.Show("Appointment successfully changed!");

@@ -217,6 +217,9 @@
     <Compile Include="Util\MedicineFilter.cs" />
     <Compile Include="Util\TherapyFilter.cs" />
     <Compile Include="Util\TimeInterval.cs" />
+    <Compile Include="View\ViewPatient\ArticlePreview.xaml.cs">
+      <DependentUpon>ArticlePreview.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\ViewPatient\BookAnAppointment.xaml.cs">
       <DependentUpon>BookAnAppointment.xaml</DependentUpon>
     </Compile>
@@ -291,6 +294,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\ViewPatient\ArticlePreview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\ViewPatient\BookAnAppointment.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -52,6 +52,37 @@ namespace SIMS.View.ViewPatient.RepoSimulator
             }
         }
 
+        public void cancelAnAppointment(Appointment appointment)
+        {
+            Doctor doctor = appointment.DoctorInAppointment;
+
+            if(doctor != null)
+            {
+                List<Appointment> appointmentList;
+                try
+                {
+                    appointmentList = takenAppointments[doctor];
+                }catch(Exception e)
+                {
+                    return;
+                }
+                Appointment toRemove = null;
+                foreach (Appointment currAppointment in appointmentList)
+                {
+                    if (currAppointment.TimeInterval.StartTime.Equals(appointment.TimeInterval.StartTime))
+                    {
+                        toRemove = currAppointment;
+                        break;
+                    }
+                }
+
+                if(toRemove != null)
+                    appointmentList.Remove(toRemove);
+            }
+
+
+        }
+
         public void takeAnAppointment(Appointment appointment)
         {
             Doctor doc = appointment.DoctorInAppointment;
