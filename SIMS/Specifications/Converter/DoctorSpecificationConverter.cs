@@ -31,7 +31,7 @@ namespace SIMS.Specifications.Converter
 
         private ISpecification<Doctor> GetSpecificationByType(DocTypeEnum type)
         {
-            return new ExpressionSpecification<Doctor>(o => o.DocTypeEnum.Equals(type));
+            return new ExpressionSpecification<Doctor>(o => o.DocTypeEnum == type);
         }
 
         public ISpecification<Doctor> GetSpecification()
@@ -47,6 +47,11 @@ namespace SIMS.Specifications.Converter
             if (!String.IsNullOrEmpty(_filter.Surname))
             {
                 specification = specification.And(GetSpecificationBySurname(_filter.Surname));
+            }
+
+            if(_filter.Type != DocTypeEnum.UNDEFINED)
+            {
+                specification = specification.And(GetSpecificationByType(_filter.Type));
             }
 
             return specification;

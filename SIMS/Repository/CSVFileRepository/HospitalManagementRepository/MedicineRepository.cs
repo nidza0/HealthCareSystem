@@ -68,7 +68,7 @@ namespace SIMS.Repository.CSVFileRepository.HospitalManagementRepository
 
         public IEnumerable<Medicine> GetFilteredMedicine(MedicineFilter medicineFilter)
         {
-            ISpecification<Medicine> medicineSpecification = new MedicineSpecificationConverter(medicineFilter).GetSpecification(medicineFilter);
+            ISpecification<Medicine> medicineSpecification = new MedicineSpecificationConverter(medicineFilter).GetSpecification();
             var meds = Find(medicineSpecification);
             Bind(meds);
             return meds;

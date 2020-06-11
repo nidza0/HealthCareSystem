@@ -54,5 +54,16 @@ namespace SIMS.Model.UserModel
         {
             _id = id;
         }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Location location &&
+                   _id == location._id;
+        }
+
+        public override int GetHashCode()
+        {
+            return 1969571243 + _id.GetHashCode();
+        }
     }
 }

@@ -9,6 +9,7 @@ namespace SIMS.Model.DoctorModel
 {
     public enum DocTypeEnum
     {
+        UNDEFINED,
         FAMILYMEDICINE,
         SURGEON,
         CARDIOLOGIST,

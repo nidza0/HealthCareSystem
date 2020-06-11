@@ -14,10 +14,11 @@ namespace SIMS.Model.UserModel
         private string _password;
         private DateTime _dateCreated;
         private bool _deleted;
-
         private UserID _userID;
 
-        public User(UserID id) : base() { _userID = id; }
+        public User(UserID id) : base() {
+            _userID = id;
+        }
 
         public User(string userName,
                     string password, 
@@ -81,6 +82,9 @@ namespace SIMS.Model.UserModel
             _userName = userName;
             _password = password;
         }
+
+        public UserType GetUserType()
+            => _userID.GetUserType();
 
         public User(UserID id,
                     string username,

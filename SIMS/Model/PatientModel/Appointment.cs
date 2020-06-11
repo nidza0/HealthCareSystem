@@ -31,6 +31,18 @@ namespace SIMS.Model.PatientModel
             _room = room;
             _appointmentType = appointmentType;
             _timeInterval = timeInterval;
+            _canceled = false;
+        }
+
+        public Appointment(long id, Doctor doctor, Patient patient, Room room, AppointmentType appointmentType, TimeInterval timeInterval, bool canceled)
+        {
+            _id = id;
+            _doctorInAppointment = doctor;
+            _patient = patient;
+            _room = room;
+            _appointmentType = appointmentType;
+            _timeInterval = timeInterval;
+            _canceled = canceled;
         }
 
         public Appointment(Doctor doctor,Patient patient,Room room,AppointmentType appointmentType,TimeInterval timeInterval)
@@ -40,6 +52,7 @@ namespace SIMS.Model.PatientModel
             _room = room;
             _appointmentType = appointmentType;
             _timeInterval = timeInterval;
+            _canceled = false;
         }
 
 
@@ -54,5 +67,11 @@ namespace SIMS.Model.PatientModel
         public long GetId() => _id;
 
         public void SetId(long id) => _id = id;
+
+        public bool IsCompleted()
+            => TimeInterval.EndTime <= DateTime.Now;
+
+        public bool IsInFuture()
+            => TimeInterval.StartTime >= DateTime.Now;
     }
 }

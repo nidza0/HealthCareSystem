@@ -57,12 +57,15 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AppResources.cs" />
+    <Compile Include="Model\UserModel\Question.cs" />
     <Compile Include="Repository\Abstract\HospitalManagementAbstractRepository\IDoctorStatisticRepository.cs" />
     <Compile Include="Repository\Abstract\HospitalManagementAbstractRepository\IInventoryStatisticsRepository.cs" />
     <Compile Include="Repository\Abstract\HospitalManagementAbstractRepository\IRoomStatisticsRepository.cs" />
+    <Compile Include="Repository\Abstract\MiscAbstractRepository\IQuestionRepository.cs" />
     <Compile Include="Repository\CSVFileRepository\Csv\Converter\HospitalManagementConverter\DoctorStatisticsConverter.cs" />
     <Compile Include="Repository\CSVFileRepository\Csv\Converter\HospitalManagementConverter\InventoryStatisticsConverter.cs" />
     <Compile Include="Repository\CSVFileRepository\Csv\Converter\HospitalManagementConverter\RoomStatisticsConverter.cs" />
+    <Compile Include="Repository\CSVFileRepository\Csv\Converter\MiscConverter\QuestionConverter.cs" />
     <Compile Include="Repository\CSVFileRepository\HospitalManagementRepository\DoctorStatisticRepository.cs" />
     <Compile Include="Repository\CSVFileRepository\HospitalManagementRepository\InventoryStatisticsRepository.cs" />
     <Compile Include="Repository\CSVFileRepository\HospitalManagementRepository\RoomStatisticsRepository.cs" />
@@ -159,6 +162,7 @@
     <Compile Include="Repository\CSVFileRepository\MiscRepository\LocationRepository.cs" />
     <Compile Include="Repository\CSVFileRepository\MiscRepository\MessageRepository.cs" />
     <Compile Include="Repository\CSVFileRepository\MiscRepository\NotificationRepository.cs" />
+    <Compile Include="Repository\CSVFileRepository\MiscRepository\QuestionRepository.cs" />
     <Compile Include="Repository\CSVFileRepository\UsersRepository\DoctorRepository.cs" />
     <Compile Include="Exceptions\IllegalUserCreationException.cs" />
     <Compile Include="Repository\CSVFileRepository\UsersRepository\ManagerRepository.cs" />

@@ -21,17 +21,17 @@ namespace SIMS.Specifications.Converter
         }
         private ISpecification<Appointment> GetSpecificationByDoctorType(DocTypeEnum type)
         {
-            return new ExpressionSpecification<Appointment>(o => o.DoctorInAppointment.DocTypeEnum == type);
+            return new ExpressionSpecification<Appointment>(o => o.DoctorInAppointment == null ? false : o.DoctorInAppointment.DocTypeEnum == type);
         }
 
         private ISpecification<Appointment> GetSpecificationByDoctor(Doctor doctor)
         {
-            return new ExpressionSpecification<Appointment>(o => o.DoctorInAppointment.Equals(doctor));
+            return new ExpressionSpecification<Appointment>(o => o.DoctorInAppointment == null ? false : o.DoctorInAppointment.Equals(doctor));
         }
 
         private ISpecification<Appointment> GetSpecificationByTimeInterval(Util.TimeInterval timeInterval)
         {
-            return new ExpressionSpecification<Appointment>(o => o.TimeInterval.Equals(timeInterval));
+            return new ExpressionSpecification<Appointment>(o => o.TimeInterval == null ? false : o.TimeInterval.Equals(timeInterval));
         }
 
         private ISpecification<Appointment> GetSpecificationByType(AppointmentType type)
@@ -55,7 +55,8 @@ namespace SIMS.Specifications.Converter
                 specification = specification.And(GetSpecificationByDoctor(_filter.Doctor));
             }
 
-            specification = specification.And(GetSpecificationByDoctorType(_filter.DoctorType));
+            if(_filter.DoctorType != DocTypeEnum.UNDEFINED)
+                specification = specification.And(GetSpecificationByDoctorType(_filter.DoctorType));
 
             return specification;
         }

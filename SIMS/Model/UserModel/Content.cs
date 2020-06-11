@@ -20,6 +20,11 @@ namespace SIMS.Model.UserModel
             _text = text;
         }
 
+        public Content(string text)
+        {
+            _text = text;
+        }
+
         public Content(long id, string text, DateTime dateCreated)
         {
             _id = id;
@@ -33,7 +38,7 @@ namespace SIMS.Model.UserModel
         }
 
         public string Text { get { return _text; } }
-        public DateTime Date { get { return _dateCreated; } }
+        public DateTime Date { get => _dateCreated; set => _dateCreated = value; }
 
         public long GetId()
         {

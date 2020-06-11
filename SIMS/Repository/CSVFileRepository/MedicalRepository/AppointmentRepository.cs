@@ -7,17 +7,13 @@ using SIMS.Model.PatientModel;
 using SIMS.Model.UserModel;
 using SIMS.Repository.Abstract.HospitalManagementAbstractRepository;
 using SIMS.Repository.Abstract.MedicalAbstractRepository;
-using SIMS.Repository.Abstract.UsersAbstractRepository;
 using SIMS.Repository.CSVFileRepository.Csv;
 using SIMS.Repository.CSVFileRepository.Csv.IdGenerator;
 using SIMS.Repository.CSVFileRepository.Csv.Stream;
-using SIMS.Repository.CSVFileRepository.HospitalManagementRepository;
-using SIMS.Repository.CSVFileRepository.UsersRepository;
 using SIMS.Repository.Sequencer;
 using SIMS.Specifications;
 using SIMS.Specifications.Converter;
 using SIMS.Util;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -50,31 +46,37 @@ namespace SIMS.Repository.CSVFileRepository.MedicalRepository
         }
 
         private void BindAppointmentsWithDoctor(IEnumerable<Appointment> appointments, IEnumerable<Doctor> doctors)
-            => appointments.ToList().ForEach(appointment => appointment.DoctorInAppointment = GetDoctorById(doctors,appointment.DoctorInAppointment.GetId()));
+            => appointments.ToList().ForEach(appointment => appointment.DoctorInAppointment = GetDoctorById(doctors,appointment.DoctorInAppointment));
 
         private void BindAppointmentsWithPatient(IEnumerable<Appointment> appointments, IEnumerable<Patient> patients)
-            => appointments.ToList().ForEach(appointment => appointment.Patient = GetPationtById(patients, appointment.Patient.GetId()));
+            => appointments.ToList().ForEach(appointment => appointment.Patient = GetPatientById(patients, appointment.Patient));
 
         private void BindAppointmentsWithRoom(IEnumerable<Appointment> appointments, IEnumerable<Room> rooms)
-            => appointments.ToList().ForEach(appointment => appointment.Room = GetRoomById(rooms, appointment.Patient.GetId()));
+            => appointments.ToList().ForEach(appointment => appointment.Room = GetRoomById(rooms, appointment.Room));
 
         public IEnumerable<Appointment> GetPatientAppointments(Patient patient)
-            => GetAllEager().Where(appointment => appointment.Patient.GetId().Equals(patient.GetId()));
+            => GetAllEager().Where(appointment => IsUserIdsEquals(appointment.Patient, patient));
 
-        public IEnumerable<Appointment> GetAppointmentsByTime(TimeInterval timeInterval)
-            => GetAllEager().Where(appointment => appointment.TimeInterval.Equals(timeInterval));
+        private bool IsUserIdsEquals(User appointmentUser, User selectedUser)
+            => appointmentUser == null ? false : appointmentUser.GetId().Equals(selectedUser.GetId());
+
+        public IEnumerable<Appointment> GetAppointmentsByTime(TimeInterval timeInterval) //Note (Gergo) : Ima vise smisla da trazimo termine koje se sudaraju sa prosledjenim intervalom
+            => GetAllEager().Where(appointment => appointment.TimeInterval.IsOverlappingWith(timeInterval));
 
         public IEnumerable<Appointment> GetAppointmentsByDoctor(Doctor doctor)
-            => GetAllEager().Where(appointment => appointment.GetId().Equals(doctor.GetId()));
+            => GetAllEager().Where(appointment => IsUserIdsEquals(appointment.DoctorInAppointment, doctor));
 
         public IEnumerable<Appointment> GetCanceledAppointments()
             => GetAllEager().Where(appointment => appointment.Canceled == true);
 
         public IEnumerable<Appointment> GetCompletedAppointmentsByPatient(Patient patient)
-            => GetAllEager().Where(appointment => appointment.Patient.GetId().Equals(patient.GetId())&& isCompleted(appointment));
+            => GetPatientAppointments(patient).Where(appointment => isCompleted(appointment));
 
         public IEnumerable<Appointment> GetAppointmentsByRoom(Room room)
-            => GetAllEager().Where(appointment => appointment.Room.GetId().Equals(room.GetId()));
+            => GetAllEager().Where(appointment => IsRoomIdsEquals(appointment.Room, room));
+
+        private bool IsRoomIdsEquals(Room appointmentRoom, Room selectedRoom)
+            => appointmentRoom == null ? false : appointmentRoom.GetId() == selectedRoom.GetId();
 
         public IEnumerable<Appointment> GetFilteredAppointment(AppointmentFilter appointmentFilter)
         {
@@ -85,23 +87,23 @@ namespace SIMS.Repository.CSVFileRepository.MedicalRepository
         }
 
         public IEnumerable<Appointment> GetUpcomingAppointmentsForPatient(Patient patient)
-            => GetAllEager().Where(appointment => appointment.Patient.GetId().Equals(patient.GetId()) && isInFuture(appointment) );
+            => GetPatientAppointments(patient).Where(appointment => isInFuture(appointment));
 
         public IEnumerable<Appointment> GetUpcomingAppointmentsForDoctor(Doctor doctor)
-            => GetAllEager().Where(appointment => appointment.DoctorInAppointment.GetId().Equals(doctor.GetId()));
+            => GetAppointmentsByDoctor(doctor).Where(appointment => isInFuture(appointment));
 
         public Appointment GetEager(long id)
         {
             var appointment = GetByID(id);
 
             var patients = _patientRepository.GetAllEager();
-            appointment.Patient = patients.SingleOrDefault(patient => patient.GetId() == appointment.Patient.GetId());
+            appointment.Patient = GetPatientById(patients, appointment.Patient);
 
             var doctors = _doctorRepository.GetAllEager();
-            appointment.DoctorInAppointment = doctors.SingleOrDefault(doctor => doctor.GetId() == appointment.DoctorInAppointment.GetId());
+            appointment.DoctorInAppointment = GetDoctorById(doctors, appointment.DoctorInAppointment);
 
             var rooms = _roomRepository.GetAll();
-            appointment.Room = rooms.SingleOrDefault(room => room.GetId() == appointment.Room.GetId());
+            appointment.Room = GetRoomById(rooms, appointment.Room);
 
             return appointment;
         }
@@ -109,35 +111,24 @@ namespace SIMS.Repository.CSVFileRepository.MedicalRepository
         public IEnumerable<Appointment> GetAllEager()
         {
             IEnumerable<Appointment> appointments = GetAll();
-
-            IEnumerable<Patient> patients = _patientRepository.GetAllEager();
-            IEnumerable<Room> rooms = _roomRepository.GetAll();
-            IEnumerable<Doctor> doctors = _doctorRepository.GetAllEager();
-
             Bind(appointments);
 
             return appointments;
         }
 
-        private Doctor GetDoctorById(IEnumerable<Doctor> doctors, UserID id)
-            => doctors.ToList().SingleOrDefault(doctor => doctor.GetId().Equals(id));
+        private Doctor GetDoctorById(IEnumerable<Doctor> doctors, Doctor doctorId)
+            => doctorId == null ? null : doctors.SingleOrDefault(d => d.GetId().Equals(doctorId.GetId()));
 
-        private Patient GetPationtById(IEnumerable<Patient> patients, UserID id)
-            => patients.ToList().SingleOrDefault(patient => patient.GetId().Equals(id));
+        private Patient GetPatientById(IEnumerable<Patient> patients, Patient patientId)
+            => patientId == null ? null : patients.SingleOrDefault(p => p.GetId().Equals(patientId.GetId()));
 
-        private Room GetRoomById(IEnumerable<Room> rooms, UserID id)
-            => rooms.ToList().SingleOrDefault(room => room.GetId().Equals(id));
+        private Room GetRoomById(IEnumerable<Room> rooms, Room roomId)
+            => roomId == null ? null : rooms.SingleOrDefault(r => r.GetId() == roomId.GetId());
 
         private bool isCompleted(Appointment appointment)
-            => appointment.TimeInterval.EndTime.CompareTo(DateTime.Now) < 0 && !appointment.Canceled;
+            => appointment.IsCompleted() && !appointment.Canceled;
 
         private bool isInFuture(Appointment appointment)
-            => appointment.TimeInterval.StartTime.CompareTo(DateTime.Now) > 0 && !appointment.Canceled;
-
-        public AppointmentSpecificationConverter appointmentSpecificationConverter;
-        public RoomRepository roomRepository;
-        public DoctorRepository doctorRepository;
-        public PatientRepository patientRepository;
-
+            => appointment.IsInFuture() && !appointment.Canceled;
     }
 }
