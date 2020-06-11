@@ -15,6 +15,7 @@ using SIMS.Repository.CSVFileRepository.MedicalRepository;
 using SIMS.Repository.CSVFileRepository.HospitalManagementRepository;
 using SIMS.Util;
 using SIMS.Repository.CSVFileRepository.Csv.Converter.UsersConverter;
+using SIMS.Repository.CSVFileRepository.Csv.Converter.MiscConverter;
 
 namespace SIMS
 {
@@ -320,7 +321,131 @@ namespace SIMS
 
             //NotificationRepoTest();
             //MessageRepoTest();
-            ArticleRepoTest();
+            //ArticleRepoTest();
+            //QuestionRepoTest();
+            FeedbackTest();
+        }
+
+        private void QuestionRepoTest()
+        {
+            AppResources res = AppResources.getInstance();
+
+            /*
+            Question q1 = new Question("Prvo pitanje");
+            Question q2 = new Question("Drugo pitanje");
+            Question q3 = new Question("Treće pitanje");
+            Question q4 = new Question("Četvrto pitanje");
+
+            res.questionRepository.Create(q1);
+            res.questionRepository.Create(q2);
+            res.questionRepository.Create(q3);
+            res.questionRepository.Create(q4);
+
+            foreach(Question q in res.questionRepository.GetAll())
+            {
+                Console.WriteLine(q.Text);
+            }
+            */
+            Question q1 = new Question("Prvo doktor pitanje");
+            Question q2 = new Question("Drugo doktor pitanje");
+            Question q3 = new Question("Treće doktor pitanje");
+            Question q4 = new Question("Četvrto doktor pitanje");
+
+            //res.doctorQuestionRepository.Create(q1);
+            //res.doctorQuestionRepository.Create(q2);
+            //res.doctorQuestionRepository.Create(q3);
+            //res.doctorQuestionRepository.Create(q4);
+
+            foreach (Question q in res.doctorQuestionRepository.GetAll())
+            {
+                Console.WriteLine(q.Text);
+            }
+
+            //Note (Gergo) : Primetio sam da Console.WriteLine() ne ispise UTF-8 karaktere, i umesto ć,č pise c. Ali string je dobro ucitano iz fajla, UTF-8 enkodingom.
+            Question ques = res.doctorQuestionRepository.GetAll().ToList()[2];
+            Console.WriteLine(ques.Text.Equals("Treće doktor pitanje"));
+            Console.WriteLine(ques.Text.Equals("Trece doktor pitanje"));
+
+        }
+
+        private void FeedbackTest()
+        {
+            AppResources res = AppResources.getInstance();
+            /*
+            Dictionary<Question, Rating> r1 = new Dictionary<Question, Rating>();
+            r1.Add(new Question(1), new Rating("rating nesto", 7));
+            r1.Add(new Question(2), new Rating("rating nesto 2", 5));
+            r1.Add(new Question(3), new Rating("rating nesto 3", 1));
+            Feedback f1 = new Feedback(new User(new UserID("p3")), "commmment", r1);
+
+            Dictionary<Question, Rating> r2 = new Dictionary<Question, Rating>();
+            r2.Add(new Question(1), new Rating("rating nesto", 9));
+            r2.Add(new Question(2), new Rating("rating nesto 2", 4));
+            r2.Add(new Question(4), new Rating("rating nesto 3", 6));
+            Feedback f2 = new Feedback(new User(new UserID("p1")), "commmment22", r2);
+
+            Dictionary<Question, Rating> r3 = new Dictionary<Question, Rating>();
+            r3.Add(new Question(2), new Rating("rating nesto", 6));
+            r3.Add(new Question(3), new Rating("rating nesto 2", 2));
+            r3.Add(new Question(4), new Rating("rating nesto 3", 1));
+            Feedback f3 = new Feedback(new User(new UserID("p5")), "commmment33", r3);
+
+            res.feedbackRepository.Create(f1);
+            res.feedbackRepository.Create(f2);
+            f3 = res.feedbackRepository.Create(f3);
+
+            f3.AddRating(new Question(1), new Rating("rating nesto 4 ADDED", 10));
+            res.feedbackRepository.Update(f3);
+
+            foreach(Feedback f in res.feedbackRepository.GetAllEager())
+            {
+                Console.WriteLine("User: " + f.User.GetId() + " " + f.User.Name);
+                Console.WriteLine("Ratings: ");
+                foreach(Question q in f.Rating.Keys)
+                {
+                    Console.WriteLine("Question: " + q.Text);
+                    Console.WriteLine("Rating: " + f.Rating[q].Stars);
+                }
+            }
+            */
+
+            Dictionary<Question, Rating> r1 = new Dictionary<Question, Rating>();
+            r1.Add(new Question(1), new Rating("rating nesto", 7));
+            r1.Add(new Question(2), new Rating("rating nesto 2", 5));
+            r1.Add(new Question(3), new Rating("rating nesto 3", 1));
+            DoctorFeedback f1 = new DoctorFeedback(new User(new UserID("p3")), "commmment", r1, res.doctorRepository.GetByID(new UserID("d1")));
+
+            Dictionary<Question, Rating> r2 = new Dictionary<Question, Rating>();
+            r2.Add(new Question(1), new Rating("rating nesto", 9));
+            r2.Add(new Question(2), new Rating("rating nesto 2", 4));
+            r2.Add(new Question(4), new Rating("rating nesto 3", 6));
+            DoctorFeedback f2 = new DoctorFeedback(new User(new UserID("p1")), "commmment22", r2, res.doctorRepository.GetByID(new UserID("d2")));
+
+            Dictionary<Question, Rating> r3 = new Dictionary<Question, Rating>();
+            r3.Add(new Question(2), new Rating("rating nesto", 6));
+            r3.Add(new Question(3), new Rating("rating nesto 2", 2));
+            r3.Add(new Question(4), new Rating("rating nesto 3", 1));
+            DoctorFeedback f3 = new DoctorFeedback(new User(new UserID("p5")), "commmment33", r3, res.doctorRepository.GetByID(new UserID("d3")));
+
+            res.doctorFeedbackRepository.Create(f1);
+            res.doctorFeedbackRepository.Create(f2);
+            f3 = res.doctorFeedbackRepository.Create(f3);
+
+            f3.AddRating(new Question(1), new Rating("rating nesto 4 ADDED", 10));
+            res.doctorFeedbackRepository.Update(f3);
+
+            foreach (DoctorFeedback f in res.doctorFeedbackRepository.GetAllEager())
+            {
+                Console.WriteLine("Patient: " + f.User.GetId() + " " + f.User.Name);
+                Console.WriteLine("Doctor: " + f.Doctor.GetId() + " " + f.Doctor.Name);
+                Console.WriteLine("Ratings: ");
+                foreach (Question q in f.Rating.Keys)
+                {
+                    Console.WriteLine("Question: " + q.Text);
+                    Console.WriteLine("Rating: " + f.Rating[q].Stars);
+                }
+            }
+
         }
 
         private void ArticleRepoTest()

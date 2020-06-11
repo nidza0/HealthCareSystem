@@ -13,6 +13,7 @@ using SIMS.Model.PatientModel;
 using System;
 using SIMS.Repository.CSVFileRepository.MiscRepository;
 using SIMS.Repository.CSVFileRepository.Csv.Converter.MiscConverter;
+using SIMS.Model.DoctorModel;
 
 namespace SIMS
 {
@@ -35,6 +36,10 @@ namespace SIMS
         private readonly String notificationFile = @"..\..\Files\MiscFiles\notifications.txt";
         private readonly String messageFile = @"..\..\Files\MiscFiles\messages.txt";
         private readonly String articleFile = @"..\..\Files\MiscFiles\articles.txt";
+        private readonly String questionFile = @"..\..\Files\MiscFiles\questions.txt";
+        private readonly String doctorQuestionFile = @"..\..\Files\MiscFiles\doctorQuestions.txt";
+        private readonly String feedbackFile = @"..\..\Files\MiscFiles\feedbacks.txt";
+        private readonly String doctorFeedbackFile = @"..\..\Files\MiscFiles\doctorFeedbacks.txt";
 
      
 
@@ -66,6 +71,10 @@ namespace SIMS
         public NotificationRepository notificationRepository;
         public MessageRepository messageRepository;
         public ArticleRepository articleRepository;
+        public QuestionRepository questionRepository;
+        public QuestionRepository doctorQuestionRepository;
+        public FeedbackRepository feedbackRepository;
+        public DoctorFeedbackRepository doctorFeedbackRepository;
 
 
         //Hospital management
@@ -84,24 +93,41 @@ namespace SIMS
 
         private AppResources() {
             userRepository = new UserRepository(new CSVStream<User>(userFile, new UserConverter()), new ComplexSequencer());
-
+            // USER OK
 
             inventoryItemRepository = new InventoryItemRepository(new CSVStream<InventoryItem>(inventoryItemFile, new InventoryItemConverter()), new LongSequencer(), roomRepository);
             roomRepository = new RoomRepository(new CSVStream<Room>(roomFile, new RoomConverter()), new LongSequencer());
+            // ROOM OK
             timeTableRepository = new TimeTableRepository(new CSVStream<TimeTable>(timeTableFile, new TimeTableConverter()), new LongSequencer());
+            // TIMETABLE OK
             hospitalRepository = new HospitalRepository(new CSVStream<Hospital>(hospitalFile, new HospitalConverter()), new LongSequencer(), roomRepository);
 
 
             secretaryRepository = new SecretaryRepository(new CSVStream<Secretary>(secretaryFile, new SecretaryConverter()), new ComplexSequencer(), timeTableRepository, hospitalRepository, userRepository);
+            // SECRETARY OK
             managerRepository = new ManagerRepository(new CSVStream<Manager>(managerFile, new ManagerConverter()), new ComplexSequencer(), timeTableRepository, hospitalRepository, userRepository);
+            // MANAGER OK
             doctorRepository = new DoctorRepository(new CSVStream<Doctor>(doctorFile, new DoctorConverter()), new ComplexSequencer(), timeTableRepository, hospitalRepository, roomRepository, userRepository);
+            // DOCTOR OK
             patientRepository = new PatientRepository(new CSVStream<Patient>(patientFile, new PatientConverter()), new ComplexSequencer(), doctorRepository, userRepository);
+            // PATIENT OK
 
             //Misc repositories
             locationRepository = new LocationRepository(new CSVStream<Location>(locationFile, new LocationConverter()), new LongSequencer());
+            // LOCATION OK
             notificationRepository = new NotificationRepository(new CSVStream<Notification>(notificationFile, new NotificationConverter()), new LongSequencer(), patientRepository, doctorRepository, managerRepository, secretaryRepository);
+            // NOTIFICATION OK
             messageRepository = new MessageRepository(new CSVStream<Message>(messageFile, new MessageConverter()), new LongSequencer(), patientRepository, doctorRepository, managerRepository, secretaryRepository);
+            // MESSAGE OK
             articleRepository = new ArticleRepository(new CSVStream<Article>(articleFile, new ArticleConverter()), new LongSequencer(), doctorRepository, managerRepository, secretaryRepository);
+            //ARTICLE OK
+            questionRepository = new QuestionRepository(new CSVStream<Question>(questionFile, new QuestionConverter()), new LongSequencer());
+            // QUESTION OK
+            doctorQuestionRepository = new QuestionRepository(new CSVStream<Question>(doctorQuestionFile, new QuestionConverter()), new LongSequencer());
+            //DOCTOR QUESTION OK
+            feedbackRepository = new FeedbackRepository(new CSVStream<Feedback>(feedbackFile, new FeedbackConverter()), new LongSequencer(), questionRepository, patientRepository, doctorRepository, managerRepository, secretaryRepository);
+            doctorFeedbackRepository = new DoctorFeedbackRepository(new CSVStream<DoctorFeedback>(doctorFeedbackFile, new DoctorFeedbackConverter()), new LongSequencer(), doctorQuestionRepository, patientRepository, doctorRepository);
+
 
             //Hospital management repositories
             symptomRepository = new SymptomRepository(new CSVStream<Symptom>(symptomsFile, new SymptomConverter()), new LongSequencer());

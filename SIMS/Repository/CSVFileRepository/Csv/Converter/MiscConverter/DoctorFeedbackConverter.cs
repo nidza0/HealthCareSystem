@@ -15,77 +15,65 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.MiscConverter
 {
     public class DoctorFeedbackConverter : ICSVConverter<DoctorFeedback>
     {
-        private readonly string _delimiter = ",";
-        private readonly string _listDelimiter = ";";
-        private readonly string _secondaryListDelimiter = "-";
+        private readonly string _delimiter = "~";
+        private readonly string _listDelimiter = "^";
+        private readonly string _secondaryListDelimiter = "|";
         
-
         public DoctorFeedbackConverter()
         {
         }
 
         public DoctorFeedback ConvertCSVToEntity(string csv)
         {
-            long tempId;
-            User tempUser;
-            string tempComment;
-            List<Rating> tempRating;
-            Doctor tempRecepient;
+            string[] tokens = csv.Split(_delimiter.ToCharArray());
 
-            char[] delimiter = _delimiter.ToCharArray();
-            string[] tokens = csv.Split(delimiter);
+            DoctorFeedback feedback = new DoctorFeedback(id: long.Parse(tokens[0]),
+                                                user: tokens[1].Equals("") ? null : new User(new UserID(tokens[1])),
+                                                tokens[2],
+                                                GetRating(tokens[3]),
+                                                tokens[4].Equals("") ? null : new Doctor(new UserID(tokens[4])));
 
-            tempId = long.Parse(tokens[0]);
-            tempUser = new User(new UserID(tokens[1].Trim()));
-            tempComment = tokens[2];
-            tempRating = GetList(tokens[3], _listDelimiter.ToCharArray());
-            tempRecepient = new Doctor(new UserID(tokens[4].Trim()));
-
-            return new DoctorFeedback(tempId, tempUser, tempComment, tempRating, tempRecepient);
-
+            return feedback;
         }
 
-        private List<Rating> GetList(string listString, char[] delimiter)
+        private Dictionary<Question, Rating> GetRating(string csv)
         {
-            List<Rating> retVal = new List<Rating>();
-            if(listString != "")
-            { 
-                string[] tokens = listString.Split(delimiter);
-            
-                foreach(string entity in tokens)
-                {
-                    string[] attributes = entity.Split(_secondaryListDelimiter.ToCharArray());
-                    retVal.Add(GetRating(attributes));
-                }
+            string[] tokens = csv.Split(_listDelimiter.ToCharArray());
+
+            Dictionary<Question, Rating> retVal = new Dictionary<Question, Rating>();
+
+            foreach (string token in tokens)
+            {
+                if (token.Equals(""))
+                    break;
+
+                string[] rating_tokens = token.Split(_secondaryListDelimiter.ToCharArray());
+                if (rating_tokens[0].Equals("")) continue;
+
+                Question q = new Question(long.Parse(rating_tokens[0]));
+                Rating r = new Rating(rating_tokens[1], rating_tokens[2].Equals("") ? default : int.Parse(rating_tokens[2]));
+
+                retVal.Add(q, r);
             }
 
             return retVal;
         }
 
-        private Rating GetRating(string[] attributes) 
-        {
-            long tempId;
-            int tempStars;
-            long.TryParse(attributes[0], out tempId);
-            int.TryParse(attributes[2], out tempStars);
-            return new Rating(tempId, attributes[1], tempStars);
-        }
-            
 
         public string ConvertEntityToCSV(DoctorFeedback entity)
             => string.Join(_delimiter,
                 entity.GetId(),
-                entity.User.GetId(),
+                entity.User == null ? "" : entity.User.GetId().ToString(),
                 entity.Comment,
                 ratingToCSV(entity.Rating),
-                entity.Recepient.GetId()
+                entity.Doctor == null ? "" : entity.Doctor.GetId().ToString()
                 );
 
+        private string ratingToCSV(Dictionary<Question, Rating> entity)
+                    => entity == null ? "" : string.Join(_listDelimiter, entity.Keys.Select(q => GetDictCSV(q, entity[q])));
 
-        private string ratingToCSV(IEnumerable<Rating> entity)
-            => string.Join(_listDelimiter, entity.Select(rating => rating.GetId() + _secondaryListDelimiter + rating.Question + _secondaryListDelimiter + rating.Stars));
+        private string GetDictCSV(Question q, Rating rating)
+            => string.Join(_secondaryListDelimiter, q.GetId(), rating == null ? "" : rating.Comment, rating == null ? "" : rating.Stars.ToString());
 
-        
-        
     }
 }
