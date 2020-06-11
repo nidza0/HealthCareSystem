@@ -71,12 +71,12 @@ namespace SIMS.View.ViewManager
         {
             if (verifyName(surnameInput.Text.ToString()))
             {
-                nameInput.Background = Brushes.PaleVioletRed;
+                surnameInput.Background = Brushes.PaleVioletRed;
                 surname = false;
             }
             else
             {
-                nameInput.Background = Brushes.Transparent;
+                surnameInput.Background = Brushes.Transparent;
                 surname = true;
                 checkButton();
             }

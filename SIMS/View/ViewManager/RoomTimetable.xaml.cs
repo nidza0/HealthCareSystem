@@ -1,6 +1,8 @@
-﻿using SIMS.Model.ManagerModel;
+﻿using SIMS.Model.PatientModel;
+using SIMS.Model.UserModel;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,27 +19,50 @@ using System.Windows.Shapes;
 namespace SIMS.View.ViewManager
 {
     /// <summary>
-    /// Interaction logic for InventoryOverviewPage.xaml
+    /// Interaction logic for RoomTimetable.xaml
     /// </summary>
-    public partial class InventoryOverviewPage : Page
+    public partial class RoomTimetable : Page
     {
-        public InventoryOverviewPage()
+        public RoomTimetable(Room room)
         {
             InitializeComponent();
 
-            InventoryDataGrid.ItemsSource = Login.items;
+            RoomsDataGrid.ItemsSource = initList(room);
         }
 
-        private void InventoryDataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        private ObservableCollection<Appointment> initList(Room room)
+        {
+            ObservableCollection<Appointment> retVal = new ObservableCollection<Appointment>();
+
+            foreach(Appointment app in Login.appointments)
+            {
+                if(room.Equals(app.Room) && isInFuture(app))
+                {
+                    retVal.Add(app);
+                }
+            }
+
+            return retVal;
+        }
+
+        private bool isInFuture(Appointment app)
+        {
+            DateTime now = DateTime.Now;
+
+            if ((app.TimeInterval.StartTime > now || (app.TimeInterval.EndTime < now && app.TimeInterval.StartTime < now)) && !app.Canceled)
+                return true;
+
+            return false;
+        }
+
+        private void RoomsDataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
 
         }
 
-        private void InventoryDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void RoomsDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var row = (InventoryItem)InventoryDataGrid.SelectedItem;
-            if (row != null)
-                NavigationService.Navigate(new InventoryDetailPage(row));
+            
         }
 
         //Menu buttons
@@ -83,16 +108,6 @@ namespace SIMS.View.ViewManager
         {
             if (NavigationService.CanGoBack)
                 NavigationService.GoBack();
-        }
-
-        private void addButton_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new InventoryAddingPage());
-        }
-
-        private void lowStock_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new InventoryLowStock());
         }
         //END REGION
     }

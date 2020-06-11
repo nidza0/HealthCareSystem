@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SIMS.Model.UserModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,8 @@ namespace SIMS.View.ViewManager
         public RoomsOverviewPage()
         {
             InitializeComponent();
+
+            RoomsDataGrid.ItemsSource = Login.rooms;
         }
 
         private void RoomsDataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
@@ -32,7 +35,9 @@ namespace SIMS.View.ViewManager
 
         private void RoomsDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-
+            var row = (Room)RoomsDataGrid.SelectedItem;
+            if (row != null)
+                NavigationService.Navigate(new RoomDetailPage(row));
         }
 
         //Menu buttons

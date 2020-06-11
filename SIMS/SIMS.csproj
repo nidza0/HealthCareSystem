@@ -215,11 +215,20 @@
     <Compile Include="View\ViewManager\DoctorsOverviewPage.xaml.cs">
       <DependentUpon>DoctorsOverviewPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\ViewManager\InventoryAddingPage.xaml.cs">
+      <DependentUpon>InventoryAddingPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\ViewManager\InventoryDetailPage.xaml.cs">
       <DependentUpon>InventoryDetailPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\ViewManager\InventoryEdit.xaml.cs">
+      <DependentUpon>InventoryEdit.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\ViewManager\InventoryFilterListPage.xaml.cs">
       <DependentUpon>InventoryFilterListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewManager\InventoryLowStock.xaml.cs">
+      <DependentUpon>InventoryLowStock.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ViewManager\InventoryOverviewPage.xaml.cs">
       <DependentUpon>InventoryOverviewPage.xaml</DependentUpon>
@@ -233,11 +242,20 @@
     <Compile Include="View\ViewManager\ManagerWindow.xaml.cs">
       <DependentUpon>ManagerWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\ViewManager\MedicineAddingPage.xaml.cs">
+      <DependentUpon>MedicineAddingPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\ViewManager\MedicineDetailPage.xaml.cs">
       <DependentUpon>MedicineDetailPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\ViewManager\MedicineEdit.xaml.cs">
+      <DependentUpon>MedicineEdit.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\ViewManager\MedicineFilterListPage.xaml.cs">
       <DependentUpon>MedicineFilterListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewManager\MedicineLowStock.xaml.cs">
+      <DependentUpon>MedicineLowStock.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ViewManager\MedicineOverviewPage.xaml.cs">
       <DependentUpon>MedicineOverviewPage.xaml</DependentUpon>
@@ -253,6 +271,9 @@
     </Compile>
     <Compile Include="View\ViewManager\RoomsOverviewPage.xaml.cs">
       <DependentUpon>RoomsOverviewPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewManager\RoomTimetable.xaml.cs">
+      <DependentUpon>RoomTimetable.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ViewManager\ShiftsOverviewPage.xaml.cs">
       <DependentUpon>ShiftsOverviewPage.xaml</DependentUpon>
@@ -302,11 +323,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\ViewManager\InventoryAddingPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\ViewManager\InventoryDetailPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\ViewManager\InventoryEdit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\ViewManager\InventoryFilterListPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewManager\InventoryLowStock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -326,11 +359,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\ViewManager\MedicineAddingPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\ViewManager\MedicineDetailPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\ViewManager\MedicineEdit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\ViewManager\MedicineFilterListPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewManager\MedicineLowStock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -351,6 +396,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\ViewManager\RoomsOverviewPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewManager\RoomTimetable.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -462,6 +511,15 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="View\ImagesManager\clock.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\ImagesManager\inventory.jpeg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\ImagesManager\pills.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\ImagesManager\room.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

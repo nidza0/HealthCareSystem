@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SIMS.Model.ManagerModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,19 @@ namespace SIMS.View.ViewManager
     /// </summary>
     public partial class InventoryDetailPage : Page
     {
-        public InventoryDetailPage()
+        private InventoryItem sItem;
+
+        public InventoryDetailPage(InventoryItem selectedItem)
         {
             InitializeComponent();
+
+            sItem = selectedItem;
+
+            NameLabel.Content = selectedItem.Name;
+            sobaLabel.Content = selectedItem.Room.RoomNumber;
+            idLabel.Content = selectedItem.GetId();
+            minNumberLabel.Content = selectedItem.MinNumber.ToString();
+            inStockLabel.Content = selectedItem.InStock.ToString();
         }
 
         //Menu buttons
@@ -68,6 +79,11 @@ namespace SIMS.View.ViewManager
         {
             if (NavigationService.CanGoBack)
                 NavigationService.GoBack();
+        }
+
+        private void editButton_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new InventoryEdit(sItem));
         }
         //END REGION
     }

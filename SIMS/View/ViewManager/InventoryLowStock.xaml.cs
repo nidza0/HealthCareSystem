@@ -1,6 +1,7 @@
 ﻿using SIMS.Model.ManagerModel;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,20 +18,34 @@ using System.Windows.Shapes;
 namespace SIMS.View.ViewManager
 {
     /// <summary>
-    /// Interaction logic for InventoryOverviewPage.xaml
+    /// Interaction logic for InventoryLowStock.xaml
     /// </summary>
-    public partial class InventoryOverviewPage : Page
+    public partial class InventoryLowStock : Page
     {
-        public InventoryOverviewPage()
+        public InventoryLowStock()
         {
             InitializeComponent();
 
-            InventoryDataGrid.ItemsSource = Login.items;
+            InventoryDataGrid.ItemsSource = initializeList();
         }
+
 
         private void InventoryDataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
 
+        }
+
+        private ObservableCollection<InventoryItem> initializeList()
+        {
+            ObservableCollection<InventoryItem> retVal = new ObservableCollection<InventoryItem>();
+
+            foreach(InventoryItem item in Login.items)
+            {
+                if (item.InStock <= item.MinNumber * 1.2)
+                    retVal.Add(item);
+            }
+
+            return retVal;
         }
 
         private void InventoryDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -84,16 +99,5 @@ namespace SIMS.View.ViewManager
             if (NavigationService.CanGoBack)
                 NavigationService.GoBack();
         }
-
-        private void addButton_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new InventoryAddingPage());
-        }
-
-        private void lowStock_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new InventoryLowStock());
-        }
-        //END REGION
     }
 }

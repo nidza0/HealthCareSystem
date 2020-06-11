@@ -1,5 +1,7 @@
-﻿using System;
+﻿using SIMS.Model.UserModel;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,6 +28,79 @@ namespace SIMS.View.ViewManager
 
             PresentPanel.Visibility = Visibility.Visible;
             AbsentPanel.Visibility = Visibility.Hidden;
+
+            PresentDataGrid.ItemsSource = findOnJob();
+            AbsentDataGrid.ItemsSource = findOffJob();
+        }
+
+        private ObservableCollection<Doctor> findOnJob()
+        {
+            ObservableCollection<Doctor> docs = new ObservableCollection<Doctor>();
+
+            foreach(Doctor doc in Login.doctors)
+            {
+                if(isOnJob(doc))
+                {
+                    docs.Add(doc);
+                    
+                }
+            }
+            return docs;
+        }
+
+        private ObservableCollection<Doctor> findOffJob()
+        {
+            ObservableCollection<Doctor> docs = new ObservableCollection<Doctor>();
+
+            foreach (Doctor doc in Login.doctors)
+            {
+                if (!isOnJob(doc))
+                {
+                    docs.Add(doc);
+
+                }
+            }
+            return docs;
+        }
+
+        private bool isOnJob(Doctor doc)
+        {
+            DateTime now = DateTime.Now;
+
+            WorkingDaysEnum wde = WorkingDaysEnum.MONDAY;
+
+            switch(now.DayOfWeek)
+            {
+                case DayOfWeek.Monday:
+                    wde = WorkingDaysEnum.MONDAY;
+                    break;
+                case DayOfWeek.Tuesday:
+                    wde = WorkingDaysEnum.TUESDAY;
+                    break;
+                case DayOfWeek.Wednesday:
+                    wde = WorkingDaysEnum.WEDNESDAY;
+                    break;
+                case DayOfWeek.Thursday:
+                    wde = WorkingDaysEnum.THURSDAY;
+                    break;
+                case DayOfWeek.Friday:
+                    wde = WorkingDaysEnum.FRIDAY;
+                    break;
+                case DayOfWeek.Saturday:
+                    wde = WorkingDaysEnum.SATURDAY;
+                    break;
+                case DayOfWeek.Sunday:
+                    wde = WorkingDaysEnum.SUNDAY;
+                    break;
+            }
+
+            TimeTable radnaNedelja = doc.TimeTable;
+            Util.TimeInterval radnoVreme = radnaNedelja.WorkingHours[wde];
+
+            if (radnoVreme.StartTime.Hour <= now.Hour && radnoVreme.EndTime.Hour >= now.Hour)
+                return true;
+
+            return false;
         }
 
         private void PresentDataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
@@ -35,7 +110,9 @@ namespace SIMS.View.ViewManager
 
         private void PresentDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-
+            var row = (Doctor)PresentDataGrid.SelectedItem;
+            if (row != null)
+                NavigationService.Navigate(new DoctorDetailPage(row));
         }
 
         private void AbsentDataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
@@ -45,7 +122,9 @@ namespace SIMS.View.ViewManager
 
         private void AbsentDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-
+            var row = (Doctor)AbsentDataGrid.SelectedItem;
+            if (row != null)
+                NavigationService.Navigate(new DoctorDetailPage(row));
         }
 
         private void presentButton_Click(object sender, RoutedEventArgs e)

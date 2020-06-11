@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SIMS.Model.UserModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,19 @@ namespace SIMS.View.ViewManager
     /// </summary>
     public partial class RoomDetailPage : Page
     {
-        public RoomDetailPage()
+        private Room sRoom;
+
+        public RoomDetailPage(Room room)
         {
             InitializeComponent();
+
+            NameLabel.Content = room.RoomNumber.ToString();
+            typeLabel.Content = room.GetType().ToString();
+            idLabel.Content = room.GetId().ToString();
+            isOccupiedLabel.Content = room.Occupied.ToString();
+            floorLabel.Content = room.Floor.ToString();
+
+            sRoom = room;
         }
 
         //Menu buttons
@@ -68,6 +79,16 @@ namespace SIMS.View.ViewManager
         {
             if (NavigationService.CanGoBack)
                 NavigationService.GoBack();
+        }
+
+        private void timetableButton_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new RoomTimetable(sRoom));
+        }
+
+        private void reserveButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
         //END REGION
     }

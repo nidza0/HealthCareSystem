@@ -16,23 +16,35 @@
         <!--#endregion-->
 
         <!--Datagrid-->
-        <DockPanel x:Name="MedicinePanel" HorizontalAlignment="Left" Height="650" Margin="0,180,0,0" VerticalAlignment="Top" Width="550" Background="White">
+        <DockPanel x:Name="ValidatedMedicinePanel" HorizontalAlignment="Left" Height="635" Margin="0,195,0,0" VerticalAlignment="Top" Width="550" Background="White">
             <Border BorderBrush="#ec1c70" BorderThickness="3" >
-                <DataGrid x:Name="MedicineDataGrid" FontWeight="Bold" AutoGenerateColumns="True" IsReadOnly="True"  AutoGeneratingColumn="MedicineDataGrid_AutoGeneratingColumn" SelectionMode="Single" MaxHeight="650" ScrollViewer.VerticalScrollBarVisibility="Auto" MouseDoubleClick="MedicineDataGrid_MouseDoubleClick" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Background="White" Foreground="Black" Height="650" VerticalAlignment="Top"/>
+                <DataGrid x:Name="ValidateMedicineDataGrid" FontWeight="Bold" AutoGenerateColumns="True" IsReadOnly="True"  AutoGeneratingColumn="ValidateMedicineDataGrid_AutoGeneratingColumn" SelectionMode="Single" MaxHeight="650" ScrollViewer.VerticalScrollBarVisibility="Auto" MouseDoubleClick="ValidateMedicineDataGrid_MouseDoubleClick" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Background="White" Foreground="Black" Height="622" VerticalAlignment="Top"/>
+            </Border>
+        </DockPanel>
+        <DockPanel x:Name="NonValidatedMedicinePanel" HorizontalAlignment="Left" Height="650" Margin="0,180,0,0" VerticalAlignment="Top" Width="550" Background="White">
+            <Border BorderBrush="#ec1c70" BorderThickness="3" Margin="0,10,0,0" >
+                <DataGrid x:Name="NonValidatedMedicineDataGrid" FontWeight="Bold" AutoGenerateColumns="True" IsReadOnly="True"  AutoGeneratingColumn="NonValidatedMedicineDataGrid_AutoGeneratingColumn" SelectionMode="Single" MaxHeight="650" ScrollViewer.VerticalScrollBarVisibility="Auto" MouseDoubleClick="NonValidatedMedicineDataGrid_MouseDoubleClick_1" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Background="White" Foreground="Black" Height="620" VerticalAlignment="Top" Margin="0,7,0,0"/>
             </Border>
         </DockPanel>
         <!--#endregion-->
 
         <!--Labels-->
         <Label Content="Lekovi" FontSize="30" FontWeight="Bold" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="190,25,190,0" VerticalAlignment="Top" Height="70"/>
-        <Label Content="Lista lekova:" FontSize="30" FontWeight="Bold" HorizontalAlignment="Left" Margin="0,131,0,0" VerticalAlignment="Top" Width="228" Height="49"/>
+        <Label Content="Lista lekova:" FontSize="30" FontWeight="Bold" HorizontalAlignment="Left" Margin="0,102,0,0" VerticalAlignment="Top" Width="228" Height="49"/>
         <!--#endregion-->
 
         <!--Buttons-->
         <Button x:Name="homeButton" Click="homeButton_Click" Foreground="Black" FontSize="30" FontWeight="Bold" Background="Transparent" BorderThickness="4" BorderBrush="#ec1c70" Margin="0,25,10,0" VerticalAlignment="Top" Height="70" Content="Početna" HorizontalAlignment="Right" Width="140"/>
         <Button x:Name="backButton" Click="backButton_Click" Foreground="Black" FontSize="30" FontWeight="Bold" Background="Transparent" BorderThickness="4" BorderBrush="#ec1c70" Margin="0,0,10,20" Content="Nazad" HorizontalAlignment="Right" Width="140" Height="70" VerticalAlignment="Bottom"/>
+
+        <Button x:Name="validated" Content="Validirani" BorderBrush="#ec1c70" BorderThickness="4" Background="Transparent" FontSize="22" FontWeight="Bold" HorizontalAlignment="Left" Margin="0,151,0,0" VerticalAlignment="Top" Width="275" Click="validated_Click" />
+        <Button x:Name="forValidation" Content="Za validaciju" BorderBrush="#ec1c70" BorderThickness="4" Background="Transparent" FontSize="22" FontWeight="Bold" HorizontalAlignment="Left" Margin="275,151,0,0" VerticalAlignment="Top" Width="275" Click="forValidation_Click"/>
+
+        <Button x:Name="addButton" Click="addButton_Click" Foreground="Black" FontSize="25" FontWeight="Bold" Background="Transparent" BorderThickness="4" BorderBrush="#ec1c70" Margin="0,0,395,20" Content="Dodavanje" HorizontalAlignment="Right" Width="140" Height="70" VerticalAlignment="Bottom"/>
+        <Button x:Name="lowStock" Click="lowStock_Click" Foreground="Black" FontSize="25" FontWeight="Bold" Background="Transparent" BorderThickness="4" BorderBrush="#ec1c70" Margin="200,0,200,20" Content="Niske zalihe" Height="70" VerticalAlignment="Bottom"/>
+
         <!--#endregion-->
-        
+
         <!--Menu-->
         <Popup x:Name="MenuPopup" Placement="RelativePoint"  StaysOpen="False"  >
             <StackPanel Background="#232829" HorizontalAlignment="Left" Height="950" VerticalAlignment="Top" Width="400">
@@ -88,7 +100,7 @@
                 </EventTrigger>
             </Button.Triggers>
         </Button>
-
+        
         <!--#endregion-->
     </Grid>
 </Page>

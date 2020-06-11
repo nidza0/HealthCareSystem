@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SIMS.Model.PatientModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,20 @@ namespace SIMS.View.ViewManager
     /// </summary>
     public partial class MedicineDetailPage : Page
     {
-        public MedicineDetailPage()
+        private Medicine sMed;
+
+        public MedicineDetailPage(Medicine med)
         {
             InitializeComponent();
+
+            NameLabel.Content = med.Name;
+            dozaLabel.Content = med.Strength.ToString();
+            idLabel.Content = med.GetId().ToString();
+            minNumberLabel.Content = med.MinNumber.ToString();
+            inStockLabel.Content = med.InStock.ToString();
+            isValidLabel.Content = med.IsValid.ToString();
+
+            sMed = med;
         }
 
         //Menu buttons
@@ -68,6 +80,11 @@ namespace SIMS.View.ViewManager
         {
             if (NavigationService.CanGoBack)
                 NavigationService.GoBack();
+        }
+
+        private void editButton_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new MedicineEdit(sMed));
         }
         //END REGION
     }

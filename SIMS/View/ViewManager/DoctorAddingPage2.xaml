@@ -32,7 +32,7 @@
         <!--#endregion-->
 
         <!--Buttons-->
-        <Button x:Name="finishButton" Click="finishButton_Click" Content="Završi" Foreground="Black" FontWeight="Bold" BorderThickness="3" BorderBrush="#ec1c70" Background="Transparent"   Margin="130,0,130,30" Height="45" VerticalAlignment="Bottom" />
+        <Button x:Name="finishButton" Click="finishButton_Click" Content="Dodaj" Foreground="Black" FontWeight="Bold" BorderThickness="3" BorderBrush="#ec1c70" Background="Transparent"   Margin="130,0,130,30" Height="45" VerticalAlignment="Bottom" />
         <ComboBox x:Name="docTypeCombo" HorizontalAlignment="Left" Margin="10,597,0,0" VerticalAlignment="Top" Width="280" Height="48"/>
         <ComboBox x:Name="roomCombo" HorizontalAlignment="Left" Margin="10,697,0,0" VerticalAlignment="Top" Width="130" Height="48"/>
 

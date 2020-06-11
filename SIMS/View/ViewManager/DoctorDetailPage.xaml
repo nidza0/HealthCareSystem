@@ -20,7 +20,7 @@
         <!--#endregion-->
 
         <!--Labels-->
-        <Label x:Name="NameLabel" HorizontalContentAlignment="Center"  FontWeight="Bold" Foreground="Black" Content="" Margin="90,370,90,0" VerticalAlignment="Top"/>
+        <Label x:Name="NameLabel" FontSize="30" HorizontalContentAlignment="Center"  FontWeight="Bold" Foreground="Black" Content="" Margin="90,370,90,0" VerticalAlignment="Top"/>
         <Label Content="Korisnicko Ime:" Foreground="#ec1c70" HorizontalAlignment="Left" Margin="30,450,0,0" VerticalAlignment="Top" Width="185" FontWeight="Bold" />
         <Label Content="Radno vreme:" Foreground="#ec1c70" Margin="0,450,30,0" VerticalAlignment="Top" FontWeight="Bold" HorizontalAlignment="Right" Width="169" />
         <Label Content="Telefon:" Foreground="#ec1c70" HorizontalAlignment="Left" Margin="30,550,0,0" VerticalAlignment="Top" Width="169" FontWeight="Bold" />

@@ -1,4 +1,5 @@
 ﻿using SIMS.Model.ManagerModel;
+using SIMS.Model.PatientModel;
 using SIMS.Model.UserModel;
 using System;
 using System.Collections.Generic;
@@ -28,6 +29,9 @@ namespace SIMS.View.ViewManager
         public static ObservableCollection<Doctor> doctors;
         public static ObservableCollection<InventoryItem> items;
         public static ObservableCollection<Room> rooms;
+        public static ObservableCollection<Medicine> medicines;
+        public static ObservableCollection<Appointment> appointments;
+
 
         public static int iter = 3;
 
@@ -50,7 +54,15 @@ namespace SIMS.View.ViewManager
             foreach (Room room in Dummies.DummyDoctors.roomsList)
                 rooms.Add(room);
 
+            medicines = new ObservableCollection<Medicine>();
 
+            foreach (Medicine med in Dummies.DummyDoctors.medicineList)
+                medicines.Add(med);
+
+            appointments = new ObservableCollection<Appointment>();
+
+            foreach (Appointment app in Dummies.DummyDoctors.appointmentsList)
+                appointments.Add(app);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
