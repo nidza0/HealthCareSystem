@@ -324,8 +324,22 @@ namespace SIMS
             //ArticleRepoTest();
             //QuestionRepoTest();
             //FeedbackTest();
+            //HospitalRepoTest();
+            DateTimeTest();
+        }
 
-            HospitalRepoTest();
+        private void DateTimeTest()
+        {
+            DateTime dt1start = new DateTime(2020, 6, 12, 9, 40, 0);
+            DateTime dt1end = new DateTime(2020, 6, 12, 9, 50, 0);
+            DateTime dt2start = new DateTime(1990, 7, 5, 8, 0, 0);
+            DateTime dt2end = new DateTime(1990, 7, 5, 11, 0, 0);
+
+            // Is 9:40 - 9:50 between 8:00 - 11:00 ?
+            Console.WriteLine(new TimeInterval(dt2start, dt2end).IsTimeBetween(new TimeInterval(dt1start, dt1end)));
+            Console.WriteLine(new TimeInterval(dt2start, dt2end).IsDateTimeBetween(new TimeInterval(dt1start, dt1end)));
+
+
         }
 
         private void HospitalRepoTest()

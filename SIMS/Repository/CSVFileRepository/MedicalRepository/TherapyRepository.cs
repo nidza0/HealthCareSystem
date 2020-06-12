@@ -56,7 +56,7 @@ namespace SIMS.Repository.CSVFileRepository.MedicalRepository
             => therapies.ToList().ForEach(therapy => therapy.Prescription = GetPrescriptionByID(prescriptions, therapy.Prescription.GetId()));
 
         public IEnumerable<Therapy> GetTherapyByDate(TimeInterval dateRange) //Return all therapies where therapy time interval is inside passed time interval(dateRange).
-            => GetAllEager().Where(therapy => dateRange.IsTimeBetween(therapy.TimeInterval));
+            => GetAllEager().Where(therapy => dateRange.IsDateTimeBetween(therapy.TimeInterval));
 
         public IEnumerable<Therapy> GetTherapyByMedicine(Medicine medicine)
             => GetAllEager().Where(therapy => therapy.Prescription.Medicine.Keys.Contains(medicine));
