@@ -28,7 +28,7 @@ namespace SIMS.Specifications.Converter
 
         private ISpecification<Therapy> GetSpecificationByTimeInterval(TimeInterval timeInterval)
         {
-            return new ExpressionSpecification<Therapy>(o => o.TimeInterval.IsTimeBetween(timeInterval));
+            return new ExpressionSpecification<Therapy>(o => o.TimeInterval.IsDateTimeBetween(timeInterval));
         }
 
         private ISpecification<Therapy> GetSpecificationByTherapyTime(TherapyTime time)

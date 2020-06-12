@@ -59,7 +59,16 @@ namespace SIMS.Model.UserModel
         public string Email2 { get => _email2; }
         public Address Address { get => _address; set => _address = value; }
         public Sex Sex { get => _sex; }
-        public string FullName { get => _name + " " + _middleName + " " + _surname; }
+        public string FullName
+        {
+            get
+            {
+                if (_middleName.Equals(""))
+                    return _name + " " + _surname;
+                else
+                    return _name + " " + _middleName + " " + _surname;
+            }
+        }
 
     }
 }

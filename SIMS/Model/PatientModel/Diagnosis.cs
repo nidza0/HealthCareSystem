@@ -60,7 +60,7 @@ namespace SIMS.Model.PatientModel
         {
             get
             {
-                return Therapies.Where(therapy => therapy.TimeInterval.IsTimeBetween(DateTime.Now));
+                return Therapies.Where(therapy => therapy.TimeInterval.IsDateTimeBetween(DateTime.Now));
             }
         }
 
@@ -68,7 +68,7 @@ namespace SIMS.Model.PatientModel
         {
             get
             {
-                return Therapies.Where(therapy => !therapy.TimeInterval.IsTimeBetween(DateTime.Now));
+                return Therapies.Where(therapy => !therapy.TimeInterval.IsDateTimeBetween(DateTime.Now));
             }
         }
 
