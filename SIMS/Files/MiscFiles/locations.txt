@@ -639,7 +639,7 @@
 639,Serbia,Aranđelovac
 640,Serbia,Bačka Palanka
 641,Serbia,Bačka Topola
-642,Serbia,Belgrade
+642,Serbia,Beograd
 643,Serbia,Bečej
 644,Serbia,Bor
 645,Serbia,Gornji Milanovac

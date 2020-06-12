@@ -122,4 +122,5 @@
     <sys:String x:Key="btnYesterday">Yesterday</sys:String>
     <sys:String x:Key="btnTomorrow">Tomorrow</sys:String>
     <sys:String x:Key="btnGenerate">Generate</sys:String>
+    <sys:String x:Key="btnSaveAsPDF">Save PDF</sys:String>
 </ResourceDictionary>

@@ -1,15 +1,23 @@
-﻿using SIMS.Model.PatientModel;
+﻿using iText.Html2pdf;
+using iText.Html2pdf.Resolver.Font;
+using iText.Kernel.Pdf;
+using iText.Layout;
+using SIMS.Model.PatientModel;
 using SIMS.Model.UserModel;
 using SIMS.Util;
 using System;
 using System.Collections.Generic;
+using System.Drawing.Printing;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -23,6 +31,7 @@ namespace SIMS.View.ViewSecretary.Pages
     /// </summary>
     public partial class ReportPage : Page
     {
+        private string _html = "";
         public ReportPage()
         {
             InitializeComponent();
@@ -43,6 +52,11 @@ namespace SIMS.View.ViewSecretary.Pages
 
             webBrowser.NavigateToString(html);
             webBrowser.Visibility = Visibility.Visible;
+            btnSave.IsEnabled = true;
+
+            System.Windows.Controls.PrintDialog printD = new System.Windows.Controls.PrintDialog();
+
+
         }
 
         private string GetHtml()
@@ -191,7 +205,7 @@ namespace SIMS.View.ViewSecretary.Pages
             html.Append("</ul>");
             html.Append("</body></html>");
 
-            return html.ToString();
+            return  _html = html.ToString();
         }
 
         private string GetHtmlStyle()
@@ -227,9 +241,45 @@ namespace SIMS.View.ViewSecretary.Pages
                 return;
 
             if (DatesAreValid())
+            {
                 errDate.Visibility = Visibility.Collapsed;
+                btnGenerate.IsEnabled = true;
+            }
             else
+            {
                 errDate.Visibility = Visibility.Visible;
+                btnGenerate.IsEnabled = false;
+                btnSave.IsEnabled = false;
+            }
+        }
+
+        private void btnSave_Click(object sender, RoutedEventArgs e)
+        {
+            if (!_html.Equals(""))
+            {
+                var dialog = new SaveFileDialog();
+                dialog.AddExtension = true;
+                dialog.DefaultExt = "pdf";
+                dialog.Filter = "PDF File (*.pdf)|*.pdf";
+                dialog.FileName = "report" + DateTime.Now.ToString("yyyyMMdd_HHmmss");
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    Thread t = new Thread(() => WritePdf(dialog.FileName, _html));
+                    t.Start();
+                }
+            }
+
+        }
+
+        public void WritePdf(string filename, string html)
+        {
+            ConverterProperties properties = new ConverterProperties();
+            properties.SetFontProvider(new DefaultFontProvider(true, true, true));
+            Console.WriteLine(filename);
+            Stream stream = new FileStream(filename, FileMode.CreateNew);
+            HtmlConverter.ConvertToPdf(html, stream, properties);
+
+            stream.Close();
         }
     }
 }
