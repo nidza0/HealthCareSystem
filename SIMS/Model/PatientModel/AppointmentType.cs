@@ -11,6 +11,7 @@ namespace SIMS.Model.PatientModel
     {
         checkup,
         operation,
-        renovation
+        renovation,
+        free
     }
 }

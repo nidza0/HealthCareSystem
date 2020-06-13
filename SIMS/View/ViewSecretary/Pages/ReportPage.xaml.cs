@@ -86,8 +86,8 @@ namespace SIMS.View.ViewSecretary.Pages
             string endTime = "End Time";
             string doctor = "Doctor";
             string type = "Type";
-            string hours = "Hours";
-            string minutes = "Minutes";
+            string hours = "hours";
+            string minutes = "minutes";
 
             StringBuilder html = new StringBuilder();
             html.Append("<!DOCTYPE html><html lang=\"en\"><head>");
@@ -120,20 +120,20 @@ namespace SIMS.View.ViewSecretary.Pages
             html.Append(start.ToString(dateFormat));
             if (!start.ToString(dateFormat).Equals(end.ToString(dateFormat)))
             {
-                html.Append("&nbsp-&nbsp");
+                html.Append(" - ");
                 html.Append(end.ToString(dateFormat));
             }
             html.Append("</p>");
             html.Append("<ul>");
 
             var appointments = SecretaryAppResources.GetInstance().appointmentRepository.GetAppointmentsByTime(time).Where(ap => !ap.Canceled);
-            var rooms = SecretaryAppResources.GetInstance().roomRepository.GetAll();
+            var rooms = SecretaryAppResources.GetInstance().roomRepository.GetAll().OrderBy(r => r.RoomNumber);
 
             foreach(Room room in rooms)
             {
-                html.Append("<li class=\"rooms\"><b>");
+                html.Append("<li><p class=\"rooms\"><b>");
                 html.Append(room.RoomNumber);
-                html.Append("</b>");
+                html.Append("</b></p>");
 
                 var roomAppointments = appointments.Where(a => a.Room.GetId() == room.GetId()).OrderBy(ap => ap.TimeInterval.StartTime);
                 TimeSpan totalAppointmentTime = TimeSpan.Zero;
@@ -165,7 +165,7 @@ namespace SIMS.View.ViewSecretary.Pages
                         counter++;
                         html.Append("<tr><td>");
                         html.Append(counter);
-                        html.Append("/td");
+                        html.Append("</td>");
                         html.Append("<td class=\"timedata\">");
                         html.Append(a.TimeInterval.StartTime.ToString(dateFormat));
                         html.Append("</td><td class=\"timedata\">");
@@ -195,7 +195,7 @@ namespace SIMS.View.ViewSecretary.Pages
                 if(totalAppointmentTime.Hours != 0)
                 {
                     html.Append(totalAppointmentTime.Hours + " ");
-                    html.Append(hours);
+                    html.Append(hours + " ");
                 }
                 html.Append(totalAppointmentTime.Minutes + " ");
                 html.Append(minutes);
@@ -220,11 +220,12 @@ namespace SIMS.View.ViewSecretary.Pages
                     ".dates{ font-size: 20px; margin-top: 20px; list-style-type: none; }" +
                     ".appointments{ font-size: 10px; }" +
                     "table{ width: 100%; margin-top: 20px; border-collapse: collapse; }" +
-                    "th{ border: solid 2px black; background-color: aliceblue; }" +
+                    "th{ border: solid 2px black; background-color: aliceblue; font-size: 18px}" +
                     ".numcol{ width: 30px; }" +
-                    ".timecol{ width: 120px}" +
+                    ".timecol{}" +
                     "tr:nth-child(even){ background-color: aliceblue; }" +
                     ".timedata{text-align: center;}" +
+                    "td {font-size: 15px}" +
                     "</style>";
         }
 

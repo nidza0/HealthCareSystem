@@ -37,6 +37,7 @@
     <sys:String x:Key="errDateInvalid">Error: End date before start date</sys:String>
     <sys:String x:Key="errNoAvailableDoctors">No available doctors found</sys:String>
     <sys:String x:Key="errWrongUsernamePassword">Wrong username or password.</sys:String>
+    <sys:String x:Key="errNoCancelledAppointments">No cancelled appointments found.</sys:String>
 
     <!-- DateTime Format -->
     <sys:String x:Key="TimeFormat">HH:mm</sys:String>
@@ -78,6 +79,7 @@
     <sys:String x:Key="lblDoctorType">Doctor Type</sys:String>
     <sys:String x:Key="lblDate">Date</sys:String>
     <sys:String x:Key="lblTime">Time</sys:String>
+    <sys:String x:Key="lblCancelled">Cancelled</sys:String>
 
     <sys:String x:Key="lblMonday">Monday</sys:String>
     <sys:String x:Key="lblTuesday">Tuesday</sys:String>
@@ -123,4 +125,12 @@
     <sys:String x:Key="btnTomorrow">Tomorrow</sys:String>
     <sys:String x:Key="btnGenerate">Generate</sys:String>
     <sys:String x:Key="btnSaveAsPDF">Save PDF</sys:String>
+    <sys:String x:Key="btnAllRooms">All Rooms</sys:String>
+    <sys:String x:Key="btnReschedule">Reschedule</sys:String>
+    <sys:String x:Key="btnCancelAppointment">Cancel Appointment</sys:String>
+
+
+    <sys:String x:Key="seriesMale">Male</sys:String>
+    <sys:String x:Key="seriesFemale">Female</sys:String>
+    <sys:String x:Key="seriesOther">Other</sys:String>
 </ResourceDictionary>

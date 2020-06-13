@@ -23,12 +23,16 @@ namespace SIMS.View.ViewSecretary.Pages.Doctors
     public partial class DoctorsPage : Page
     {
         DoctorsViewModel doctorsVM = new DoctorsViewModel();
+        ChartData chartData = new ChartData();
         public DoctorsPage()
         {
             InitializeComponent();
             DataContext = doctorsVM;
             doctorsVM.LoadAllDoctors();
             checkDoctors();
+
+            chartData.LoadDoctorChart();
+            chartDoctors.DataContext = chartData;
         }
 
         private void checkDoctors()

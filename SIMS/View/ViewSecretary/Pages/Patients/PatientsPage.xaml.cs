@@ -25,6 +25,7 @@ namespace SIMS.View.ViewSecretary.Pages.Patients
     public partial class PatientsPage : Page
     {
         PatientsViewModel patientsVM;
+        ChartData chartData = new ChartData();
 
         public PatientsPage()
         {
@@ -32,6 +33,11 @@ namespace SIMS.View.ViewSecretary.Pages.Patients
             patientsVM = new PatientsViewModel();
             DataContext = patientsVM;
             checkPatients();
+
+            chartData.LoadPatientChart();
+            chartMale.DataContext = chartData;
+            chartFemale.DataContext = chartData;
+            chartOther.DataContext = chartData;
         }
        
         private void checkPatients()

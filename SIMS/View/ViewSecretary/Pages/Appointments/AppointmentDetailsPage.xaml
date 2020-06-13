@@ -14,119 +14,127 @@
             <Button x:Name="btnClose" DockPanel.Dock="Right" Content="X" Width="29" HorizontalAlignment="Right" Style="{StaticResource HeaderCloseButton}" VerticalContentAlignment="Center" Click="btnClose_Click"></Button>
         </DockPanel>
 
-        <ScrollViewer DockPanel.Dock="Bottom" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-            <StackPanel Margin="6">
-                <Grid Margin="0 0 0 10"> <!-- Doctor Details -->
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
+        <DockPanel DockPanel.Dock="Bottom">
+            <ScrollViewer DockPanel.Dock="Top" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                <StackPanel Margin="6">
+                    <Grid Margin="0 0 0 10"> <!-- Doctor Details -->
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
 
-                    <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource LabelInfo}" Content="{StaticResource lblDoctor}"></Label>
-                    <Separator Grid.Row="0" Grid.Column="1" Width="auto" Style="{StaticResource HorizontalSeparatorStyle}"></Separator>
-                    <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
-                        <DockPanel>
-                            <Label DockPanel.Dock="Left" Content="{Binding Appointment.DoctorInAppointment.FullName}" FontSize="18"></Label>
-                            <Button x:Name="DoctorDetails" DockPanel.Dock="Right" Content="{StaticResource lblInfo}" Style="{StaticResource StyleOrdinaryButton}" HorizontalContentAlignment="Center" HorizontalAlignment="Right" Click="DoctorDetails_Click"></Button>
-                        </DockPanel>
-                        <Label Content="{Binding Appointment.DoctorInAppointment.DocTypeEnum}"></Label>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="100"/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                            </Grid.RowDefinitions>
-                            <Label Content="{StaticResource lblEmail}" Grid.Row="0" Grid.Column="0" Style="{StaticResource LabelInfo}"></Label>
-                            <Label Content="{Binding Appointment.DoctorInAppointment.Email1}" Grid.Row="0" Grid.Column="1"></Label>
-                            <Label Content="{StaticResource lblPhone}" Grid.Row="1" Grid.Column="0" Style="{StaticResource LabelInfo}"></Label>
-                            <Label Grid.Row="1" Grid.Column="1" Content="{Binding Appointment.DoctorInAppointment.CellPhone}"></Label>
-                        </Grid>
-                    </StackPanel>
-                </Grid>
+                        <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource LabelInfo}" Content="{StaticResource lblDoctor}"></Label>
+                        <Separator Grid.Row="0" Grid.Column="1" Width="auto" Style="{StaticResource HorizontalSeparatorStyle}"></Separator>
+                        <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+                            <DockPanel>
+                                <Label DockPanel.Dock="Left" Content="{Binding Appointment.DoctorInAppointment.FullName}" FontSize="18"></Label>
+                                <Button x:Name="DoctorDetails" DockPanel.Dock="Right" Content="{StaticResource lblInfo}" Style="{StaticResource StyleOrdinaryButton}" HorizontalContentAlignment="Center" HorizontalAlignment="Right" Click="DoctorDetails_Click"></Button>
+                            </DockPanel>
+                            <Label Content="{Binding Appointment.DoctorInAppointment.DocTypeEnum}"></Label>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Label Content="{StaticResource lblEmail}" Grid.Row="0" Grid.Column="0" Style="{StaticResource LabelInfo}"></Label>
+                                <Label Content="{Binding Appointment.DoctorInAppointment.Email1}" Grid.Row="0" Grid.Column="1"></Label>
+                                <Label Content="{StaticResource lblPhone}" Grid.Row="1" Grid.Column="0" Style="{StaticResource LabelInfo}"></Label>
+                                <Label Grid.Row="1" Grid.Column="1" Content="{Binding Appointment.DoctorInAppointment.CellPhone}"></Label>
+                            </Grid>
+                        </StackPanel>
+                    </Grid>
 
-                <Grid Margin="0 0 0 10"> <!-- Patient Details -->
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
+                    <Grid Margin="0 0 0 10"> <!-- Patient Details -->
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
 
-                    <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource LabelInfo}" Content="{StaticResource lblPatient}"></Label>
-                    <Separator Grid.Row="0" Grid.Column="1" Width="auto" Style="{StaticResource HorizontalSeparatorStyle}"></Separator>
-                    <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
-                        <DockPanel>
-                            <Label DockPanel.Dock="Left" Content="{Binding Appointment.Patient.FullName}" FontSize="18"></Label>
-                            <Button x:Name="PatientDetails" DockPanel.Dock="Right" Content="{StaticResource lblInfo}" Style="{StaticResource StyleOrdinaryButton}" HorizontalContentAlignment="Center" HorizontalAlignment="Right" Click="PatientDetails_Click"></Button>
-                        </DockPanel>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="100"/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                            </Grid.RowDefinitions>
-                            <Label Content="{StaticResource lblPID}" Grid.Row="0" Grid.Column="0" Style="{StaticResource LabelInfo}"></Label>
-                            <Label Content="{Binding Appointment.Patient.Uidn}" Grid.Row="0" Grid.Column="1"></Label>
-                            <Label Content="{StaticResource lblEmail}" Grid.Row="1" Grid.Column="0" Style="{StaticResource LabelInfo}"></Label>
-                            <Label Content="{Binding Appointment.Patient.Email1}" Grid.Row="1" Grid.Column="1"></Label>
-                            <Label Content="{StaticResource lblPhone}" Grid.Row="2" Grid.Column="0" Style="{StaticResource LabelInfo}"></Label>
-                            <Label Grid.Row="2" Grid.Column="1" Content="{Binding Appointment.Patient.CellPhone}"></Label>
-                        </Grid>
-                    </StackPanel>
-                </Grid>
+                        <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource LabelInfo}" Content="{StaticResource lblPatient}"></Label>
+                        <Separator Grid.Row="0" Grid.Column="1" Width="auto" Style="{StaticResource HorizontalSeparatorStyle}"></Separator>
+                        <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+                            <DockPanel>
+                                <Label DockPanel.Dock="Left" Content="{Binding Appointment.Patient.FullName}" FontSize="18"></Label>
+                                <Button x:Name="PatientDetails" DockPanel.Dock="Right" Content="{StaticResource lblInfo}" Style="{StaticResource StyleOrdinaryButton}" HorizontalContentAlignment="Center" HorizontalAlignment="Right" Click="PatientDetails_Click"></Button>
+                            </DockPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Label Content="{StaticResource lblPID}" Grid.Row="0" Grid.Column="0" Style="{StaticResource LabelInfo}"></Label>
+                                <Label Content="{Binding Appointment.Patient.Uidn}" Grid.Row="0" Grid.Column="1"></Label>
+                                <Label Content="{StaticResource lblEmail}" Grid.Row="1" Grid.Column="0" Style="{StaticResource LabelInfo}"></Label>
+                                <Label Content="{Binding Appointment.Patient.Email1}" Grid.Row="1" Grid.Column="1"></Label>
+                                <Label Content="{StaticResource lblPhone}" Grid.Row="2" Grid.Column="0" Style="{StaticResource LabelInfo}"></Label>
+                                <Label Grid.Row="2" Grid.Column="1" Content="{Binding Appointment.Patient.CellPhone}"></Label>
+                            </Grid>
+                        </StackPanel>
+                    </Grid>
 
-                <Grid Margin="0 0 0 10">
-                    <!-- Appointment Details -->
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
+                    <Grid Margin="0 0 0 10">
+                        <!-- Appointment Details -->
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
 
-                    <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource LabelInfo}" Content="{StaticResource lblAppointment}"></Label>
-                    <Separator Grid.Row="0" Grid.Column="1" Width="auto" Style="{StaticResource HorizontalSeparatorStyle}"></Separator>
-                    <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
-                        <Label Content="{Binding Appointment.AppointmentType}"></Label>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="100"/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                            </Grid.RowDefinitions>
-                            <Label Content="{StaticResource lblDate}" Grid.Row="0" Grid.Column="0" Style="{StaticResource LabelInfo}"></Label>
-                            <TextBlock Text="{Binding Appointment.TimeInterval.StartTime,StringFormat={StaticResource DateFormat}}" Grid.Row="0" Grid.Column="1"></TextBlock>
-                            <Label Content="{StaticResource lblTime}" Grid.Row="1" Grid.Column="0" Style="{StaticResource LabelInfo}"></Label>
-                            <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
-                                <TextBlock Text="{Binding Appointment.TimeInterval.StartTime, StringFormat={StaticResource TimeFormat}}" VerticalAlignment="Center"></TextBlock>
-                                <Label Content="{StaticResource timeSeparator}"></Label>
-                                <TextBlock Text="{Binding Appointment.TimeInterval.EndTime, StringFormat={StaticResource TimeFormat}}" VerticalAlignment="Center"></TextBlock>
-                            </StackPanel>
-                            <Label Content="{StaticResource lblRoom}" Grid.Row="2" Grid.Column="0" Style="{StaticResource LabelInfo}"></Label>
-                            <Label Grid.Row="2" Grid.Column="1" Content="{Binding Appointment.Room.RoomNumber}"></Label>
-                        </Grid>
-                    </StackPanel>
-                </Grid>
+                        <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource LabelInfo}" Content="{StaticResource lblAppointment}"></Label>
+                        <Separator Grid.Row="0" Grid.Column="1" Width="auto" Style="{StaticResource HorizontalSeparatorStyle}"></Separator>
+                        <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+                            <Label Content="{Binding Appointment.AppointmentType}"></Label>
+                            <Grid x:Name="appointmentPanel">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Label Content="{StaticResource lblDate}" Grid.Row="0" Grid.Column="0" Style="{StaticResource LabelInfo}"></Label>
+                                <TextBlock Text="{Binding Appointment.TimeInterval.StartTime,StringFormat={StaticResource DateFormat}}" Grid.Row="0" Grid.Column="1"></TextBlock>
+                                <Label Content="{StaticResource lblTime}" Grid.Row="1" Grid.Column="0" Style="{StaticResource LabelInfo}"></Label>
+                                <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
+                                    <TextBlock Text="{Binding Appointment.TimeInterval.StartTime, StringFormat={StaticResource TimeFormat}}" VerticalAlignment="Center"></TextBlock>
+                                    <Label Content="{StaticResource timeSeparator}"></Label>
+                                    <TextBlock Text="{Binding Appointment.TimeInterval.EndTime, StringFormat={StaticResource TimeFormat}}" VerticalAlignment="Center"></TextBlock>
+                                </StackPanel>
+                                <Label Content="{StaticResource lblRoom}" Grid.Row="2" Grid.Column="0" Style="{StaticResource LabelInfo}"></Label>
+                                <Label Grid.Row="2" Grid.Column="1" Content="{Binding Appointment.Room.RoomNumber}"></Label>
+                            </Grid>
+                            <Label x:Name="lblCancelled" Content="{StaticResource lblCancelled}" Visibility="Collapsed"></Label>
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+            </ScrollViewer>
+
+            <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Button x:Name="btnReschedule" Content="{StaticResource btnReschedule}" HorizontalAlignment="Center" Margin="0 0 10 0" Style="{StaticResource StyleOKButton}" Click="btnReschedule_Click"></Button>
+                <Button x:Name="btnCancel" Content="{StaticResource btnCancelAppointment}" HorizontalAlignment="Center" Style="{StaticResource StyleOKButton}" Click="btnCancel_Click"></Button>
             </StackPanel>
-        </ScrollViewer>
+        </DockPanel>
     </DockPanel>
 </Page>

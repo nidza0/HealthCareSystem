@@ -1,4 +1,6 @@
 ﻿using SIMS.Model.PatientModel;
+using SIMS.Model.UserModel;
+using SIMS.Util;
 using SIMS.View.ViewSecretary.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -27,7 +29,16 @@ namespace SIMS.View.ViewSecretary.Pages.Appointments
         private DateTime previousDate = new DateTime();
 
         AppointmentsViewModel appointmentsVM = new AppointmentsViewModel();
-        public AppointmentsPage()
+
+        private static AppointmentsPage instance = null;
+
+        public static AppointmentsPage GetInstance()
+        {
+            if (instance == null)
+                instance = new AppointmentsPage();
+            return instance;
+        }
+        private AppointmentsPage()
         {
             InitializeComponent();
             DataContext = appointmentsVM;
@@ -39,7 +50,16 @@ namespace SIMS.View.ViewSecretary.Pages.Appointments
             Appointment selectedAppointment = (Appointment)dataGridAppointments.SelectedItem;
             if (selectedAppointment != null)
             {
-                FrameManager.getInstance().SideFrame.Navigate(new AppointmentDetailsPage(selectedAppointment));
+                if(selectedAppointment.AppointmentType == AppointmentType.free)
+                {
+                    //TODO new appointment with room and time interval
+                    FrameManager.getInstance().SideFrame.Navigate(new CreateUpdateAppointmentPage(selectedAppointment.TimeInterval, selectedAppointment.Room));
+
+                }
+                else
+                {
+                    FrameManager.getInstance().SideFrame.Navigate(new AppointmentDetailsPage(selectedAppointment));
+                }
             }
         }
 
@@ -67,9 +87,27 @@ namespace SIMS.View.ViewSecretary.Pages.Appointments
                 Console.WriteLine(picker.SelectedDate);
                 previousDate = picker.SelectedDate.Value;
 
-                appointmentsVM.LoadAppointments(picker.SelectedDate.Value);
-                checkAppointments();
+                Room selectedRoom = (Room)cbRooms.SelectedItem;
+                if (selectedRoom == null)
+                {
+                    appointmentsVM.LoadAppointments(AppointmentDate.SelectedDate.Value);
+                    dataGridAppointments.Items.Refresh();
+                    checkAppointments();
+                }
+                else
+                {
+                    appointmentsVM.LoadAppointmentsByRoomWithFreeTime(AppointmentDate.SelectedDate.Value, selectedRoom);
+                    dataGridAppointments.Items.Refresh();
+                    checkAppointments();
+                }
             }
+        }
+
+        private void SortDataGrid()
+        {
+            dataGridAppointments.Items.SortDescriptions.Clear();
+            dataGridAppointments.Items.SortDescriptions.Add(new SortDescription("Start Time", ListSortDirection.Ascending));
+            dataGridAppointments.Items.Refresh();
         }
 
         private void checkAppointments()
@@ -84,6 +122,37 @@ namespace SIMS.View.ViewSecretary.Pages.Appointments
                 errNoAppointments.Visibility = Visibility.Collapsed;
                 dataGridAppointments.Visibility = Visibility.Visible;
             }
+        }
+
+        public void Refresh()
+        {
+            appointmentsVM.LoadAppointments(AppointmentDate.SelectedDate.Value);
+            dataGridAppointments.Items.Refresh();
+            //SortDataGrid();
+            checkAppointments();
+        }
+
+        private void cbRooms_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Room selectedRoom = (Room)cbRooms.SelectedItem;
+            if(selectedRoom == null)
+            {
+                appointmentsVM.LoadAppointments(AppointmentDate.SelectedDate.Value);
+                dataGridAppointments.Items.Refresh();
+                checkAppointments();
+            }
+            else
+            {
+                Console.WriteLine("Combobox selected room: " + selectedRoom.GetId());
+                appointmentsVM.LoadAppointmentsByRoomWithFreeTime(AppointmentDate.SelectedDate.Value, selectedRoom);
+                dataGridAppointments.Items.Refresh();
+                checkAppointments();
+            }
+        }
+
+        private void btnAllRooms_Click(object sender, RoutedEventArgs e)
+        {
+            cbRooms.SelectedItem = null;
         }
     }
 }

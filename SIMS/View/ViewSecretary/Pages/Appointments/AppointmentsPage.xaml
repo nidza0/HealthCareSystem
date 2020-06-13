@@ -28,8 +28,8 @@
 
                     <WrapPanel DockPanel.Dock="Right" Margin="6 12 6 6" HorizontalAlignment="Right">
                         <Label x:Name="lblRoom" Content="{StaticResource lblRoom}"></Label>
-                        <ComboBox x:Name="cbRooms" ItemsSource="{Binding Path=Rooms}" DisplayMemberPath="RoomNumber" IsEditable="True" Width="40"></ComboBox>
-                        <Button Style="{StaticResource StyleOrdinaryButton}" Margin="6 0 0 0">All Rooms</Button>
+                        <ComboBox x:Name="cbRooms" ItemsSource="{Binding Path=Rooms}" DisplayMemberPath="RoomNumber" IsEditable="True" MinWidth="60" SelectionChanged="cbRooms_SelectionChanged"></ComboBox>
+                        <Button x:Name="btnAllRooms" Content="{StaticResource btnAllRooms}" Style="{StaticResource StyleOrdinaryButton}" Margin="6 0 0 0" Click="btnAllRooms_Click"></Button>
                     </WrapPanel>
                 </DockPanel>
             </StackPanel>
@@ -37,7 +37,7 @@
             <DockPanel>
                 <DataGrid x:Name="dataGridAppointments" ItemsSource="{Binding Appointments}" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" SelectionChanged="dataGridAppointments_SelectionChanged"  CanUserResizeRows="False" LoadingRow="dataGridAppointments_LoadingRow"  Margin="6" Height="auto" ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="{StaticResource lblStartTime}" Binding="{Binding TimeInterval.StartTime, StringFormat={StaticResource TimeFormat}}" Width="1*"/>
+                    <DataGridTextColumn Header="{StaticResource lblStartTime}" Binding="{Binding TimeInterval.StartTime, StringFormat={StaticResource TimeFormat}}" Width="1*" SortDirection="Ascending"/>
                     <DataGridTextColumn Header="{StaticResource lblEndTime}" Binding="{Binding TimeInterval.EndTime, StringFormat={StaticResource TimeFormat}}" Width="1*"/>
                     <DataGridTextColumn Header="{StaticResource lblPatient}" Binding="{Binding Patient.FullName}" Width="2*"/>
                     <DataGridTextColumn Header="{StaticResource lblDoctor}" Binding="{Binding DoctorInAppointment.FullName}" Width="2*"/>

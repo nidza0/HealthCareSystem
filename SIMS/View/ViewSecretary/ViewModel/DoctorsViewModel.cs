@@ -26,12 +26,12 @@ namespace SIMS.View.ViewSecretary.ViewModel
         }
 
         public ICollectionView DoctorsCollection { get => doctorsCollection; set => doctorsCollection = value; }
-        public ObservableCollection<Doctor> Doctors { get => doctors; set => doctors = value; }
+        public ObservableCollection<Doctor> Doctors { get => doctors; set { doctors = value; NotifyPropertyChanged("Doctors"); } }
 
         public void LoadAllAvailableDoctors(TimeInterval time)
         {
             //TODO: Load all available doctors
-            var appointments = SecretaryAppResources.GetInstance().appointmentRepository.GetAppointmentsByTime(time);
+            var appointments = SecretaryAppResources.GetInstance().appointmentRepository.GetAppointmentsByTime(time).Where(ap => !ap.Canceled);
             var allDoctors = SecretaryAppResources.GetInstance().doctorRepository.GetAllEager();
 
             foreach(Appointment a in appointments)
@@ -59,9 +59,8 @@ namespace SIMS.View.ViewSecretary.ViewModel
                 }
             }
 
-            doctors = new ObservableCollection<Doctor>(availableDoctors);
-
-            //LoadDummyDoctors();
+            Doctors.Clear();
+            availableDoctors.ToList().ForEach(Doctors.Add);
         }
 
         private WorkingDaysEnum GetWorkingDay(DayOfWeek d)
@@ -84,30 +83,6 @@ namespace SIMS.View.ViewSecretary.ViewModel
         {
             //TODO: Load all doctors
             doctors = new ObservableCollection<Doctor>(SecretaryAppResources.GetInstance().doctorRepository.GetAllEager());
-            //LoadDummyDoctors();
-        }
-
-        private void LoadDummyDoctors()
-        {
-            Doctors.Add(new Doctor(new UserID("d678"),
-                                "drstrange", null, DateTime.Now, "Stephen", "Strange", "Doctor", Sex.MALE, DateTime.Now, "45678545545", null, "07854953254", "0678454518421", "dr.strange@marvel.com", "email2", GetDummyTimetable(), new Hospital(4), new Room(5), Model.DoctorModel.DocTypeEnum.SURGEON));
-
-            Doctors.Add(new Doctor(new UserID("d678"),
-                                "doc", null, DateTime.Now, "Doctor", "doktor", "", Sex.FEMALE, DateTime.Now, "78458754696", null, "1784521945", "0685471259", "dr.dr@zdravo.rs", null, GetDummyTimetable(), new Hospital(6), new Room(7), Model.DoctorModel.DocTypeEnum.OPHTAMOLOGIST));
-        }
-
-        private TimeTable GetDummyTimetable() {
-            Dictionary<WorkingDaysEnum, TimeInterval> shift = new Dictionary<WorkingDaysEnum, TimeInterval>();
-
-            shift.Add(WorkingDaysEnum.MONDAY, new TimeInterval(new DateTime(2020, 1, 1, 7, 0, 0), new DateTime(2020, 1, 1, 13, 0, 0)));
-            shift.Add(WorkingDaysEnum.TUESDAY, new TimeInterval(new DateTime(2020, 1, 1, 14, 0, 0), new DateTime(2020, 1, 1, 20, 0, 0)));
-            shift.Add(WorkingDaysEnum.WEDNESDAY, new TimeInterval(new DateTime(2020, 1, 1, 7, 0, 0), new DateTime(2020, 1, 1, 13, 0, 0)));
-            shift.Add(WorkingDaysEnum.THURSDAY, new TimeInterval(new DateTime(2020, 1, 1, 14, 0, 0), new DateTime(2020, 1, 1, 20, 0, 0)));
-            shift.Add(WorkingDaysEnum.FRIDAY, new TimeInterval(new DateTime(2020, 1, 1, 7, 0, 0), new DateTime(2020, 1, 1, 13, 0, 0)));
-            shift.Add(WorkingDaysEnum.SATURDAY, null);
-            shift.Add(WorkingDaysEnum.SUNDAY, null);
-
-            return new TimeTable(48, shift);
         }
 
         public string FilterString
@@ -148,6 +123,15 @@ namespace SIMS.View.ViewSecretary.ViewModel
         private void NotifyPropertyChanged(string property)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
+        }
+
+        internal bool IsDoctorAvailable(Doctor doc, TimeInterval t)
+        {
+            LoadAllAvailableDoctors(t);
+            Console.WriteLine("Available doctors");
+            doctors.ToList().ForEach(d => Console.WriteLine(d.GetId().ToString()));
+            Console.WriteLine("Selected doctor: " + doc.GetId().ToString());
+            return doctors.FirstOrDefault(d => d.GetId().Equals(doc.GetId())) != null;
         }
     }
 }

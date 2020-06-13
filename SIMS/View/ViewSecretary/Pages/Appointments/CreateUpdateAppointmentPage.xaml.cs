@@ -30,8 +30,75 @@ namespace SIMS.View.ViewSecretary.Pages.Appointments
 
         private List<String> hours = new List<String>();
         private List<String> minutes = new List<String>();
+
+        private int _mode;
+        private readonly int CREATE = 0;
+        private readonly int UPDATE = 1;
+
+        private Appointment _appointmentUpdate;
+
+        public CreateUpdateAppointmentPage(Appointment a)
+        {
+            _mode = UPDATE;
+            _appointmentUpdate = a;
+            LoadTime();
+            InitializeComponent();
+
+            timePanel.DataContext = this;
+            doctorSelectionPanel.Visibility = Visibility.Collapsed;
+            patientSelectionPanel.Visibility = Visibility.Collapsed;
+
+            dataGridAppointmentRooms.DataContext = roomsVM;
+            txtSearchRooms.DataContext = roomsVM;
+
+            lblSelectedDoctor.Content = a.DoctorInAppointment.FullName;
+            lblSelectedPatient.Content = a.Patient.FullName;
+
+            DateTime startDate = a.TimeInterval.StartTime;
+            DateTime endDate = a.TimeInterval.EndTime;
+            AppointmentDatePicker.SelectedDate = new DateTime(startDate.Year, startDate.Month, startDate.Day);
+            StartHours.SelectedIndex = hours.FindIndex(h => h.Equals(startDate.ToString("HH")));
+            StartMinutes.SelectedIndex = minutes.FindIndex(m => m.Equals(startDate.ToString("mm")));
+            EndHours.SelectedIndex = hours.FindIndex(h => h.Equals(endDate.ToString("HH")));
+            EndMinutes.SelectedIndex = minutes.FindIndex(m => m.Equals(endDate.ToString("mm")));
+
+            //SET ROOM
+            roomsVM.LoadAllAvailableRooms(a.TimeInterval);
+            dataGridAppointmentRooms.SelectedIndex = roomsVM.Rooms.ToList().FindIndex(r => r.GetId() == a.Room.GetId());
+        }
+
+        public CreateUpdateAppointmentPage(TimeInterval time, Room room)
+        {
+            _mode = CREATE;
+            LoadTime();
+            InitializeComponent();
+
+            timePanel.DataContext = this;
+
+            AppointmentDatePicker.SelectedDate = new DateTime(time.StartTime.Year, time.StartTime.Month, time.StartTime.Day);
+            StartHours.SelectedIndex = hours.FindIndex(h => h.Equals(time.StartTime.ToString("HH")));
+            StartMinutes.SelectedIndex = minutes.FindIndex(m => m.Equals(time.StartTime.ToString("mm")));
+            EndHours.SelectedIndex = hours.FindIndex(h => h.Equals(time.EndTime.ToString("HH")));
+            EndMinutes.SelectedIndex = minutes.FindIndex(m => m.Equals(time.EndTime.ToString("mm")));
+
+            dataGridAppointmentDoctors.DataContext = doctorsVM;
+            txtSearchDoctors.DataContext = doctorsVM;
+
+            txtSearchPatients.DataContext = patientsVM;
+            dataGridAppointmentPatients.DataContext = patientsVM;
+            checkPatients();
+
+            dataGridAppointmentRooms.DataContext = roomsVM;
+            txtSearchRooms.DataContext = roomsVM;
+
+            //SET ROOM
+            roomsVM.LoadAllAvailableRooms(time);
+            dataGridAppointmentRooms.SelectedIndex = roomsVM.Rooms.ToList().FindIndex(r => r.GetId() == room.GetId());
+        }
+
         public CreateUpdateAppointmentPage()
         {
+            _mode = CREATE;
             LoadTime();
             InitializeComponent();
 
@@ -50,9 +117,9 @@ namespace SIMS.View.ViewSecretary.Pages.Appointments
 
         private void LoadTime()
         {
-            Hours.Add("7");
-            Hours.Add("8");
-            Hours.Add("9");
+            Hours.Add("07");
+            Hours.Add("08");
+            Hours.Add("09");
             Hours.Add("10");
             Hours.Add("11");
             Hours.Add("12");
@@ -209,18 +276,56 @@ namespace SIMS.View.ViewSecretary.Pages.Appointments
 
             TimeInterval time = new TimeInterval(currentStartDate, currentEndDate);
 
-            Doctor doctor = (Doctor)dataGridAppointmentDoctors.SelectedItem;
-            Patient patient = (Patient)dataGridAppointmentPatients.SelectedItem;
-            Room room = (Room)dataGridAppointmentRooms.SelectedItem;
+            Doctor doctor = _mode == CREATE ? (Doctor)dataGridAppointmentDoctors.SelectedItem : _appointmentUpdate.DoctorInAppointment;
+            Patient patient = _mode == CREATE ? (Patient)dataGridAppointmentPatients.SelectedItem : _appointmentUpdate.Patient;
+            Room room = (Room)dataGridAppointmentRooms.SelectedItem == null ? _appointmentUpdate.Room : (Room)dataGridAppointmentRooms.SelectedItem;
 
             if(doctor!=null && patient!=null && room != null)
             {
                 //TODO: Try create new appointment
-                SecretaryAppResources.GetInstance().appointmentRepository.Create(new Appointment(doctor, patient, room, AppointmentType.checkup, time));
-                MessageBox.Show(time.StartTime.ToString("dd.MM.yyyy. HH:mm") + " - " + time.EndTime.ToString("HH:mm") + "\nPatient: " + patient.FullName + "\nDoctor: " + doctor.FullName + "\nRoom: " + room.RoomNumber + "\n" + AppointmentType.checkup,
-                    "Appointment Added",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Information);
+                if(_mode == CREATE)
+                {
+                    MessageBoxResult r = MessageBox.Show(time.StartTime.ToString("dd.MM.yyyy. HH:mm") + " - " + time.EndTime.ToString("HH:mm") + "\nPatient: " + patient.FullName + "\nDoctor: " + doctor.FullName + "\nRoom: " + room.RoomNumber + "\n" + AppointmentType.checkup,
+                        "Create Appointment?",
+                        MessageBoxButton.YesNo,
+                        MessageBoxImage.Question);
+                    if(r == MessageBoxResult.Yes)
+                    {
+                        SecretaryAppResources.GetInstance().appointmentRepository.Create(new Appointment(doctor, patient, room, AppointmentType.checkup, time));
+                        if (FrameManager.getInstance().SideFrame.CanGoBack)
+                            FrameManager.getInstance().SideFrame.GoBack();
+                        Refresh();
+                    }
+                }
+                else if(_mode == UPDATE)
+                {
+                    if (dataGridAppointmentRooms.SelectedItem != null)
+                        _appointmentUpdate.Room = (Room)dataGridAppointmentRooms.SelectedItem;
+                    if(!time.Equals(_appointmentUpdate.TimeInterval))
+                        if(!doctorsVM.IsDoctorAvailable(_appointmentUpdate.DoctorInAppointment, time))
+                        {
+                            MessageBox.Show("Doctor is not available for selected time",
+                                            "Appointment Error",
+                                            MessageBoxButton.OK,
+                                            MessageBoxImage.Error);
+                                                return;
+                        }
+
+                    _appointmentUpdate.TimeInterval = time;
+
+                    MessageBoxResult result = MessageBox.Show(time.StartTime.ToString("dd.MM.yyyy. HH:mm") + " - " + time.EndTime.ToString("HH:mm") + "\nPatient: " + patient.FullName + "\nDoctor: " + doctor.FullName + "\nRoom: " + room.RoomNumber + "\n" + AppointmentType.checkup,
+                        "Reschedule Appointment?",
+                        MessageBoxButton.YesNo,
+                        MessageBoxImage.Question);
+                    if(result == MessageBoxResult.Yes)
+                    {
+                        _appointmentUpdate.Canceled = false;
+                        SecretaryAppResources.GetInstance().appointmentRepository.Update(_appointmentUpdate);
+                        if (FrameManager.getInstance().SideFrame.CanGoBack)
+                            FrameManager.getInstance().SideFrame.GoBack();
+                        Refresh();
+                    }
+                }
 
             }
             else
@@ -228,6 +333,12 @@ namespace SIMS.View.ViewSecretary.Pages.Appointments
                 //TODO: Raise error, all entities must be filled
                 MessageBox.Show("Doctor, patient and room must be filled.", "Appointment Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        private void Refresh()
+        {
+            AppointmentsPage.GetInstance().Refresh();
+            CancelledAppointmentsPage.GetInstance().Refresh();
         }
     }
 }

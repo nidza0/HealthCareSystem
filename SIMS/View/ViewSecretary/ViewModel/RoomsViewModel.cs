@@ -17,6 +17,7 @@ namespace SIMS.View.ViewSecretary.ViewModel
         private ICollectionView roomsCollection;
         private ObservableCollection<Room> rooms = new ObservableCollection<Room>();
         private string filterString;
+        private Room selectedRoom;
 
         public RoomsViewModel()
         {
@@ -27,37 +28,29 @@ namespace SIMS.View.ViewSecretary.ViewModel
         public void LoadAllAvailableRooms(TimeInterval time)
         {
             //TODO: Load all available rooms by time
-            var appointments = SecretaryAppResources.GetInstance().appointmentRepository.GetAppointmentsByTime(time);
-            var allRooms = SecretaryAppResources.GetInstance().roomRepository.GetAll();
+            var appointments = SecretaryAppResources.GetInstance().appointmentRepository.GetAppointmentsByTime(time).Where(ap => !ap.Canceled);
+            var allRooms = SecretaryAppResources.GetInstance().roomRepository.GetAll().ToList();
 
             foreach(Appointment a in appointments)
             {
                 if(a.Room != null)
                 {
-                    allRooms = allRooms.Where(r => r.GetId() == a.Room.GetId());
+                    allRooms.Remove(allRooms.First(r => r.GetId() == a.Room.GetId()));
                 }
             }
 
-            rooms = new ObservableCollection<Room>(allRooms);
-            //LoadDummyRooms();
+            rooms.Clear();
+            allRooms.ToList().ForEach(rooms.Add);
         }
 
         public void LoadRooms()
         {
             //TODO: Load all rooms
-
-            LoadDummyRooms();
+            var allRomms = SecretaryAppResources.GetInstance().roomRepository.GetAll();
+            rooms.Clear();
+            allRomms.ToList().ForEach(rooms.Add);
         }
-
-        private void LoadDummyRooms()
-        {
-            Rooms.Add(new Room(47, "A456", false, 7, RoomType.EXAMINATION));
-            Rooms.Add(new Room(47, "A4", false, 8, RoomType.EXAMINATION));
-            Rooms.Add(new Room(47, "F89", false, 3, RoomType.AFTERCARE));
-            Rooms.Add(new Room(47, "E45", false, 2, RoomType.EXAMINATION));
-            Rooms.Add(new Room(47, "C3", false, 2, RoomType.OPERATION));
-            Rooms.Add(new Room(47, "B567", false, 1, RoomType.OPERATION));
-        }
+        public ObservableCollection<Room> Rooms { get => rooms; set => rooms = value;  }
 
         #region Filtering
         public ICollectionView RoomsCollection
@@ -68,7 +61,7 @@ namespace SIMS.View.ViewSecretary.ViewModel
                 roomsCollection = value; NotifyPropertyChanged("PatientsCollection");
             }
         }
-        public ObservableCollection<Room> Rooms { get => rooms; set => rooms = value; }
+        public Room SelectedRoom { get => selectedRoom; set { selectedRoom = value; NotifyPropertyChanged("SelectedRoom"); } }
 
         public string FilterString
         {
@@ -80,6 +73,7 @@ namespace SIMS.View.ViewSecretary.ViewModel
                 FilterCollection();
             }
         }
+
 
         private void FilterCollection()
         {

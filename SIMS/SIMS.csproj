@@ -84,6 +84,9 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Controls.DataVisualization.Toolkit, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Windows.Controls.DataVisualization.Toolkit.4.0.0.0\lib\net40-Client\System.Windows.Controls.DataVisualization.Toolkit.dll</HintPath>
+    </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -280,6 +283,9 @@
     <Compile Include="View\ViewSecretary\Pages\Appointments\AppointmentsPage.xaml.cs">
       <DependentUpon>AppointmentsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\ViewSecretary\Pages\Appointments\CancelledAppointmentsPage.xaml.cs">
+      <DependentUpon>CancelledAppointmentsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\ViewSecretary\Pages\CompanyPage.xaml.cs">
       <DependentUpon>CompanyPage.xaml</DependentUpon>
     </Compile>
@@ -322,6 +328,7 @@
     <Compile Include="View\ViewSecretary\SecretaryAppResources.cs" />
     <Compile Include="View\ViewSecretary\ViewModel\AppointmentsViewModel.cs" />
     <Compile Include="View\ViewSecretary\ViewModel\AppointmentViewModel.cs" />
+    <Compile Include="View\ViewSecretary\ViewModel\ChartData.cs" />
     <Compile Include="View\ViewSecretary\ViewModel\DoctorsViewModel.cs" />
     <Compile Include="View\ViewSecretary\ViewModel\DoctorViewModel.cs" />
     <Compile Include="View\ViewSecretary\ViewModel\PatientsViewModel.cs" />
@@ -370,6 +377,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\ViewSecretary\Pages\Appointments\AppointmentsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewSecretary\Pages\Appointments\CancelledAppointmentsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

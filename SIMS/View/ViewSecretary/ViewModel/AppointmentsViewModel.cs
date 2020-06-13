@@ -30,77 +30,77 @@ namespace SIMS.View.ViewSecretary.ViewModel
             AppointmentsCollection.Filter = new Predicate<object>(Filter);
         }
 
-        
+        private TimeInterval GetDayTimeInterval(DateTime date)
+        {
+            return new TimeInterval(new DateTime(date.Year, date.Month, date.Day, 0, 0, 0), new DateTime(date.Year, date.Month, date.Day, 0, 0, 0).AddDays(1));
+        }
+
+        public void LoadCancelledAppointments()
+        {
+            var cancelledAppointments = SecretaryAppResources.GetInstance().appointmentRepository.GetCanceledAppointments();
+            Appointments.Clear();
+            cancelledAppointments.ToList().ForEach(Appointments.Add);
+        }
 
         public void LoadAppointments(DateTime date)
         {
-            TimeInterval time = new TimeInterval(new DateTime(date.Year, date.Month, date.Day, 0, 0, 0), new DateTime(date.Year, date.Month, date.Day, 0, 0, 0).AddDays(1));
-            Appointments = new ObservableCollection<Appointment>(SecretaryAppResources.GetInstance().appointmentRepository.GetAppointmentsByTime(time));
-
-            //LoadDummyAppointments();
-        }
-
-        private void LoadDummyAppointments()
-        {
-            Appointments.Add(new Appointment(78,
-                            new Doctor(new UserID("d678"),
-                                null, null, DateTime.Now, "Stephen", "Strange", "Doctor", Sex.MALE, DateTime.Now, null, null, null, null, null, null, null, null, null, Model.DoctorModel.DocTypeEnum.SURGEON),
-                            new Patient(new UserID("p3"),
-                                        "milica92",
-                                        "",
-                                        DateTime.Now,
-                                        "Milica",
-                                        "Mikic",
-                                        "M.",
-                                        Sex.FEMALE,
-                                        new DateTime(1992, 11, 7),
-                                        "9876543221",
-                                        new Address("Partizanska 5", new Location(1, "Serbia", "Novi Sad")),
-                                        "0213698569",
-                                        "06454545454",
-                                        "milica@gmail.com",
-                                        "",
-                                        new EmergencyContact("Milana", "Milanovic", "", "0217474859"),
-                                        PatientType.GENERAL,
-                                        null),
-                            new Room(2, "A456", false, 3, RoomType.EXAMINATION),
-                            AppointmentType.checkup,
-                            new TimeInterval(DateTime.Now.AddMinutes(5), DateTime.Now.AddMinutes(20))));
-
-            Appointments.Add(new Appointment(78,
-                            new Doctor(new UserID("d678"),
-                                null, null, DateTime.Now, "Doctor", "House", "", Sex.MALE, DateTime.Now, null, null, null, null, null, null, null, null, null, Model.DoctorModel.DocTypeEnum.SURGEON),
-                            new Patient(new UserID("p1"),
-                                        "peraaa13",
-                                        "",
-                                        DateTime.Now,
-                                        "Pera",
-                                        "Peric",
-                                        "P.",
-                                        Sex.MALE,
-                                        new DateTime(1987, 10, 12),
-                                        "01234678",
-                                        new Address("Bul. Mihajla Pupina 6", new Location(1, "Serbia", "Novi Sad")),
-                                        "0217878787",
-                                        "25848596532",
-                                        "pera@peric.rs",
-                                        "",
-                                        new EmergencyContact("Milan", "Milanovic", "", "025478956325"),
-                                        PatientType.GENERAL,
-                                        null),
-                            new Room(3, "B34", false, 3, RoomType.EXAMINATION),
-                            AppointmentType.checkup,
-                            new TimeInterval(DateTime.Now.AddMinutes(20), DateTime.Now.AddMinutes(35))));
+            TimeInterval time = GetDayTimeInterval(date);
+            Appointments.Clear();
+            var appointments = new ObservableCollection<Appointment>(SecretaryAppResources.GetInstance().appointmentRepository.GetAppointmentsByTime(time)).Where(ap => !ap.Canceled).OrderBy(ap => ap.TimeInterval.StartTime);
+            appointments.ToList().ForEach(Appointments.Add);
         }
 
         private void LoadRooms()
         {
             //TODO Load all rooms
-            Rooms.Add(new Room(401, "A4", false, 4, RoomType.EXAMINATION));
-            Rooms.Add(new Room(503, "C5", false, 5, RoomType.EXAMINATION));
-            Rooms.Add(new Room(302, "B3", false, 3, RoomType.EXAMINATION));
+            var allRomms = SecretaryAppResources.GetInstance().roomRepository.GetAll();
+            rooms.Clear();
+            allRomms.ToList().ForEach(rooms.Add);
+        }
 
-            Rooms.Insert(0, new Room(0, "", false, 0, RoomType.EXAMINATION));
+        public void LoadAppointmentsByRoomWithFreeTime(DateTime date, Room room)
+        {
+            TimeInterval time = GetDayTimeInterval(date);
+            var roomAppointments = SecretaryAppResources.GetInstance().appointmentRepository.GetAppointmentsByTime(time).Where(ap => !ap.Canceled && ap.Room.GetId() == room.GetId()).OrderBy(ap => ap.TimeInterval.StartTime).ToList();
+            appointments.Clear();
+            int minutesDuration = 15;
+            DateTime start1 = new DateTime(date.Year, date.Month, date.Day, 7, 0, 0);
+            DateTime start2 = new DateTime(date.Year, date.Month, date.Day, 7, 0, 0).AddMinutes(minutesDuration);
+            DateTime end = new DateTime(date.Year, date.Month, date.Day, 19, 0, 0);
+
+            for(int i = 0; i<roomAppointments.Count(); i++)
+            {
+                
+                while(!roomAppointments[i].TimeInterval.IsOverlappingWith(new TimeInterval(start1, start2)))
+                {
+                    appointments.Add(new Appointment(null, null, room, AppointmentType.free, new TimeInterval(start1, start2)));
+                    start1 = start2;
+                    start2 = start1.AddMinutes(minutesDuration);
+                }
+                appointments.Add(roomAppointments[i]);
+                start1 = roomAppointments[i].TimeInterval.EndTime;
+                start2 = start1.AddMinutes(minutesDuration);
+
+                if(i == roomAppointments.Count() - 1)//last one
+                {
+                    while(start2 <= end)
+                    {
+                        appointments.Add(new Appointment(null, null, room, AppointmentType.free, new TimeInterval(start1, start2)));
+                        start1 = start2;
+                        start2 = start1.AddMinutes(minutesDuration);
+                    }
+                }
+            }
+
+            if(roomAppointments.Count() == 0)
+            {
+                while (start2 <= end)
+                {
+                    appointments.Add(new Appointment(null, null, room, AppointmentType.free, new TimeInterval(start1, start2)));
+                    start1 = start2;
+                    start2 = start1.AddMinutes(minutesDuration);
+                }
+            }
         }
 
         #region Filtering
@@ -131,7 +131,7 @@ namespace SIMS.View.ViewSecretary.ViewModel
                 if (!string.IsNullOrEmpty(filterString))
                 {
                     //TODO: filter logic
-                    return data.Patient.FullName.ToLower().Contains(filterString.ToLower()) || data.DoctorInAppointment.FullName.ToLower().Contains(filterString.ToLower()) || data.Room.RoomNumber.ToLower().Equals(filterString.ToLower());
+                    return (data.Patient == null ? false : data.Patient.FullName.ToLower().Contains(filterString.ToLower())) || (data.DoctorInAppointment == null ? false : data.DoctorInAppointment.FullName.ToLower().Contains(filterString.ToLower())) || (data.Room == null ? false : data.Room.RoomNumber.ToLower().Contains(filterString.ToLower()));
                 }
                 return true;
             }

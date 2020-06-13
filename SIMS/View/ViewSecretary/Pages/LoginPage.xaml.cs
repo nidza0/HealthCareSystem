@@ -28,6 +28,7 @@ namespace SIMS.View.ViewSecretary.Pages
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
             //TODO: Login
+            /*
             String username = txtUsername.Text;
             String password = passwordBox.Password.ToString();
 
@@ -47,9 +48,11 @@ namespace SIMS.View.ViewSecretary.Pages
 
             errLogin.Visibility = Visibility.Collapsed;
             UserViewModel.GetInstance().LoggedInUser = SecretaryAppResources.GetInstance().secretaryRepository.GetEager(user.GetId());
-
+            */
             //NAVIGATE TO MAIN WINDOW
 
+            FrameManager.getInstance().MainFrame.Navigate(new MainWindowPage());
+            /*
             Frame pageFrame = null;
             DependencyObject currParent = VisualTreeHelper.GetParent(this);
             while (currParent != null && pageFrame == null)
@@ -63,6 +66,7 @@ namespace SIMS.View.ViewSecretary.Pages
             {
                 pageFrame.Navigate(new MainWindowPage());
             }
+            */
         }
     }
 }

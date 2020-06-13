@@ -51,59 +51,65 @@
                     <StackPanel Margin="6" Grid.Row="1">
                         <Label x:Name="lblAppointmentDoctor" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource InfoHeader}" Content="{StaticResource lblAppointmentDoctor}" HorizontalContentAlignment="Center"></Label>
                         <WrapPanel Margin="6">
-                            <Label Content="{StaticResource lblSelectedDoctor}" Style="{StaticResource LabelInfo}" Margin="0 0 10 0"></Label>
+                            <Label Content="{StaticResource lblSelectedDoctor}" Style="{StaticResource LabelInfo}" Margin="0 0 10 0" VerticalAlignment="Center"></Label>
                             <Label x:Name="lblSelectedDoctor" DataContext="{Binding ElementName=dataGridAppointmentDoctors, Path=SelectedItem}" Content="{Binding FullName}" FontSize="18"></Label>
                         </WrapPanel>
-                        <WrapPanel HorizontalAlignment="Center" Margin="6">
-                            <Label Content="{StaticResource lblSearch}"></Label>
-                            <TextBox x:Name="txtSearchDoctors" Width="200" Text="{Binding FilterString, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"></TextBox>
-                        </WrapPanel>
+                        <StackPanel x:Name="doctorSelectionPanel">
+                            <DockPanel Margin="6">
+                                <Label DockPanel.Dock="Left" Content="{StaticResource lblSearch}" Margin="0 0 10 0"></Label>
+                                <TextBox DockPanel.Dock="Right" x:Name="txtSearchDoctors" Text="{Binding FilterString, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center" ></TextBox>
+                            </DockPanel>
 
-                        <DataGrid x:Name="dataGridAppointmentDoctors" ItemsSource="{Binding Doctors}" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" MaxHeight="160" SelectionChanged="dataGridAppointmentDoctors_SelectionChanged" CanUserResizeRows="False" LoadingRow="dataGridAppointmentDoctors_LoadingRow" Margin="6" ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto">
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Header="{StaticResource lblName}" Binding="{Binding FullName}" Width="*"></DataGridTextColumn>
-                                <DataGridTextColumn Header="{StaticResource lblDoctorType}" Binding="{Binding DocTypeEnum}" Width="*"></DataGridTextColumn>
-                            </DataGrid.Columns>
-                        </DataGrid>
-                        <Label x:Name="errNoAvailableDoctors" Content="{StaticResource errNoAvailableDoctors}" HorizontalAlignment="Center"></Label>
+                            <DataGrid x:Name="dataGridAppointmentDoctors" ItemsSource="{Binding Doctors,Mode=OneWay, NotifyOnSourceUpdated=True,UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" MaxHeight="160" SelectionChanged="dataGridAppointmentDoctors_SelectionChanged" CanUserResizeRows="False" LoadingRow="dataGridAppointmentDoctors_LoadingRow" Margin="6" ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="{StaticResource lblName}" Binding="{Binding FullName}" Width="*"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="{StaticResource lblDoctorType}" Binding="{Binding DocTypeEnum}" Width="*"></DataGridTextColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <Label x:Name="errNoAvailableDoctors" Content="{StaticResource errNoAvailableDoctors}" HorizontalAlignment="Center"></Label>
+                        </StackPanel>
                     </StackPanel>
 
                     <StackPanel Margin="6" Grid.Row="2">
                         <Label x:Name="lblAppointmentPatient" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource InfoHeader}" Content="{StaticResource lblAppointmentPatient}" HorizontalContentAlignment="Center"></Label>
                         <WrapPanel Margin="6">
-                            <Label Content="{StaticResource lblSelectedPatient}" Style="{StaticResource LabelInfo}" Margin="0 0 10 0"></Label>
-                            <Label x:Name="lblSelectedPatient" DataContext="{Binding ElementName=dataGridAppointmentPatients, Path=SelectedItem}" Content="{Binding FullName}"></Label>
+                            <Label Content="{StaticResource lblSelectedPatient}" Style="{StaticResource LabelInfo}" Margin="0 0 10 0" VerticalAlignment="Center"></Label>
+                            <Label x:Name="lblSelectedPatient" DataContext="{Binding ElementName=dataGridAppointmentPatients, Path=SelectedItem}" Content="{Binding FullName}" FontSize="18"></Label>
                         </WrapPanel>
-                        <WrapPanel HorizontalAlignment="Center" Margin="6">
-                            <Label Content="{StaticResource lblSearch}"></Label>
-                            <TextBox x:Name="txtSearchPatients" Width="200" Text="{Binding FilterString, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"></TextBox>
-                        </WrapPanel>
-                        <DataGrid x:Name="dataGridAppointmentPatients" ItemsSource="{Binding Patients}" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" MaxHeight="160" SelectionChanged="dataGridAppointmentPatients_SelectionChanged"  CanUserResizeRows="False" LoadingRow="dataGridAppointmentPatients_LoadingRow"  Margin="6" ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto">
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Header="{StaticResource lblName}" Binding="{Binding FullName}" Width="*"></DataGridTextColumn>
-                                <DataGridTextColumn Header="{StaticResource lblPID}" Binding="{Binding Uidn}" Width="*"></DataGridTextColumn>
-                            </DataGrid.Columns>
-                        </DataGrid>
-                        <Label x:Name="errNoPatients" Content="{StaticResource errNoPatients}" HorizontalAlignment="Center"></Label>
+                        <StackPanel x:Name="patientSelectionPanel">
+                            <DockPanel Margin="6">
+                                <Label DockPanel.Dock="Left" Content="{StaticResource lblSearch}" Margin="0 0 10 0"></Label>
+                                <TextBox DockPanel.Dock="Right" x:Name="txtSearchPatients" Text="{Binding FilterString, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"></TextBox>
+                            </DockPanel>
+                            <DataGrid x:Name="dataGridAppointmentPatients" ItemsSource="{Binding Patients}" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" MaxHeight="160" SelectionChanged="dataGridAppointmentPatients_SelectionChanged"  CanUserResizeRows="False" LoadingRow="dataGridAppointmentPatients_LoadingRow"  Margin="6" ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="{StaticResource lblName}" Binding="{Binding FullName}" Width="*"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="{StaticResource lblPID}" Binding="{Binding Uidn}" Width="*"></DataGridTextColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <Label x:Name="errNoPatients" Content="{StaticResource errNoPatients}" HorizontalAlignment="Center"></Label>
+                        </StackPanel>
                     </StackPanel>
 
                     <StackPanel Grid.Row="3">
                         <Label x:Name="lblAppointmentRoom" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource InfoHeader}" Content="{StaticResource lblAppointmentRoom}" HorizontalContentAlignment="Center"></Label>
                         <WrapPanel Margin="6">
-                            <Label Content="{StaticResource lblSelectedRoom}" Style="{StaticResource LabelInfo}" Margin="0 0 10 0"></Label>
-                            <Label x:Name="lblSelectedRoom" DataContext="{Binding ElementName=dataGridAppointmentRooms, Path=SelectedItem}" Content="{Binding RoomNumber}"></Label>
+                            <Label Content="{StaticResource lblSelectedRoom}" Style="{StaticResource LabelInfo}" Margin="0 0 10 0" VerticalAlignment="Center"></Label>
+                            <Label x:Name="lblSelectedRoom" DataContext="{Binding ElementName=dataGridAppointmentRooms, Path=SelectedItem}" Content="{Binding RoomNumber}" FontSize="18"></Label>
                         </WrapPanel>
-                        <WrapPanel HorizontalAlignment="Center" Margin="6">
-                            <Label Content="{StaticResource lblSearch}"></Label>
-                            <TextBox x:Name="txtSearchRooms" Width="200" Text="{Binding FilterString, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"></TextBox>
-                        </WrapPanel>
-                        <DataGrid x:Name="dataGridAppointmentRooms" ItemsSource="{Binding Rooms}" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" MaxHeight="160" SelectionChanged="dataGridAppointmentPatients_SelectionChanged"  CanUserResizeRows="False" LoadingRow="dataGridAppointmentPatients_LoadingRow"  Margin="6" ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto">
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Header="{StaticResource lblRoom}" Binding="{Binding RoomNumber}" Width="*"></DataGridTextColumn>
-                                <DataGridTextColumn Header="{StaticResource lblRoomType}" Binding="{Binding RoomType}" Width="*"></DataGridTextColumn>
-                            </DataGrid.Columns>
-                        </DataGrid>
-                        <Label x:Name="errNoAvailableRooms" Content="{StaticResource errNoAvailableRooms}" HorizontalAlignment="Center"></Label>
+                        <StackPanel x:Name="roomSelectionPanel">
+                            <DockPanel Margin="6">
+                                <Label DockPanel.Dock="Left" Content="{StaticResource lblSearch}" Margin="0 0 10 0"></Label>
+                                <TextBox x:Name="txtSearchRooms" DockPanel.Dock="Right" Text="{Binding FilterString, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"></TextBox>
+                            </DockPanel>
+                            <DataGrid x:Name="dataGridAppointmentRooms" ItemsSource="{Binding Rooms}" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" MaxHeight="160" SelectionChanged="dataGridAppointmentPatients_SelectionChanged"  CanUserResizeRows="False" LoadingRow="dataGridAppointmentPatients_LoadingRow"  Margin="6" ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="{StaticResource lblRoom}" Binding="{Binding RoomNumber}" Width="*"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="{StaticResource lblRoomType}" Binding="{Binding RoomType}" Width="*"></DataGridTextColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <Label x:Name="errNoAvailableRooms" Content="{StaticResource errNoAvailableRooms}" HorizontalAlignment="Center"></Label>
+                        </StackPanel>
                     </StackPanel>
                     <Button x:Name="btnSchedule" Content="{StaticResource btnSchedule}" Style="{StaticResource StyleOKButton}" HorizontalAlignment="Center" Height="auto" Margin="6" Click="btnSchedule_Click"></Button>
                 </StackPanel>

@@ -3,6 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:wpftk="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
       xmlns:local="clr-namespace:SIMS.View.ViewSecretary.Pages.Doctors"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
@@ -11,13 +12,23 @@
     <DockPanel>
         <Label DockPanel.Dock="Top" Content="{StaticResource Doctors}" Background="{DynamicResource UiPrimaryColor}" Foreground="{DynamicResource FontLightColor}" HorizontalContentAlignment="Center" BorderBrush="{DynamicResource UiPrimaryColor}" BorderThickness="0 0 0 2" Height="auto" Width="auto"></Label>
 
-        <DockPanel DockPanel.Dock="Bottom">
-            <WrapPanel DockPanel.Dock="Top" Margin="6 12 6 6">
+        <Grid DockPanel.Dock="Bottom">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
+            <WrapPanel Grid.Row="0" Margin="6 12 6 6">
                 <Label x:Name="lblSearch" Content="{StaticResource lblSearch}"></Label>
                 <TextBox x:Name="txtSearch" Width="200" Text="{Binding FilterString, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"></TextBox>
             </WrapPanel>
 
-            <DataGrid x:Name="dataGridDoctors" ItemsSource="{Binding Doctors}" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" SelectionChanged="dataGridDoctors_SelectionChanged"  CanUserResizeRows="False" LoadingRow="dataGridDoctors_LoadingRow"  Margin="6" Height="auto" ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto">
+            <DataGrid x:Name="dataGridDoctors" Grid.Row="1" ItemsSource="{Binding Doctors}" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" SelectionChanged="dataGridDoctors_SelectionChanged"  CanUserResizeRows="False" LoadingRow="dataGridDoctors_LoadingRow"  Margin="6" Height="auto" ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="{StaticResource lblName}" Binding="{Binding FullName}" Width="1*"/>
                     <DataGridTextColumn Header="{StaticResource lblDoctorType}" Binding="{Binding DocTypeEnum}" Width="1*"/>
@@ -27,7 +38,19 @@
                 </DataGrid.Columns>
             </DataGrid>
 
-            <TextBlock x:Name="errNoDoctors" Text="{StaticResource errNoDoctors}" HorizontalAlignment="Center" Visibility="Hidden"></TextBlock>
-        </DockPanel>
+            <TextBlock x:Name="errNoDoctors" Grid.Row="2" Text="{StaticResource errNoDoctors}" HorizontalAlignment="Center" Visibility="Hidden"></TextBlock>
+
+            <wpftk:Chart BorderThickness="0" Height="175" BorderBrush="Transparent" Grid.Row="3" Padding="0" Margin="6" VerticalAlignment="Bottom">
+                <wpftk:Chart.LegendStyle>
+                    <Style TargetType="Control">
+                        <Setter Property="Width" Value="0" />
+                        <Setter Property="Height" Value="0" />
+                    </Style>
+                </wpftk:Chart.LegendStyle>
+                <wpftk:ColumnSeries x:Name="chartDoctors" ItemsSource="{Binding DoctorChart}" IndependentValueBinding="{Binding Key}" DependentValueBinding="{Binding Value}">
+
+                </wpftk:ColumnSeries>
+            </wpftk:Chart>
+        </Grid>
     </DockPanel>
 </Page>

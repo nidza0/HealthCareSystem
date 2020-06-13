@@ -37,6 +37,17 @@ namespace SIMS.View.ViewSecretary.Pages.Appointments
             InitializeComponent();
             appointmentVM = new AppointmentViewModel(a);
             DataContext = appointmentVM;
+            checkAppointment();
+        }
+
+        private void checkAppointment()
+        {
+            if (appointmentVM.Appointment.Canceled)
+            {
+                btnCancel.Visibility = Visibility.Collapsed;
+                appointmentPanel.Visibility = Visibility.Collapsed;
+                lblCancelled.Visibility = Visibility.Visible;
+            }
         }
 
         private void btnClose_Click(object sender, RoutedEventArgs e)
@@ -60,6 +71,25 @@ namespace SIMS.View.ViewSecretary.Pages.Appointments
             if (selectedPatient != null)
             {
                 FrameManager.getInstance().SideFrame.Navigate(new PatientDetailsPage(selectedPatient));
+            }
+        }
+
+        private void btnReschedule_Click(object sender, RoutedEventArgs e)
+        {
+            if (FrameManager.getInstance().SideFrame.CanGoBack)
+                FrameManager.getInstance().SideFrame.GoBack();
+            FrameManager.getInstance().SideFrame.Navigate(new CreateUpdateAppointmentPage(appointmentVM.Appointment));
+        }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            if(MessageBox.Show("Are you sure you want to cancel appointment?", "Cancel Appointment", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                appointmentVM.CancelAppointment();
+                CancelledAppointmentsPage.GetInstance().Refresh();
+                AppointmentsPage.GetInstance().Refresh();
+                if (FrameManager.getInstance().SideFrame.CanGoBack)
+                    FrameManager.getInstance().SideFrame.GoBack();
             }
         }
     }

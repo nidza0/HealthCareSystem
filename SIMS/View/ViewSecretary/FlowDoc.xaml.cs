@@ -20,9 +20,24 @@ namespace SIMS.View.ViewSecretary
     /// </summary>
     public partial class FlowDoc : Page
     {
+        private Dictionary<string, int> chartData = new Dictionary<string, int>();
         public FlowDoc()
         {
             InitializeComponent();
+            LoadChartData();
+            DataContext = this;
+            Console.WriteLine("Chart window");
         }
+
+        private void LoadChartData()
+        {
+            chartData.Add("valami", 4);
+            chartData.Add("nesto", 10);
+            chartData.Add("something", 2);
+            chartData.Add("jbfjknkjd", 6);
+
+        }
+
+        public Dictionary<string, int> ChartData { get => chartData; set => chartData = value; }
     }
 }

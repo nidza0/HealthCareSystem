@@ -29,7 +29,8 @@ namespace SIMS.View.ViewSecretary.Pages
 
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
-
+            if (FrameManager.getInstance().CentralFrame.CanGoBack)
+                FrameManager.getInstance().CentralFrame.GoBack();
         }
 
         private void btnEdit_Click(object sender, RoutedEventArgs e)
@@ -39,7 +40,7 @@ namespace SIMS.View.ViewSecretary.Pages
 
         private void btnLogout_Click(object sender, RoutedEventArgs e)
         {
-
+            FrameManager.getInstance().MainFrame.Navigate(new LoginPage());
         }
     }
 }

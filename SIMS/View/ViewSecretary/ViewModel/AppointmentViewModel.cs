@@ -1,13 +1,14 @@
 ﻿using SIMS.Model.PatientModel;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace SIMS.View.ViewSecretary.ViewModel
 {
-    class AppointmentViewModel
+    class AppointmentViewModel : INotifyPropertyChanged
     {
         private Appointment appointment;
 
@@ -21,6 +22,18 @@ namespace SIMS.View.ViewSecretary.ViewModel
         private void GetEagerAppointment(Appointment a)
         {
             appointment = SecretaryAppResources.GetInstance().appointmentRepository.GetEager(a.GetId());
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void NotifyPropertyChanged(string property)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
+        }
+
+        internal void CancelAppointment()
+        {
+            appointment.Canceled = true;
+            SecretaryAppResources.GetInstance().appointmentRepository.Update(appointment);
         }
     }
 }

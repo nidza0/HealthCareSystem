@@ -11,11 +11,13 @@ namespace SIMS.View.ViewSecretary
     {
         private Frame centralFrame;
         private Frame sideFrame;
+        private Frame mainFrame;
 
         private static FrameManager instance = null;
 
         public Frame CentralFrame { get => centralFrame; set => centralFrame = value; }
         public Frame SideFrame { get => sideFrame; set => sideFrame = value; }
+        public Frame MainFrame { get => mainFrame; set => mainFrame = value; }
 
         public static FrameManager getInstance()
         {

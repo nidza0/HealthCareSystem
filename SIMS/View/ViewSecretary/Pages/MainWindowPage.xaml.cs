@@ -56,25 +56,20 @@ namespace SIMS.View.ViewSecretary.Pages
 
         private void Timer_Click(object sender, EventArgs e)
         {
-            //DateTime d = DateTime.Now;
             CurrDateTime = DateTime.Now;
             OnPropertyChanged();
-            //lbl_time.Content = d.ToShortTimeString();//d.Hour + " : " + d.Minute + " : " + d.Second;
-            //lbl_date.Content = d.DayOfWeek + ", " + d.ToShortDateString();
-
         }
 
         private void btn_newpatient_Click(object sender, RoutedEventArgs e)
         {
             CentralFrame.Navigate(new NewPatientPage());
         }
-
+        /*
         private void btn_sidebar_Checked(object sender, RoutedEventArgs e)
         {
             RadioButton btn = (RadioButton)sender;
-            //CentralFrameNavigator.getInstance().changeContent(btn);
         }
-
+        */
         private void btn_newappointment_Click(object sender, RoutedEventArgs e)
         {
             SideFrame.Content = new CreateUpdateAppointmentPage();
@@ -87,12 +82,12 @@ namespace SIMS.View.ViewSecretary.Pages
 
         private void btn_appointments_Click(object sender, RoutedEventArgs e)
         {
-            CentralFrame.Navigate(new AppointmentsPage());
+            CentralFrame.Navigate(AppointmentsPage.GetInstance());
         }
 
         private void btn_cancelledappointments_Click(object sender, RoutedEventArgs e)
         {
-            //CentralFrame.Navigate(new CancelledAppointments());
+            CentralFrame.Navigate(CancelledAppointmentsPage.GetInstance());
         }
 
         private void btn_doctors_Click(object sender, RoutedEventArgs e)
