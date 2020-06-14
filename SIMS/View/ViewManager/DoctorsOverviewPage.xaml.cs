@@ -33,27 +33,33 @@ namespace SIMS.View.ViewManager
 
         private void ListDataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
-            e.Column.CanUserReorder = false;
-
-
-            if (!(e.PropertyName.Equals("FullName")||e.PropertyName.Equals("Office")||e.PropertyName.Equals("DocTypeEnum")))
+            if (!(e.PropertyName.Equals("Uidn") || e.PropertyName.Equals("Name") || e.PropertyName.Equals("Surname") || e.PropertyName.Equals("DocTypeEnum")))
+            {
                 e.Cancel = true;
+            }
 
-            if (e.PropertyName == "FullName")
+            if (e.Column.Header.ToString() == "Uidn")
             {
-                e.Column.Header = "Puno ime";
+                e.Column.Width = 50;
                 e.Column.DisplayIndex = 0;
+                e.Column.Header = "ID";
             }
-                
-            if (e.PropertyName == "Office")
+
+            if (e.Column.Header.ToString() == "Name")
             {
-                e.Column.Header = "Kancelarija";
                 e.Column.DisplayIndex = 1;
+                e.Column.Header = "Ime";
             }
-            if (e.PropertyName == "DocTypeEnum")
+
+            if (e.Column.Header.ToString() == "Surname")
+            {
+                e.Column.DisplayIndex = 2;
+                e.Column.Header = "Prezime";
+            }
+
+            if (e.Column.Header.ToString() == "DocTypeEnum")
             {
                 e.Column.Header = "Tip doktora";
-                e.Column.DisplayIndex = 2;
             }
 
         }

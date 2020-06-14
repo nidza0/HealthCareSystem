@@ -30,7 +30,32 @@ namespace SIMS.View.ViewManager
 
         private void RoomsDataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
+            if(e.PropertyName.Equals("InventoryItem"))
+            {
+                e.Cancel = true;
+            }
 
+            if (e.Column.Header.ToString() == "RoomNumber")
+            {
+                e.Column.DisplayIndex = 0;
+                e.Column.Header = "Broj";
+            }
+            if (e.Column.Header.ToString() == "Floor")
+            {
+                e.Column.DisplayIndex = 1;
+                e.Column.Header = "Sprat";
+            }
+            if (e.Column.Header.ToString() == "Occupied")
+            {
+                e.Column.DisplayIndex = 2;
+                e.Column.Header = "Zauzeta";
+            }
+
+            if (e.Column.Header.ToString() == "RoomType")
+            {
+                e.Column.DisplayIndex = 3;
+                e.Column.Header = "Tip Sobe";
+            }
         }
 
         private void RoomsDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -84,6 +109,8 @@ namespace SIMS.View.ViewManager
             if (NavigationService.CanGoBack)
                 NavigationService.GoBack();
         }
+
+        
         //END REGION
     }
 }

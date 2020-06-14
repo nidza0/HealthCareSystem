@@ -33,7 +33,7 @@ namespace SIMS.View.Dummies
             dict[WorkingDaysEnum.THURSDAY] = new Util.TimeInterval(new DateTime(1, 1, 1, 8, 0, 0), new DateTime(1, 1, 1, 21, 0, 0));
             dict[WorkingDaysEnum.FRIDAY] = new Util.TimeInterval(new DateTime(1, 1, 1, 8, 0, 0), new DateTime(1, 1, 1, 16, 0, 0));
             dict[WorkingDaysEnum.SATURDAY] = new Util.TimeInterval(new DateTime(1, 1, 1, 8, 0, 0), new DateTime(1, 1, 1, 8, 0, 0));
-            dict[WorkingDaysEnum.SUNDAY] = new Util.TimeInterval(new DateTime(1, 1, 1, 8, 0, 0), new DateTime(1, 1, 1, 16, 0, 0));
+            dict[WorkingDaysEnum.SUNDAY] = new Util.TimeInterval(new DateTime(1, 1, 1, 8, 0, 0), new DateTime(1, 1, 1, 8, 0, 0));
 
             Dictionary<WorkingDaysEnum, Util.TimeInterval> dict2;
             dict2 = new Dictionary<WorkingDaysEnum, Util.TimeInterval>();
@@ -64,22 +64,68 @@ namespace SIMS.View.Dummies
 
             roomsList = new ObservableCollection<Room>();
             Room room1 = new Room(0,"101",true,2,RoomType.EXAMINATION,null);
-            Room room2 = new Room(102);
-            Room room3 = new Room(103);
+            Room room2 = new Room(1, "102", false, 2, RoomType.EXAMINATION, null);
+            Room room3 = new Room(2, "103", true, 2, RoomType.EXAMINATION, null);
+            Room room4 = new Room(3, "104", false, 2, RoomType.EXAMINATION, null);
+            Room room5 = new Room(4, "105", false, 2, RoomType.EXAMINATION, null);
+            Room room6 = new Room(5, "201", false, 2, RoomType.OPERATION, null);
+            Room room7 = new Room(6, "202", false, 2, RoomType.OPERATION, null);
+            Room room8 = new Room(7, "203", true, 2, RoomType.OPERATION, null);
+            Room room9 = new Room(8, "204", false, 2, RoomType.OPERATION, null);
+            Room room11 = new Room(9, "301", true, 2, RoomType.AFTERCARE, null);
+            Room room12 = new Room(10, "302", true, 2, RoomType.AFTERCARE, null);
+            Room room13 = new Room(11, "303", false, 2, RoomType.AFTERCARE, null);
+            Room room14 = new Room(12, "304", false, 2, RoomType.AFTERCARE, null);
+
 
             roomsList.Add(room1);
             roomsList.Add(room2);
             roomsList.Add(room3);
+            roomsList.Add(room4);
+            roomsList.Add(room5);
+            roomsList.Add(room6);
+            roomsList.Add(room7);
+            roomsList.Add(room8);
+            roomsList.Add(room9);
+            roomsList.Add(room11);
+            roomsList.Add(room12);
+            roomsList.Add(room13);
+            roomsList.Add(room14);
 
             medicineList = new ObservableCollection<Medicine>();
 
             Medicine med1 = new Medicine(0, "Xanax", 500.0, MedicineType.PILL,true,null,null, 10, 20);
             Medicine med2 = new Medicine(1, "Paracetamol", 500.0, MedicineType.PILL, false, null, null, 100, 50);
             Medicine med3 = new Medicine(2, "Panadol",152.0, MedicineType.PILL, true, null, null, 1000, 10);
+            Medicine med4 = new Medicine(3, "Xanax", 500.0, MedicineType.PILL, true, null, null, 10, 20);
+            Medicine med5 = new Medicine(4, "Paracetamol", 500.0, MedicineType.PILL, false, null, null, 100, 50);
+            Medicine med6 = new Medicine(5, "Panadol", 152.0, MedicineType.PILL, true, null, null, 1000, 10);
+            Medicine med7 = new Medicine(6, "Xanax", 500.0, MedicineType.PILL, true, null, null, 10, 20);
+            Medicine med8 = new Medicine(7, "Paracetamol", 500.0, MedicineType.PILL, false, null, null, 100, 50);
+            Medicine med9 = new Medicine(8, "Panadol", 152.0, MedicineType.PILL, true, null, null, 1000, 10);
+            Medicine med10 = new Medicine(9, "Xanax", 500.0, MedicineType.PILL, true, null, null, 10, 20);
+            Medicine med11 = new Medicine(10, "Paracetamol", 500.0, MedicineType.PILL, false, null, null, 100, 50);
+            Medicine med12 = new Medicine(11, "Panadol", 152.0, MedicineType.PILL, true, null, null, 1000, 10);
+
+
+            med1.IsValid = true;
+            med4.IsValid = true;
+            med6.IsValid = true;
+            med8.IsValid = true;
+            med10.IsValid = true;
 
             medicineList.Add(med1);
             medicineList.Add(med2);
             medicineList.Add(med3);
+            medicineList.Add(med4);
+            medicineList.Add(med5);
+            medicineList.Add(med6);
+            medicineList.Add(med7);
+            medicineList.Add(med8);
+            medicineList.Add(med9);
+            medicineList.Add(med10);
+            medicineList.Add(med11);
+            medicineList.Add(med12);
 
             appointmentsList = new ObservableCollection<Appointment>();
 

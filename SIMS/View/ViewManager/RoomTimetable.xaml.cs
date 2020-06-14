@@ -57,7 +57,32 @@ namespace SIMS.View.ViewManager
 
         private void RoomsDataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
+            if (!(e.PropertyName.Equals("Id") || e.PropertyName.Equals("Canceled") || e.PropertyName.Equals("AppointmentType") || e.PropertyName.Equals("TimeInterval")))
+            {
+                e.Cancel = true;
+            }
 
+            if (e.Column.Header.ToString() == "Id")
+            {
+                e.Column.DisplayIndex = 0;
+                e.Column.Header = "ID";
+            }
+            if (e.Column.Header.ToString() == "Canceled")
+            {
+                e.Column.DisplayIndex = 1;
+                e.Column.Header = "Otkazan";
+            }
+            if (e.Column.Header.ToString() == "AppointmentType")
+            {
+                e.Column.DisplayIndex = 2;
+                e.Column.Header = "Tip termina";
+            }
+
+            if (e.Column.Header.ToString() == "TimeInterval")
+            {
+                e.Column.DisplayIndex = 3;
+                e.Column.Header = "Vreme termina";
+            }
         }
 
         private void RoomsDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)

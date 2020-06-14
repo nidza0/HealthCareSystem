@@ -19,7 +19,7 @@
         <!--Datagrid-->
         <DockPanel x:Name="InventoryPanel" HorizontalAlignment="Left" Height="650" Margin="0,180,0,0" VerticalAlignment="Top" Width="550" Background="White">
             <Border BorderBrush="#ec1c70" BorderThickness="3" >
-                <DataGrid x:Name="InventoryDataGrid" FontSize="17" FontWeight="Bold" AutoGenerateColumns="True" IsReadOnly="True"  AutoGeneratingColumn="InventoryDataGrid_AutoGeneratingColumn" SelectionMode="Single" MaxHeight="650" ScrollViewer.VerticalScrollBarVisibility="Auto" MouseDoubleClick="InventoryDataGrid_MouseDoubleClick" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Background="White" Foreground="Black" Height="650" VerticalAlignment="Top"/>
+                <DataGrid x:Name="InventoryDataGrid" FontSize="17" ColumnWidth="1*" FontWeight="Bold" AutoGenerateColumns="True" IsReadOnly="True"  AutoGeneratingColumn="InventoryDataGrid_AutoGeneratingColumn" SelectionMode="Single" MaxHeight="650" ScrollViewer.VerticalScrollBarVisibility="Auto" MouseDoubleClick="InventoryDataGrid_MouseDoubleClick" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Background="White" Foreground="Black" Height="650" VerticalAlignment="Top"/>
             </Border>
         </DockPanel>
         <!--#endregion-->

@@ -88,7 +88,7 @@ namespace SIMS.View.ViewManager
 
         private void reserveButton_Click(object sender, RoutedEventArgs e)
         {
-
+            NavigationService.Navigate(new RoomRenovationPage(sRoom));
         }
         //END REGION
     }

@@ -30,7 +30,34 @@ namespace SIMS.View.ViewManager
 
         private void InventoryDataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
+            if(e.PropertyName.Equals("Room"))
+            {
+                e.Cancel = true;
+            }
 
+            if (e.Column.Header.ToString() == "Id")
+            {
+                e.Column.Width = 50;
+                e.Column.DisplayIndex = 0;
+                e.Column.Header = "ID";
+            }
+
+            if (e.Column.Header.ToString() == "Name")
+            {
+                e.Column.DisplayIndex = 1;
+                e.Column.Header = "Ime";
+            }
+
+            if (e.Column.Header.ToString() == "InStock")
+            {
+                e.Column.DisplayIndex = 2;
+                e.Column.Header = "Na stanju";
+            }
+
+            if (e.Column.Header.ToString() == "MinNumber")
+            {
+                e.Column.Header = "Min. broj";
+            }
         }
 
         private void InventoryDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)

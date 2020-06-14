@@ -6,7 +6,8 @@
       xmlns:local="clr-namespace:SIMS.View.ViewManager"
       mc:Ignorable="d" 
       d:DesignHeight="950" d:DesignWidth="550"
-      Title="MedicineOverviewPage">
+      Title="MedicineOverviewPage"
+      FontSize="22">
 
     <Grid>
         <!--Images-->
@@ -18,12 +19,12 @@
         <!--Datagrid-->
         <DockPanel x:Name="ValidatedMedicinePanel" HorizontalAlignment="Left" Height="635" Margin="0,195,0,0" VerticalAlignment="Top" Width="550" Background="White">
             <Border BorderBrush="#ec1c70" BorderThickness="3" >
-                <DataGrid x:Name="ValidateMedicineDataGrid" FontWeight="Bold" AutoGenerateColumns="True" IsReadOnly="True"  AutoGeneratingColumn="ValidateMedicineDataGrid_AutoGeneratingColumn" SelectionMode="Single" MaxHeight="650" ScrollViewer.VerticalScrollBarVisibility="Auto" MouseDoubleClick="ValidateMedicineDataGrid_MouseDoubleClick" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Background="White" Foreground="Black" Height="622" VerticalAlignment="Top"/>
+                <DataGrid x:Name="ValidateMedicineDataGrid" FontWeight="Bold" ColumnWidth="1*" AutoGenerateColumns="True" IsReadOnly="True"  AutoGeneratingColumn="ValidateMedicineDataGrid_AutoGeneratingColumn" SelectionMode="Single" MaxHeight="650" ScrollViewer.VerticalScrollBarVisibility="Auto" MouseDoubleClick="ValidateMedicineDataGrid_MouseDoubleClick" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Background="White" Foreground="Black" Height="622" VerticalAlignment="Top"/>
             </Border>
         </DockPanel>
         <DockPanel x:Name="NonValidatedMedicinePanel" HorizontalAlignment="Left" Height="650" Margin="0,180,0,0" VerticalAlignment="Top" Width="550" Background="White">
             <Border BorderBrush="#ec1c70" BorderThickness="3" Margin="0,10,0,0" >
-                <DataGrid x:Name="NonValidatedMedicineDataGrid" FontWeight="Bold" AutoGenerateColumns="True" IsReadOnly="True"  AutoGeneratingColumn="NonValidatedMedicineDataGrid_AutoGeneratingColumn" SelectionMode="Single" MaxHeight="650" ScrollViewer.VerticalScrollBarVisibility="Auto" MouseDoubleClick="NonValidatedMedicineDataGrid_MouseDoubleClick_1" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Background="White" Foreground="Black" Height="620" VerticalAlignment="Top" Margin="0,7,0,0"/>
+                <DataGrid x:Name="NonValidatedMedicineDataGrid" FontWeight="Bold" ColumnWidth="1*" AutoGenerateColumns="True" IsReadOnly="True"  AutoGeneratingColumn="NonValidatedMedicineDataGrid_AutoGeneratingColumn" SelectionMode="Single" MaxHeight="650" ScrollViewer.VerticalScrollBarVisibility="Auto" MouseDoubleClick="NonValidatedMedicineDataGrid_MouseDoubleClick_1" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Background="White" Foreground="Black" Height="620" VerticalAlignment="Top" Margin="0,7,0,0"/>
             </Border>
         </DockPanel>
         <!--#endregion-->

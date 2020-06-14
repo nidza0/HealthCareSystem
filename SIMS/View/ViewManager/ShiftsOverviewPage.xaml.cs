@@ -97,7 +97,11 @@ namespace SIMS.View.ViewManager
             TimeTable radnaNedelja = doc.TimeTable;
             Util.TimeInterval radnoVreme = radnaNedelja.WorkingHours[wde];
 
-            if (radnoVreme.StartTime.Hour <= now.Hour && radnoVreme.EndTime.Hour >= now.Hour)
+            if (radnoVreme.StartTime.Hour < now.Hour && radnoVreme.EndTime.Hour > now.Hour)
+                return true;
+            else if (radnoVreme.StartTime.Hour == now.Hour && radnoVreme.StartTime.Minute < now.Minute)
+                return true;
+            else if (radnoVreme.EndTime.Hour == now.Hour && radnoVreme.EndTime.Minute > now.Minute)
                 return true;
 
             return false;
@@ -105,7 +109,34 @@ namespace SIMS.View.ViewManager
 
         private void PresentDataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
+            if(!(e.PropertyName.Equals("Uidn")|| e.PropertyName.Equals("Name") || e.PropertyName.Equals("Surname") || e.PropertyName.Equals("DocTypeEnum") ))
+            {
+                e.Cancel = true;
+            }
 
+            if (e.Column.Header.ToString() == "Uidn")
+            {
+                e.Column.Width = 50;
+                e.Column.DisplayIndex = 0;
+                e.Column.Header = "ID";
+            }
+
+            if (e.Column.Header.ToString() == "Name")
+            {
+                e.Column.DisplayIndex = 1;
+                e.Column.Header = "Ime";
+            }
+
+            if (e.Column.Header.ToString() == "Surname")
+            {
+                e.Column.DisplayIndex = 2;
+                e.Column.Header = "Prezime";
+            }
+
+            if (e.Column.Header.ToString() == "DocTypeEnum")
+            {
+                e.Column.Header = "Tip doktora";
+            }
         }
 
         private void PresentDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -117,7 +148,35 @@ namespace SIMS.View.ViewManager
 
         private void AbsentDataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
+            if (!(e.PropertyName.Equals("Uidn") || e.PropertyName.Equals("Name") || e.PropertyName.Equals("Surname") || e.PropertyName.Equals("DocTypeEnum")))
+            {
+                e.Cancel = true;
+            }
 
+            
+            if (e.Column.Header.ToString() == "Uidn")
+            {
+                e.Column.Width = 50;
+                e.Column.DisplayIndex = 0;
+                e.Column.Header = "ID";
+            }
+
+            if (e.Column.Header.ToString() == "Name")
+            {
+                e.Column.DisplayIndex = 1;
+                e.Column.Header = "Ime";
+            }
+
+            if (e.Column.Header.ToString() == "Surname")
+            {
+                e.Column.DisplayIndex = 2;
+                e.Column.Header = "Prezime";
+            }
+
+            if (e.Column.Header.ToString() == "DocTypeEnum")
+            {
+                e.Column.Header = "Tip doktora";
+            }
         }
 
         private void AbsentDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)

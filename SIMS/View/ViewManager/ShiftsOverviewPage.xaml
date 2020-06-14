@@ -24,13 +24,13 @@
         <!--Datagrids-->
         <DockPanel x:Name="PresentPanel" HorizontalAlignment="Left" Height="650" Margin="0,189,0,0" VerticalAlignment="Top" Width="550" Background="White">
             <Border BorderBrush="#ec1c70" BorderThickness="3" >
-                <DataGrid x:Name="PresentDataGrid" FontWeight="Bold" AutoGenerateColumns="True" IsReadOnly="True"  AutoGeneratingColumn="PresentDataGrid_AutoGeneratingColumn" SelectionMode="Single" MaxHeight="650" ScrollViewer.VerticalScrollBarVisibility="Auto" MouseDoubleClick="PresentDataGrid_MouseDoubleClick" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Background="White" Foreground="Black" Height="650" VerticalAlignment="Top"/>
+                <DataGrid x:Name="PresentDataGrid" FontWeight="Bold" ColumnWidth="1*" AutoGenerateColumns="True" IsReadOnly="True"  AutoGeneratingColumn="PresentDataGrid_AutoGeneratingColumn" SelectionMode="Single" MaxHeight="650" ScrollViewer.VerticalScrollBarVisibility="Auto" MouseDoubleClick="PresentDataGrid_MouseDoubleClick" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Background="White" Foreground="Black" Height="650" VerticalAlignment="Top"/>
             </Border>
         </DockPanel>
         
         <DockPanel x:Name="AbsentPanel" HorizontalAlignment="Left" Height="650" Margin="0,189,0,0" VerticalAlignment="Top" Width="550" Background="White">
             <Border BorderBrush="#ec1c70" BorderThickness="3" >
-                <DataGrid x:Name="AbsentDataGrid" FontWeight="Bold" AutoGenerateColumns="True" IsReadOnly="True"  AutoGeneratingColumn="AbsentDataGrid_AutoGeneratingColumn" SelectionMode="Single" MaxHeight="650" ScrollViewer.VerticalScrollBarVisibility="Auto" MouseDoubleClick="AbsentDataGrid_MouseDoubleClick" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Background="White" Foreground="Black" Height="650" VerticalAlignment="Top"/>
+                <DataGrid x:Name="AbsentDataGrid" FontWeight="Bold" ColumnWidth="1*" AutoGenerateColumns="True" IsReadOnly="True"  AutoGeneratingColumn="AbsentDataGrid_AutoGeneratingColumn" SelectionMode="Single" MaxHeight="650" ScrollViewer.VerticalScrollBarVisibility="Auto" MouseDoubleClick="AbsentDataGrid_MouseDoubleClick" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Background="White" Foreground="Black" Height="650" VerticalAlignment="Top"/>
             </Border>
         </DockPanel>
         <!--#endregion-->

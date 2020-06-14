@@ -22,7 +22,7 @@
         <!--Datagrid-->
         <DockPanel x:Name="ListPanel" HorizontalAlignment="Left" Height="650" Margin="0,180,0,0" VerticalAlignment="Top" Width="550" Background="White">
             <Border BorderBrush="#ec1c70" BorderThickness="3" >
-                <DataGrid x:Name="ListDataGrid" FontSize="17" FontWeight="Bold" AutoGenerateColumns="True" IsReadOnly="True"  AutoGeneratingColumn="ListDataGrid_AutoGeneratingColumn" SelectionMode="Single" MaxHeight="650" ScrollViewer.VerticalScrollBarVisibility="Auto" MouseDoubleClick="ListDataGrid_MouseDoubleClick" ScrollViewer.HorizontalScrollBarVisibility="Auto" Background="White" Foreground="Black" Height="650" VerticalAlignment="Top" ColumnWidth="auto" />
+                <DataGrid x:Name="ListDataGrid" FontSize="17" ColumnWidth="1*" FontWeight="Bold" AutoGenerateColumns="True" IsReadOnly="True"  AutoGeneratingColumn="ListDataGrid_AutoGeneratingColumn" SelectionMode="Single" MaxHeight="650" ScrollViewer.VerticalScrollBarVisibility="Auto" MouseDoubleClick="ListDataGrid_MouseDoubleClick" ScrollViewer.HorizontalScrollBarVisibility="Auto" Background="White" Foreground="Black" Height="650" VerticalAlignment="Top" />
             </Border>
         </DockPanel>
         <!--#endregion-->
