@@ -60,6 +60,11 @@ namespace SIMS.View.ViewManager
         {
             NavigationService.Navigate(new Uri("../View/ViewManager/DoctorAddingPage.xaml", UriKind.Relative));
         }
+
+        private void MenuDemo_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new DemoDoctorsAdding1());
+        }
         //END REGION
     }
 }

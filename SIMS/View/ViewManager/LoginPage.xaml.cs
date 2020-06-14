@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -67,7 +68,6 @@ namespace SIMS.View.ViewManager
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            //TODO: Verifikacija
             NavigationService.Navigate(new Uri("../View/ViewManager/ManagerMainPage.xaml", UriKind.Relative));
         }
     }
