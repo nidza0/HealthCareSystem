@@ -63,6 +63,26 @@ namespace SIMS.View.ViewSecretary.ViewModel
             availableDoctors.ToList().ForEach(Doctors.Add);
         }
 
+        internal void LoadDoctorsAtWork()
+        {
+            var allDoctors = SecretaryAppResources.GetInstance().doctorRepository.GetAllEager();
+            Doctors.Clear();
+            foreach(Doctor doc in allDoctors)
+            {
+                WorkingDaysEnum day = GetWorkingDay(DateTime.Now.DayOfWeek);
+                if(doc.TimeTable != null)
+                {
+                    if (doc.TimeTable.getWorkingHours().ContainsKey(day))
+                    {
+                        if (doc.TimeTable.getWorkingHours()[day].IsDateTimeBetween(DateTime.Now))
+                        {
+                            Doctors.Add(doc);
+                        }
+                    }
+                }
+            }
+        }
+
         private WorkingDaysEnum GetWorkingDay(DayOfWeek d)
         {
             switch (d)

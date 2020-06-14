@@ -25,8 +25,9 @@
     <sys:String x:Key="EmergencyContactInfoHeader">Emergency Contact</sys:String>
     <sys:String x:Key="SelectedDoctorInfoHeader">Selected Doctor</sys:String>
     <sys:String x:Key="WorkingHours">Working Hours</sys:String>
-    <sys:String x:Key="MyProfile">My profile</sys:String>
+    <sys:String x:Key="MyProfile">My Profile</sys:String>
     <sys:String x:Key="NewReport">New Report</sys:String>
+    <sys:String x:Key="MyFeedback">My Feedback</sys:String>
 
     <sys:String x:Key="errNoPatients">No patients found</sys:String>
     <sys:String x:Key="errNoSelectedDoctor">No selected doctor found</sys:String>
@@ -38,6 +39,10 @@
     <sys:String x:Key="errNoAvailableDoctors">No available doctors found</sys:String>
     <sys:String x:Key="errWrongUsernamePassword">Wrong username or password.</sys:String>
     <sys:String x:Key="errNoCancelledAppointments">No cancelled appointments found.</sys:String>
+    <sys:String x:Key="errUsername">Username can't be empty</sys:String>
+    <sys:String x:Key="errName">Name can't be empty</sys:String>
+    <sys:String x:Key="errSurname">Surname can't be empty</sys:String>
+    <sys:String x:Key="errUsernameNotUnique">This patient already has an account</sys:String>
 
     <!-- DateTime Format -->
     <sys:String x:Key="TimeFormat">HH:mm</sys:String>
@@ -60,6 +65,8 @@
     <sys:String x:Key="radioMale">Male</sys:String>
     <sys:String x:Key="radioFemale">Female</sys:String>
     <sys:String x:Key="radioOther">Other</sys:String>
+    <sys:String x:Key="radioGeneral">General</sys:String>
+    <sys:String x:Key="radioGuest">Guest</sys:String>
     <sys:String x:Key="lblPID">PID</sys:String>
     <sys:String x:Key="lblDateOfBirth">Date Of Birth</sys:String>
     <sys:String x:Key="lblCountry">Country</sys:String>
@@ -113,6 +120,10 @@
     <sys:String x:Key="lblStartDate">Start Date</sys:String>
     <sys:String x:Key="lblEndDate">End Date</sys:String>
 
+    <sys:String x:Key="lblAppointmentsNow">Appointments happening now</sys:String>
+    <sys:String x:Key="lblDoctorsNow">Doctors at work</sys:String>
+    <sys:String x:Key="lblRoomsNow">Today's appointments</sys:String>
+
     <sys:String x:Key="btnOK">OK</sys:String>
     <sys:String x:Key="btnCancel">Cancel</sys:String>
     <sys:String x:Key="btnCreate">Create</sys:String>
@@ -128,6 +139,9 @@
     <sys:String x:Key="btnAllRooms">All Rooms</sys:String>
     <sys:String x:Key="btnReschedule">Reschedule</sys:String>
     <sys:String x:Key="btnCancelAppointment">Cancel Appointment</sys:String>
+    <sys:String x:Key="btnAppFeedback">Application Feedback</sys:String>
+    <sys:String x:Key="btnDelete">Delete</sys:String>
+    <sys:String x:Key="btnTurnIn">Turn In</sys:String>
 
 
     <sys:String x:Key="seriesMale">Male</sys:String>

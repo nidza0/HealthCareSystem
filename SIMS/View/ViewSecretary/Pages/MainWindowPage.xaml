@@ -24,12 +24,12 @@
                     </Style>
                 </StackPanel.Resources>
                 <StackPanel Orientation="Vertical" Width="140" Margin="0 0 10 0">
-                    <Label x:Name="lbl_companyName" Content="{StaticResource CompanyName}" Padding="0" FontSize="16" HorizontalAlignment="Center"></Label>
-                    <Label x:Name="lbl_companyType" Content="{StaticResource CompanyType}" Padding="0" FontSize="9" HorizontalAlignment="Center"></Label>
+                    <Label x:Name="lbl_companyName" Content="{StaticResource CompanyName}" Padding="0" FontSize="20" HorizontalAlignment="Center" Foreground="{DynamicResource UiPrimaryColor}"></Label>
+                    <Label x:Name="lbl_companyType" Content="{StaticResource CompanyType}" Padding="0" FontSize="12" HorizontalAlignment="Center" Foreground="{DynamicResource UiPrimaryColor}"></Label>
                 </StackPanel>
-                <Button x:Name="btn_newappointment" Content="{StaticResource NewAppointment}" Margin="0 0 10 0" Padding="5" Click="btn_newappointment_Click"></Button>
-                <Button x:Name="btn_newpatient" Content="{StaticResource NewPatient}" Height="auto" Margin="0 0 10 0" Padding="5" Click="btn_newpatient_Click"></Button>
-                <Button x:Name="btn_report" Content="{StaticResource Report}" Height="auto" Margin="0 0 10 0" Padding="5" Visibility="Visible" Click="btn_report_Click"></Button>
+                <Button x:Name="btn_newappointment" Content="{StaticResource NewAppointment}" VerticalAlignment="Center" Margin="0 0 10 0" Padding="5" Click="btn_newappointment_Click"></Button>
+                <Button x:Name="btn_newpatient" Content="{StaticResource NewPatient}" VerticalAlignment="Center" Height="auto" Margin="0 0 10 0" Padding="5" Click="btn_newpatient_Click"></Button>
+                <Button x:Name="btn_report" Content="{StaticResource Report}" VerticalAlignment="Center" Height="auto" Margin="0 0 10 0" Padding="5" Visibility="Visible" Click="btn_report_Click"></Button>
             </StackPanel>
             <!-- DATE AND TIME PANEL -->
             <StackPanel DockPanel.Dock="Right" Orientation="Vertical" Margin="10">

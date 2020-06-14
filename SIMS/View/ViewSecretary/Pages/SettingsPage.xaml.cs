@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SIMS.View.ViewSecretary.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -64,6 +65,19 @@ namespace SIMS.View.ViewSecretary.Pages
             }
             Application.Current.Resources["UiPrimaryColor"] = primary;
             Application.Current.Resources["UiSecondaryColor"] = secondary;
+        }
+
+        private void btnFeedback_Click(object sender, RoutedEventArgs e)
+        {
+            var feedback = SecretaryAppResources.GetInstance().feedbackRepository.GetAllEager().FirstOrDefault(fb => fb.User.GetId().Equals(UserViewModel.GetInstance().LoggedInUser.GetId()));
+            if(feedback == null)
+            {
+                FrameManager.getInstance().SideFrame.Navigate(new FeedbackPage());
+            }
+            else
+            {
+                FrameManager.getInstance().SideFrame.Navigate(new FeedbackPage(feedback));
+            }
         }
     }
 }

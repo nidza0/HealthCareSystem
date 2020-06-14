@@ -58,7 +58,6 @@ namespace SIMS.View.ViewSecretary
         private readonly String therapyFile = @"..\..\Files\MedicalFiles\therapies.txt";
 
         private static SecretaryAppResources instance = null;
-        private static Secretary loggedInUser = null;
 
         public UserRepository userRepository;
         public DoctorRepository doctorRepository;
@@ -94,8 +93,6 @@ namespace SIMS.View.ViewSecretary
         public PrescriptionRepository prescriptionRepository;
         public SymptomRepository symptomRepository;
         public TherapyRepository therapyRepository;
-
-        public static Secretary LoggedInUser { get => loggedInUser; set => loggedInUser = value; }
 
         private SecretaryAppResources()
         {

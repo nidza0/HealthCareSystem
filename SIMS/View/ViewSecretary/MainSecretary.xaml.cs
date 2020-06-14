@@ -31,8 +31,23 @@ namespace SIMS.View.ViewSecretary
             //MakeTimeTables();
             //MakeDoctors();
             //MakePatients();
+            //MakeQuestion();
             MainFrame.Navigate(new LoginPage());
             //MainFrame.Navigate(new FlowDoc());
+        }
+
+        private void MakeQuestion()
+        {
+            Question q1 = new Question("In your opinion do you find this application user-firendly?");
+            Question q2 = new Question("How usable is this application?");
+            Question q3 = new Question("How satisfied are you with the appearance of the application?");
+            Question q4 = new Question("Overall rating");
+
+            SecretaryAppResources.GetInstance().questionRepository.Create(q1);
+            SecretaryAppResources.GetInstance().questionRepository.Create(q2);
+            SecretaryAppResources.GetInstance().questionRepository.Create(q3);
+            SecretaryAppResources.GetInstance().questionRepository.Create(q4);
+
         }
 
         private void MakeTimeTables()

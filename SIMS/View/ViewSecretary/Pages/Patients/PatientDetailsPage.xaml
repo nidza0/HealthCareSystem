@@ -58,7 +58,11 @@
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
                             <Label Grid.Row="0" Grid.Column="0" Content="{StaticResource lblAddress}" Style="{StaticResource LabelInfo}"></Label>
-                            <Label Grid.Row="0" Grid.Column="1" Content="{Binding Patient.Address.Street}"></Label>
+                            <StackPanel Grid.Row="0" Grid.Column="1">
+                                <Label Content="{Binding Patient.Address.Street}"></Label>
+                                <Label Content="{Binding Patient.Address.Location.City}"></Label>
+                                <Label Content="{Binding Patient.Address.Location.Country}"></Label>
+                            </StackPanel>
                             <Label Grid.Row="1" Grid.Column="0" Content="{StaticResource lblTelephone}" Style="{StaticResource LabelInfo}"></Label>
                             <Label Grid.Row="1" Grid.Column="1" Content="{Binding Patient.HomePhone}"></Label>
                             <Label Grid.Row="2" Grid.Column="0" Content="{StaticResource lblCellPhone}" Style="{StaticResource LabelInfo}"></Label>

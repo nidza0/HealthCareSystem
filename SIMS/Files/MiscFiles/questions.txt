@@ -1,1 +1,4 @@
-﻿
+﻿1~In your opinion do you find this application user-firendly?
+2~How usable is this application?
+3~How satisfied are you with the appearance of the application?
+4~Overall rating

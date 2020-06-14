@@ -66,11 +66,14 @@
                                 <RowDefinition></RowDefinition>
                                 <RowDefinition></RowDefinition>
                                 <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
                             </Grid.RowDefinitions>
 
                             <StackPanel Grid.Row="0" Grid.Column="0">
                                 <Label x:Name="lblUsername" Content="{StaticResource lblUsername}"></Label>
-                                <TextBox x:Name="textUsername" Width="auto" Margin="6" ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" VerticalContentAlignment="Center">
+                                <Label x:Name="errUsername" Content="{StaticResource errUsername}" Style="{StaticResource errorLabel}" Visibility="Collapsed"></Label>
+                                <Label x:Name="errUsernameNotUnique" Content="{StaticResource errUsernameNotUnique}" Style="{StaticResource errorLabel}" Visibility="Collapsed"></Label>
+                                <TextBox x:Name="textUsername" Text="{Binding Patient.UserName}" Width="auto" Margin="6" ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" VerticalContentAlignment="Center" GotFocus="textUsername_GotFocus">
                                     <TextBox.Style>
                                         <Style>
                                             <Style.Triggers>
@@ -85,12 +88,14 @@
 
                             <StackPanel Grid.Row="1" Grid.Column="0">
                                 <Label x:Name="lblName" Content="{StaticResource lblName}"></Label>
-                                <TextBox x:Name="textName" Width="auto" Margin="6" ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" VerticalContentAlignment="Center"></TextBox>
+                                <Label x:Name="errName" Content="{StaticResource errName}" Style="{StaticResource errorLabel}" Visibility="Collapsed"></Label>
+                                <TextBox x:Name="textName" Text="{Binding Patient.Name}" Width="auto" Margin="6" ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" VerticalContentAlignment="Center" GotFocus="textName_GotFocus"></TextBox>
                             </StackPanel>
 
                             <StackPanel Grid.Row="2" Grid.Column="0">
                                 <Label x:Name="lblSurname" Content="{StaticResource lblSurname}"></Label>
-                                <TextBox x:Name="textSurname" Width="auto" Margin="6" ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" VerticalContentAlignment="Center"></TextBox>
+                                <Label x:Name="errSurname" Content="{StaticResource errSurname}" Style="{StaticResource errorLabel}" Visibility="Collapsed"></Label>
+                                <TextBox x:Name="textSurname" Text="{Binding Patient.Surname}" Width="auto" Margin="6" ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" VerticalContentAlignment="Center" GotFocus="textSurname_GotFocus"></TextBox>
                             </StackPanel>
                         </Grid>
                     </StackPanel>
@@ -111,22 +116,22 @@
 
                             <StackPanel Grid.Row="0" Grid.Column="0">
                                 <Label x:Name="lblEmergencyName" Content="{StaticResource lblEmergencyName}"></Label>
-                                <TextBox x:Name="textEmergencyName" Width="auto" Margin="6" ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" VerticalContentAlignment="Center"></TextBox>
+                                <TextBox x:Name="textEmergencyName" Text="{Binding Patient.EmergencyContact.Name}" Width="auto" Margin="6" ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" VerticalContentAlignment="Center"></TextBox>
                             </StackPanel>
 
                             <StackPanel Grid.Row="1" Grid.Column="0">
                                 <Label x:Name="lblEmergencySurname" Content="{StaticResource lblEmergencySurname}"></Label>
-                                <TextBox x:Name="textEmergencySurname" Width="auto" Margin="6" ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" VerticalContentAlignment="Center"></TextBox>
+                                <TextBox x:Name="textEmergencySurname" Text="{Binding Patient.EmergencyContact.Surname}" Width="auto" Margin="6" ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" VerticalContentAlignment="Center"></TextBox>
                             </StackPanel>
 
                             <StackPanel Grid.Row="2" Grid.Column="0">
                                 <Label x:Name="lblEmergencyTelephone" Content="{StaticResource lblEmergencyTelephone}"></Label>
-                                <TextBox x:Name="textEmergencyTelephone" Width="auto" Margin="6" ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" VerticalContentAlignment="Center"></TextBox>
+                                <TextBox x:Name="textEmergencyTelephone" Text="{Binding Patient.EmergencyContact.PhoneNumber}" Width="auto" Margin="6" ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" VerticalContentAlignment="Center"></TextBox>
                             </StackPanel>
 
                             <StackPanel Grid.Row="3" Grid.Column="0">
                                 <Label x:Name="lblEmergencyEmail" Content="{StaticResource lblEmergencyEmail}"></Label>
-                                <TextBox x:Name="textEmergencyEmail" Width="auto" Margin="6" ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" VerticalContentAlignment="Center"></TextBox>
+                                <TextBox x:Name="textEmergencyEmail" Text="{Binding Patient.EmergencyContact.Email}" Width="auto" Margin="6" ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" VerticalContentAlignment="Center"></TextBox>
                             </StackPanel>
                         </Grid>
                     </StackPanel>
@@ -153,63 +158,63 @@
 
                             <StackPanel Grid.Row="0" Grid.Column="0">
                                 <Label x:Name="lblMiddleName" Content="{StaticResource lblMiddleName}"></Label>
-                                <TextBox x:Name="textMiddleName" Width="auto" Margin="6" ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" VerticalContentAlignment="Center"></TextBox>
+                                <TextBox x:Name="textMiddleName" Text="{Binding Patient.MiddleName}" Width="auto" Margin="6" ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" VerticalContentAlignment="Center"></TextBox>
                             </StackPanel>
 
                             <StackPanel Grid.Row="1" Grid.Column="0">
                                 <Label x:Name="lblGender" Content="{StaticResource lblGender}"></Label>
                                 <StackPanel Orientation="Horizontal" Margin="6" VerticalAlignment="Center">
-                                    <RadioButton x:Name="radioMale" Content="{StaticResource radioMale}" GroupName="radioGender" Margin="0 0 10 0"></RadioButton>
-                                    <RadioButton x:Name="radioFemale" Content="{StaticResource radioFemale}" GroupName="radioGender" Margin="0 0 10 0"></RadioButton>
-                                    <RadioButton x:Name="radioOther" Content="{StaticResource radioOther}" GroupName="radioGender"></RadioButton>
+                                    <RadioButton x:Name="radioMale" Content="{StaticResource radioMale}" GroupName="radioGender" Margin="0 0 10 0" Checked="radioMale_Checked"></RadioButton>
+                                    <RadioButton x:Name="radioFemale" Content="{StaticResource radioFemale}" GroupName="radioGender" Margin="0 0 10 0" Checked="radioFemale_Checked"></RadioButton>
+                                    <RadioButton x:Name="radioOther" Content="{StaticResource radioOther}" GroupName="radioGender" Checked="radioOther_Checked"></RadioButton>
                                 </StackPanel>
                             </StackPanel>
 
                             <StackPanel Grid.Row="2" Grid.Column="0">
                                 <Label x:Name="lblPID" Content="{StaticResource lblPID}"></Label>
-                                <TextBox x:Name="textPID" Width="auto" Margin="6" ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" VerticalContentAlignment="Center"></TextBox>
+                                <TextBox x:Name="textPID" Text="{Binding Patient.Uidn}" Width="auto" Margin="6" ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" VerticalContentAlignment="Center"></TextBox>
                             </StackPanel>
 
                             <StackPanel Grid.Row="3" Grid.Column="0">
                                 <Label x:Name="lblDateOfBirth" Content="{StaticResource lblDateOfBirth}"></Label>
-                                <DatePicker x:Name="textDateOfBirth" Width="auto" Margin="6"></DatePicker>
+                                <DatePicker x:Name="textDateOfBirth" SelectedDate="{Binding Patient.DateOfBirth}" Width="auto" Margin="6"></DatePicker>
                             </StackPanel>
 
                             <StackPanel Grid.Row="4" Grid.Column="0">
                                 <Label x:Name="lblCountry" Content="{StaticResource lblCountry}"></Label>
-                                <ComboBox x:Name="textCountry" ItemsSource="{StaticResource countries}" IsEditable="True" Width="auto" Margin="6" VerticalContentAlignment="Center"></ComboBox>
+                                <ComboBox x:Name="textCountry" ItemsSource="{Binding Countries}" SelectedItem="{Binding SelectedCountry, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsEditable="True" Width="auto" Margin="6" VerticalContentAlignment="Center" SelectionChanged="textCountry_SelectionChanged"></ComboBox>
                             </StackPanel>
 
                             <StackPanel Grid.Row="5" Grid.Column="0">
                                 <Label x:Name="lblCity" Content="{StaticResource lblCity}"></Label>
-                                <ComboBox x:Name="textCity" ItemsSource="{StaticResource cities}" IsEditable="True" Width="auto" Margin="6" VerticalContentAlignment="Center"></ComboBox>
+                                <ComboBox x:Name="textCity" ItemsSource="{Binding Locations}" SelectedItem="{Binding SelectedLocation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="City" IsEditable="True" Width="auto" Margin="6" VerticalContentAlignment="Center"></ComboBox>
                             </StackPanel>
 
                             <StackPanel Grid.Row="6" Grid.Column="0">
                                 <Label x:Name="lblAddress" Content="{StaticResource lblAddress}"></Label>
-                                <TextBox x:Name="textAddress" Width="auto" Margin="6" ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" VerticalContentAlignment="Center"></TextBox>
+                                <TextBox x:Name="textAddress" Text="{Binding Patient.Address.Street}" Width="auto" Margin="6" ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" VerticalContentAlignment="Center"></TextBox>
                             </StackPanel>
 
                             <StackPanel Grid.Row="7" Grid.Column="0">
                                 <Label x:Name="lblTelephone" Content="{StaticResource lblTelephone}"></Label>
-                                <TextBox x:Name="textTelephone" Width="auto" Margin="6" ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" VerticalContentAlignment="Center"></TextBox>
+                                <TextBox x:Name="textTelephone" Text="{Binding Patient.HomePhone}" Width="auto" Margin="6" ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" VerticalContentAlignment="Center"></TextBox>
                             </StackPanel>
 
                             <StackPanel Grid.Row="8" Grid.Column="0">
                                 <Label x:Name="lblCellPhone" Content="{StaticResource lblCellPhone}"></Label>
-                                <TextBox x:Name="textCellphone" Width="auto" Margin="6" ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" VerticalContentAlignment="Center"></TextBox>
+                                <TextBox x:Name="textCellphone" Text="{Binding Patient.CellPhone}" Width="auto" Margin="6" ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" VerticalContentAlignment="Center"></TextBox>
                             </StackPanel>
                             
                             <StackPanel Grid.Row="9" Grid.Column="0">
                                 <Label x:Name="lblEmail" Content="{StaticResource lblEmail}"></Label>
-                                <TextBox x:Name="textEmail" Width="auto" Margin="6" ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" VerticalContentAlignment="Center"></TextBox>
+                                <TextBox x:Name="textEmail" Text="{Binding Patient.Email1}" Width="auto" Margin="6" ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" VerticalContentAlignment="Center"></TextBox>
                             </StackPanel>
                         </Grid>
                     </StackPanel>
                 </Grid>
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 10 0 0">
-                    <Button Content="{StaticResource btnOK}" Style="{StaticResource StyleOKButton}" Margin="0 0 10 0" HorizontalAlignment="Center"></Button>
+                    <Button x:Name="btnNewPatient" Content="{StaticResource btnOK}" Style="{StaticResource StyleOKButton}" Margin="0 0 10 0" HorizontalAlignment="Center" Click="btnNewPatient_Click"></Button>
                     <Button Content="{StaticResource btnCancel}" Style="{StaticResource StyleOrdinaryButton}" Click="Button_Click" HorizontalAlignment="Center"></Button>
                 </StackPanel>
             </StackPanel>

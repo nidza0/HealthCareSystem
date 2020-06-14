@@ -18,7 +18,17 @@
 
         <StackPanel Width="200" Margin="20">
             <Label x:Name="lblUsername" Content="{StaticResource lblUsername}"></Label>
-            <TextBox x:Name="txtUsername" Height="22" VerticalContentAlignment="Center"></TextBox>
+            <TextBox x:Name="txtUsername" Height="22" VerticalContentAlignment="Center">
+                <TextBox.Style>
+                    <Style>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=txtUsername, Path=IsVisible}" Value="True">
+                                <Setter Property="FocusManager.FocusedElement" Value="{Binding ElementName=txtUsername}"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
             <Label x:Name="lblPassword" Content="{StaticResource lblPassword}"></Label>
             <PasswordBox x:Name="passwordBox" Height="22" VerticalContentAlignment="Center"></PasswordBox>
         </StackPanel>

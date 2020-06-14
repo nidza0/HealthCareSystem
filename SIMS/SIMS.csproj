@@ -295,6 +295,9 @@
     <Compile Include="View\ViewSecretary\Pages\Doctors\DoctorsPage.xaml.cs">
       <DependentUpon>DoctorsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\ViewSecretary\Pages\FeedbackPage.xaml.cs">
+      <DependentUpon>FeedbackPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\ViewSecretary\Pages\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
@@ -325,12 +328,16 @@
     <Compile Include="View\ViewSecretary\Pages\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\ViewSecretary\RatingUserControl.xaml.cs">
+      <DependentUpon>RatingUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\ViewSecretary\SecretaryAppResources.cs" />
     <Compile Include="View\ViewSecretary\ViewModel\AppointmentsViewModel.cs" />
     <Compile Include="View\ViewSecretary\ViewModel\AppointmentViewModel.cs" />
     <Compile Include="View\ViewSecretary\ViewModel\ChartData.cs" />
     <Compile Include="View\ViewSecretary\ViewModel\DoctorsViewModel.cs" />
     <Compile Include="View\ViewSecretary\ViewModel\DoctorViewModel.cs" />
+    <Compile Include="View\ViewSecretary\ViewModel\LocationViewModel.cs" />
     <Compile Include="View\ViewSecretary\ViewModel\PatientsViewModel.cs" />
     <Compile Include="View\ViewSecretary\ViewModel\PatientViewModel.cs" />
     <Compile Include="View\ViewSecretary\ViewModel\RoomsViewModel.cs" />
@@ -396,6 +403,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\ViewSecretary\Pages\FeedbackPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\ViewSecretary\Pages\HomePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -433,6 +444,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\ViewSecretary\Pages\SettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewSecretary\RatingUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

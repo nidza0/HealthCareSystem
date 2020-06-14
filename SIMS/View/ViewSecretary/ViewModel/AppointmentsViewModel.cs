@@ -23,6 +23,13 @@ namespace SIMS.View.ViewSecretary.ViewModel
         public ObservableCollection<Appointment> Appointments { get => appointments; set => appointments = value; }
         public ObservableCollection<Room> Rooms { get => rooms; set => rooms = value; }
 
+        internal void LoadCurrentAppointments()
+        {
+            var appointments = SecretaryAppResources.GetInstance().appointmentRepository.GetAppointmentsByTime(new TimeInterval(DateTime.Now, DateTime.Now.AddMinutes(2))).Where(ap => !ap.Canceled);
+            Appointments.Clear();
+            appointments.ToList().ForEach(Appointments.Add);
+        }
+
         public AppointmentsViewModel()
         {
             LoadRooms();

@@ -50,7 +50,7 @@ namespace SIMS.View.ViewSecretary.Pages.Patients
 
         private void btnEditPatient_Click(object sender, RoutedEventArgs e)
         {
-            //TODO: Open edit patient frame
+            FrameManager.getInstance().CentralFrame.Navigate(new NewPatientPage(patientVM));
         }
 
         public void Refresh()

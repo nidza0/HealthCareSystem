@@ -1,5 +1,7 @@
 ﻿using SIMS.Model.DoctorModel;
+using SIMS.Model.PatientModel;
 using SIMS.Model.UserModel;
+using SIMS.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +16,7 @@ namespace SIMS.View.ViewSecretary.ViewModel
         private Dictionary<string, int> maleChart = new Dictionary<string, int>();
         private Dictionary<string, int> femaleChart = new Dictionary<string, int>();
         private Dictionary<string, int> otherChart = new Dictionary<string, int>();
+        private Dictionary<string, double> roomChart = new Dictionary<string, double>();
 
         public ChartData()
         {
@@ -24,6 +27,7 @@ namespace SIMS.View.ViewSecretary.ViewModel
         public Dictionary<string, int> MaleChart { get => maleChart; set => maleChart = value; }
         public Dictionary<string, int> FemaleChart { get => femaleChart; set => femaleChart = value; }
         public Dictionary<string, int> OtherChart { get => otherChart; set => otherChart = value; }
+        public Dictionary<string, double> RoomChart { get => roomChart; set => roomChart = value; }
 
         public void LoadDoctorChart()
         {
@@ -100,6 +104,36 @@ namespace SIMS.View.ViewSecretary.ViewModel
                 return "61-80";
             else
                 return "over 80";
+        }
+
+        public void LoadRoomChart()
+        {
+            DateTime today = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+            DateTime tomorrow = today.AddDays(1);
+            TimeInterval time = new TimeInterval(today, tomorrow);
+            var appointments = SecretaryAppResources.GetInstance().appointmentRepository.GetAppointmentsByTime(time).Where(ap => !ap.Canceled);
+
+            Dictionary<string, TimeSpan> appointmentDuration = new Dictionary<string, TimeSpan>();
+            TimeSpan total = TimeSpan.Zero;
+            foreach(Appointment a in appointments)
+            {
+                TimeSpan roomSpan = a.TimeInterval.StartTime - a.TimeInterval.EndTime;
+                total += roomSpan;
+
+                if (appointmentDuration.ContainsKey(a.Room.RoomNumber))
+                    appointmentDuration[a.Room.RoomNumber] += roomSpan;
+                else
+                    appointmentDuration.Add(a.Room.RoomNumber, roomSpan);
+            }
+
+            if (total.TotalMinutes == 0)
+                return;
+
+            foreach(string roomNumber in appointmentDuration.Keys)
+            {
+                TimeSpan roomSpan = appointmentDuration[roomNumber];
+                roomChart.Add(roomNumber, 100 * roomSpan.TotalMinutes / total.TotalMinutes);
+            }
         }
 
     }

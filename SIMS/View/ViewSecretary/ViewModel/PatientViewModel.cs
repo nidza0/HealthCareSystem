@@ -7,11 +7,16 @@ using System.Threading.Tasks;
 
 namespace SIMS.View.ViewSecretary.ViewModel
 {
-    class PatientViewModel
+    public class PatientViewModel
     {
         private Patient patient;
 
         public Patient Patient { get => patient; set => patient = value; }
+
+        public PatientViewModel()
+        {
+            patient = new Patient("", "", "", "", "", Sex.MALE, DateTime.Now, "", new Address("", null), "", "", "", "", new EmergencyContact(), PatientType.GUEST, null);
+        }
 
         public PatientViewModel(Patient p)
         {

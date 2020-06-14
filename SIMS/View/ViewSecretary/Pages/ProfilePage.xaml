@@ -9,10 +9,7 @@
       Title="ProfilePage">
 
     <DockPanel>
-        <DockPanel DockPanel.Dock="Top" Style="{StaticResource PanelHeader}">
-            <Label DockPanel.Dock="Left" Content="{StaticResource MyProfile}" Foreground="{DynamicResource FontLightColor}" Height="auto" Width="auto"></Label>
-            <Button x:Name="btnClose" DockPanel.Dock="Right" Content="X" Width="29" HorizontalAlignment="Right" Style="{StaticResource HeaderCloseButton}" VerticalContentAlignment="Center" Click="btnClose_Click"></Button>
-        </DockPanel>
+        <Label DockPanel.Dock="Top" Content="{StaticResource MyProfile}" Background="{DynamicResource UiPrimaryColor}" Foreground="{DynamicResource FontLightColor}" HorizontalContentAlignment="Center" BorderBrush="{DynamicResource UiPrimaryColor}" BorderThickness="0 0 0 2" Height="auto" Width="auto"></Label>
 
         <DockPanel DockPanel.Dock="Bottom">
             <DockPanel DockPanel.Dock="Top">

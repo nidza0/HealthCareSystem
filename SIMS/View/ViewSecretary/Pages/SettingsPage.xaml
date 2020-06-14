@@ -8,7 +8,7 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="SettingsPage">
 
-    <Grid Margin="6">
+    <StackPanel Margin="6">
         <StackPanel Orientation="Horizontal">
             <Label Content="Color:"></Label>
             <RadioButton x:Name="radioBlue" GroupName="color" Checked="color_Checked">
@@ -21,5 +21,6 @@
                 <StackPanel Width="20" Height="20" Background="Brown"></StackPanel>
             </RadioButton>
         </StackPanel>
-    </Grid>
+        <Button x:Name="btnFeedback" Content="{StaticResource btnAppFeedback}" HorizontalAlignment="Left" Style="{StaticResource StyleOKButton}" Click="btnFeedback_Click"></Button>
+    </StackPanel>
 </Page>

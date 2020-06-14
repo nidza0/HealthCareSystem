@@ -48,17 +48,17 @@ namespace SIMS.Model.UserModel
             _email2 = email2;
         }
 
-        public string Uidn { get => _uidn; }
-        public string Name { get => _name; }
-        public string Surname { get => _surname; }
-        public string MiddleName { get => _middleName; }
-        public DateTime DateOfBirth { get => _dateOfBirth; }
-        public string HomePhone { get => _homePhone; }
+        public string Uidn { get => _uidn; set => _uidn = value; }
+        public string Name { get => _name; set => _name = value; }
+        public string Surname { get => _surname; set => _surname = value; }
+        public string MiddleName { get => _middleName; set => _middleName = value; }
+        public DateTime DateOfBirth { get => _dateOfBirth; set => _dateOfBirth = value; }
+        public string HomePhone { get => _homePhone; set => _homePhone = value; }
         public string CellPhone { get => _cellPhone; set => _cellPhone = value; }
-        public string Email1 { get => _email1; }
-        public string Email2 { get => _email2; }
+        public string Email1 { get => _email1; set => _email1 = value; }
+        public string Email2 { get => _email2; set => _email2 = value; }
         public Address Address { get => _address; set => _address = value; }
-        public Sex Sex { get => _sex; }
+        public Sex Sex { get => _sex; set => _sex = value; }
         public string FullName
         {
             get

@@ -128,13 +128,13 @@
                             <Label x:Name="lblCancelled" Content="{StaticResource lblCancelled}" Visibility="Collapsed"></Label>
                         </StackPanel>
                     </Grid>
+                    <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
+                        <Button x:Name="btnReschedule" Content="{StaticResource btnReschedule}" HorizontalAlignment="Center" Margin="0 0 10 0" Style="{StaticResource StyleOKButton}" Click="btnReschedule_Click"></Button>
+                        <Button x:Name="btnCancel" Content="{StaticResource btnCancelAppointment}" HorizontalAlignment="Center" Style="{StaticResource StyleOKButton}" Click="btnCancel_Click"></Button>
+                    </StackPanel>
                 </StackPanel>
             </ScrollViewer>
 
-            <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Button x:Name="btnReschedule" Content="{StaticResource btnReschedule}" HorizontalAlignment="Center" Margin="0 0 10 0" Style="{StaticResource StyleOKButton}" Click="btnReschedule_Click"></Button>
-                <Button x:Name="btnCancel" Content="{StaticResource btnCancelAppointment}" HorizontalAlignment="Center" Style="{StaticResource StyleOKButton}" Click="btnCancel_Click"></Button>
-            </StackPanel>
         </DockPanel>
     </DockPanel>
 </Page>
