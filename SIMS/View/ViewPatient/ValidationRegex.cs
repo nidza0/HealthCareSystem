@@ -30,7 +30,7 @@ namespace SIMS.View.ViewPatient
 
         public static string GetNameRegex()
         {
-            return @"\b[A-Z a-z\.]{4,}\b";
+            return @"\b[A-Z a-z\.]{3,}\b";
             //return @"[A-Za-z]+[\s][A-Za-z]+[.][A-Za-z]+";
         }
 

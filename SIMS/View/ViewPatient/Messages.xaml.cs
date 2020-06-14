@@ -26,6 +26,8 @@ namespace SIMS.View.ViewPatient
     {
         public ObservableCollection<Message> myMessages = new ObservableCollection<Message>();
         private ObservableCollection<User> distinctConversationist;
+        private User selected;
+
 
         public Messages()
         {
@@ -64,19 +66,26 @@ namespace SIMS.View.ViewPatient
            
         }
 
-      
 
-        private ObservableCollection<User> DistinctConversationist
+        public ObservableCollection<User> DistinctConversationist
         {
             get
             {
                 IEnumerable<User> recepients = myMessages.Select(message => message.Recipient).Distinct();
                 IEnumerable<User> senders = myMessages.Select(message => message.Sender).Distinct();
+                Console.WriteLine(((recepients.Concat(senders)).Distinct().ToList()).Count);
                 return new ObservableCollection<User>((recepients.Concat(senders)).Distinct());
+            }
+
+            set
+            {
+                distinctConversationist = value;
             }
 
         }
 
-
+        public User Selected {
+            get => selected; set => selected = value;
+        }
     }
 }

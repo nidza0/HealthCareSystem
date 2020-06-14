@@ -98,7 +98,7 @@ namespace SIMS.View.ViewPatient.RepoSimulator
         {
             myAppointments = new List<Appointment>();
 
-            TimeInterval timeInterval = new TimeInterval(new DateTime(2020, 10, 6, 8, 0, 0), new DateTime(2020, 10, 6, 16, 0, 0));
+            TimeInterval timeInterval = new TimeInterval(new DateTime(2020, 6, 17, 8, 0, 0), new DateTime(2020, 6, 17, 16, 0, 0));
             Dictionary<WorkingDaysEnum, TimeInterval> dict = new Dictionary<WorkingDaysEnum, TimeInterval>();
             dict.Add(WorkingDaysEnum.MONDAY, timeInterval);
             dict.Add(WorkingDaysEnum.TUESDAY, timeInterval);

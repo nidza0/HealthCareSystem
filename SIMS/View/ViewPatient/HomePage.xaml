@@ -138,6 +138,16 @@
                         </Button.ToolTip>
                         My profile
                     </Button>
+
+                    <Button Width="130"  Click ="TutorialButton_Click" x:Name="tutorialButton" Margin="5">
+                        <Button.ToolTip>
+                            <ToolTip>
+                                Click here to see tutorials
+                            </ToolTip>
+                        </Button.ToolTip>
+                        Need help?
+                    </Button>
+
                     <Button Width="130"  Click = "ExitButton_Closing" Margin="5">
                         <Button.ToolTip>
                             <ToolTip>

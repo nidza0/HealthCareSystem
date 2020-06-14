@@ -136,9 +136,9 @@
                         <DockPanel DockPanel.Dock="Left">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
                                 <Label Style="{StaticResource searchFieldLabel}" Content="First name: "/>
-                                <TextBox x:Name="first_name_textbox" Width="80"/>
+                                <TextBox x:Name="first_name_textbox" TextChanged="First_name_textbox_TextChanged" Width="80"/>
                                 <Label Style="{StaticResource searchFieldLabel}" Content="Last name: "/>
-                                <TextBox x:Name="last_name_textbox" Width="80"/>
+                                <TextBox x:Name="last_name_textbox" Width="80" TextChanged="Last_name_textbox_TextChanged"/>
                                 <Label Style="{StaticResource searchFieldLabel}" Content="Hospital: "/>
                                 <ComboBox Width="80" x:Name="hospital_combobox" ItemsSource="{Binding Path=Hospitals}" DisplayMemberPath="Name" SelectedItem="{Binding Path=ChosenHospital}"></ComboBox>
                             </StackPanel>

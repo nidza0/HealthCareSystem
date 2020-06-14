@@ -261,6 +261,10 @@
     <Compile Include="View\ViewPatient\TherapyOverview.xaml.cs">
       <DependentUpon>TherapyOverview.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\ViewPatient\tutorial\TutorialEnum.cs" />
+    <Compile Include="View\ViewPatient\tutorial\tutorialPreview.xaml.cs">
+      <DependentUpon>tutorialPreview.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\ViewPatient\ValidationRegex.cs" />
     <Compile Include="View\ViewPatient\VideoTutorial.xaml.cs">
       <DependentUpon>VideoTutorial.xaml</DependentUpon>
@@ -339,6 +343,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\ViewPatient\TherapyOverview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewPatient\tutorial\tutorialPreview.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -427,6 +435,28 @@
   <ItemGroup>
     <Resource Include="View\ViewPatient\static\images\test_image.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="View\ViewPatient\tutorial\videos\exportAppointments.avi">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="View\ViewPatient\tutorial\videos\makeAnAppointment.avi">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="View\ViewPatient\tutorial\videos\myAppointments.avi">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="View\ViewPatient\tutorial\videos\myDiagnosis.avi">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="View\ViewPatient\tutorial\videos\myProfile.avi">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="View\ViewPatient\tutorial\videos\myTherapies.avi">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="View\ViewPatient\tutorial\videos\register.avi">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

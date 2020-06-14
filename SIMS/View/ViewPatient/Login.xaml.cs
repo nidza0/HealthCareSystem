@@ -139,5 +139,11 @@ namespace SIMS.View.ViewPatient
             Registration registration = new Registration();
             registration.ShowDialog();
         }
+
+        private void Hyperlink_Click(object sender, RoutedEventArgs e)
+        {
+            VideoTutorial videoTutorial = new VideoTutorial();
+            videoTutorial.Show();
+        }
     }
 }

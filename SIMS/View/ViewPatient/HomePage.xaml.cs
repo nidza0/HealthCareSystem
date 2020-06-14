@@ -179,5 +179,11 @@ namespace SIMS.View.ViewPatient
             TherapyOverview therapyOverview = new TherapyOverview();
             therapyOverview.ShowDialog();
         }
+
+        private void TutorialButton_Click(object sender, RoutedEventArgs e)
+        {
+            VideoTutorial videoTutorial = new VideoTutorial();
+            videoTutorial.Show();
+        }
     }
 }

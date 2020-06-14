@@ -18,6 +18,7 @@ using System.ComponentModel;
 using SIMS.Util;
 
 using SIMS.View.ViewPatient.RepoSimulator;
+using System.Text.RegularExpressions;
 
 namespace SIMS.View.ViewPatient
 {
@@ -34,12 +35,37 @@ namespace SIMS.View.ViewPatient
 
         private UserRepo userRepo;
 
+
+        private ValidationRegex validationRegex;
+        private bool firstNameValid = true;
+        private bool lastNameValid = true;
+        private Brush defaultBorderColor;
+
         public MakeAnAppointment()
         {
             this.userRepo = UserRepo.Instance;
             this.DataContext = this;
             InitializeComponent();
             RecentChecked(this, null); //Refreshes list.
+            defaultBorderColor = first_name_textbox.BorderBrush;
+            validationRegex = new ValidationRegex();
+
+        }
+
+        private void verifyForm()
+        {
+            if (filterButton != null)
+            {
+                if (formValid())
+                    filterButton.IsEnabled = true;
+                else
+                    filterButton.IsEnabled = false;
+            }
+        }
+
+        private bool formValid()
+        {
+            return firstNameValid && lastNameValid;
 
         }
 
@@ -243,7 +269,11 @@ namespace SIMS.View.ViewPatient
         {
             first_name_textbox.Text = "";
             last_name_textbox.Text = "";
-            hospital_combobox.SelectedIndex = 0;
+            firstNameValid = true;
+            lastNameValid = true;
+            hospital_combobox.SelectedIndex = -1;
+
+            verifyForm();
 
         }
 
@@ -282,6 +312,42 @@ namespace SIMS.View.ViewPatient
             bookAnAppointment.Width = bookAnAppointment.Owner.Width - 50;
             bookAnAppointment.Height = bookAnAppointment.Owner.Height - 30;
             bookAnAppointment.ShowDialog();
+        }
+
+        private void First_name_textbox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var match = Regex.Match(first_name_textbox.Text, ValidationRegex.GetNameRegex());
+
+            if (match.Success || first_name_textbox.Text == "")
+            {
+
+                firstNameValid = true;
+                first_name_textbox.BorderBrush = defaultBorderColor;
+            }
+            else
+            {
+                firstNameValid = false;
+                first_name_textbox.BorderBrush = Brushes.Red;
+            }
+            verifyForm();
+        }
+
+        private void Last_name_textbox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var match = Regex.Match(last_name_textbox.Text, ValidationRegex.GetNameRegex());
+
+            if (match.Success || last_name_textbox.Text == "")
+            {
+
+                lastNameValid = true;
+                last_name_textbox.BorderBrush = defaultBorderColor;
+            }
+            else
+            {
+                lastNameValid = false;
+                last_name_textbox.BorderBrush = Brushes.Red;
+            }
+            verifyForm();
         }
     }
 }

@@ -139,6 +139,9 @@ namespace SIMS.View.ViewPatient
             countryComboBox.SelectedIndex = 0;
             countryOfOriginComboBox.SelectedIndex = 0;
             defaultBorderColor = firstNameTextBox.BorderBrush;
+
+
+            dateOfBirthDatePicker.SelectedDate = new DateTime(1980, 1, 1);
         }
 
         public string FirstName { get => firstName; set => firstName = value; }

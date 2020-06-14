@@ -341,7 +341,7 @@
                         <Separator Grid.Row="3" Background="Silver"/>
 
                         <ListBox Grid.Row="4" Width="{Binding RelativeSource={RelativeSource FindAncestor, 
-    AncestorType={x:Type Border}},Path=Width}"  Style="{StaticResource conversationListBoxStyle}"  VerticalAlignment="Top" ItemsSource="{Binding Path=DistinctConversationist}" x:Name="distinctConvListBox" BorderThickness="0" ItemContainerStyle="{DynamicResource _ListBoxItemStyle}">
+    AncestorType={x:Type Border}},Path=Width}"  Style="{StaticResource conversationListBoxStyle}"  VerticalAlignment="Top" ItemsSource="{Binding Path=DistinctConversationist,Mode=TwoWay}" x:Name="distinctConvListBox" BorderThickness="0" ItemContainerStyle="{DynamicResource _ListBoxItemStyle}">
                             <ListBox.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <StackPanel Orientation="Vertical"/>

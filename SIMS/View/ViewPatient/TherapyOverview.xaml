@@ -31,7 +31,7 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <Expander IsExpanded="False">
+                    <Expander IsExpanded="True">
                         <Expander.ToolTip>
                             <ToolTip>
                                 Click here to open filter
