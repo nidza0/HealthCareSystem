@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SIMS.Model.UserModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,7 +22,7 @@ namespace SIMS.View.ViewDoctor.PatientList
     public partial class ListaPacijenata : Page
     {
 
-        //private List<Model.Patient> data = new List<Model.Patient>();
+        private List<Patient> data = new List<Patient>();
 
         public ListaPacijenata()
         {
@@ -31,10 +32,8 @@ namespace SIMS.View.ViewDoctor.PatientList
 
         private void fillList()
         {
-            /*DummyPatientList dpl = new DummyPatientList();
-            data = dpl.generateListOfPatients();
+            data = AppResources.getInstance().patientRepository.GetPatientByDoctor(AppResources.getLoggedInUser()).ToList();
             PacijentiSpisak.ItemsSource = data;
-            */
         }
 
         private void Back_Button_Click(object sender, RoutedEventArgs e)
@@ -49,17 +48,17 @@ namespace SIMS.View.ViewDoctor.PatientList
 
         private void filterResults()
         {
-            /*
+            
             if (UnosZaSearch.Text != string.Empty)
                 PacijentiSpisak.ItemsSource = data.Where(patient => patient.Name.Trim().ToLower().StartsWith(UnosZaSearch.Text.ToLower().Trim()));
             else
                 resetDataGrid();
-                */
+                
         }
 
         private void resetDataGrid()
         {
-            //PacijentiSpisak.ItemsSource = data;
+            PacijentiSpisak.ItemsSource = data;
         }
 
 
@@ -71,7 +70,7 @@ namespace SIMS.View.ViewDoctor.PatientList
 
         private void PacijentiSpisak_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
         {
-            SelektovaniPacijent next = new SelektovaniPacijent();
+            SelektovaniPacijent next = new SelektovaniPacijent((Patient) PacijentiSpisak.SelectedItem);
 
             NavigationService.Navigate(next);
         }
@@ -86,9 +85,14 @@ namespace SIMS.View.ViewDoctor.PatientList
 
         private void PacijentiSpisak_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            SelektovaniPacijent next = new SelektovaniPacijent();
+            SelektovaniPacijent next = new SelektovaniPacijent((Patient)PacijentiSpisak.SelectedItem);
 
             NavigationService.Navigate(next);
+        }
+
+        private void UnosZaSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            filterResults();
         }
     }
 }

@@ -29,5 +29,35 @@ namespace SIMS.View.ViewDoctor.Help
         {
             NavigationService.GoBack();
         }
+
+        private void PreglediBtn_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new PreglediHelp());
+        }
+
+        private void PatientBtn_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new PacijentiHelp());
+        }
+
+        private void DiagnosisBtn_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new ListaDijagnozaHelp());
+        }
+
+        private void KalendarBtn_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new KalendarHelp());
+        }
+
+        private void ValidationBtn_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new ValidacijaLekovaHelp());
+        }
+
+        private void SettingsBtn_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new PodesavanjaHelp());
+        }
     }
 }

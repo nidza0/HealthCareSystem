@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SIMS.Model.UserModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,8 +21,10 @@ namespace SIMS.View.ViewDoctor.Functions
     /// </summary>
     public partial class UputZaSpecijalisticko : Page
     {
-        public UputZaSpecijalisticko()
+        Patient patient;
+        public UputZaSpecijalisticko(Patient selected)
         {
+            patient = selected;
             InitializeComponent();
         }
 

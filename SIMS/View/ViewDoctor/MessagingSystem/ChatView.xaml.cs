@@ -1,0 +1,40 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+
+namespace SIMS.View.ViewDoctor.MessagingSystem
+{
+    /// <summary>
+    /// Interaction logic for ChatView.xaml
+    /// </summary>
+    public partial class ChatView : UserControl
+    {
+        public ChatView(int width, string name, string surname)
+        {
+            this.Width = width;
+            InitializeComponent();
+        }
+
+        private void select()
+        {
+            if(isSelected.Visibility == Visibility.Visible)
+            {
+                isSelected.Visibility = Visibility.Hidden;
+            } else
+            {
+                isSelected.Visibility = Visibility.Visible;
+            }
+        }
+    }
+}

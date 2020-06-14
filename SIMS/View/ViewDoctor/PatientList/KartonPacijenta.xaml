@@ -1,0 +1,92 @@
+﻿<Page x:Class="SIMS.View.ViewDoctor.PatientList.KartonPacijenta"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SIMS.View.ViewDoctor.PatientList"
+      mc:Ignorable="d" 
+      d:DesignHeight="768" d:DesignWidth="1024"
+      Title="KartonPacijenta">
+
+    <Page.Resources>
+        <SolidColorBrush x:Key="BackgroundColor" Color="White" />
+        <SolidColorBrush x:Key="PrimaryColor" Color="DarkOliveGreen" />
+        <SolidColorBrush x:Key="SecondaryColor" Color="#FF494949"/>
+    </Page.Resources>
+
+    <Border Background="{StaticResource  ResourceKey=BackgroundColor}">
+        <Grid MouseLeftButtonDown="Grid_MouseLeftButtonDown" MouseMove="Grid_MouseMove">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="90"/>
+                <RowDefinition Height="0.2*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="35.878"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.1*" />
+
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="0.1*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Karton pacijenta - Ime Prezime"  TextAlignment="Center" Grid.ColumnSpan="5" Grid.Row="0"
+                       Height="192" VerticalAlignment="Center" Padding="66" FontFamily="Helvetica"
+                       FontSize="48" Foreground="{StaticResource ResourceKey=BackgroundColor}" 
+                       Background="{StaticResource ResourceKey=PrimaryColor}" />
+
+            <Button x:Name="Back" Click="Back_Click" Background="{StaticResource PrimaryColor}">
+                
+            </Button>
+
+
+            <!-- Search -->
+            <Grid Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="0.2*"/>
+
+                </Grid.ColumnDefinitions>
+
+                <!--<DatePicker Margin="20" x:Name="ActiveDate" Grid.ColumnSpan="2" FontFamily="Helvetica" FontSize="20" SelectedDateChanged="ActiveDate_SelectedDateChanged_1"/>
+-->
+                <TextBox x:Name="Search" TextChanged="Search_TextChanged" FontFamily="Helvetica" FontSize="20" Padding="5" Margin="10"/>
+                <Button Grid.Column="1" Margin="10" x:Name="SearchBtn" Click="SearchBtn_Click"/>
+
+
+            </Grid>
+
+            <Grid Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.2*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <DataGrid  x:Name="SpisakDijagnoza" Grid.Row="1" Grid.ColumnSpan="3" AutoGenerateColumns="True"
+                          SelectionMode="Single" IsReadOnly="True" FontFamily="Helvetica" FontSize="18" ColumnWidth="*" 
+                          MouseLeftButtonDown="SpisakDijagnoza_MouseLeftButtonDown_1" MouseMove="SpisakDijagnoza_MouseMove" MouseLeftButtonUp="SpisakDijagnoza_MouseLeftButtonUp_1">
+            
+            
+            
+
+                </DataGrid>
+
+                <Button x:Name="NewAppointmentBtn" Margin="10" Content="Novi pregled" FontFamily="Helvetica"
+                        FontSize="20" Foreground="{StaticResource SecondaryColor}" Click="NewAppointmentBtn_Click"/>
+
+                <Button x:Name="EditAppointmentBtn" Grid.Column="1" Margin="10" Click="EditAppointmentBtn_Click" Content="Izmeni pregled" FontFamily="Helvetica"
+                        FontSize="20" Foreground="{StaticResource SecondaryColor}"/>
+
+                <Button x:Name="DeleteAppointmentBtn" Grid.Column="2" Margin="10" Click="DeleteAppointmentBtn_Click" Content="Izbriši pregled" FontFamily="Helvetica"
+                        FontSize="20" Foreground="{StaticResource SecondaryColor}"/>
+            </Grid>
+
+
+
+        </Grid>
+
+    </Border>
+</Page>

@@ -21,10 +21,32 @@ namespace SIMS
     /// </summary>
     public partial class MainWindow : Window
     {
+        public Doctor loggedInUser;
         public MainWindow()
         {
+
             InitializeComponent();
+           /* Address address = new Address("Tolstojeva 1", new Location(111, "Srbija", "Novi Sad"));
+
+            Doctor haus = new Doctor(new UserID("D123"), "GregoryHouse", "housemd123", DateTime.Now, "Gregory",
+                "House", "Greg", Sex.MALE, DateTime.Now.AddYears(-30), "12345667", address, "555-333", 
+                "06130959858", "house@gmail.com", "housemd@gmail.com", 
+                new TimeTable(new Dictionary<WorkingDaysEnum, Util.TimeInterval>()), 
+                new Hospital("test", address, "555-333", "zzzz"), new Room(1), DocTypeEnum.CARDIOLOGIST);
+
+            AppResources.getInstance().doctorRepository.Create(haus);
+            
+            */
             //Patient p = new Patient();
+
+            /*
+            Patient Mika = new Patient(new UserID("P123"), "MikaMikic", "mikoslav123", DateTime.Now,"Mika",
+                "Mikic", "/", Sex.MALE, DateTime.Now.AddYears(-30), "1906980800005", address, "+38121555333", "+381641111111", "mikacar@gmail.com", "mikaidaljecar@uns.ac.rs",
+                new EmergencyContact("Pera", "Peric", "pera.peric@uns.ac.rs", "+381655555555"), PatientType.GENERAL, haus);
+
+            AppResources.getInstance().patientRepository.Create(Mika);
+            */
+
 
             //HospitalConverter converter = new HospitalConverter(",");
             //List<Room> testList = new List<Room>();
@@ -100,7 +122,7 @@ namespace SIMS
             //Console.WriteLine(retVal);
             //Console.WriteLine("TEST");
 
-            
+
             /*
             RoomConverter converter = new RoomConverter();
 
@@ -303,7 +325,7 @@ namespace SIMS
             */
 
 
-            
+
             AppResources res = AppResources.getInstance();
             
             /*

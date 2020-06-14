@@ -62,7 +62,7 @@
                 <!-- Izmeni pacijenta -->
 
 
-                <Button x:Name="EditPatientBtn" Grid.Row="0" Grid.Column="1" Height="240" Background="{StaticResource ResourceKey=BackgroundColor}" BorderThickness="0"></Button>
+                <Button x:Name="EditPatientBtn" Click="EditPatientBtn_Click" Grid.Row="0" Grid.Column="1" Height="240" Background="{StaticResource ResourceKey=BackgroundColor}" BorderThickness="0"></Button>
                 <TextBlock Text="Izmeni pacijenta" Grid.Row="1" Grid.Column="1" FontFamily="Helvetica" FontSize="17"
                                VerticalAlignment="Center" HorizontalAlignment="Center"
                                Foreground="{StaticResource ResourceKey=SecondaryColor}"/>

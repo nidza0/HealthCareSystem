@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SIMS.Model.UserModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,8 +21,10 @@ namespace SIMS.View.ViewDoctor.Functions
     /// </summary>
     public partial class Recepti : Page
     {
-        public Recepti()
+        Patient patient;
+        public Recepti(Patient selected)
         {
+            patient = selected;
             InitializeComponent();
         }
 
@@ -32,7 +35,8 @@ namespace SIMS.View.ViewDoctor.Functions
 
         private void NoviRecept_Button_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new NoviRecept());
+            //TODO: Izdati recepti
+            NavigationService.Navigate(new NoviRecept(patient));
         }
     }
 }

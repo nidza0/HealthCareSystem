@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SIMS.Model.UserModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,7 +26,7 @@ namespace SIMS.View.ViewDoctor.PatientList
         //  Ovako izbegavam da imam 3 razlicite klase za isti page.
         private sources from;
         private Object navigator;
-        //private List<Model.Patient> data = new List<Model.Patient>();
+        private List<Patient> data = new List<Patient>();
 
         public enum sources
         {
@@ -44,9 +45,8 @@ namespace SIMS.View.ViewDoctor.PatientList
 
         private void fillList()
         {
-            //DummyPatientList dpl = new DummyPatientList();
-            //data = dpl.generateListOfPatients();
-            //patientList.ItemsSource = data;
+            data = AppResources.getInstance().patientRepository.GetPatientByDoctor(AppResources.getLoggedInUser()).ToList();
+            patientList.ItemsSource = data;
         }
 
         private void Search_Button_Click(object sender, RoutedEventArgs e)
@@ -56,16 +56,16 @@ namespace SIMS.View.ViewDoctor.PatientList
 
         private void filterResults()
         {
-        /*    if (UnosZaSearch.Text != string.Empty)
+            if (UnosZaSearch.Text != string.Empty)
                 patientList.ItemsSource = data.Where(patient => patient.Name.Trim().ToLower().StartsWith(UnosZaSearch.Text.ToLower().Trim()));
             else
                 resetDataGrid();
-                */
+                
         }
 
         private void resetDataGrid()
         {
-          //  patientList.ItemsSource = data;
+            patientList.ItemsSource = data;
         }
 
         private void Back_Button_Click(object sender, RoutedEventArgs e)
@@ -77,21 +77,22 @@ namespace SIMS.View.ViewDoctor.PatientList
 
         private void navigate()
         {
+            Patient selected = (Patient) patientList.SelectedItem;
             if (from == sources.STACIONARNO)
             {
-                navigator = new Functions.UputZaStacionarno();
+                navigator = new Functions.UputZaStacionarno(selected);
             }
             else if (from == sources.SPECIJALISTICKI)
             {
-                navigator = new Functions.UputZaSpecijalisticko();
+                navigator = new Functions.UputZaSpecijalisticko(selected);
             }
             else if (from == sources.LABORATORIJSKI)
             {
-                navigator = new Functions.UputZaLaboratoriju();
+                navigator = new Functions.UputZaLaboratoriju(selected);
             }
             else if (from == sources.RECEPTI)
             {
-                navigator = new Functions.Recepti();
+                navigator = new Functions.Recepti(selected);
             }
 
             NavigationService.Navigate(navigator);
@@ -108,6 +109,11 @@ namespace SIMS.View.ViewDoctor.PatientList
             {
                 filterResults();
             }
+        }
+
+        private void UnosZaSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            filterResults();
         }
     }
 }

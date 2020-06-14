@@ -53,6 +53,8 @@ namespace SIMS
         public RoomRepository roomRepository;
         public InventoryItemRepository inventoryItemRepository;
 
+        public static Doctor loggedInUser;
+
         //Hospital management
         public MedicineRepository medicineRepository;
 
@@ -121,6 +123,16 @@ namespace SIMS
 
 
             //ODAVDDE RADITI OSTALE
+        }
+
+        public static void setLoggedInUser(Doctor loggedIn)
+        {
+            loggedInUser = loggedIn;
+        }
+
+        public static Doctor getLoggedInUser()
+        {
+            return loggedInUser;
         }
 
         public static AppResources getInstance()

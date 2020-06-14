@@ -1,0 +1,65 @@
+﻿<UserControl x:Class="SIMS.View.ViewDoctor.PatientList.NewAppointment"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SIMS.View.ViewDoctor.PatientList"
+             mc:Ignorable="d" 
+             d:DesignHeight="400" d:DesignWidth="400">
+    <Border CornerRadius="10" BorderThickness="5" BorderBrush="White">
+        <Border.Effect>
+            <DropShadowEffect BlurRadius="4" />
+        </Border.Effect>
+        <Grid Background="White">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.3*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="0.3*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="0.3*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="0.3*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <TextBlock x:Name="DateLabel" FontSize="20" FontFamily="Helvetica"
+                       Text="Datum: "/>
+            <DatePicker x:Name="DatePicker" FontSize="20" FontFamily="Helvetica" Grid.Row="1" Margin="1 10"/>
+
+                <TextBlock Grid.Row="2"  x:Name="TimeLabel" FontSize="20" FontFamily="Helvetica"
+                       Text="Vreme: "/>
+
+            <TextBox x:Name="TimePicker" TextChanged="TimePicker_TextChanged" FontSize="20" FontFamily="Helvetica" Grid.Row="3" Margin="1 10"/>
+            
+            <TextBlock Grid.Row="4"  x:Name="RoomLabel" FontSize="20" FontFamily="Helvetica"
+                       Text="Sala: "/>
+            
+            <ComboBox x:Name="RoomsCombo" SelectionChanged="RoomsCombo_SelectionChanged" Grid.Row="5" Margin="1 10" FontFamily="Helvetica" FontSize="20"/>
+
+                <TextBlock Grid.Row="6"  x:Name="TypeLabel" FontSize="20" FontFamily="Helvetica"
+                       Text="Tip: "/>
+
+            <ComboBox x:Name="TypeCombo" SelectionChanged="TypeCombo_SelectionChanged" Grid.Row="7" Margin="1 10" FontFamily="Helvetica" FontSize="20">
+                <ComboBoxItem Name="Pregled" />
+                <ComboBoxItem Name="Operacija" />
+            </ComboBox>
+
+            <Grid Grid.Row="8">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Button x:Name="ConfirmBtn" Click="ConfirmBtn_Click" FontFamily="Helvetica" FontSize="20"
+                        Content="Potvrdi" Foreground="White"
+                        Margin="10 5 10 5"
+                        Background="DarkOliveGreen" />
+                
+                <Button Grid.Column="1" x:Name="CancelBtn" Click="CancelBtn_Click" FontFamily="Helvetica" FontSize="20"
+                        Content="Otkaži" 
+                        Margin="10 5 10 5"
+                        Background="LightGray" />
+            </Grid>
+        </Grid>
+    </Border>
+</UserControl>

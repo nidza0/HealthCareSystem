@@ -32,25 +32,7 @@ namespace SIMS.View.ViewDoctor.Forms
             InitializeComponent();
         }
 
-        /*private void redirectIfLoggedIn()
-        {
-            if (File.Exists(filename))
-            {
-                using (StreamReader sr = File.OpenText(filename))
-                {
-                    string s = "";
-                    while ((s = sr.ReadLine()) != null)
-                    {
-                        string[] tokens = s.Split(',');
-                        
-                        if (bool.Parse(tokens[0]))
-                        {
-                            navigate();
-                        }
-                    }
-                }
-            }
-        }*/
+        
 
         private void navigate()
         {
@@ -60,53 +42,18 @@ namespace SIMS.View.ViewDoctor.Forms
         private void SubmitButton_Click(object sender, RoutedEventArgs e)
         {
             fillData();
-           // keepLoggedIn();
+            // keepLoggedIn();
+            Doctor retVal = AppResources.getInstance().doctorRepository.getDoctorByUsername(username);
+            if (retVal != null && retVal.Password == password)
+            {
+                AppResources.setLoggedInUser(retVal);
+                NavigationService.Navigate(new MainPageCenter());
+            }
 
-            NavigationService.Navigate(new MainPageCenter());
+            
         }
 
-       /* private void keepLoggedIn()
-        {
-            if (!(bool)KeepMeLoggedIn_CheckBox.IsChecked)
-            {
-                
-                if (File.Exists(filename))
-                {
-                    using (StreamReader sr = File.OpenText(filename))
-                    {
-                        string s = "";
-                        while ((s = sr.ReadLine()) != null)
-                        {
-                            string[] tokens = s.Split(',');
-                            
-                        }
-
-
-            }
-            else
-            {
-                if (!File.Exists(filename)) { 
-                    using (FileStream fs = File.Create(filename))
-                    {
-                        // Add some text to file    
-                        Byte[] data = new UTF8Encoding(true).GetBytes( KeepMeLoggedIn_CheckBox.IsChecked.ToString() + "," + username + "," + password + "," + DateTime.Now.ToString());
-                        fs.Write(data, 0, data.Length);
-
-                    }
-                } else
-                {
-                    File.Delete(filename);
-                    using (FileStream fs = File.Create(filename))
-                    {
-                        // Add some text to file    
-                        Byte[] data = new UTF8Encoding(true).GetBytes(KeepMeLoggedIn_CheckBox.IsChecked.ToString() + "," + username + "," + password + "," + DateTime.Now.ToString());
-                        fs.Write(data, 0, data.Length);
-
-                    }
-                }
-            }
-        }
-        */
+       
 
         private void fillData()
         {

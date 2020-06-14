@@ -1,0 +1,85 @@
+﻿<Page x:Class="SIMS.View.ViewDoctor.PatientList.Appointments"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SIMS.View.ViewDoctor.PatientList"
+      mc:Ignorable="d" 
+      d:DesignHeight="768" d:DesignWidth="1024"
+      Title="Appointments">
+
+    <Page.Resources>
+        <SolidColorBrush x:Key="BackgroundColor" Color="White" />
+        <SolidColorBrush x:Key="PrimaryColor" Color="DarkOliveGreen" />
+        <SolidColorBrush x:Key="SecondaryColor" Color="#FF494949"/>
+    </Page.Resources>
+
+    <Border Background="{StaticResource  ResourceKey=BackgroundColor}">
+        <Grid >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="90"/>
+                <RowDefinition Height="0.2*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="35.878"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.1*" />
+
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="0.1*" />
+            </Grid.ColumnDefinitions>
+            <Button x:Name="Back" Click="Back_Click">
+                
+            </Button>
+            <TextBlock Text="Kontrole - Ime Prezime" x:Name="Title" TextAlignment="Center" Grid.ColumnSpan="5" Grid.Row="0"
+                       Height="192" VerticalAlignment="Center" Padding="66" FontFamily="Helvetica"
+                       FontSize="48" Foreground="{StaticResource ResourceKey=BackgroundColor}" 
+                       Background="{StaticResource ResourceKey=PrimaryColor}" />
+
+
+
+            <!-- Search -->
+            <Grid Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="0.2*"/>
+
+                </Grid.ColumnDefinitions>
+
+                <DatePicker Margin="20" x:Name="ActiveDate" Grid.ColumnSpan="2" FontFamily="Helvetica" FontSize="20" SelectedDateChanged="ActiveDate_SelectedDateChanged"/>
+
+
+
+            </Grid>
+
+            <!--
+            <DataGrid Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" x:Name="SpisakObaveza"  AutoGenerateColumns="True"
+                      SelectionMode="Single" IsReadOnly="True" SelectedCellsChanged="PacijentiSpisak_SelectedCellsChanged" FontFamily="Helvetica" FontSize="18" ColumnWidth="*" MouseDoubleClick="PacijentiSpisak_MouseDoubleClick"
+                      MouseLeftButtonDown="SpisakObaveza_MouseLeftButtonDown" MouseMove="SpisakObaveza_MouseMove" MouseLeftButtonUp="SpisakObaveza_MouseLeftButtonUp">
+            
+            
+            
+
+            </DataGrid>
+        -->
+            <Grid Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.2*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Button Content="Novi pregled" x:Name="NewAppointment" Click="NewAppointment_Click" Foreground="{StaticResource SecondaryColor}" FontFamily="Helvetica" FontSize="20" Margin="10"/>
+                <Button Content="Izmeni pregled" x:Name="EditAppointment" Click="EditAppointment_Click" Grid.Column="1" Foreground="{StaticResource SecondaryColor}" FontFamily="Helvetica" FontSize="20" Margin="10"/>
+                <Button Content="Otkaži pregled" x:Name="CancelAppointment" Click="CancelAppointment_Click" Grid.Column="2" Foreground="{StaticResource SecondaryColor}" FontFamily="Helvetica" FontSize="20" Margin="10"/>
+                    <Frame x:Name="Checkups" Grid.Row="1" Grid.ColumnSpan="3"/>
+            </Grid>
+
+        </Grid>
+
+    </Border>
+</Page>

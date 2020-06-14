@@ -1,4 +1,5 @@
-﻿using SIMS.View.ViewDoctor.Forms;
+﻿using SIMS.Model.UserModel;
+using SIMS.View.ViewDoctor.Forms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,8 +25,10 @@ namespace SIMS.View.ViewDoctor.Functions
         private DateTime vremeKontrole;
         private string nalaz;
         private string nijeZadrzanZbog;
-        public UputZaStacionarno()
+        private Patient patient;
+        public UputZaStacionarno(Patient selected)
         {
+            patient = selected;
             InitializeComponent();
         }
 

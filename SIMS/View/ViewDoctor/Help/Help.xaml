@@ -53,7 +53,7 @@
 
                 <!-- Karton pacijenta -->
 
-                <Button x:Name="KartonBtn" Height="240" Background="{StaticResource ResourceKey=BackgroundColor}" BorderThickness="0"></Button>
+                <Button x:Name="PreglediBtn" Height="240" Click="PreglediBtn_Click" Background="{StaticResource ResourceKey=BackgroundColor}" BorderThickness="0"></Button>
                 <TextBlock Grid.Row="1" Text="Pregledi" FontFamily="Helvetica" FontSize="17"
                                VerticalAlignment="Center" HorizontalAlignment="Center"
                                Foreground="{StaticResource ResourceKey=SecondaryColor}"/>
@@ -62,7 +62,7 @@
                 <!-- Izmeni pacijenta -->
 
 
-                <Button x:Name="EditPatientBtn" Grid.Row="0" Grid.Column="1" Height="240" Background="{StaticResource ResourceKey=BackgroundColor}" BorderThickness="0"></Button>
+                <Button x:Name="PatientBtn" Click="PatientBtn_Click" Grid.Row="0" Grid.Column="1" Height="240" Background="{StaticResource ResourceKey=BackgroundColor}" BorderThickness="0"></Button>
                 <TextBlock Text="Pacijenti" Grid.Row="1" Grid.Column="1" FontFamily="Helvetica" FontSize="17"
                                VerticalAlignment="Center" HorizontalAlignment="Center"
                                Foreground="{StaticResource ResourceKey=SecondaryColor}"/>
@@ -71,7 +71,7 @@
 
                 <!-- Pregledi -->
 
-                <Button x:Name="AppointmentBtn" Grid.Row="0" Grid.Column="2" Height="240" Background="{StaticResource ResourceKey=BackgroundColor}" BorderThickness="0"></Button>
+                <Button x:Name="DiagnosisBtn" Click="DiagnosisBtn_Click" Grid.Row="0" Grid.Column="2" Height="240" Background="{StaticResource ResourceKey=BackgroundColor}" BorderThickness="0"></Button>
                 <TextBlock Text="Liste dijagnoza" Grid.Row="1" Grid.Column="2" FontFamily="Helvetica" FontSize="17"
                                VerticalAlignment="Center" HorizontalAlignment="Center"
                                Foreground="{StaticResource ResourceKey=SecondaryColor}"/>
@@ -79,7 +79,7 @@
 
                 <!-- Stacionarno lecenje -->
 
-                <Button  x:Name="StacionarnoLecenjeBtn" Grid.Row="2" Grid.Column="0" Height="240" Background="{StaticResource ResourceKey=BackgroundColor}" BorderThickness="0"></Button>
+                <Button  x:Name="KalendarBtn" Click="KalendarBtn_Click" Grid.Row="2" Grid.Column="0" Height="240" Background="{StaticResource ResourceKey=BackgroundColor}" BorderThickness="0"></Button>
                 <TextBlock Text="Kalendar" Grid.Row="3" Grid.Column="0" FontFamily="Helvetica" FontSize="17"
                                VerticalAlignment="Center" HorizontalAlignment="Center"
                                Foreground="{StaticResource ResourceKey=SecondaryColor}"/>
@@ -87,7 +87,7 @@
 
                 <!-- Specijalisticki pregled -->
 
-                <Button   x:Name="SpecijalistickiBtn" Grid.Row="2" Grid.Column="1" Height="240" Background="{StaticResource ResourceKey=BackgroundColor}" BorderThickness="0"></Button>
+                <Button   x:Name="ValidationBtn" Click="ValidationBtn_Click" Grid.Row="2" Grid.Column="1" Height="240" Background="{StaticResource ResourceKey=BackgroundColor}" BorderThickness="0"></Button>
                 <TextBlock Text="Validacija lekova" Grid.Row="3" Grid.Column="1" FontFamily="Helvetica" FontSize="17"
                                VerticalAlignment="Center" HorizontalAlignment="Center"
                                Foreground="{StaticResource ResourceKey=SecondaryColor}"/>
@@ -95,7 +95,7 @@
 
                 <!-- Laboratorijski pregled -->
 
-                <Button  Grid.Row="2" Grid.Column="2" x:Name="LaboratorijaBtn" Height="240" Background="{StaticResource ResourceKey=BackgroundColor}" BorderThickness="0"></Button>
+                <Button x:Name="SettingsBtn" Click="SettingsBtn_Click" Grid.Row="2" Grid.Column="2"  Height="240" Background="{StaticResource ResourceKey=BackgroundColor}" BorderThickness="0"></Button>
                 <TextBlock Grid.Row="3" Grid.Column="2" Text="Podešavanja" FontFamily="Helvetica" FontSize="17"
                                VerticalAlignment="Center" HorizontalAlignment="Center"
                                Foreground="{StaticResource ResourceKey=SecondaryColor}"/>

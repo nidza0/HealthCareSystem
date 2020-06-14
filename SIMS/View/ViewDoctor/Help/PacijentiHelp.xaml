@@ -1,0 +1,74 @@
+﻿<Page x:Class="SIMS.View.ViewDoctor.Help.PacijentiHelp"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SIMS.View.ViewDoctor.Help"
+      mc:Ignorable="d" 
+      d:DesignHeight="768" d:DesignWidth="1024"
+      Title="PacijentiHelp">
+
+    <Page.Resources>
+        <SolidColorBrush x:Key="BackgroundColor" Color="White" />
+        <SolidColorBrush x:Key="PrimaryColor" Color="DarkOliveGreen" />
+        <SolidColorBrush x:Key="SecondaryColor" Color="#FF494949"/>
+    </Page.Resources>
+
+    <Border Background="{StaticResource  ResourceKey=BackgroundColor}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="89.302"/>
+                <RowDefinition Height="0.2*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="35.878"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.1*" />
+
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="0.1*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Pomoć - Pacijenti"  TextAlignment="Center" Grid.ColumnSpan="5" Grid.Row="0"
+                       Height="192" VerticalAlignment="Center" Padding="66" FontFamily="Helvetica"
+                       FontSize="48" Foreground="{StaticResource ResourceKey=BackgroundColor}" 
+                       Background="{StaticResource ResourceKey=PrimaryColor}" />
+
+            <Button Grid.Column="0" Grid.Row="0" 
+                    Background="{StaticResource ResourceKey=PrimaryColor}" Click="Button_Click"
+                    BorderThickness="0" />
+
+
+            <ScrollViewer Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="2" VerticalScrollBarVisibility="Hidden">
+                <!--<StackPanel >-->
+                <FlowDocument FontFamily="Helvetica" FontSize="25" >
+                    <Paragraph>
+                        <Bold>Spisak pacijenata</Bold>
+                    </Paragraph>
+                    <Paragraph>
+                        Kako bi doktor ostvario uvid u spisak svojih pacijenata, potrbno je da selektuje funkciju Lista Pacijenata iz početnog ekrana.
+                    </Paragraph>
+
+                    <Paragraph>
+                        <Bold>
+                            Izmena podataka pacijenta
+                        </Bold>
+                    </Paragraph>
+                    <Paragraph>
+                        Za izmenu podataka pacijenta je potrebno ući u Listu Pacijenata, selektovati pacijenta, pa odabrati opciju Izmena Podataka Pacijenta.
+                    </Paragraph>
+                    <Paragraph>
+                        <Bold>Napomena:</Bold> doktor može da izmeni samo podatke o krvnoj grupi pacijenta i alergijama pacijenta. Ostale podatke menja sam pacijent.
+                    </Paragraph>
+
+
+                </FlowDocument>
+                <!-- </StackPanel>-->
+
+            </ScrollViewer>
+
+
+        </Grid>
+
+    </Border>
+</Page>

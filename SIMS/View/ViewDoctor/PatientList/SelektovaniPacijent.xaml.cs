@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SIMS.Model.UserModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,10 @@ namespace SIMS.View.ViewDoctor.PatientList
     /// </summary>
     public partial class SelektovaniPacijent : Page
     {
-        //private Model.Patient patient;
-        public SelektovaniPacijent()
+        private Patient patient;
+        public SelektovaniPacijent(Patient selektovaniPacijent)
         {
+            patient = selektovaniPacijent;
             InitializeComponent();
         }
 
@@ -35,18 +37,22 @@ namespace SIMS.View.ViewDoctor.PatientList
 
         private void StacionarnoLecenjeBtn_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Functions.UputZaStacionarno());
+            NavigationService.Navigate(new Functions.UputZaStacionarno(patient));
         }
 
         private void SpecijalistickiBtn_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Functions.UputZaSpecijalisticko());
+            NavigationService.Navigate(new Functions.UputZaSpecijalisticko(patient));
         }
 
         private void LaboratorijaBtn_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Functions.UputZaLaboratoriju());
+            NavigationService.Navigate(new Functions.UputZaLaboratoriju(patient));
         }
 
+        private void EditPatientBtn_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new PatientList.IzmeniPacijenta());
+        }
     }
 }

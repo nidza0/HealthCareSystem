@@ -15,8 +15,10 @@
         <SolidColorBrush x:Key="SecondaryColor" Color="#FF494949"/>
     </Page.Resources>
 
-    <Border Background="{StaticResource  ResourceKey=BackgroundColor}">
-        <Grid>
+    <Border Background="{StaticResource PrimaryColor}" BorderThickness="0">
+    <Border Background="{StaticResource  ResourceKey=BackgroundColor}"  Height="500" Width="500" BorderBrush="{StaticResource BackgroundColor}"
+            BorderThickness="10" CornerRadius="20">
+        <Grid Background="Transparent">
             <Grid.RowDefinitions>
                 <RowDefinition Height="89.302"/>
                 <RowDefinition Height="*" />
@@ -64,7 +66,7 @@
 
             </Grid>
 
-            <TextBlock  Text ="Prijava"  x:Name="Login1" FontFamily="Helvetica" FontSize="50" VerticalAlignment="Center" HorizontalAlignment="Center"
+            <TextBlock  Text ="Prijava"  x:Name="Login1" FontFamily="Helvetica" FontSize="35" VerticalAlignment="Center" HorizontalAlignment="Center"
                           Padding="5" Margin="10 10 0 10" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Foreground="{StaticResource ResourceKey=SecondaryColor}"/>
 
             <Grid Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="3">
@@ -115,5 +117,6 @@
 
         </Grid>
 
+    </Border>
     </Border>
 </Page>

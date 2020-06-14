@@ -6,6 +6,7 @@
       xmlns:local="clr-namespace:SIMS.View.ViewDoctor.MainPages"
       mc:Ignorable="d" 
       d:DesignHeight="768" d:DesignWidth="1024"
+      
       Title="MainPageRight" MouseLeftButtonDown="Grid_MouseLeftButtonDown" MouseLeftButtonUp="Page_MouseLeftButtonUp">
 
     <Page.Resources>
@@ -17,7 +18,7 @@
     <Border Background="{StaticResource  ResourceKey=BackgroundColor}">
         <Grid  MouseMove="Grid_MouseMove">
             <Grid.RowDefinitions>
-                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="90"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="0.2*"/>
                 <RowDefinition Height="0.2*"/>
@@ -38,13 +39,74 @@
                        Height="192" VerticalAlignment="Center" Padding="66" FontFamily="Helvetica"
                        FontSize="48" Foreground="{StaticResource ResourceKey=BackgroundColor}" 
                        Background="{StaticResource ResourceKey=PrimaryColor}" />
-            
 
-            <Image Grid.Row="1" Grid.Column="2"  Margin="10"/>
-            <TextBlock x:Name="Name_TextBlock" Grid.Row="2" Grid.Column="2" Text="Ime Prezime" VerticalAlignment="Center" HorizontalAlignment="Center"
+            <TextBlock x:Name="Kancelarija" Text="Kancelarija" FontSize="22" FontFamily="Helvetica" Foreground="{StaticResource ResourceKey=SecondaryColor}" Grid.Row="3" Grid.Column="2"
+                        VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+            <TextBlock x:Name="BrojTelefona" Text="brtel" FontSize="22" FontFamily="Helvetica" Foreground="{StaticResource ResourceKey=SecondaryColor}" Grid.Row="2" Grid.Column="2"
+                        VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+            <TextBlock x:Name="Smenalabel" Text="Smena" FontSize="22" FontFamily="Helvetica" Foreground="{StaticResource ResourceKey=SecondaryColor}" Grid.Row="2" Grid.Column="3"
+                        VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+            <TextBlock x:Name="Smena" Text="vremeSmene" FontSize="22" FontFamily="Helvetica" Foreground="{StaticResource ResourceKey=SecondaryColor}" Grid.Row="3" Grid.Column="3"
+                        VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+            <Image Grid.Row="1" Grid.Column="1"  Margin="10"/>
+            <TextBlock x:Name="Name_TextBlock" Grid.Row="2" Grid.Column="1" Text="Ime Prezime" VerticalAlignment="Center" HorizontalAlignment="Center"
                        FontSize="22" FontFamily="Helvetica" Foreground="{StaticResource ResourceKey=SecondaryColor}"/>
-            <TextBlock x:Name="AddedInfo_TextBlock" Grid.Row="3" Grid.Column="2" Text="Tip doktora" VerticalAlignment="Center" HorizontalAlignment="Center"
+            <TextBlock x:Name="AddedInfo_TextBlock" Grid.Row="3" Grid.Column="1" Text="Tip doktora" VerticalAlignment="Center" HorizontalAlignment="Center"
                        FontSize="22" FontFamily="Helvetica" Foreground="{StaticResource ResourceKey=SecondaryColor}"/>
+
+            <Border Grid.Row="4" Grid.RowSpan="4" Grid.ColumnSpan="3" Grid.Column="1" Margin="10" BorderThickness="5" BorderBrush="LightGray"
+                    CornerRadius="10">
+                <Grid >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="300"/>
+                        <ColumnDefinition Width="630.4"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBox x:Name="SearchBox" FontFamily="Helvetica" Foreground="{StaticResource SecondaryColor}" FontSize="20" Padding="5" Margin="5 5 20 5"/>
+                        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" >
+                            <!--<DataGrid x:Name="Contacts_DataGrid"  />-->
+                            <Frame x:Name="Chats" Source="Chats.xaml"/>
+                        </ScrollViewer>
+
+                    </Grid>
+
+                    <!-- Messages -->
+
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition Height="60" />
+                        </Grid.RowDefinitions>
+
+                        <Frame x:Name="MainFrame" Source="ConversationPage.xaml"  VerticalAlignment="Top"/>
+                        <Grid Grid.Row="1" >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                            </Grid.ColumnDefinitions>
+                            <Border BorderBrush="LightGray" BorderThickness="4" CornerRadius="10" Margin="10 5">
+                                <TextBox x:Name="messageText" Padding="5" BorderThickness="0" FontFamily="Helvetica" FontSize="16" TextAlignment="Left" Foreground="{StaticResource SecondaryColor}"/>
+                            </Border>
+                            <Border Grid.Column="1" BorderBrush="{StaticResource PrimaryColor}" BorderThickness="4" CornerRadius="10" Margin="0 5 5 5">
+                                <Button x:Name="SendBtn" Click="SendBtn_Click" Content="Pošalji"  BorderThickness="0" BorderBrush="LightGray" Background="{StaticResource PrimaryColor}"
+                                        FontFamily="Helvetica" FontSize="16" Foreground="White"/>
+                            </Border>
+                        </Grid>
+                    </Grid>
+
+
+                </Grid>
+            </Border>
 
 
         </Grid>

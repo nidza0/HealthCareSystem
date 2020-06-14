@@ -22,12 +22,13 @@ namespace SIMS.View.ViewDoctor.MainPages
     {
         private Point startPoint;
         //private Model.User user;
-
+        private ConversationPage cp;
         public MainPageRight()
         {
             InitializeComponent();
             //user = new DummyDoc().getUser();
             UpdateData();
+            cp = new ConversationPage();
         }
 
         private void UpdateData()
@@ -73,6 +74,14 @@ namespace SIMS.View.ViewDoctor.MainPages
                 }
                 
             }
+        }
+
+        private void SendBtn_Click(object sender, RoutedEventArgs e)
+        {
+            
+            cp.addSentMessage(messageText.Text, DateTime.Now.ToString());
+            MainFrame.Content = cp;
+            messageText.Text = "";
         }
     }
 }

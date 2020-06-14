@@ -216,6 +216,9 @@
     <Compile Include="Util\MedicineFilter.cs" />
     <Compile Include="Util\TherapyFilter.cs" />
     <Compile Include="Util\TimeInterval.cs" />
+    <Compile Include="View\ViewDoctor\Appointments\AppointmentView.xaml.cs">
+      <DependentUpon>AppointmentView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\ViewDoctor\Forms\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
@@ -255,6 +258,33 @@
     <Compile Include="View\ViewDoctor\Help\Help.xaml.cs">
       <DependentUpon>Help.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\ViewDoctor\Help\KalendarHelp.xaml.cs">
+      <DependentUpon>KalendarHelp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewDoctor\Help\ListaDijagnozaHelp.xaml.cs">
+      <DependentUpon>ListaDijagnozaHelp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewDoctor\Help\PacijentiHelp.xaml.cs">
+      <DependentUpon>PacijentiHelp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewDoctor\Help\PodesavanjaHelp.xaml.cs">
+      <DependentUpon>PodesavanjaHelp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewDoctor\Help\PreglediHelp.xaml.cs">
+      <DependentUpon>PreglediHelp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewDoctor\Help\ValidacijaLekovaHelp.xaml.cs">
+      <DependentUpon>ValidacijaLekovaHelp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewDoctor\MainPages\Calendar.xaml.cs">
+      <DependentUpon>Calendar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewDoctor\MainPages\Chats.xaml.cs">
+      <DependentUpon>Chats.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewDoctor\MainPages\ConversationPage.xaml.cs">
+      <DependentUpon>ConversationPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\ViewDoctor\MainPages\MainPageCenter.xaml.cs">
       <DependentUpon>MainPageCenter.xaml</DependentUpon>
     </Compile>
@@ -264,8 +294,30 @@
     <Compile Include="View\ViewDoctor\MainPages\MainPageRight.xaml.cs">
       <DependentUpon>MainPageRight.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\ViewDoctor\MessagingSystem\ChatView.xaml.cs">
+      <DependentUpon>ChatView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewDoctor\MessagingSystem\Message.xaml.cs">
+      <DependentUpon>Message.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewDoctor\MessagingSystem\MessageItemControl.cs" />
+    <Compile Include="View\ViewDoctor\PatientList\Appointments.xaml.cs">
+      <DependentUpon>Appointments.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewDoctor\PatientList\EditAppointment.xaml.cs">
+      <DependentUpon>EditAppointment.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewDoctor\PatientList\IzmeniPacijenta.xaml.cs">
+      <DependentUpon>IzmeniPacijenta.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewDoctor\PatientList\KartonPacijenta.xaml.cs">
+      <DependentUpon>KartonPacijenta.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\ViewDoctor\PatientList\ListaPacijenata.xaml.cs">
       <DependentUpon>ListaPacijenata.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewDoctor\PatientList\NewAppointment.xaml.cs">
+      <DependentUpon>NewAppointment.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ViewDoctor\PatientList\OdaberiPacijenta.xaml.cs">
       <DependentUpon>OdaberiPacijenta.xaml</DependentUpon>
@@ -310,6 +362,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\ViewDoctor\Appointments\AppointmentView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\ViewDoctor\Forms\Login.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -362,6 +418,42 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\ViewDoctor\Help\KalendarHelp.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewDoctor\Help\ListaDijagnozaHelp.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewDoctor\Help\PacijentiHelp.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewDoctor\Help\PodesavanjaHelp.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewDoctor\Help\PreglediHelp.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewDoctor\Help\ValidacijaLekovaHelp.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewDoctor\MainPages\Calendar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewDoctor\MainPages\Chats.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewDoctor\MainPages\ConversationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\ViewDoctor\MainPages\MainPageCenter.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -374,7 +466,35 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\ViewDoctor\MessagingSystem\ChatView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewDoctor\MessagingSystem\Message.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewDoctor\PatientList\Appointments.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewDoctor\PatientList\EditAppointment.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewDoctor\PatientList\IzmeniPacijenta.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewDoctor\PatientList\KartonPacijenta.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\ViewDoctor\PatientList\ListaPacijenata.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewDoctor\PatientList\NewAppointment.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -471,6 +591,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="View\ViewDoctor\Images\chatBg.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\ViewDoctor\MainPages\chatBg.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

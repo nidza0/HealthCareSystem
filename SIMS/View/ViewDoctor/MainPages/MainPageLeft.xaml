@@ -17,7 +17,7 @@
     <Border Background="{StaticResource  ResourceKey=BackgroundColor}">
         <Grid MouseLeftButtonDown="Grid_MouseLeftButtonDown" MouseMove="Grid_MouseMove">
             <Grid.RowDefinitions>
-                <RowDefinition Height="89.302"/>
+                <RowDefinition Height="90"/>
                 <RowDefinition Height="0.2*" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="35.878"/>
@@ -44,20 +44,23 @@
 
                 </Grid.ColumnDefinitions>
 
-                <DatePicker x:Name="ActiveDate" Grid.ColumnSpan="2" FontFamily="Helvetica" FontSize="20" SelectedDateChanged="ActiveDate_SelectedDateChanged"/>
+                <DatePicker Margin="20" x:Name="ActiveDate" Grid.ColumnSpan="2" FontFamily="Helvetica" FontSize="20" SelectedDateChanged="ActiveDate_SelectedDateChanged"/>
 
 
 
             </Grid>
 
+            <!--
             <DataGrid Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" x:Name="SpisakObaveza"  AutoGenerateColumns="True"
                       SelectionMode="Single" IsReadOnly="True" SelectedCellsChanged="PacijentiSpisak_SelectedCellsChanged" FontFamily="Helvetica" FontSize="18" ColumnWidth="*" MouseDoubleClick="PacijentiSpisak_MouseDoubleClick"
                       MouseLeftButtonDown="SpisakObaveza_MouseLeftButtonDown" MouseMove="SpisakObaveza_MouseMove" MouseLeftButtonUp="SpisakObaveza_MouseLeftButtonUp">
-
+            
+            
+            
 
             </DataGrid>
-
-
+        -->
+            <Frame x:Name="Checkups" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"/>
 
 
         </Grid>

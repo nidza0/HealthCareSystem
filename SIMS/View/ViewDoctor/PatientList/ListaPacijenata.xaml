@@ -46,7 +46,7 @@
 
                 </Grid.ColumnDefinitions>
 
-                <TextBox  x:Name="UnosZaSearch" Grid.Column="0" FontFamily="Helvetica" FontSize="18" 
+                <TextBox  x:Name="UnosZaSearch" TextChanged="UnosZaSearch_TextChanged" Grid.Column="0" FontFamily="Helvetica" FontSize="18" 
                           Padding="5" Margin="10 10 0 10" KeyUp="UnosZaSearch_KeyUp"/>
 
                 <Button Click="Search_Button_Click" Grid.Column="2" Margin="0 10 10 10">
