@@ -92,7 +92,7 @@ namespace SIMS.View.ViewDoctor.PatientList
             }
             else if (from == sources.RECEPTI)
             {
-                navigator = new Functions.Recepti(selected);
+                navigator = new Functions.NoviRecept(selected);
             }
 
             NavigationService.Navigate(navigator);

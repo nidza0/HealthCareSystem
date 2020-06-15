@@ -26,6 +26,7 @@ namespace SIMS.View.ViewDoctor.Functions
         private string nalaz;
         private string nijeZadrzanZbog;
         private Patient patient;
+        private DateTime time;
         public UputZaStacionarno(Patient selected)
         {
             patient = selected;
@@ -50,23 +51,20 @@ namespace SIMS.View.ViewDoctor.Functions
 
         private void OK_Button_Click(object sender, RoutedEventArgs e)
         {
-            if ((bool)!NowCheckBox.IsChecked)
+            
+            if(DateTime.TryParseExact(TimeTextBox.Text, "HH:mm", null, System.Globalization.DateTimeStyles.None, out time)) { 
+                NavigationService.Navigate(new MainPageCenter());
+                MessageBoxButton button = MessageBoxButton.OK;
+                string caption = "Uspešno ste izdali uput";
+                string messageBoxText = "Uspešno ste izdali uput za stacionarno lečenje.";
+                MessageBox.Show(messageBoxText, caption, button);
+            } else
             {
-                if(DateTime.TryParse(TimeTextBox.Text, out vremeKontrole))
-                {
-                    fillRemaining();
-                    
-                } else
-                {
-                    TimeTextBox.BorderBrush = System.Windows.Media.Brushes.Red;
-                }
+                MessageBoxButton button = MessageBoxButton.OK;
+                string caption = "Niste uneli validno vreme";
+                string messageBoxText = "Vreme mora biti u formatu HH:mm.";
+                MessageBox.Show(messageBoxText, caption, button);
             }
-            fillRemaining();
-            NavigationService.Navigate(new MainPageCenter());
-            MessageBoxButton button = MessageBoxButton.OK;
-            string caption = "Uspešno ste izdali uput";
-            string messageBoxText = "Uspešno ste izdali uput za stacionarno lečenje.";
-            MessageBox.Show(messageBoxText, caption, button);
         }
 
         private void fillRemaining()
@@ -82,22 +80,25 @@ namespace SIMS.View.ViewDoctor.Functions
 
         private void NowButton_Click(object sender, RoutedEventArgs e)
         {
-            NowCheckBox.IsChecked = !NowCheckBox.IsChecked;
-            disableOrEnableDateInput((bool) NowCheckBox.IsChecked);
+            //NowCheckBox.IsChecked = !NowCheckBox.IsChecked;
+            //disableOrEnableDateInput((bool) NowCheckBox.IsChecked);
         }
 
-        private void disableOrEnableDateInput(bool isChecked)
-        {
-            if (isChecked)
-            {
-                KontrolaDatePicker.IsEnabled = false;
-                TimeTextBox.IsEnabled = false;
-                vremeKontrole = DateTime.Now;
+        
 
-            } else
+        private void TimeTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (!DateTime.TryParseExact(TimeTextBox.Text, "HH:mm", null, System.Globalization.DateTimeStyles.None, out time))
             {
-                KontrolaDatePicker.IsEnabled = true;
-                TimeTextBox.IsEnabled = true;
+                TimeTextBox.BorderBrush = new SolidColorBrush(Color.FromArgb(100, 255, 21, 0));
+                TimeTextBox.BorderThickness = new Thickness(2);
+            }
+            else
+            {
+                TimeTextBox.BorderBrush = new SolidColorBrush(Color.FromArgb(100, 66, 245, 75));
+                TimeTextBox.BorderThickness = new Thickness(2);
+                //time = DateTime.ParseExact(TimePicker.Text, "HH:mm", null);
+                //Console.WriteLine(time.ToString());
             }
         }
     }

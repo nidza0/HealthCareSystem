@@ -26,6 +26,7 @@ namespace SIMS.View.ViewDoctor.PatientList
         {
             patient = selektovaniPacijent;
             InitializeComponent();
+            ImePrezime.Text = selektovaniPacijent.Name + " " + selektovaniPacijent.Surname;
         }
 
 
@@ -37,22 +38,33 @@ namespace SIMS.View.ViewDoctor.PatientList
 
         private void StacionarnoLecenjeBtn_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Functions.UputZaStacionarno(patient));
+            NavigationService.Navigate(new Functions.UputZaStacionarno(this.patient));
         }
 
         private void SpecijalistickiBtn_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Functions.UputZaSpecijalisticko(patient));
+            NavigationService.Navigate(new Functions.UputZaSpecijalisticko(this.patient));
         }
 
         private void LaboratorijaBtn_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Functions.UputZaLaboratoriju(patient));
+            NavigationService.Navigate(new Functions.UputZaLaboratoriju(this.patient));
         }
 
         private void EditPatientBtn_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new PatientList.IzmeniPacijenta());
+            NavigationService.Navigate(new PatientList.IzmeniPacijenta(this.patient));
+        }
+
+        private void KartonBtn_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new KartonPacijenta(this.patient));
+        }
+
+        private void AppointmentBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine(patient.Name);
+            NavigationService.Navigate(new Appointments(this.patient));
         }
     }
 }

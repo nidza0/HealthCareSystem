@@ -110,5 +110,10 @@ namespace SIMS.View.ViewDoctor
                 }
             }
         }
+
+        private void Help_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Help.Help());
+        }
     }
 }

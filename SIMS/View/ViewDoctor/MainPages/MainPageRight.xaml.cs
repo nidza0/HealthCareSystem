@@ -1,6 +1,8 @@
-﻿using System;
+﻿using SIMS.Model.UserModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -23,12 +25,21 @@ namespace SIMS.View.ViewDoctor.MainPages
         private Point startPoint;
         //private Model.User user;
         private ConversationPage cp;
+        private Patient recipient;
         public MainPageRight()
         {
+            Doctor doc = AppResources.getLoggedInUser();
+            
             InitializeComponent();
-            //user = new DummyDoc().getUser();
+            Name_TextBlock.Text = doc.Name + " " + doc.Surname;
+            TipDoktora_TextBlock.Text = doc.DocTypeEnum.ToString();
+
+            Contacts_DataGrid.ItemsSource = AppResources.getInstance().patientRepository.GetPatientByDoctor(AppResources.getLoggedInUser()).ToList();
+
+            SendBtn.IsEnabled = false;
+
             UpdateData();
-            cp = new ConversationPage();
+            
         }
 
         private void UpdateData()
@@ -70,10 +81,12 @@ namespace SIMS.View.ViewDoctor.MainPages
             {
                 if (endP.X - startPoint.X > 0)
                 {
+                    startPoint = endP;
                     NavigationService.Navigate(new MainPageCenter());
                 }
                 
             }
+            
         }
 
         private void SendBtn_Click(object sender, RoutedEventArgs e)
@@ -82,6 +95,13 @@ namespace SIMS.View.ViewDoctor.MainPages
             cp.addSentMessage(messageText.Text, DateTime.Now.ToString());
             MainFrame.Content = cp;
             messageText.Text = "";
+        }
+
+        private void Contacts_DataGrid_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+        {
+            cp = new ConversationPage();
+            recipient = (Patient)Contacts_DataGrid.SelectedItem;
+            SendBtn.IsEnabled = true;
         }
     }
 }

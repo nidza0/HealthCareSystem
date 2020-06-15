@@ -1,0 +1,57 @@
+﻿<UserControl x:Class="SIMS.View.ViewDoctor.PatientList.NewDiagnosis"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SIMS.View.ViewDoctor.PatientList"
+             mc:Ignorable="d" 
+             d:DesignHeight="400" d:DesignWidth="400">
+    <Border CornerRadius="10" BorderThickness="5" BorderBrush="White">
+        <Border.Effect>
+            <DropShadowEffect BlurRadius="4" />
+        </Border.Effect>
+        <Grid Background="White">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.3*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="0.3*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="0.3*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="0.3*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <TextBlock x:Name="DiseaseLabel" FontSize="20" FontFamily="Helvetica"
+                       Text="Bolest: "/>
+            <TextBox x:Name="DiseaseTextBox" FontSize="20" FontFamily="Helvetica" Grid.Row="1" Margin="1 10"/>
+
+            <TextBlock Grid.Row="2"  x:Name="Therapy" FontSize="20" FontFamily="Helvetica"
+                       Text="Terapija: "/>
+
+            <TextBox x:Name="TherapyTextBox" FontSize="20" FontFamily="Helvetica" Grid.Row="3" Margin="1 10"/>
+
+            <TextBlock Grid.Row="4"  x:Name="Symptoms" FontSize="20" FontFamily="Helvetica"
+                       Text="Simptomi: "/>
+
+            <TextBox x:Name="SymptomsTextBox" FontSize="20" FontFamily="Helvetica" Grid.Row="5" Margin="1 10"/>
+            
+            <Grid Grid.Row="8">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Button x:Name="ConfirmBtn" Click="ConfirmBtn_Click" FontFamily="Helvetica" FontSize="20"
+                        Content="Potvrdi" Foreground="White"
+                        Margin="10 5 10 5"
+                        Background="DarkOliveGreen" />
+
+                <Button Grid.Column="1" x:Name="CancelBtn" Click="CancelBtn_Click" FontFamily="Helvetica" FontSize="20"
+                        Content="Otkaži" 
+                        Margin="10 5 10 5"
+                        Background="LightGray" />
+            </Grid>
+        </Grid>
+    </Border>
+</UserControl>

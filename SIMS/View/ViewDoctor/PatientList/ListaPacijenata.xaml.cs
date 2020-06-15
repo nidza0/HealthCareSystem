@@ -22,6 +22,7 @@ namespace SIMS.View.ViewDoctor.PatientList
     public partial class ListaPacijenata : Page
     {
 
+        //private List<string> data = new List<string>();
         private List<Patient> data = new List<Patient>();
 
         public ListaPacijenata()
@@ -32,8 +33,12 @@ namespace SIMS.View.ViewDoctor.PatientList
 
         private void fillList()
         {
+            AppResources ar = AppResources.getInstance();
+            //patients = AppResources.getInstance().patientRepository.GetPatientByDoctor(AppResources.getLoggedInUser()).ToList();
             data = AppResources.getInstance().patientRepository.GetPatientByDoctor(AppResources.getLoggedInUser()).ToList();
+            
             PacijentiSpisak.ItemsSource = data;
+            
         }
 
         private void Back_Button_Click(object sender, RoutedEventArgs e)

@@ -1,4 +1,5 @@
-﻿using SIMS.Model.UserModel;
+﻿using SIMS.Model.PatientModel;
+using SIMS.Model.UserModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,10 +25,24 @@ namespace SIMS.View.ViewDoctor.PatientList
     {
         Patient patient;
         Point startPoint;
+        private List<Model.PatientModel.Diagnosis> data;
+
         public KartonPacijenta(Patient selektovaniPacijent)
         {
             InitializeComponent();
             patient = selektovaniPacijent;
+            fillDataGrid();
+            Header.Text = "Karton pacijenta - " + selektovaniPacijent.Name + " " + selektovaniPacijent.Surname;
+        }
+
+        private void fillDataGrid()
+        {
+            if(AppResources.getInstance().medicalRecordRepository.GetPatientMedicalRecord(patient) == null)
+            {
+                AppResources.getInstance().medicalRecordRepository.Create(new MedicalRecord(patient));
+            }
+            data = AppResources.getInstance().diagnosisRepository.GetAllDiagnosisForPatient(patient).ToList();
+            AllDiagnosis.ItemsSource = data;
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)
@@ -65,7 +80,7 @@ namespace SIMS.View.ViewDoctor.PatientList
 
         private void NewAppointmentBtn_Click(object sender, RoutedEventArgs e)
         {
-            
+           
         }
 
         private void EditAppointmentBtn_Click(object sender, RoutedEventArgs e)
@@ -115,12 +130,39 @@ namespace SIMS.View.ViewDoctor.PatientList
 
         private void Search_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            //if (!string.IsNullOrEmpty(Search.Text))
+            
+                data = data.Where(diagnosis => diagnosis.DiagnosedDisease.Name.ToLower().StartsWith(Search.Text.ToLower().Trim())).ToList();
+            
         }
 
         private void SearchBtn_Click(object sender, RoutedEventArgs e)
         {
+            if (!string.IsNullOrEmpty(Search.Text)) { 
+                data = data.Where(diagnosis => diagnosis.DiagnosedDisease.Name.ToLower().StartsWith(Search.Text.ToLower().Trim())).ToList();
+            } 
+        }
 
+        private void NewDiagnosis_Click(object sender, RoutedEventArgs e)
+        {
+            NewDiagnosis newDiag = new NewDiagnosis(data, AllDiagnosis,StackPanelMain);
+            newDiag.VerticalAlignment = VerticalAlignment.Center;
+            StackPanelMain.Children.Add(newDiag);
+        }
+
+        private void EditDiagnosis_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void InfoBTN_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void AllDiagnosis_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+        {
+            NavigationService.Navigate(new Izvestaj((Model.PatientModel.Diagnosis)AllDiagnosis.SelectedItem));
         }
     }
 }

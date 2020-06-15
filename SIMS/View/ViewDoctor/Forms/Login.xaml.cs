@@ -43,14 +43,25 @@ namespace SIMS.View.ViewDoctor.Forms
         {
             fillData();
             // keepLoggedIn();
-            Doctor retVal = AppResources.getInstance().doctorRepository.getDoctorByUsername(username);
-            if (retVal != null && retVal.Password == password)
-            {
-                AppResources.setLoggedInUser(retVal);
-                NavigationService.Navigate(new MainPageCenter());
-            }
+            TestAndLogin();
+            
 
             
+        }
+
+        private void TestAndLogin()
+        {
+            Doctor retVal = AppResources.getInstance().doctorRepository.getDoctorByUsername(Username_TextBox.Text);
+            if (retVal != null && retVal.Password == Password_TextBox.Password)
+            {
+                AppResources.getInstance().setLoggedInUser(retVal);
+                Console.WriteLine(AppResources.getLoggedInUser());
+                NavigationService.Navigate(new MainPageCenter());
+            }
+            else
+            {
+                PogresnaSifra.Visibility = Visibility.Visible;
+            }
         }
 
        
@@ -73,7 +84,7 @@ namespace SIMS.View.ViewDoctor.Forms
                 fillData();
                 // keepLoggedIn();
 
-                NavigationService.Navigate(new MainPageCenter());
+                TestAndLogin();
             }
             
         }

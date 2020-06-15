@@ -36,12 +36,17 @@
             <TextBlock Text="Zdravo" Grid.ColumnSpan="5" Grid.Row="0" TextAlignment="Center" 
                        Height="192" VerticalAlignment="Center" Padding="66" FontFamily="Helvetica"
                        FontSize="48" Foreground="{StaticResource ResourceKey=BackgroundColor}" 
-                       Background="{StaticResource ResourceKey=PrimaryColor}" />
+                       Background="{StaticResource ResourceKey=PrimaryColor}" >
+
+
+            </TextBlock>
 
 
             <!-- Lista pacijenata -->
             <Button Grid.Row="1" Grid.Column="1" Click="PatientList_Button_Click"
-                    Background="{StaticResource ResourceKey=BackgroundColor}" Height="175" BorderThickness="0"/>
+                    Background="{StaticResource ResourceKey=BackgroundColor}" Height="175" BorderThickness="0">
+                <Image Source="img_285576.png" Height="94" Width="139"></Image>
+            </Button>
 
             <TextBlock Text="Lista pacijenata" Grid.Row="2" Grid.Column="1"
                            VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"
@@ -50,7 +55,9 @@
             <!-- Recepti -->
             <Button Grid.Row="1" Grid.Column="2"
                     Background="{StaticResource ResourceKey=BackgroundColor}" Height="175" BorderThickness="0"
-                    Click="Recepti_Button_Click"/>
+                    Click="Recepti_Button_Click">
+                <Image Source="32139.png" Height="109" Width="109"></Image>
+            </Button>
 
             <TextBlock Text="Recepti" Grid.Row="2" Grid.Column="2"
                            VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"
@@ -58,7 +65,9 @@
 
             <!-- Validacija lekova -->
             <Button Grid.Row="1" Grid.Column="3" Click="Validacija_Button_Click"
-                    Background="{StaticResource ResourceKey=BackgroundColor}" Height="175" BorderThickness="0"/>
+                    Background="{StaticResource ResourceKey=BackgroundColor}" Height="175" BorderThickness="0">
+                <Image Source="verifikacijaLekova.png" Height="112" Width="112"></Image>
+            </Button>
 
             <TextBlock Text="Validacija lekova" Grid.Row="2" Grid.Column="3"
                            VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"
@@ -67,7 +76,9 @@
             <!-- Uputi -->
             <!-- Laboratorija -->
             <Button Grid.Row="3" Grid.Column="1" Click="Laboratorija_Button_Click"
-                    Background="{StaticResource ResourceKey=BackgroundColor}" Height="175" BorderThickness="0"/>
+                    Background="{StaticResource ResourceKey=BackgroundColor}" Height="175" BorderThickness="0">
+                <Image Source="research-vector-13.png"></Image>
+            </Button>
 
             <TextBlock Text="Uput za laboratoriju" Grid.Row="4" Grid.Column="1"
                            VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"
@@ -75,7 +86,9 @@
 
             <!-- Specijalisticki pregled -->
             <Button Grid.Row="3" Grid.Column="2" Click="Specijalisticko_Button_Click"
-                    Background="{StaticResource ResourceKey=BackgroundColor}" Height="175" BorderThickness="0"/>
+                    Background="{StaticResource ResourceKey=BackgroundColor}" Height="175" BorderThickness="0">
+                <Image Source="img_493396.png" Height="111" Width="102"></Image>
+            </Button>
 
             <TextBlock Text="Uput za specijalističko lečenje" Grid.Row="4" Grid.Column="2"
                            VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"
@@ -83,33 +96,33 @@
 
             <!-- Stacionarno lecenje -->
             <Button Grid.Row="3" Grid.Column="3" Click="Stacionarno_Button_Click"
-                    Background="{StaticResource ResourceKey=BackgroundColor}" Height="175" BorderThickness="0"/>
+                    Background="{StaticResource ResourceKey=BackgroundColor}" Height="175" BorderThickness="0">
+                <Image Source="fa058a304813b6d204d29253f5cb90d4-flat-home-house-icon-by-vexels.png" Height="127" Width="127"></Image>
+            </Button>
 
             <TextBlock Text="Uput za stacionarno lečenje" Grid.Row="4" Grid.Column="3"
                            VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"
                            FontSize="22" FontFamily="Helvetica" Foreground="{StaticResource ResourceKey=SecondaryColor}"/>
 
-            <!-- Lista dijagnoza -->
-            <Button Grid.Row="5" Grid.Column="1" Click="ListaDijagnoza_Button_Click"
-                    Background="{StaticResource ResourceKey=BackgroundColor}" Height="175" BorderThickness="0"/>
 
-            <TextBlock Text="Lista dijagnoza" Grid.Row="6" Grid.Column="1"
-                           VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"
-                           FontSize="22" FontFamily="Helvetica" Foreground="{StaticResource ResourceKey=SecondaryColor}"/>
 
             <!-- Pomoc -->
-            <Button Grid.Row="5" Grid.Column="2"
-                    Background="{StaticResource ResourceKey=BackgroundColor}" Height="175" BorderThickness="0"/>
+            <Button Grid.Row="5" Grid.Column="1" x:Name="Help" Click="Help_Click"
+                    Background="{StaticResource ResourceKey=BackgroundColor}" Height="175" BorderThickness="0">
+                <Image Source="help.png" Height="113" Width="112"></Image>
+            </Button>
 
-            <TextBlock Text="Pomoć" Grid.Row="6" Grid.Column="2"
+            <TextBlock Text="Pomoć" Grid.Row="6" Grid.Column="1"
                            VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"
                            FontSize="22" FontFamily="Helvetica" Foreground="{StaticResource ResourceKey=SecondaryColor}"/>
 
             <!-- Podesavanja -->
-            <Button Grid.Row="5" Grid.Column="3" Click="Settings_Button_Click"
-                    Background="{StaticResource ResourceKey=BackgroundColor}" Height="175" BorderThickness="0"/>
+            <Button Grid.Row="5" Grid.Column="2" Click="Settings_Button_Click"
+                    Background="{StaticResource ResourceKey=BackgroundColor}" Height="175" BorderThickness="0">
+                <Image Source="Windows_Settings_app_icon.png" Height="125" Width="125"></Image>
+            </Button>
 
-            <TextBlock Text="Podešavanja" Grid.Row="6" Grid.Column="3"
+            <TextBlock Text="Podešavanja" Grid.Row="6" Grid.Column="2"
                            VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"
                            FontSize="22" FontFamily="Helvetica" Foreground="{StaticResource ResourceKey=SecondaryColor}"/>
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SIMS.Model.PatientModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -22,7 +24,7 @@ namespace SIMS.View.ViewDoctor.Functions
     {
         //private int colNum = 0;
         //private List<Model.Lek_EXAMPLE> data;
-
+        private List<Model.PatientModel.Medicine> data;
 
         public ValidacijaLekova()
         {
@@ -33,13 +35,18 @@ namespace SIMS.View.ViewDoctor.Functions
 
         private void fillDataGrid()
         {
+            data = new List<Model.PatientModel.Medicine>();
+            data.Add(new Model.PatientModel.Medicine("Eferalgan", 500, MedicineType.TABLET, 100, 1));
+            data.Add(new Model.PatientModel.Medicine("Strepsils", 200, MedicineType.TABLET, 100, 1));
+            data.Add(new Model.PatientModel.Medicine("Brufen", 500, MedicineType.TABLET, 100, 1));
+            lekoviNaValidaciji.ItemsSource = data;
             //data = new Lekovi_EXAMPLE_LIST().getUnvalidated();
             //lekoviNaValidaciji.ItemsSource = data;
         }
 
         public void updateDataGrid()
         {
-            //lekoviNaValidaciji.ItemsSource = data.Where(lek => lek.Valid == false);
+            lekoviNaValidaciji.ItemsSource = data;
         }
 
 
@@ -56,17 +63,17 @@ namespace SIMS.View.ViewDoctor.Functions
 
         private void filterResults()
         {
-            /*if (UnosZaSearch.Text != string.Empty)
-                lekoviNaValidaciji.ItemsSource = data.Where(lek => lek.Naziv.ToLower().Trim().StartsWith(UnosZaSearch.Text.Trim().ToLower()));
+            if (UnosZaSearch.Text != string.Empty)
+                lekoviNaValidaciji.ItemsSource = data.Where(med => med.Name.ToLower().Trim().StartsWith(UnosZaSearch.Text.Trim().ToLower())).ToList();
             else
-                updateDataGrid();*/
+                updateDataGrid();
         }
 
 
 
         private void lekoviNaValidaciji_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
         {
-            NavigationService.Navigate(new ValidacijaOdredjenogLeka(/*(Lek_EXAMPLE)lekoviNaValidaciji.SelectedItem)*/));
+            NavigationService.Navigate(new ValidacijaOdredjenogLeka((Medicine) lekoviNaValidaciji.SelectedItem));
         }
 
         private void UnosZaSearch_TextChanged(object sender, TextChangedEventArgs e)
@@ -74,7 +81,7 @@ namespace SIMS.View.ViewDoctor.Functions
 
         }
 
-        private void UnosZaSearch_KeyUp(object sender, KeyEventArgs e)
+        private void UnosZaSearch_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
         {
             if (e.Key == System.Windows.Input.Key.Enter)
                 filterResults();

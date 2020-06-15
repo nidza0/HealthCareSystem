@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SIMS.Model.PatientModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,32 +27,51 @@ namespace SIMS.View.ViewDoctor.Functions
             get { return _lek; }
             set { if (value != _lek) _lek = value; }
         }
-        public ValidacijaOdredjenogLeka(Model.Lek_EXAMPLE lek)
+        */
+        private Medicine medicine;
+        public ValidacijaOdredjenogLeka(Medicine lek)
         {
             InitializeComponent();
-            Lek = lek;
+            medicine = lek;
             setFields();
         }
-        */
+        
+
 
         private void setFields()
         {
-         /*   if (Lek.Doza == null && Lek.AktivniSastojak == null && Lek.Naziv == null && Lek.Tip == null)
+            /*   if (Lek.Doza == null && Lek.AktivniSastojak == null && Lek.Naziv == null && Lek.Tip == null)
+               {
+                   MessageBoxButton button = MessageBoxButton.OK;
+                   string caption = "Nije prenet lek";
+                   string messageBoxText = "Niste preneli validan lek.";
+                   MessageBox.Show(messageBoxText, caption, button);
+                   NavigationService.GoBack();
+               }
+               else
+               {
+                   DrugName_TextBox.Text = Lek.Naziv;
+                   DrugType_TextBox.Text = Lek.Tip;
+                   Ingredient_TextBox.Text = Lek.AktivniSastojak;
+                   UsedFor_TextBox.Text = "/";
+               }
+               */
+            DrugName_TextBox.Text = medicine.Name;
+            DrugType_TextBox.SelectedIndex = (int) medicine.MedicineType;
+            if(medicine.Ingredient.Count > 0) { 
+                Ingredient_TextBox.Text = medicine.Ingredient[0].ToString();
+            } else
             {
-                MessageBoxButton button = MessageBoxButton.OK;
-                string caption = "Nije prenet lek";
-                string messageBoxText = "Niste preneli validan lek.";
-                MessageBox.Show(messageBoxText, caption, button);
-                NavigationService.GoBack();
+                Ingredient_TextBox.Text = "/";
             }
-            else
+
+            if (medicine.UsedFor.Count> 0) { 
+                UsedFor_TextBox.Text = medicine.UsedFor[0].ToString();
+            } else
             {
-                DrugName_TextBox.Text = Lek.Naziv;
-                DrugType_TextBox.Text = Lek.Tip;
-                Ingredient_TextBox.Text = Lek.AktivniSastojak;
                 UsedFor_TextBox.Text = "/";
             }
-            */
+
         }
 
         private void Back_Button_Click(object sender, RoutedEventArgs e)
@@ -71,12 +91,17 @@ namespace SIMS.View.ViewDoctor.Functions
 
         private void correctFields()
         {
-           /* Lek.Naziv = DrugName_TextBox.Text;
-            Lek.Tip = DrugType_TextBox.Text;
-            Lek.AktivniSastojak = Ingredient_TextBox.Text;
-            Lek.Valid = true;
-            //updateDataGrid();
-            */
+            /* Lek.Naziv = DrugName_TextBox.Text;
+             Lek.Tip = DrugType_TextBox.Text;
+             Lek.AktivniSastojak = Ingredient_TextBox.Text;
+             Lek.Valid = true;
+             //updateDataGrid();
+             */
+
+            medicine.Name = DrugName_TextBox.Text;
+            medicine.MedicineType = (MedicineType) DrugType_TextBox.SelectedIndex;
+            medicine.Ingredient.Add(new Ingredient(Ingredient_TextBox.Text));
+            //medicine.UsedFor[0] = new Disease(UsedFor_TextBox.Text);
             flushData();
         }
 

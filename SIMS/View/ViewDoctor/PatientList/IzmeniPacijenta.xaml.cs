@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SIMS.Model.UserModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,8 +21,10 @@ namespace SIMS.View.ViewDoctor.PatientList
     /// </summary>
     public partial class IzmeniPacijenta : Page
     {
-        public IzmeniPacijenta()
+        Patient patient;
+        public IzmeniPacijenta(Patient selectedPatient)
         {
+            patient = selectedPatient;
             InitializeComponent();
         }
 
@@ -32,16 +35,21 @@ namespace SIMS.View.ViewDoctor.PatientList
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-
+            NavigationService.GoBack();
         }
 
         private void SubmitButton_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new MainPageCenter());
+            NavigationService.GoBack();
             MessageBoxButton button = MessageBoxButton.OK;
             string caption = "Uspešno ste izmenili podatke";
             string messageBoxText = "Uspešno ste izmenili podatke pacijenta.";
             MessageBox.Show(messageBoxText, caption, button);
+        }
+
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
         }
     }
 }

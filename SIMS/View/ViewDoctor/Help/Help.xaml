@@ -36,7 +36,10 @@
 
             <Button Grid.Column="0" Grid.Row="0" 
                     Background="{StaticResource ResourceKey=PrimaryColor}" Click="Back_Button_Click"
-                    BorderThickness="0" />
+                    BorderThickness="0">
+
+                <Image Source="/SIMS;component/View/ViewDoctor/PatientList/unnamed.png"/>
+            </Button>
 
             <Grid Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="20">
                 <Grid.RowDefinitions>
@@ -53,7 +56,9 @@
 
                 <!-- Karton pacijenta -->
 
-                <Button x:Name="PreglediBtn" Height="240" Click="PreglediBtn_Click" Background="{StaticResource ResourceKey=BackgroundColor}" BorderThickness="0"></Button>
+                <Button x:Name="PreglediBtn" Height="240" Click="PreglediBtn_Click" Background="{StaticResource ResourceKey=BackgroundColor}" BorderThickness="0">
+                    <Image Source="appointmentHelp.png" Height="152" Width="162" />
+                </Button>
                 <TextBlock Grid.Row="1" Text="Pregledi" FontFamily="Helvetica" FontSize="17"
                                VerticalAlignment="Center" HorizontalAlignment="Center"
                                Foreground="{StaticResource ResourceKey=SecondaryColor}"/>
@@ -62,7 +67,9 @@
                 <!-- Izmeni pacijenta -->
 
 
-                <Button x:Name="PatientBtn" Click="PatientBtn_Click" Grid.Row="0" Grid.Column="1" Height="240" Background="{StaticResource ResourceKey=BackgroundColor}" BorderThickness="0"></Button>
+                <Button x:Name="PatientBtn" Click="PatientBtn_Click" Grid.Row="0" Grid.Column="1" Height="240" Background="{StaticResource ResourceKey=BackgroundColor}" BorderThickness="0">
+                    <Image Source="/SIMS;component/View/ViewDoctor/MainPages/img_285576.png" Height="128" Width="190"/>
+                </Button>
                 <TextBlock Text="Pacijenti" Grid.Row="1" Grid.Column="1" FontFamily="Helvetica" FontSize="17"
                                VerticalAlignment="Center" HorizontalAlignment="Center"
                                Foreground="{StaticResource ResourceKey=SecondaryColor}"/>
@@ -71,15 +78,14 @@
 
                 <!-- Pregledi -->
 
-                <Button x:Name="DiagnosisBtn" Click="DiagnosisBtn_Click" Grid.Row="0" Grid.Column="2" Height="240" Background="{StaticResource ResourceKey=BackgroundColor}" BorderThickness="0"></Button>
-                <TextBlock Text="Liste dijagnoza" Grid.Row="1" Grid.Column="2" FontFamily="Helvetica" FontSize="17"
-                               VerticalAlignment="Center" HorizontalAlignment="Center"
-                               Foreground="{StaticResource ResourceKey=SecondaryColor}"/>
+                
 
 
                 <!-- Stacionarno lecenje -->
 
-                <Button  x:Name="KalendarBtn" Click="KalendarBtn_Click" Grid.Row="2" Grid.Column="0" Height="240" Background="{StaticResource ResourceKey=BackgroundColor}" BorderThickness="0"></Button>
+                <Button  x:Name="KalendarBtn" Click="KalendarBtn_Click" Grid.Row="2" Grid.Column="0" Height="240" Background="{StaticResource ResourceKey=BackgroundColor}" BorderThickness="0">
+                    <Image Source="calendar.png" Height="147" Width="147" />
+                </Button>
                 <TextBlock Text="Kalendar" Grid.Row="3" Grid.Column="0" FontFamily="Helvetica" FontSize="17"
                                VerticalAlignment="Center" HorizontalAlignment="Center"
                                Foreground="{StaticResource ResourceKey=SecondaryColor}"/>
@@ -87,7 +93,9 @@
 
                 <!-- Specijalisticki pregled -->
 
-                <Button   x:Name="ValidationBtn" Click="ValidationBtn_Click" Grid.Row="2" Grid.Column="1" Height="240" Background="{StaticResource ResourceKey=BackgroundColor}" BorderThickness="0"></Button>
+                <Button   x:Name="ValidationBtn" Click="ValidationBtn_Click" Grid.Row="2" Grid.Column="1" Height="240" Background="{StaticResource ResourceKey=BackgroundColor}" BorderThickness="0">
+                    <Image Source="/SIMS;component/View/ViewDoctor/MainPages/verifikacijaLekova.png" Height="166" Width="166"/>
+                </Button>
                 <TextBlock Text="Validacija lekova" Grid.Row="3" Grid.Column="1" FontFamily="Helvetica" FontSize="17"
                                VerticalAlignment="Center" HorizontalAlignment="Center"
                                Foreground="{StaticResource ResourceKey=SecondaryColor}"/>
@@ -95,8 +103,10 @@
 
                 <!-- Laboratorijski pregled -->
 
-                <Button x:Name="SettingsBtn" Click="SettingsBtn_Click" Grid.Row="2" Grid.Column="2"  Height="240" Background="{StaticResource ResourceKey=BackgroundColor}" BorderThickness="0"></Button>
-                <TextBlock Grid.Row="3" Grid.Column="2" Text="Podešavanja" FontFamily="Helvetica" FontSize="17"
+                <Button x:Name="SettingsBtn" Click="SettingsBtn_Click" Grid.Row="0" Grid.Column="2"  Height="240" Background="{StaticResource ResourceKey=BackgroundColor}" BorderThickness="0">
+                    <Image Source="/SIMS;component/View/ViewDoctor/MainPages/Windows_Settings_app_icon.png" Height="168" Width="168"/>
+                </Button>
+                <TextBlock Grid.Row="1" Grid.Column="2" Text="Podešavanja" FontFamily="Helvetica" FontSize="17"
                                VerticalAlignment="Center" HorizontalAlignment="Center"
                                Foreground="{StaticResource ResourceKey=SecondaryColor}"/>
 

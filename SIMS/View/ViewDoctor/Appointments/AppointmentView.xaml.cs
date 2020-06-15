@@ -21,7 +21,7 @@ namespace SIMS.View.ViewDoctor.Appointments
     /// </summary>
     public partial class AppointmentView : UserControl
     {
-        public AppointmentView(int width, Appointment appointment)
+        public AppointmentView(double width, Appointment appointment)
         {
             this.Width = width;
             InitializeComponent();

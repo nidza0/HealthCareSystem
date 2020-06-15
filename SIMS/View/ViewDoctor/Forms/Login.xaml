@@ -56,9 +56,9 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <TextBox  x:Name="Username_TextBox" Grid.Row="1" FontFamily="Helvetica" FontSize="18" 
+                <TextBox  x:Name="Username_TextBox" Grid.Row="1" FontFamily="Helvetica" FontSize="14" 
                           Padding="5"   Grid.ColumnSpan="2"/>
-                <TextBlock  x:Name="Username_Label" Grid.Row="0" FontFamily="Helvetica" FontSize="18" 
+                <TextBlock  x:Name="Username_Label" Grid.Row="0" FontFamily="Helvetica" FontSize="14" 
                           Padding="5"   Grid.ColumnSpan="2" Text="Korisničko ime:"
                             VerticalAlignment="Center" Foreground="{StaticResource ResourceKey=SecondaryColor}"/>
 
@@ -92,10 +92,12 @@
 
             <Button x:Name="SubmitButton" Content="Prijavi se" FontFamily="Helvetica" FontSize="30" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2"
                     Foreground="White" Background="{StaticResource ResourceKey=PrimaryColor}" Click="SubmitButton_Click"/>
+                <TextBlock x:Name="PogresnaSifra" Text="Nisu uneti ispravni podaci" Grid.Row="6" Grid.Column="1" FontFamily="Helvetica" FontSize="20" Grid.ColumnSpan="2" HorizontalAlignment="Center"
+                           Foreground="Red" Margin="10" Visibility="Hidden"/>
 
 
 
-            <Grid Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="4">
+                <Grid Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="4">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="0.2*"/>

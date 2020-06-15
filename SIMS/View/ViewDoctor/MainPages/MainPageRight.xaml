@@ -40,22 +40,14 @@
                        FontSize="48" Foreground="{StaticResource ResourceKey=BackgroundColor}" 
                        Background="{StaticResource ResourceKey=PrimaryColor}" />
 
-            <TextBlock x:Name="Kancelarija" Text="Kancelarija" FontSize="22" FontFamily="Helvetica" Foreground="{StaticResource ResourceKey=SecondaryColor}" Grid.Row="3" Grid.Column="2"
-                        VerticalAlignment="Center" HorizontalAlignment="Center"/>
+           
 
-            <TextBlock x:Name="BrojTelefona" Text="brtel" FontSize="22" FontFamily="Helvetica" Foreground="{StaticResource ResourceKey=SecondaryColor}" Grid.Row="2" Grid.Column="2"
-                        VerticalAlignment="Center" HorizontalAlignment="Center"/>
+           
 
-            <TextBlock x:Name="Smenalabel" Text="Smena" FontSize="22" FontFamily="Helvetica" Foreground="{StaticResource ResourceKey=SecondaryColor}" Grid.Row="2" Grid.Column="3"
-                        VerticalAlignment="Center" HorizontalAlignment="Center"/>
-
-            <TextBlock x:Name="Smena" Text="vremeSmene" FontSize="22" FontFamily="Helvetica" Foreground="{StaticResource ResourceKey=SecondaryColor}" Grid.Row="3" Grid.Column="3"
-                        VerticalAlignment="Center" HorizontalAlignment="Center"/>
-
-            <Image Grid.Row="1" Grid.Column="1"  Margin="10"/>
+            <Image Grid.Row="1" Grid.Column="1"  Margin="10" Source="813844_people_512x512.png"/>
             <TextBlock x:Name="Name_TextBlock" Grid.Row="2" Grid.Column="1" Text="Ime Prezime" VerticalAlignment="Center" HorizontalAlignment="Center"
                        FontSize="22" FontFamily="Helvetica" Foreground="{StaticResource ResourceKey=SecondaryColor}"/>
-            <TextBlock x:Name="AddedInfo_TextBlock" Grid.Row="3" Grid.Column="1" Text="Tip doktora" VerticalAlignment="Center" HorizontalAlignment="Center"
+            <TextBlock x:Name="TipDoktora_TextBlock" Grid.Row="3" Grid.Column="1" Text="Tip doktora" VerticalAlignment="Center" HorizontalAlignment="Center"
                        FontSize="22" FontFamily="Helvetica" Foreground="{StaticResource ResourceKey=SecondaryColor}"/>
 
             <Border Grid.Row="4" Grid.RowSpan="4" Grid.ColumnSpan="3" Grid.Column="1" Margin="10" BorderThickness="5" BorderBrush="LightGray"
@@ -73,10 +65,12 @@
                         </Grid.RowDefinitions>
 
                         <TextBox x:Name="SearchBox" FontFamily="Helvetica" Foreground="{StaticResource SecondaryColor}" FontSize="20" Padding="5" Margin="5 5 20 5"/>
-                        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" >
-                            <!--<DataGrid x:Name="Contacts_DataGrid"  />-->
-                            <Frame x:Name="Chats" Source="Chats.xaml"/>
-                        </ScrollViewer>
+                        
+                            <DataGrid x:Name="Contacts_DataGrid" SelectedCellsChanged="Contacts_DataGrid_SelectedCellsChanged" Grid.Row="1" >
+                            
+                            </DataGrid>
+                            <!--<Frame x:Name="Chats" Source="Chats.xaml"/>-->
+                        
 
                     </Grid>
 

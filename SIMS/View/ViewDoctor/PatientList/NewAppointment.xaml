@@ -41,8 +41,8 @@
                        Text="Tip: "/>
 
             <ComboBox x:Name="TypeCombo" SelectionChanged="TypeCombo_SelectionChanged" Grid.Row="7" Margin="1 10" FontFamily="Helvetica" FontSize="20">
-                <ComboBoxItem Name="Pregled" />
-                <ComboBoxItem Name="Operacija" />
+                <ComboBoxItem Name="Pregled">Pregled</ComboBoxItem>
+                <ComboBoxItem Name="Operacija">Operacija</ComboBoxItem>
             </ComboBox>
 
             <Grid Grid.Row="8">

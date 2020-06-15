@@ -13,6 +13,8 @@ using SIMS.Model.PatientModel;
 
 using SIMS.Repository.CSVFileRepository.MedicalRepository;
 using SIMS.Repository.CSVFileRepository.HospitalManagementRepository;
+using System.Windows.Forms;
+using SIMS.Util;
 
 namespace SIMS
 {
@@ -26,6 +28,29 @@ namespace SIMS
         {
 
             InitializeComponent();
+            Room room = new Room(100, "101A", false, 1, RoomType.EXAMINATION);
+
+            Address address = new Address("Tolstojeva 1", new Location(111, "Srbija", "Novi Sad"));
+
+            Room room2 = new Room(2, "23", true, 3, RoomType.OPERATION);
+            Room room1 = new Room(1, "22", true, 2, RoomType.OPERATION);
+
+            Doctor haus = new Doctor(new UserID("D123"), "GregoryHouse", "housemd123", DateTime.Now, "Gregory",
+                "House", "Greg", Sex.MALE, DateTime.Now.AddYears(-30), "12345667", address, "555-333",
+                "06130959858", "house@gmail.com", "housemd@gmail.com",
+                new TimeTable(new Dictionary<WorkingDaysEnum, Util.TimeInterval>()),
+                new Hospital("test", address, "555-333", "zzzz"), new Room(1), DocTypeEnum.CARDIOLOGIST);
+
+            Patient Mika = new Patient(new UserID("P123"), "MikaMikic", "mikoslav123", DateTime.Now, "Mika",
+                "Mikic", "/", Sex.MALE, DateTime.Now.AddYears(-30), "1906980800005", address, "+38121555333", "+381641111111", "mikacar@gmail.com", "mikaidaljecar@uns.ac.rs",
+                new EmergencyContact("Pera", "Peric", "pera.peric@uns.ac.rs", "+381655555555"), PatientType.GENERAL, haus);
+
+
+
+            Appointment newApp = new Appointment(152, haus, Mika, room2, AppointmentType.checkup, new TimeInterval(DateTime.Now, DateTime.Now.AddMinutes(15)));
+            AppResources.getInstance().appointmentRepository.Create(newApp);
+            //Room room = new Room(100, "101A", false, 1, RoomType.EXAMINATION);
+            //AppResources.getInstance().roomRepository.Create(room);
            /* Address address = new Address("Tolstojeva 1", new Location(111, "Srbija", "Novi Sad"));
 
             Doctor haus = new Doctor(new UserID("D123"), "GregoryHouse", "housemd123", DateTime.Now, "Gregory",

@@ -125,13 +125,14 @@ namespace SIMS
             //ODAVDDE RADITI OSTALE
         }
 
-        public static void setLoggedInUser(Doctor loggedIn)
+        public void setLoggedInUser(Doctor loggedIn)
         {
             loggedInUser = loggedIn;
         }
 
         public static Doctor getLoggedInUser()
         {
+            Console.WriteLine(loggedInUser);
             return loggedInUser;
         }
 

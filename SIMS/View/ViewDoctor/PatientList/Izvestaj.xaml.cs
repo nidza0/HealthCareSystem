@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SIMS.Model.PatientModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,31 +14,24 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SIMS.View.ViewDoctor.Functions
+namespace SIMS.View.ViewDoctor.PatientList
 {
     /// <summary>
-    /// Interaction logic for IzmeniPacijenta.xaml
+    /// Interaction logic for Izvestaj.xaml
     /// </summary>
-    public partial class IzmeniPacijenta : Page
+    public partial class Izvestaj : Page
     {
-        public IzmeniPacijenta()
+        private Model.PatientModel.Diagnosis diagnosis;
+        public Izvestaj(Model.PatientModel.Diagnosis diag)
         {
+            diagnosis = diag;
             InitializeComponent();
+            IzvestajODijagnozi.Text = "Izveštaj o dijagnozi - " + diagnosis.DiagnosedDisease.Name;
         }
 
-        private void Back_Button_Click(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
-        }
-
-        private void OK_Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void CANCEL_Button_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

@@ -22,6 +22,7 @@ namespace SIMS.View.ViewDoctor.Functions
     public partial class UputZaSpecijalisticko : Page
     {
         Patient patient;
+        DateTime time;
         public UputZaSpecijalisticko(Patient selected)
         {
             patient = selected;
@@ -36,16 +37,40 @@ namespace SIMS.View.ViewDoctor.Functions
 
         private void OK_Button_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new MainPageCenter());
-            MessageBoxButton button = MessageBoxButton.OK;
-            string caption = "Uspešno ste izdali uput";
-            string messageBoxText = "Uspešno ste izdali uput za specijalistički pregled.";
-            MessageBox.Show(messageBoxText, caption, button);
+            if(DateTime.TryParseExact(TimeTextBox.Text, "HH:mm", null, System.Globalization.DateTimeStyles.None, out time)) { 
+                NavigationService.Navigate(new MainPageCenter());
+                MessageBoxButton button = MessageBoxButton.OK;
+                string caption = "Uspešno ste izdali uput";
+                string messageBoxText = "Uspešno ste izdali uput za specijalistički pregled.";
+                MessageBox.Show(messageBoxText, caption, button);
+            } else
+            {
+                MessageBoxButton button = MessageBoxButton.OK;
+                string caption = "Niste uneli validno vreme";
+                string messageBoxText = "Vreme mora biti u formatu HH:mm.";
+                MessageBox.Show(messageBoxText, caption, button);
+            }
         }
 
         private void CANCEL_Button_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new MainPageCenter());
+        }
+
+        private void TimeTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (!DateTime.TryParseExact(TimeTextBox.Text, "HH:mm", null, System.Globalization.DateTimeStyles.None, out time))
+            {
+                TimeTextBox.BorderBrush = new SolidColorBrush(Color.FromArgb(100, 255, 21, 0));
+                TimeTextBox.BorderThickness = new Thickness(2);
+            }
+            else
+            {
+                TimeTextBox.BorderBrush = new SolidColorBrush(Color.FromArgb(100, 66, 245, 75));
+                TimeTextBox.BorderThickness = new Thickness(2);
+                //time = DateTime.ParseExact(TimePicker.Text, "HH:mm", null);
+                //Console.WriteLine(time.ToString());
+            }
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SIMS.Model.PatientModel;
+using SIMS.Util;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -22,10 +24,31 @@ namespace SIMS.View.ViewDoctor.MainPages
     public partial class MainPageLeft : Page
     {
         private Point startPoint;
+        private Calendar cal;
         public MainPageLeft()
         {
             InitializeComponent();
             ActiveDate.SelectedDate = DateTime.Now;
+            fillFrame();
+            cal = new Calendar();
+        }
+
+        private void fillFrame()
+        {
+            //List<Appointment> data = AppResources.getInstance().appointmentRepository.GetAppointmentsByDoctor(AppResources.getLoggedInUser()).Where(
+            //    app => app.TimeInterval.StartTime.Date == ActiveDate.SelectedDate.Value.Date).ToList();
+
+            List<Appointment> data = new List<Appointment>();
+            data.Add(new Appointment(151, AppResources.getLoggedInUser(), AppResources.getInstance().patientRepository.GetPatientByDoctor(AppResources.getLoggedInUser()).SingleOrDefault(patient => patient.Name == "Mika"),
+                new Model.UserModel.Room("111A", false, 1, Model.UserModel.RoomType.EXAMINATION), AppointmentType.checkup, new TimeInterval(DateTime.Now.AddHours(1), DateTime.Now.AddHours(1).AddMinutes(15))));
+
+            foreach(Appointment temp in data)
+            {
+                cal = new Calendar();
+                Appointments.AppointmentView aw = new Appointments.AppointmentView(Checkups.Width, temp);
+                cal.AddAppointment(aw);
+                Checkups.Content = cal;
+            }
         }
 
         private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

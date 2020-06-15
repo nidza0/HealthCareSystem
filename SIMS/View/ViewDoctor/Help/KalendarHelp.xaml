@@ -36,7 +36,10 @@
 
             <Button Grid.Column="0" Grid.Row="0" 
                     Background="{StaticResource ResourceKey=PrimaryColor}" Click="Button_Click"
-                    BorderThickness="0" />
+                    BorderThickness="0">
+
+                <Image Source="/SIMS;component/View/ViewDoctor/PatientList/unnamed.png"/>
+            </Button>
 
 
             <ScrollViewer Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="2" VerticalScrollBarVisibility="Hidden">

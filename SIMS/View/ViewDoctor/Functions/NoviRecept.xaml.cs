@@ -63,11 +63,15 @@ namespace SIMS.View.ViewDoctor.Functions
             {
                 if (Double.Parse(DailyAmount_TextBox.Text) != 0.0)
                 {
+                    /*
                     Dictionary<Medicine, TherapyDose> temp = new Dictionary<Medicine, TherapyDose>();
                     Dictionary<TherapyTime, double> tempTime = new Dictionary<TherapyTime, double>();
                     tempTime[TherapyTime.AsNeeded] = double.Parse(DailyAmount_TextBox.Text);
                     temp[AppResources.getInstance().medicineRepository.GetMedicineByName(DrugName.Text)] = new TherapyDose(tempTime);
                     AppResources.getInstance().prescriptionRepository.Create(new Model.PatientModel.Prescription(Model.PatientModel.PrescriptionStatus.ACTIVE, AppResources.getLoggedInUser(), temp));
+
+                    */
+
 
                     NavigationService.Navigate(new MainPageCenter());
                     MessageBoxButton button = MessageBoxButton.OK;

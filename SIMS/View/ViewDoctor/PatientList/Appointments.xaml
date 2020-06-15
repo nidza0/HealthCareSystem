@@ -29,14 +29,14 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="0.1*" />
             </Grid.ColumnDefinitions>
-            <Button x:Name="Back" Click="Back_Click">
-                
-            </Button>
-            <TextBlock Text="Kontrole - Ime Prezime" x:Name="Title" TextAlignment="Center" Grid.ColumnSpan="5" Grid.Row="0"
+            
+            <TextBlock Text="Kontrole - Ime Prezime" x:Name="Naslov" TextAlignment="Center" Grid.ColumnSpan="5" Grid.Row="0"
                        Height="192" VerticalAlignment="Center" Padding="66" FontFamily="Helvetica"
                        FontSize="48" Foreground="{StaticResource ResourceKey=BackgroundColor}" 
                        Background="{StaticResource ResourceKey=PrimaryColor}" />
-
+            <Button x:Name="Back" Click="Back_Click" Background="Transparent">
+                <Image Source="unnamed.png"></Image>
+            </Button>
 
 
             <!-- Search -->
@@ -76,7 +76,11 @@
                 <Button Content="Novi pregled" x:Name="NewAppointment" Click="NewAppointment_Click" Foreground="{StaticResource SecondaryColor}" FontFamily="Helvetica" FontSize="20" Margin="10"/>
                 <Button Content="Izmeni pregled" x:Name="EditAppointment" Click="EditAppointment_Click" Grid.Column="1" Foreground="{StaticResource SecondaryColor}" FontFamily="Helvetica" FontSize="20" Margin="10"/>
                 <Button Content="Otkaži pregled" x:Name="CancelAppointment" Click="CancelAppointment_Click" Grid.Column="2" Foreground="{StaticResource SecondaryColor}" FontFamily="Helvetica" FontSize="20" Margin="10"/>
-                    <Frame x:Name="Checkups" Grid.Row="1" Grid.ColumnSpan="3"/>
+                    <!--<Frame x:Name="Checkups" Grid.Row="1" Grid.ColumnSpan="3"/>-->
+                <DataGrid x:Name="AppointmentList"  DataContextChanged="AppointmentList_DataContextChanged" SelectedCellsChanged="AppointmentList_SelectedCellsChanged" Grid.Row="1" Grid.ColumnSpan="3" FontFamily="Helvetica" FontSize="20" Foreground="{StaticResource SecondaryColor}">
+                    
+                </DataGrid>
+                <StackPanel x:Name="NewApp" Grid.Row="1" Grid.ColumnSpan="3"/>
             </Grid>
 
         </Grid>

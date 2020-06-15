@@ -225,9 +225,6 @@
     <Compile Include="View\ViewDoctor\Forms\SaveOrPrint.xaml.cs">
       <DependentUpon>SaveOrPrint.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\ViewDoctor\Functions\IzmeniPacijenta.xaml.cs">
-      <DependentUpon>IzmeniPacijenta.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\ViewDoctor\Functions\Izvestaj\ListaDijagnozaZaPacijenta.xaml.cs">
       <DependentUpon>ListaDijagnozaZaPacijenta.xaml</DependentUpon>
     </Compile>
@@ -236,9 +233,6 @@
     </Compile>
     <Compile Include="View\ViewDoctor\Functions\NoviRecept.xaml.cs">
       <DependentUpon>NoviRecept.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\ViewDoctor\Functions\Recepti.xaml.cs">
-      <DependentUpon>Recepti.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ViewDoctor\Functions\UputZaLaboratoriju.xaml.cs">
       <DependentUpon>UputZaLaboratoriju.xaml</DependentUpon>
@@ -304,11 +298,20 @@
     <Compile Include="View\ViewDoctor\PatientList\Appointments.xaml.cs">
       <DependentUpon>Appointments.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\ViewDoctor\PatientList\Diagnosis.xaml.cs">
+      <DependentUpon>Diagnosis.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewDoctor\PatientList\DiagnosisList.xaml.cs">
+      <DependentUpon>DiagnosisList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\ViewDoctor\PatientList\EditAppointment.xaml.cs">
       <DependentUpon>EditAppointment.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ViewDoctor\PatientList\IzmeniPacijenta.xaml.cs">
       <DependentUpon>IzmeniPacijenta.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewDoctor\PatientList\Izvestaj.xaml.cs">
+      <DependentUpon>Izvestaj.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ViewDoctor\PatientList\KartonPacijenta.xaml.cs">
       <DependentUpon>KartonPacijenta.xaml</DependentUpon>
@@ -318,6 +321,9 @@
     </Compile>
     <Compile Include="View\ViewDoctor\PatientList\NewAppointment.xaml.cs">
       <DependentUpon>NewAppointment.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewDoctor\PatientList\NewDiagnosis.xaml.cs">
+      <DependentUpon>NewDiagnosis.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ViewDoctor\PatientList\OdaberiPacijenta.xaml.cs">
       <DependentUpon>OdaberiPacijenta.xaml</DependentUpon>
@@ -374,10 +380,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\ViewDoctor\Functions\IzmeniPacijenta.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="View\ViewDoctor\Functions\Izvestaj\ListaDijagnozaZaPacijenta.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -387,10 +389,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\ViewDoctor\Functions\NoviRecept.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\ViewDoctor\Functions\Recepti.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -478,11 +476,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\ViewDoctor\PatientList\Diagnosis.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewDoctor\PatientList\DiagnosisList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\ViewDoctor\PatientList\EditAppointment.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\ViewDoctor\PatientList\IzmeniPacijenta.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewDoctor\PatientList\Izvestaj.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -495,6 +505,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\ViewDoctor\PatientList\NewAppointment.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewDoctor\PatientList\NewDiagnosis.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -596,6 +610,60 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="View\ViewDoctor\MainPages\chatBg.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\ViewDoctor\MainPages\verifikacijaLekova.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\ViewDoctor\MainPages\img_285576.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\ViewDoctor\MainPages\32139.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\ViewDoctor\MainPages\fa058a304813b6d204d29253f5cb90d4-flat-home-house-icon-by-vexels.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\ViewDoctor\MainPages\research-vector-13.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\ViewDoctor\MainPages\img_493396.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\ViewDoctor\MainPages\help.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\ViewDoctor\MainPages\Windows_Settings_app_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\ViewDoctor\PatientList\BACK.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\ViewDoctor\PatientList\unnamed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\ViewDoctor\PatientList\Vector_search_icon.svg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\ViewDoctor\Help\appointmentHelp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\ViewDoctor\Help\calendar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\ViewDoctor\PatientList\84380.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\ViewDoctor\PatientList\health-checkup.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\ViewDoctor\MainPages\23b342a5-f76f-41dd-a3a9-9e4b40296717_200x200.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\ViewDoctor\MainPages\fe28b97a-ffd2-4671-84c4-657e13809497_200x200.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\ViewDoctor\MainPages\813844_people_512x512.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

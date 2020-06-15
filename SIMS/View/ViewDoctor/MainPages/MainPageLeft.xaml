@@ -60,7 +60,7 @@
 
             </DataGrid>
         -->
-            <Frame x:Name="Checkups" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"/>
+            <Frame x:Name="Checkups" Source="Calendar.xaml" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"/>
 
 
         </Grid>
