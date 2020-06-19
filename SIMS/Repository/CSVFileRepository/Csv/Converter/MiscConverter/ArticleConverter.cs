@@ -5,6 +5,7 @@
 
 using System;
 using System.Text;
+using System.Globalization;
 using SIMS.Model.UserModel;
 
 namespace SIMS.Repository.CSVFileRepository.Csv.Converter.MiscConverter
@@ -22,7 +23,7 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.MiscConverter
         {
             string[] tokens = csv.Split(_delimiter.ToCharArray());
 
-            Article retVal = new Article(long.Parse(tokens[0]), tokens[1], tokens[2], tokens[3], tokens[4].Equals("") ? null : new Employee(new UserID(tokens[4])), DateTime.Parse(tokens[5]));
+            Article retVal = new Article(long.Parse(tokens[0]), tokens[1], tokens[2], tokens[3], tokens[4].Equals("") ? null : new Employee(new UserID(tokens[4])), DateTime.ParseExact(tokens[5],_dateTimeFormat,CultureInfo.InvariantCulture));
             return retVal;
         }
 

@@ -327,5 +327,35 @@
   <ItemGroup>
     <Folder Include="View\" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Files\HospitalManagementFiles\hospitals.txt" />
+    <Resource Include="Files\HospitalManagementFiles\inventories.txt" />
+    <Resource Include="Files\HospitalManagementFiles\inventoryItems.txt" />
+    <Resource Include="Files\HospitalManagementFiles\medicines.txt" />
+    <Resource Include="Files\HospitalManagementFiles\rooms.txt" />
+    <Resource Include="Files\HospitalManagementFiles\timeTables.txt" />
+    <Resource Include="Files\MedicalFiles\allergies.txt" />
+    <Resource Include="Files\MedicalFiles\appointments.txt" />
+    <Resource Include="Files\MedicalFiles\diagnosis.txt" />
+    <Resource Include="Files\MedicalFiles\diseases.txt" />
+    <Resource Include="Files\MedicalFiles\ingredients.txt" />
+    <Resource Include="Files\MedicalFiles\medicalRecords.txt" />
+    <Resource Include="Files\MedicalFiles\prescriptions.txt" />
+    <Resource Include="Files\MedicalFiles\symptoms.txt" />
+    <Resource Include="Files\MedicalFiles\therapies.txt" />
+    <Resource Include="Files\MiscFiles\articles.txt" />
+    <Resource Include="Files\MiscFiles\doctorFeedbacks.txt" />
+    <Resource Include="Files\MiscFiles\doctorQuestions.txt" />
+    <Resource Include="Files\MiscFiles\feedbacks.txt" />
+    <Resource Include="Files\MiscFiles\locations.txt" />
+    <Resource Include="Files\MiscFiles\messages.txt" />
+    <Resource Include="Files\MiscFiles\notifications.txt" />
+    <Resource Include="Files\MiscFiles\questions.txt" />
+    <Resource Include="Files\UserFiles\doctors.txt" />
+    <Resource Include="Files\UserFiles\managers.txt" />
+    <Resource Include="Files\UserFiles\patients.txt" />
+    <Resource Include="Files\UserFiles\secretaries.txt" />
+    <Resource Include="Files\UserFiles\users.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

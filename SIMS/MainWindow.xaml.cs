@@ -325,7 +325,197 @@ namespace SIMS
             //QuestionRepoTest();
             //FeedbackTest();
             //HospitalRepoTest();
-            DateTimeTest();
+            //DateTimeTest();
+            //SymptomRepoTest();
+            //IngredientRepoTest();
+            //DiseaseMedicineRepoTest();
+
+            //PrescriptionRepoTest();
+            //AllergyRepoTest();
+            
+        }
+
+
+        private void AllergyRepoTest()
+        {
+            AllergyRepository allergyRepository = AppResources.getInstance().allergyRepository;
+            SymptomRepository symptomRepository = AppResources.getInstance().symptomRepository;
+            IngredientRepository ingredientRepository = AppResources.getInstance().ingredientRepository;
+
+            Ingredient ingredient1 = ingredientRepository.Create(new Ingredient("Koka"));
+            Ingredient ingredient2 = ingredientRepository.Create(new Ingredient("Amphetamine"));
+            Ingredient ingredient3 = ingredientRepository.Create(new Ingredient("Lavanda"));
+
+            Symptom symptom1 = symptomRepository.Create(new Symptom("Simptom 1", "Opis 1 simptoma"));
+            Symptom symptom2 = symptomRepository.Create(new Symptom("Simptom 2", "Opis 2 simptoma"));
+            Symptom symptom3 = symptomRepository.Create(new Symptom("Simptom 3", "Opis 3 simptoma"));
+
+            List<Symptom> symptomList1 = new List<Symptom>();
+            List<Symptom> symptomList2 = new List<Symptom>();
+            List<Symptom> symptomList3 = new List<Symptom>();
+
+
+            symptomList2.Add(symptom1);
+            symptomList2.Add(symptom2);
+
+            symptomList3.Add(symptom1);
+            symptomList3.Add(symptom2);
+            symptomList3.Add(symptom3);
+
+
+
+            Allergy allergy1 = allergyRepository.Create(new Allergy("Alergija 1", ingredient1, symptomList1));
+            Allergy allergy2 = allergyRepository.Create(new Allergy("Alergija 2", ingredient2, symptomList2));
+            Allergy allergy3 = allergyRepository.Create(new Allergy("Alergija 3", ingredient3, symptomList3));
+
+
+            allergy1.Name = "TEST ALLERGY";
+
+            allergyRepository.Update(allergy1);
+
+            Allergy temp = allergyRepository.GetByID(1);
+
+            Console.WriteLine(temp.Name);
+
+
+        }
+
+        private void PrescriptionRepoTest()
+        {
+            PrescriptionRepository prescriptionRepository = AppResources.getInstance().prescriptionRepository;
+            Dictionary<Medicine, TherapyDose> medicine = new Dictionary<Medicine, TherapyDose>();
+            Dictionary<TherapyTime, double> dosage1 = new Dictionary<TherapyTime, double>();
+            dosage1.Add(TherapyTime.Afternoon, 7);
+            dosage1.Add(TherapyTime.BeforeBed, 3);
+            dosage1.Add(TherapyTime.WhenIWakeUp, 2);
+            Medicine test1 = new Medicine(75);
+            medicine.Add(test1, new TherapyDose(dosage1));
+
+            Dictionary<TherapyTime, double> dosage2 = new Dictionary<TherapyTime, double>();
+            dosage2.Add(TherapyTime.AsNeeded, 1);
+            dosage2.Add(TherapyTime.BeforeBed, 2);
+            dosage2.Add(TherapyTime.Afternoon, 6);
+            Medicine test2 = new Medicine(54);
+            medicine.Add(test2, new TherapyDose(dosage2));
+
+            Dictionary<TherapyTime, double> dosage3 = new Dictionary<TherapyTime, double>();
+            dosage3.Add(TherapyTime.AsNeeded, 9);
+            dosage3.Add(TherapyTime.Evening, 5);
+            dosage3.Add(TherapyTime.BeforeBed, 3);
+            medicine.Add(new Medicine(23), new TherapyDose(dosage3));
+
+            Prescription p = new Prescription(PrescriptionStatus.ACTIVE, new Doctor(new UserID("d78")), medicine);
+            Prescription p1 = new Prescription(PrescriptionStatus.ACTIVE, new Doctor(new UserID("d65")), medicine);
+
+            p = prescriptionRepository.Create(p);
+            p1 = prescriptionRepository.Create(p1);
+
+            p.Medicine.Remove(test2);
+
+            //A p1-u cemo da promenimo dosage da se uzima i as needed
+            TherapyDose newTherapy = p1.Medicine[test1];
+            newTherapy.Dosage.Add(TherapyTime.AsNeeded, 555);
+            p1.Medicine.Remove(test1);
+            p1.Medicine.Add(test1, newTherapy);
+
+            prescriptionRepository.Update(p1);
+            prescriptionRepository.Update(p);
+
+
+
+
+
+        }
+
+        private void DiseaseMedicineRepoTest()
+        {
+            SymptomRepository symptomRepository = AppResources.getInstance().symptomRepository;
+            DiseaseRepository diseaseRepository = AppResources.getInstance().diseaseRepository;
+            MedicineRepository medicineRepository = AppResources.getInstance().medicineRepository;
+
+            Symptom symptom1 = symptomRepository.Create(new Symptom("Bol u vratu", "Jak bol u prednjem delu vrata"));
+            Symptom symptom2 = symptomRepository.Create(new Symptom("bol u uvetu", "Jak bol u srednjem uvetu"));
+            List<Symptom> symptomList = new List<Symptom>();
+            symptomList.Add(symptom1);
+            symptomList.Add(symptom2);
+
+
+            Medicine medicine1 = medicineRepository.Create(new Medicine("Oljaprofen", 10000, MedicineType.PILL, 5, 7));
+            Medicine medicine2 = medicineRepository.Create(new Medicine("Zetaprofen", 1200, MedicineType.LIQUID, 5, 7));
+            Disease disease = new Disease("Hashimoto's disease", "Bolest stitne zlezde", true, new DiseaseType(false, true, "teska boles'"), symptomList);
+            Disease disease1 = new Disease("Tumor", "Bolest glave", true, new DiseaseType(false, true, "teska boles'"), symptomList);
+
+            disease = diseaseRepository.Create(disease);
+            disease1 = diseaseRepository.Create(disease1);
+
+            disease.AdministratedFor.Add(medicine1);
+            medicine1.UsedFor.Add(disease);
+            disease.AdministratedFor.Add(medicine2);
+            medicine2.UsedFor.Add(disease);
+
+            medicineRepository.Update(medicine1);
+            medicineRepository.Update(medicine2);
+
+            diseaseRepository.Update(disease);
+
+
+
+        }
+
+
+        private void IngredientRepoTest()
+        {
+            IngredientRepository ingredientRepository = AppResources.getInstance().ingredientRepository;
+            Ingredient ingredient1 = new Ingredient("Koka");
+            Ingredient ingredient2 = new Ingredient("Amphetamine");
+            Ingredient ingredient3 = new Ingredient("Lavanda");
+            ingredientRepository.Create(ingredient1);
+            ingredientRepository.Create(ingredient2);
+            ingredientRepository.Create(ingredient3);
+
+            Ingredient test1 = ingredientRepository.GetByID(1);
+            Ingredient test2 = ingredientRepository.GetByID(2);
+            Ingredient test3 = ingredientRepository.GetByID(3);
+
+            Console.WriteLine(test1.Id + test1.Name);
+            Console.WriteLine(test2.Id + test2.Name);
+            Console.WriteLine(test3.Id + test3.Name);
+
+            ingredientRepository.Delete(test1);
+            ingredientRepository.Delete(test2);
+        }
+
+        private void SymptomRepoTest()
+        {
+            SymptomRepository symptomRepository = AppResources.getInstance().symptomRepository;
+            Symptom symptom1 = new Symptom("Simptom 1", "Opis 1 simptoma");
+            Symptom symptom2 = new Symptom("Simptom 2", "Opis 2 simptoma");
+            Symptom symptom3 = new Symptom("Simptom 3", "Opis 3 simptoma");
+
+            symptomRepository.Create(symptom1);
+            symptomRepository.Create(symptom2);
+            symptomRepository.Create(symptom3);
+
+
+            Symptom test1 = symptomRepository.GetByID(1);
+            Symptom test2 = symptomRepository.GetByID(2);
+            Symptom test3 = symptomRepository.GetByID(3);
+            Symptom test4 = symptomRepository.GetByID(4);
+
+            Console.WriteLine(test1.GetId() + " " + test1.Name + " " + test1.ShortDescription);
+            Console.WriteLine(test2.GetId() + " " + test2.Name + " " + test2.ShortDescription);
+            Console.WriteLine(test3.GetId() + " " + test3.Name + " " + test3.ShortDescription);
+
+            if(test4 == null)
+            {
+                Console.WriteLine("Test 4 je null, nije pronadjen sa tim ID-om!");
+            }
+
+            symptomRepository.Delete(test1);
+            symptomRepository.Delete(test2);
+            symptomRepository.Delete(test3);
+
+            symptomRepository.Create(symptom1);
         }
 
         private void DateTimeTest()

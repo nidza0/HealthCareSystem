@@ -5,6 +5,7 @@
 
 using System;
 using SIMS.Model.UserModel;
+using System.Globalization;
 
 namespace SIMS.Repository.CSVFileRepository.Csv.Converter.MiscConverter
 {
@@ -26,7 +27,7 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.MiscConverter
                 tokens[1],
                 tokens[2].Equals("") ? null : new User(new UserID(tokens[2])),
                 tokens[3].Equals("") ? null : new User(new UserID(tokens[3])), 
-                DateTime.Parse(tokens[4]), 
+                DateTime.ParseExact(tokens[4],_dateTimeFormat,CultureInfo.InvariantCulture), 
                 bool.Parse(tokens[5]));
         }
 

@@ -5,6 +5,7 @@
 
 using System;
 using SIMS.Model.UserModel;
+using System.Globalization;
 
 namespace SIMS.Repository.CSVFileRepository.Csv.Converter.MiscConverter
 {
@@ -24,7 +25,7 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.MiscConverter
             return new Notification(tempId, 
                 tokens[1], 
                 tokens[2].Equals("") ? null : new User(new UserID(tokens[2])), 
-                DateTime.Parse(tokens[3]));
+                DateTime.ParseExact(tokens[3],_dateTimeFormat,CultureInfo.InvariantCulture));
         }
 
         public string ConvertEntityToCSV(Notification entity)
