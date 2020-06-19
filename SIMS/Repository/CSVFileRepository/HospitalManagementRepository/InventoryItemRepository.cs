@@ -16,7 +16,7 @@ using System.Linq;
 
 namespace SIMS.Repository.CSVFileRepository.HospitalManagementRepository
 {
-    class InventoryItemRepository : CSVRepository<InventoryItem, long>, IInventoryItemRepository, IEagerCSVRepository<InventoryItem, long>
+    public class InventoryItemRepository : CSVRepository<InventoryItem, long>, IInventoryItemRepository, IEagerCSVRepository<InventoryItem, long>
     {
         private const string ENTITY_NAME = "InventoryItem";
         private IRoomRepository _roomRepository;

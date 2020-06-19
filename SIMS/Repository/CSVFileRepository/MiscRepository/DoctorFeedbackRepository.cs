@@ -78,7 +78,7 @@ namespace SIMS.Repository.CSVFileRepository.MiscRepository
         }
 
         private User GetPatientById(IEnumerable<Patient> patients, User patientId)
-            => patientId == null ? null : patients.SingleOrDefault(patients => patients.GetId().Equals(patientId.GetId()));
+            => patientId == null ? null : patients.SingleOrDefault(patient => patient.GetId().Equals(patientId.GetId()));
 
 
         private void BindWithDoctors(IEnumerable<DoctorFeedback> feedbacks)
