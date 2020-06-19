@@ -68,7 +68,22 @@ namespace SIMS.View.ViewManager
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Uri("../View/ViewManager/ManagerMainPage.xaml", UriKind.Relative));
+            if(UserInput.Text.Equals("zorz") && PassInput.Password.Equals("zorz123"))
+            {
+                NavigationService.Navigate(new Uri("../View/ViewManager/ManagerMainPage.xaml", UriKind.Relative));
+            }
+            else
+            {
+                UserInput.Text = "Pogrešno korisničko ime ili lozinka";
+                PassInput.Password = "";
+            }
+
+            
+        }
+
+        private void UserInput_GotFocus(object sender, RoutedEventArgs e)
+        {
+            UserInput.Text = "";
         }
     }
 }

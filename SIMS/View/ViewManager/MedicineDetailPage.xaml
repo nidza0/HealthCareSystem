@@ -18,16 +18,16 @@
         <!--#endregion-->
 
         <!--Labels-->
-        <Label x:Name="NameLabel" HorizontalContentAlignment="Center"  FontWeight="Bold" Foreground="Black" Content="" Margin="90,370,90,0" VerticalAlignment="Top"/>
+        <Label x:Name="NameLabel" HorizontalContentAlignment="Center" FontSize="30"  FontWeight="Bold" Foreground="Black" Content="" Margin="90,351,90,0" VerticalAlignment="Top"/>
         <Label Content="Doza:" Foreground="#ec1c70" HorizontalAlignment="Left" Margin="30,450,0,0" VerticalAlignment="Top" Width="169" FontWeight="Bold" />
         <Label Content="ID broj:" Foreground="#ec1c70" Margin="0,450,30,0" VerticalAlignment="Top" FontWeight="Bold" HorizontalAlignment="Right" Width="169" />
         <Label Content="Min. dozvoljen broj:" Foreground="#ec1c70" HorizontalAlignment="Left" Margin="30,550,0,0" VerticalAlignment="Top" Width="236" FontWeight="Bold" />
         <Label Content="Na stanju:" Foreground="#ec1c70" HorizontalAlignment="Right" Margin="0,550,49,0" VerticalAlignment="Top" Width="150" FontWeight="Bold" />
         <Label Content="Validnost:" Foreground="#ec1c70" HorizontalAlignment="Left" Margin="30,651,0,0" VerticalAlignment="Top" Width="169" FontWeight="Bold" />
         <Label x:Name="dozaLabel"  Content="" FontWeight="Bold" HorizontalAlignment="Left" Margin="30,500,0,0" VerticalAlignment="Top" Width="185" Height="41"/>
-        <Label x:Name="idLabel"  Content="" FontWeight="Bold" HorizontalAlignment="Left" Margin="335,500,0,0" VerticalAlignment="Top" Width="185" Height="41"/>
+        <Label x:Name="idLabel"  Content="" FontWeight="Bold" HorizontalAlignment="Left" Margin="355,500,0,0" VerticalAlignment="Top" Width="185" Height="41"/>
         <Label x:Name="minNumberLabel"  Content="" FontWeight="Bold" HorizontalAlignment="Left" Margin="30,594,0,0" Width="185" Height="41" VerticalAlignment="Top"/>
-        <Label x:Name="inStockLabel"  Content="" FontWeight="Bold" HorizontalAlignment="Left" Margin="335,594,0,0" VerticalAlignment="Top" Width="185" Height="41"/>
+        <Label x:Name="inStockLabel"  Content="" FontWeight="Bold" HorizontalAlignment="Left" Margin="355,589,0,0" VerticalAlignment="Top" Width="185" Height="41"/>
         <Label x:Name="isValidLabel"  Content="" FontWeight="Bold" HorizontalAlignment="Left" Margin="30,695,0,0" Width="185" Height="41" VerticalAlignment="Top"/>
         <!--#endregion-->
 

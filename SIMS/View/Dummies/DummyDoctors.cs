@@ -48,19 +48,9 @@ namespace SIMS.View.Dummies
             TimeTable timeTable = new TimeTable(dict);
             TimeTable timeTable2 = new TimeTable(dict2);
 
-            doctorsList = new ObservableCollection<Model.UserModel.Doctor>();
-            Model.UserModel.Doctor doc1 = new Model.UserModel.Doctor(new Model.UserModel.UserID("D1"), "aleksa_vucaj", "sifra", new DateTime(2020, 6, 8), "Aleksa", "Vucaj", "Aleksandar", Model.UserModel.Sex.MALE, new DateTime(1998, 9, 8), "123", null, null, null, null, null, timeTable, null, new Model.UserModel.Room(101), Model.DoctorModel.DocTypeEnum.FAMILYMEDICINE); ;
-            Model.UserModel.Doctor doc2 = new Model.UserModel.Doctor(new Model.UserModel.UserID("D2"), "aleksa_vucaj2", "sifra", new DateTime(2020, 6, 8), "Pera", "Detlic", "Petar", Model.UserModel.Sex.MALE, new DateTime(1998, 9, 8), "123", null, null, null, null, null, timeTable2, null, new Model.UserModel.Room(102), Model.DoctorModel.DocTypeEnum.FAMILYMEDICINE);
+            
 
-            doctorsList.Add(doc1);
-            doctorsList.Add(doc2);
-
-            itemsList = new ObservableCollection<Model.ManagerModel.InventoryItem>();
-            InventoryItem item1 = new InventoryItem("Stolica", 10, 1, new Room(101));
-            InventoryItem item2 = new InventoryItem("Maske", 1000, 100, new Room(102));
-
-            itemsList.Add(item1);
-            itemsList.Add(item2);
+            
 
             roomsList = new ObservableCollection<Room>();
             Room room1 = new Room(0,"101",true,2,RoomType.EXAMINATION,null);
@@ -92,20 +82,43 @@ namespace SIMS.View.Dummies
             roomsList.Add(room13);
             roomsList.Add(room14);
 
+            doctorsList = new ObservableCollection<Model.UserModel.Doctor>();
+            Model.UserModel.Doctor doc1 = new Model.UserModel.Doctor(new Model.UserModel.UserID("D1"), "aleksa_vucaj", "sifra", new DateTime(2020, 6, 8), "Aleksa", "Vucaj", "Aleksandar", Model.UserModel.Sex.MALE, new DateTime(1998, 9, 8), "123", null, null, null, null, null, timeTable, null, room1, Model.DoctorModel.DocTypeEnum.CARDIOLOGIST);
+            Model.UserModel.Doctor doc2 = new Model.UserModel.Doctor(new Model.UserModel.UserID("D2"), "aleksa_vucaj2", "sifra", new DateTime(2020, 6, 8), "Pera", "Detlic", "Petar", Model.UserModel.Sex.MALE, new DateTime(1998, 9, 8), "123", null, null, null, null, null, timeTable2, null, room2, Model.DoctorModel.DocTypeEnum.FAMILYMEDICINE);
+            Model.UserModel.Doctor doc3 = new Model.UserModel.Doctor(new Model.UserModel.UserID("D1"), "aleksa_vucaj", "sifra", new DateTime(2020, 6, 8), "Nikola", "Nikolic", "Pater", Model.UserModel.Sex.MALE, new DateTime(1975, 5, 7), "123", null, null, null, null, null, timeTable, null, room3, Model.DoctorModel.DocTypeEnum.DERMATOLOGIST);
+            Model.UserModel.Doctor doc4 = new Model.UserModel.Doctor(new Model.UserModel.UserID("D2"), "aleksa_vucaj2", "sifra", new DateTime(2020, 6, 8), "Sava", "Savin", "Savica", Model.UserModel.Sex.MALE, new DateTime(1969, 9, 23), "123", null, null, null, null, null, timeTable, null, room4, Model.DoctorModel.DocTypeEnum.FAMILYMEDICINE);
+            Model.UserModel.Doctor doc5 = new Model.UserModel.Doctor(new Model.UserModel.UserID("D1"), "aleksa_vucaj", "sifra", new DateTime(2020, 6, 8), "Steva", "Stevin", "Stevica", Model.UserModel.Sex.MALE, new DateTime(1970, 4, 13), "123", null, null, null, null, null, timeTable, null, room5, Model.DoctorModel.DocTypeEnum.CARDIOLOGIST);
+            Model.UserModel.Doctor doc6 = new Model.UserModel.Doctor(new Model.UserModel.UserID("D2"), "aleksa_vucaj2", "sifra", new DateTime(2020, 6, 8), "Savica", "Savkov", "Sava", Model.UserModel.Sex.MALE, new DateTime(2003, 2, 9), "123", null, null, null, null, null, timeTable, null, room6, Model.DoctorModel.DocTypeEnum.INFECTOLOGIST);
+            Model.UserModel.Doctor doc7 = new Model.UserModel.Doctor(new Model.UserModel.UserID("D1"), "aleksa_vucaj", "sifra", new DateTime(2020, 6, 8), "Jova", "Jovin", "Jovan", Model.UserModel.Sex.MALE, new DateTime(1997, 9, 9), "123", null, null, null, null, null, timeTable, null, room7, Model.DoctorModel.DocTypeEnum.SURGEON);
+            Model.UserModel.Doctor doc8 = new Model.UserModel.Doctor(new Model.UserModel.UserID("D2"), "aleksa_vucaj2", "sifra", new DateTime(2020, 6, 8), "Uros", "Urosev", "Uros", Model.UserModel.Sex.MALE, new DateTime(1966, 1, 2), "123", null, null, null, null, null, timeTable, null, room8, Model.DoctorModel.DocTypeEnum.FAMILYMEDICINE);
+            Model.UserModel.Doctor doc9 = new Model.UserModel.Doctor(new Model.UserModel.UserID("D1"), "aleksa_vucaj", "sifra", new DateTime(2020, 6, 8), "Rada", "Radin", "Radica", Model.UserModel.Sex.MALE, new DateTime(1980, 5, 8), "123", null, null, null, null, null, timeTable, null, room9, Model.DoctorModel.DocTypeEnum.CARDIOLOGIST);
+            Model.UserModel.Doctor doc0 = new Model.UserModel.Doctor(new Model.UserModel.UserID("D2"), "aleksa_vucaj2", "sifra", new DateTime(2020, 6, 8), "Jovanka", "Samoceta", "Uros", Model.UserModel.Sex.MALE, new DateTime(1944, 11, 23), "123", null, null, null, null, null, timeTable, null, room2, Model.DoctorModel.DocTypeEnum.SURGEON);
+
+            doctorsList.Add(doc1);
+            doctorsList.Add(doc2);
+            doctorsList.Add(doc3);
+            doctorsList.Add(doc4);
+            doctorsList.Add(doc5);
+            doctorsList.Add(doc6);
+            doctorsList.Add(doc7);
+            doctorsList.Add(doc8);
+            doctorsList.Add(doc9);
+            doctorsList.Add(doc0);
+
             medicineList = new ObservableCollection<Medicine>();
 
             Medicine med1 = new Medicine(0, "Xanax", 500.0, MedicineType.PILL,true,null,null, 10, 20);
             Medicine med2 = new Medicine(1, "Paracetamol", 500.0, MedicineType.PILL, false, null, null, 100, 50);
             Medicine med3 = new Medicine(2, "Panadol",152.0, MedicineType.PILL, true, null, null, 1000, 10);
-            Medicine med4 = new Medicine(3, "Xanax", 500.0, MedicineType.PILL, true, null, null, 10, 20);
-            Medicine med5 = new Medicine(4, "Paracetamol", 500.0, MedicineType.PILL, false, null, null, 100, 50);
-            Medicine med6 = new Medicine(5, "Panadol", 152.0, MedicineType.PILL, true, null, null, 1000, 10);
-            Medicine med7 = new Medicine(6, "Xanax", 500.0, MedicineType.PILL, true, null, null, 10, 20);
-            Medicine med8 = new Medicine(7, "Paracetamol", 500.0, MedicineType.PILL, false, null, null, 100, 50);
-            Medicine med9 = new Medicine(8, "Panadol", 152.0, MedicineType.PILL, true, null, null, 1000, 10);
-            Medicine med10 = new Medicine(9, "Xanax", 500.0, MedicineType.PILL, true, null, null, 10, 20);
-            Medicine med11 = new Medicine(10, "Paracetamol", 500.0, MedicineType.PILL, false, null, null, 100, 50);
-            Medicine med12 = new Medicine(11, "Panadol", 152.0, MedicineType.PILL, true, null, null, 1000, 10);
+            Medicine med4 = new Medicine(3, "Brufen", 100.0, MedicineType.PILL, true, null, null, 10, 20);
+            Medicine med5 = new Medicine(4, "Kapi za oci", 500.0, MedicineType.DROPS, false, null, null, 50, 50);
+            Medicine med6 = new Medicine(5, "Mentol", 230.0, MedicineType.INHALERS, true, null, null, 10, 10);
+            Medicine med7 = new Medicine(6, "5G Vakcina", 500.0, MedicineType.INJECTIONS, true, null, null, 2000, 1000);
+            Medicine med8 = new Medicine(7, "Fervex", 100.1, MedicineType.LIQUID, false, null, null, 100, 50);
+            Medicine med9 = new Medicine(8, "Antidepresiv", 152.0, MedicineType.PILL, true, null, null, 1000, 150);
+            Medicine med10 = new Medicine(9, "Anestezija", 50.0, MedicineType.PILL, true, null, null, 200, 150);
+            Medicine med11 = new Medicine(10, "Kapi za nos", 500.0, MedicineType.DROPS, false, null, null, 50, 1);
+            Medicine med12 = new Medicine(11, "Isla za grlo", 152.0, MedicineType.TABLET, true, null, null, 200, 100);
 
 
             med1.IsValid = true;
@@ -126,6 +139,34 @@ namespace SIMS.View.Dummies
             medicineList.Add(med10);
             medicineList.Add(med11);
             medicineList.Add(med12);
+
+            itemsList = new ObservableCollection<Model.ManagerModel.InventoryItem>();
+            InventoryItem item1 = new InventoryItem("Stolica", 10, 1, room1);
+            InventoryItem item2 = new InventoryItem("Maske", 1000, 100, room2);
+            InventoryItem item3 = new InventoryItem("Rukavice", 100,100, room3);
+            InventoryItem item4 = new InventoryItem("Inhalator", 2, 1, room5);
+            InventoryItem item5 = new InventoryItem("Krevet", 5, 2, room2);
+            InventoryItem item6 = new InventoryItem("Stolica", 10, 5, room8);
+            InventoryItem item7 = new InventoryItem("Astal", 3, 1, room2);
+            InventoryItem item8 = new InventoryItem("Noz", 100, 100, room11);
+            InventoryItem item9 = new InventoryItem("Stalak", 10, 1, room5);
+            InventoryItem item0 = new InventoryItem("Kompjuter", 10, 1, room4);
+            InventoryItem item11 = new InventoryItem("Olovka", 1000, 100, room6);
+            InventoryItem item12 = new InventoryItem("Papir A4", 1000, 100, room8);
+
+            itemsList.Add(item1);
+            itemsList.Add(item2);
+            itemsList.Add(item3);
+            itemsList.Add(item4);
+            itemsList.Add(item5);
+            itemsList.Add(item6);
+            itemsList.Add(item7);
+            itemsList.Add(item8);
+            itemsList.Add(item9);
+            itemsList.Add(item0);
+            itemsList.Add(item11);
+            itemsList.Add(item12);
+
 
             appointmentsList = new ObservableCollection<Appointment>();
 

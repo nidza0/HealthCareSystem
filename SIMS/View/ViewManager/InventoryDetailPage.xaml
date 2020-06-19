@@ -24,9 +24,9 @@
         <Label Content="Min. dozvoljen broj:" Foreground="#ec1c70" HorizontalAlignment="Left" Margin="30,550,0,0" VerticalAlignment="Top" Width="236" FontWeight="Bold" />
         <Label Content="Na stanju:" Foreground="#ec1c70" HorizontalAlignment="Right" Margin="0,550,49,0" VerticalAlignment="Top" Width="150" FontWeight="Bold" />
         <Label x:Name="sobaLabel"  Content="" FontWeight="Bold" HorizontalAlignment="Left" Margin="30,500,0,0" VerticalAlignment="Top" Width="185" Height="41"/>
-        <Label x:Name="idLabel"  Content="" FontWeight="Bold" HorizontalAlignment="Left" Margin="335,500,0,0" VerticalAlignment="Top" Width="185" Height="41"/>
+        <Label x:Name="idLabel"  Content="" FontWeight="Bold" HorizontalAlignment="Left" Margin="351,500,0,0" VerticalAlignment="Top" Width="185" Height="41"/>
         <Label x:Name="minNumberLabel"  Content="" FontWeight="Bold" HorizontalAlignment="Left" Margin="30,594,0,0" Width="185" Height="41" VerticalAlignment="Top"/>
-        <Label x:Name="inStockLabel"  Content="" FontWeight="Bold" HorizontalAlignment="Left" Margin="335,594,0,0" VerticalAlignment="Top" Width="185" Height="41"/>
+        <Label x:Name="inStockLabel"  Content="" FontWeight="Bold" HorizontalAlignment="Left" Margin="351,594,0,0" VerticalAlignment="Top" Width="185" Height="41"/>
         <!--#endregion-->
 
         <!--Buttons-->
