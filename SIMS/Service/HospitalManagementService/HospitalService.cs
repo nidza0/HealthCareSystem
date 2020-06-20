@@ -7,40 +7,36 @@ using System;
 using System.Collections.Generic;
 using SIMS.Model.UserModel;
 using SIMS.Repository.Abstract.HospitalManagementAbstractRepository;
+using SIMS.Repository.CSVFileRepository.HospitalManagementRepository;
 
 namespace SIMS.Service.HospitalManagementService
 {
     public class HospitalService : IService<Hospital, long>
     {
-        public IEnumerable<Hospital> GetHospitalByLocation(Location location)
+        HospitalRepository _hospitalRepository; 
+
+        public HospitalService(HospitalRepository hospitalRepository)
         {
-            throw new NotImplementedException();
+            _hospitalRepository = hospitalRepository;
         }
+
+        public IEnumerable<Hospital> GetHospitalByLocation(Location location)
+            => _hospitalRepository.GetHospitalByLocation(location);
 
         public IEnumerable<Hospital> GetAll()
-        {
-            throw new NotImplementedException();
-        }
+            => _hospitalRepository.GetAllEager();
 
         public Hospital GetByID(long id)
-        {
-            throw new NotImplementedException();
-        }
+            => _hospitalRepository.GetByID(id);
 
         public Hospital Create(Hospital entity)
-        {
-            throw new NotImplementedException();
-        }
+            => _hospitalRepository.Create(entity);
 
-        public Hospital Update(Hospital entity)
-        {
-            throw new NotImplementedException();
-        }
+        public void Update(Hospital entity)
+            => _hospitalRepository.Update(entity);
 
         public void Delete(Hospital entity)
-        {
-            throw new NotImplementedException();
-        }
+            => _hospitalRepository.Delete(entity);
 
         public IHospitalRepository iHospitalRepository;
 
