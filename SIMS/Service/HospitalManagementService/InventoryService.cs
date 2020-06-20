@@ -53,34 +53,22 @@ namespace SIMS.Service.HospitalManagementService
         }
 
         public IEnumerable<InventoryItem> GetInventoryItems()
-        {
-            throw new NotImplementedException();
-        }
+            => _inventoryItemRepository.GetAllEager();
 
         public IEnumerable<Inventory> GetAll()
-        {
-            throw new NotImplementedException();
-        }
+            => _inventoryRepository.GetAllEager();
 
         public Inventory GetByID(long id)
-        {
-            throw new NotImplementedException();
-        }
+            => _inventoryRepository.GetByID(id);
 
         public Inventory Create(Inventory entity)
-        {
-            throw new NotImplementedException();
-        }
+            => _inventoryRepository.Create(entity);
 
         public void Update(Inventory entity)
-        {
-            throw new NotImplementedException();
-        }
+            => _inventoryRepository.Update(entity);
 
         public void Delete(Inventory entity)
-        {
-            throw new NotImplementedException();
-        }
+            => _inventoryRepository.Delete(entity);
 
         public IInventoryRepository iInventoryRepository;
 
