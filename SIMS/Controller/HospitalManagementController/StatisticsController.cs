@@ -60,7 +60,7 @@ namespace SIMS.Controller.HospitalManagementController
             throw new NotImplementedException();
         }
 
-        public Stats Update(Stats entity)
+        public void Update(Stats entity)
         {
             throw new NotImplementedException();
         }
@@ -69,8 +69,6 @@ namespace SIMS.Controller.HospitalManagementController
         {
             throw new NotImplementedException();
         }
-
-        public StatisticsService statisticsService;
 
     }
 }

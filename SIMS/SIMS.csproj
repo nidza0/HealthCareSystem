@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -178,8 +178,7 @@
     <Compile Include="Service\HospitalManagementService\InventoryService.cs" />
     <Compile Include="Service\HospitalManagementService\MedicineService.cs" />
     <Compile Include="Service\HospitalManagementService\RoomService.cs" />
-    <Compile Include="Service\HospitalManagementService\StatisticsService.cs" />
-    <Compile Include="Service\IService.cs" />
+        <Compile Include="Service\IService.cs" />
     <Compile Include="Service\MedicalService\AppointmentDoctorStrategy.cs" />
     <Compile Include="Service\MedicalService\AppointmentManagerStrategy.cs" />
     <Compile Include="Service\MedicalService\AppointmentPatientStrategy.cs" />

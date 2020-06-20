@@ -71,7 +71,7 @@ namespace SIMS.Service.UsersService
             throw new NotImplementedException();
         }
 
-        void IService<Manager, UserID>.Update(Manager entity)
+        public void Update(Manager entity)
         => _managerRepository.Update(entity);
     }
 }

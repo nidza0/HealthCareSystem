@@ -60,7 +60,7 @@ namespace SIMS.Controller.HospitalManagementController
             throw new NotImplementedException();
         }
 
-        public Inventory Update(Inventory entity)
+        public void Update(Inventory entity)
         {
             throw new NotImplementedException();
         }

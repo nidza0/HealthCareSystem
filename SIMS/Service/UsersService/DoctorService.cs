@@ -104,7 +104,7 @@ namespace SIMS.Service.UsersService
             throw new NotImplementedException();
         }
 
-        void IService<Doctor, UserID>.Update(Doctor entity)
+        public void Update(Doctor entity)
             => _doctorRepository.Update(entity);
 
         public IDoctorRepository iDoctorRepository;

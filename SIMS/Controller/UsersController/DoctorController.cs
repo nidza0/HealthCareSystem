@@ -53,7 +53,7 @@ namespace SIMS.Controller.UsersController
             throw new NotImplementedException();
         }
 
-        public Doctor Update(Doctor entity)
+        public void Update(Doctor entity)
         {
             throw new NotImplementedException();
         }

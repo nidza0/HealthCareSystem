@@ -38,7 +38,7 @@ namespace SIMS.Controller.MedicalController
             throw new NotImplementedException();
         }
 
-        public Disease Update(Disease entity)
+        public void Update(Disease entity)
         {
             throw new NotImplementedException();
         }

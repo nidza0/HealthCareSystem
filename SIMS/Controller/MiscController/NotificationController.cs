@@ -33,7 +33,7 @@ namespace SIMS.Controller.MiscController
             throw new NotImplementedException();
         }
 
-        public Notification Update(Notification entity)
+        public void Update(Notification entity)
         {
             throw new NotImplementedException();
         }

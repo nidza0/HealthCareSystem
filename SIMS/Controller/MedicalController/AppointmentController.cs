@@ -100,7 +100,7 @@ namespace SIMS.Controller.MedicalController
             throw new NotImplementedException();
         }
 
-        public Appointment Update(Appointment entity)
+        public void Update(Appointment entity)
         {
             throw new NotImplementedException();
         }

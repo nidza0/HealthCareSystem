@@ -28,6 +28,6 @@ namespace SIMS.Controller.UsersController
 
         public Secretary GetByID(UserID id) => secretaryService.GetByID(id);
 
-        public Secretary Update(Secretary secretary) => secretaryService.Update(secretary);
+        public void Update(Secretary secretary) => secretaryService.Update(secretary);
     }
 }

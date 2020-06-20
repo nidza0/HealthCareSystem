@@ -38,7 +38,7 @@ namespace SIMS.Controller.MiscController
             throw new NotImplementedException();
         }
 
-        public Location Update(Location entity)
+        public void Update(Location entity)
         {
             throw new NotImplementedException();
         }

@@ -71,7 +71,7 @@ namespace SIMS.Service.UsersService
             
         }
 
-        void IService<Secretary, UserID>.Update(Secretary entity)
+        public void Update(Secretary entity)
             => _secretaryRepository.Update(entity);
     }
 }

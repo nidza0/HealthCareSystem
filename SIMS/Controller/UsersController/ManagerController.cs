@@ -30,7 +30,7 @@ namespace SIMS.Controller.UsersController
 
         public Manager GetByID(UserID id) => managerService.GetByID(id);
 
-        public Manager Update(Manager manager) => managerService.Update(manager);
+        public void Update(Manager manager) => managerService.Update(manager);
 
     }
 }

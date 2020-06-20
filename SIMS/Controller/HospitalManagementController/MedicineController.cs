@@ -54,7 +54,7 @@ namespace SIMS.Controller.HospitalManagementController
             throw new NotImplementedException();
         }
 
-        public Medicine Update(Medicine entity)
+        public void Update(Medicine entity)
         {
             throw new NotImplementedException();
         }

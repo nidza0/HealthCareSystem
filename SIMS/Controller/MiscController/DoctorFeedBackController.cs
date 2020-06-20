@@ -49,7 +49,7 @@ namespace SIMS.Controller.MiscController
             throw new NotImplementedException();
         }
 
-        public DoctorFeedback Update(DoctorFeedback entity)
+        public void Update(DoctorFeedback entity)
         {
             throw new NotImplementedException();
         }
