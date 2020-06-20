@@ -47,6 +47,11 @@ namespace SIMS.Service.MiscService
             throw new NotImplementedException();
         }
 
+        void IService<Location, long>.Update(Location entity)
+        {
+            throw new NotImplementedException();
+        }
+
         public ILocationRepository iLocationRepository;
 
     }

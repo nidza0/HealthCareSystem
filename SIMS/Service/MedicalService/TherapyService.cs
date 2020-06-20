@@ -93,6 +93,11 @@ namespace SIMS.Service.MedicalService
             throw new NotImplementedException();
         }
 
+        void IService<Therapy, long>.Update(Therapy entity)
+        {
+            throw new NotImplementedException();
+        }
+
         public ITherapyRepository iTherapyRepository;
 
     }

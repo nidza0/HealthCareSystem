@@ -83,5 +83,10 @@ namespace SIMS.Service.UsersService
         {
             throw new NotImplementedException();
         }
+
+        void IService<Secretary, UserID>.Update(Secretary entity)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

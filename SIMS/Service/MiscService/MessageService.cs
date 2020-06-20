@@ -47,6 +47,11 @@ namespace SIMS.Service.MiscService
             throw new NotImplementedException();
         }
 
+        void IService<Message, long>.Update(Message entity)
+        {
+            throw new NotImplementedException();
+        }
+
         public IMessageRepository iMessageRepository;
 
     }

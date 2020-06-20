@@ -92,6 +92,11 @@ namespace SIMS.Service.UsersService
             throw new NotImplementedException();
         }
 
+        void IService<Patient, UserID>.Update(Patient entity)
+        {
+            throw new NotImplementedException();
+        }
+
         public IPatientRepository iPatientRepository;
 
     }

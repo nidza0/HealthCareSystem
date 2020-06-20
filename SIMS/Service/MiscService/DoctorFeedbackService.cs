@@ -58,6 +58,11 @@ namespace SIMS.Service.MiscService
             throw new NotImplementedException();
         }
 
+        void IService<DoctorFeedback, long>.Update(DoctorFeedback entity)
+        {
+            throw new NotImplementedException();
+        }
+
         public IDoctorFeedbackRepository iDoctorFeedbackRepository;
 
     }

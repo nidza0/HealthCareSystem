@@ -52,6 +52,11 @@ namespace SIMS.Service.MiscService
             throw new NotImplementedException();
         }
 
+        void IService<Article, long>.Update(Article entity)
+        {
+            throw new NotImplementedException();
+        }
+
         public IArticleRepository iArticleRepository;
 
     }

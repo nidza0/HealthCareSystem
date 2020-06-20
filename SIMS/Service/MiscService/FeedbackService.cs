@@ -38,5 +38,10 @@ namespace SIMS.Service.MiscService
         {
             throw new NotImplementedException();
         }
+
+        void IService<Feedback, long>.Update(Feedback entity)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

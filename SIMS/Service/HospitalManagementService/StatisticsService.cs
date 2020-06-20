@@ -69,6 +69,11 @@ namespace SIMS.Service.HospitalManagementService
             throw new NotImplementedException();
         }
 
+        void IService<Stats, long>.Update(Stats entity)
+        {
+            throw new NotImplementedException();
+        }
+
         public IStatisticsRepository iStatisticsRepository;
 
     }

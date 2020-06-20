@@ -141,6 +141,11 @@ namespace SIMS.Service.MedicalService
             throw new NotImplementedException();
         }
 
+        void IService<Appointment, long>.Update(Appointment entity)
+        {
+            throw new NotImplementedException();
+        }
+
         public IAppointmentStrategy iAppointmentStrategy;
         public IAppointmentRepository iAppointmentRepository;
 

@@ -42,6 +42,11 @@ namespace SIMS.Service.MiscService
             throw new NotImplementedException();
         }
 
+        void IService<Notification, long>.Update(Notification entity)
+        {
+            throw new NotImplementedException();
+        }
+
         public INotificationRepository iNotificationRepository;
 
     }
