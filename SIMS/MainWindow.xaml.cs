@@ -31,13 +31,6 @@ namespace SIMS
             InitializeComponent();
             //Patient p = new Patient();
 
-            Console.WriteLine("dsaaaaaaaaaaaaaa");
-
-            DoctorService ds = new DoctorService();
-
-            Console.WriteLine("sad " + ds.CheckDateOfBirth(DateTime.Now));
-            Console.WriteLine("8.9.1998. " + ds.CheckDateOfBirth(new DateTime(1998,9,8)));
-            Console.WriteLine("8.2.2003." + ds.CheckDateOfBirth(new DateTime(2000, 2, 8)));
             
 
             //HospitalConverter converter = new HospitalConverter(",");
