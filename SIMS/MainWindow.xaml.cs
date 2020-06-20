@@ -16,6 +16,7 @@ using SIMS.Repository.CSVFileRepository.HospitalManagementRepository;
 using SIMS.Util;
 using SIMS.Repository.CSVFileRepository.Csv.Converter.UsersConverter;
 using SIMS.Repository.CSVFileRepository.Csv.Converter.MiscConverter;
+using System.Windows.Controls;
 
 namespace SIMS
 {
@@ -28,6 +29,8 @@ namespace SIMS
         {
             InitializeComponent();
             //Patient p = new Patient();
+
+
 
             //HospitalConverter converter = new HospitalConverter(",");
             //List<Room> testList = new List<Room>();
@@ -332,9 +335,68 @@ namespace SIMS
 
             //PrescriptionRepoTest();
             //AllergyRepoTest();
-            
+
+            //testDocStats();
+            //testInventoryStats();
+            //testRoomStats();
         }
 
+        private void testRoomStats()
+        {
+            RoomStatisticsRepository rsr = AppResources.getInstance().roomStatisticRepository;
+            var room = AppResources.getInstance().roomRepository.GetAll().ToList()[0];
+
+            //var temp = new StatsRoom(100, 50, 15, room);
+            //var created = rsr.Create(temp);
+            var temp = rsr.GetAllEager().ToList()[0];
+
+            temp.AvgAppointmentTime = 100;
+            rsr.Update(temp);
+
+            rsr.Delete(temp);
+
+            Console.WriteLine(temp);
+        }
+
+        private void testDocStats()
+        {
+            Address address = new Address("koste sokice 3", new Location(22, "Srbija", "Novi Sad"));
+            Doctor doctor = new Doctor(new UserID("D123"), "pera", "pera123", DateTime.Now, "Pera", "Vunic", "Puck", Sex.MALE, DateTime.Now, "12345667", address, "555-333", "06130959858", "pera@gmail.com", "pera111@gmail.com", new TimeTable(new Dictionary<WorkingDaysEnum, Util.TimeInterval>()), new Hospital("test", address, "555-333", "zzzz"), new Room(1), DocTypeEnum.CARDIOLOGIST);
+            DoctorStatisticRepository dsr = AppResources.getInstance().doctorStatisticRepository;
+
+            //StatsDoctor temp = new StatsDoctor(111, 15, "15 minutes", doctor);
+            //dsr.Create(temp);
+            var AllStats = dsr.GetAllEager();
+            StatsDoctor temp = AllStats.ToList()[0];
+
+            temp.NumberOfAppointments = 20;
+            temp.AvgAppointmentTime = "20 minutes";
+            dsr.Update(temp);
+            dsr.Delete(temp);
+            Console.WriteLine(AllStats);
+        }
+
+        private void testInventoryStats()
+        {
+            InventoryStatisticsRepository isr = AppResources.getInstance().inventoryStatisticRepository;
+            var AllStats = isr.GetAllEager();
+            Medicine medicine1 = AppResources.getInstance().medicineRepository.GetAllEager().ToList()[0];
+            var iir = AppResources.getInstance().inventoryItemRepository;
+            iir.Create(new InventoryItem("Papir", 5, 1, new Room(5)));
+            InventoryItem ii1 = iir.GetAllEager().ToList()[0];
+
+
+            StatsInventory temp = new StatsInventory(50, medicine1, ii1);
+            //isr.Create(temp);
+            var temp1 = AllStats.ToList()[0];
+            temp.Usage = 100;
+
+            isr.Update(temp1);
+
+            var updated = isr.GetAllEager().ToList()[0];
+
+            Console.WriteLine(updated);
+        }
 
         private void AllergyRepoTest()
         {
