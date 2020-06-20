@@ -130,5 +130,20 @@ namespace SIMS.Model.PatientModel
         public long GetId() => _id;
 
         public void SetId(long id) => _id = id;
+
+        public override bool Equals(object obj)
+        {
+            var allergy = obj as Allergy;
+            return allergy != null &&
+                   _id == allergy._id;
+        }
+
+        public override int GetHashCode()
+        {
+            return 1969571243 + _id.GetHashCode();
+        }
     }
+
+
+
 }

@@ -8,57 +8,60 @@ using System.Collections.Generic;
 using SIMS.Model.PatientModel;
 using SIMS.Model.UserModel;
 using SIMS.Repository.Abstract.MedicalAbstractRepository;
+using SIMS.Repository.CSVFileRepository.MedicalRepository;
+using SIMS.Exceptions;
 
 namespace SIMS.Service.MedicalService
 {
     public class MedicalRecordService : IService<MedicalRecord, long>
     {
+        private  MedicalRecordRepository _medicalRecordRepository;
+
+        public MedicalRecordService(MedicalRecordRepository medicalRecordRepository)
+        {
+            _medicalRecordRepository = medicalRecordRepository;
+        }
+
         public Diagnosis AddDiagnosis(Patient patient, Diagnosis diagnosis)
         {
-            throw new NotImplementedException();
+            MedicalRecord medicalRecord = GetPatientMedicalRecord(patient);
+            
+            if(medicalRecord == null)
+            {
+                throw new EntityNotFoundException("Medical record not found!");
+            }
+
+            medicalRecord.AddPatientDiagnosis(diagnosis);
+            _medicalRecordRepository.Update(medicalRecord);
+
+            return diagnosis;
         }
 
         public MedicalRecord GetPatientMedicalRecord(Patient patient)
-        {
-            throw new NotImplementedException();
-        }
+            => _medicalRecordRepository.GetPatientMedicalRecord(patient);
 
         public MedicalRecord AddAllergy(MedicalRecord medicalRecord, Allergy allergy)
         {
-            throw new NotImplementedException();
+            medicalRecord.AddAllergy(allergy);
+            _medicalRecordRepository.Update(medicalRecord);
+            return medicalRecord;
         }
 
         public IEnumerable<MedicalRecord> GetAll()
-        {
-            throw new NotImplementedException();
-        }
+            => _medicalRecordRepository.GetAllEager();
 
         public MedicalRecord GetByID(long id)
-        {
-            throw new NotImplementedException();
-        }
+            => _medicalRecordRepository.GetEager(id);
 
         public MedicalRecord Create(MedicalRecord entity)
-        {
-            throw new NotImplementedException();
-        }
+            => _medicalRecordRepository.Create(entity);
 
-        public MedicalRecord Update(MedicalRecord entity)
-        {
-            throw new NotImplementedException();
-        }
 
         public void Delete(MedicalRecord entity)
-        {
-            throw new NotImplementedException();
-        }
+            => _medicalRecordRepository.Delete(entity);
 
-        void IService<MedicalRecord, long>.Update(MedicalRecord entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IMedicalRecordRepository iMedicalRecordRepository;
+        public void Update(MedicalRecord entity)
+            => _medicalRecordRepository.Update(entity);
 
     }
 }

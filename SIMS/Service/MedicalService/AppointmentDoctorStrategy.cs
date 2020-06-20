@@ -10,6 +10,8 @@ namespace SIMS.Service.MedicalService
 {
     public class AppointmentDoctorStrategy : IAppointmentStrategy
     {
+        private readonly int minimumHours = 24;
+
         public void checkDateTimeValid(Appointment appointment)
         {
             throw new NotImplementedException();
@@ -19,6 +21,9 @@ namespace SIMS.Service.MedicalService
         {
             throw new NotImplementedException();
         }
+
+        public bool isAppointmentChangeable(Appointment appointment)
+           => appointment.TimeInterval.StartTime.AddHours(-minimumHours) > DateTime.Now;
 
         public int Validate(Appointment appointment)
         {

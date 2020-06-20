@@ -20,6 +20,11 @@ namespace SIMS.Service.MedicalService
             throw new NotImplementedException();
         }
 
+        public bool isAppointmentChangeable(Appointment appointment)
+        {
+            return false;
+        }
+
         public int Validate(Appointment appointment)
         {
             throw new NotImplementedException();

@@ -16,5 +16,7 @@ namespace SIMS.Service.MedicalService
 
         int Validate(Appointment appointment);
 
+        bool isAppointmentChangeable(Appointment appointment);
+
     }
 }

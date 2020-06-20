@@ -7,52 +7,38 @@ using System;
 using System.Collections.Generic;
 using SIMS.Model.PatientModel;
 using SIMS.Repository.Abstract.MedicalAbstractRepository;
+using SIMS.Repository.CSVFileRepository.MedicalRepository;
 
 namespace SIMS.Service.MedicalService
 {
     public class DiseaseService : IService<Disease, long>
     {
-        public IEnumerable<Disease> GetDiseasesBySymptoms(IEnumerable<Symptom> symptoms)
+        private DiseaseRepository _diseaseRepository;
+
+        public DiseaseService(DiseaseRepository diseaseRepository)
         {
-            throw new NotImplementedException();
+            _diseaseRepository = diseaseRepository;
         }
+
+        public IEnumerable<Disease> GetDiseasesBySymptoms(IEnumerable<Symptom> symptoms)
+            => _diseaseRepository.GetDiseasesBySymptoms(symptoms);
 
         public IEnumerable<Disease> GetDiseasesByType(DiseaseType type)
-        {
-            throw new NotImplementedException();
-        }
+            => _diseaseRepository.GetDiseasesByType(type);
 
         public IEnumerable<Disease> GetAll()
-        {
-            throw new NotImplementedException();
-        }
+            => _diseaseRepository.GetAllEager();
 
         public Disease GetByID(long id)
-        {
-            throw new NotImplementedException();
-        }
+            => _diseaseRepository.GetEager(id);
 
         public Disease Create(Disease entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Disease Update(Disease entity)
-        {
-            throw new NotImplementedException();
-        }
+            => _diseaseRepository.Create(entity);
 
         public void Delete(Disease entity)
-        {
-            throw new NotImplementedException();
-        }
+            => _diseaseRepository.Delete(entity);
 
-        void IService<Disease, long>.Update(Disease entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IDiseaseRepository iDiseaseRepository;
-
+        public void Update(Disease entity)
+            => _diseaseRepository.Update(entity);
     }
 }

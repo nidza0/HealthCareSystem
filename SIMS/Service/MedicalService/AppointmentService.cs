@@ -8,17 +8,27 @@ using System.Collections.Generic;
 using SIMS.Model.PatientModel;
 using SIMS.Model.UserModel;
 using SIMS.Repository.Abstract.MedicalAbstractRepository;
+using SIMS.Repository.CSVFileRepository.MedicalRepository;
 using SIMS.Util;
 
 namespace SIMS.Service.MedicalService
 {
     public class AppointmentService : IService<Appointment, long>
     {
-        private DateTime daysBeforeAutoDelete;
+        private IAppointmentStrategy _appointmentStrategy;
+        private AppointmentRepository _appointmentRepository;
+        private DateTime dayBeforeAutoDelete;
+
+        public AppointmentService(AppointmentRepository appointmentRepository,IAppointmentStrategy appointmentStrategy)
+        {
+            _appointmentRepository = appointmentRepository;
+            _appointmentStrategy = appointmentStrategy;
+
+        }
 
         protected void validate(Appointment appointment)
         {
-            throw new NotImplementedException();
+          
         }
 
         protected void checkDateTimeValid(Appointment appointment)
@@ -106,48 +116,38 @@ namespace SIMS.Service.MedicalService
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Appointment> IsAppointmentChangeable(Appointment appointment)
-        {
-            throw new NotImplementedException();
-        }
+        public bool IsAppointmentChangeable(Appointment appointment)
+            => _appointmentStrategy.isAppointmentChangeable(appointment);
 
         public void AutoDeleteCanceledAppointments()
         {
-            throw new NotImplementedException();
+            //Method that goes through all appointments that are far in the past to free the memory.
+            IEnumerable<Appointment> allAppointments = GetAll();
+
+            foreach(Appointment appointment in allAppointments)
+            {
+                if (appointment.TimeInterval.StartTime < dayBeforeAutoDelete)
+                    _appointmentRepository.Delete(appointment);
+            }
         }
 
         public IEnumerable<Appointment> GetAll()
-        {
-            throw new NotImplementedException();
-        }
+            => _appointmentRepository.GetAllEager();
 
         public Appointment GetByID(long id)
-        {
-            throw new NotImplementedException();
-        }
+            => _appointmentRepository.GetEager(id);
 
         public Appointment Create(Appointment entity)
-        {
-            throw new NotImplementedException();
-        }
+            => _appointmentRepository.Create(entity);
 
-        public Appointment Update(Appointment entity)
-        {
-            throw new NotImplementedException();
-        }
 
         public void Delete(Appointment entity)
-        {
-            throw new NotImplementedException();
-        }
+            => _appointmentRepository.Delete(entity);
 
-        void IService<Appointment, long>.Update(Appointment entity)
-        {
-            throw new NotImplementedException();
-        }
+        public void Update(Appointment entity)
+            => _appointmentRepository.Update(entity);
 
-        public IAppointmentStrategy iAppointmentStrategy;
-        public IAppointmentRepository iAppointmentRepository;
+
 
     }
 }

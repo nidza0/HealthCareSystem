@@ -8,62 +8,39 @@ using System.Collections.Generic;
 using SIMS.Model.PatientModel;
 using SIMS.Model.UserModel;
 using SIMS.Repository.Abstract.MedicalAbstractRepository;
+using SIMS.Repository.CSVFileRepository.MedicalRepository;
 
 namespace SIMS.Service.MedicalService
 {
     public class DiagnosisService : IService<Diagnosis, long>
     {
+        private DiagnosisRepository _diagnosisRepository;
+
+        public DiagnosisService(DiagnosisRepository diagnosisRepository)
+        {
+            _diagnosisRepository = diagnosisRepository;
+        }
+
         public IEnumerable<Diagnosis> GetAllDiagnosisForPatient(Patient patient)
-        {
-            throw new NotImplementedException();
-        }
+            => _diagnosisRepository.GetAllDiagnosisForPatient(patient);
 
-        public Diagnosis GetDiagnosisByMedicine(Medicine medicine)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Diagnosis> GetActiveDiagnosisForPatient()
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Diagnosis> GetInactiveDiagnosisForPatient(Patient patient)
-        {
-            throw new NotImplementedException();
-        }
+        public IEnumerable<Diagnosis> GetDiagnosisByMedicine(Medicine medicine)
+            => _diagnosisRepository.GetDiagnosisByMedicine(medicine);
 
         public IEnumerable<Diagnosis> GetAll()
-        {
-            throw new NotImplementedException();
-        }
+            => _diagnosisRepository.GetAllEager();
 
         public Diagnosis GetByID(long id)
-        {
-            throw new NotImplementedException();
-        }
+            => _diagnosisRepository.GetEager(id);
 
         public Diagnosis Create(Diagnosis entity)
-        {
-            throw new NotImplementedException();
-        }
+            => _diagnosisRepository.Create(entity);
 
-        public Diagnosis Update(Diagnosis entity)
-        {
-            throw new NotImplementedException();
-        }
+        public void Update(Diagnosis entity)
+            => _diagnosisRepository.Update(entity);
 
         public void Delete(Diagnosis entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        void IService<Diagnosis, long>.Update(Diagnosis entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IDiagnosisRepository iDiagnosisRepository;
+            => _diagnosisRepository.Delete(entity);
 
     }
 }
