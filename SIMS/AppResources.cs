@@ -30,6 +30,9 @@ namespace SIMS
         private readonly String roomFile = @"..\..\Files\HospitalManagementFiles\rooms.txt";
         private readonly String medicineFile = @"..\..\Files\HospitalManagementFiles\medicines.txt";
         private readonly String inventoryItemFile = @"..\..\Files\HospitalManagementFiles\inventoryItems.txt";
+        private readonly String doctorStatisticsFile = @"..\..\Files\HospitalManagementFiles\doctorStatistics.txt";
+        private readonly String inventoryStatisticsFile = @"..\..\Files\HospitalManagementFiles\inventoryStatistics.txt";
+        private readonly String roomStatisticsFile = @"..\..\Files\HospitalManagementFiles\roomStatistics.txt";
 
         //MiscFiles
         private readonly String locationFile = @"..\..\Files\MiscFiles\locations.txt";
@@ -65,6 +68,9 @@ namespace SIMS
         public HospitalRepository hospitalRepository;
         public RoomRepository roomRepository;
         public InventoryItemRepository inventoryItemRepository;
+        public DoctorStatisticRepository doctorStatisticRepository;
+        public InventoryStatisticsRepository inventoryStatisticRepository;
+        public RoomStatisticsRepository roomStatisticRepository;
 
         //Misc repositories
         public LocationRepository locationRepository;
@@ -95,9 +101,12 @@ namespace SIMS
             userRepository = new UserRepository(new CSVStream<User>(userFile, new UserConverter()), new ComplexSequencer());
             // USER OK
 
-            inventoryItemRepository = new InventoryItemRepository(new CSVStream<InventoryItem>(inventoryItemFile, new InventoryItemConverter()), new LongSequencer(), roomRepository);
+            
             roomRepository = new RoomRepository(new CSVStream<Room>(roomFile, new RoomConverter()), new LongSequencer());
             // ROOM OK
+
+            inventoryItemRepository = new InventoryItemRepository(new CSVStream<InventoryItem>(inventoryItemFile, new InventoryItemConverter()), new LongSequencer(), roomRepository);
+
             timeTableRepository = new TimeTableRepository(new CSVStream<TimeTable>(timeTableFile, new TimeTableConverter()), new LongSequencer());
             // TIMETABLE OK
             hospitalRepository = new HospitalRepository(new CSVStream<Hospital>(hospitalFile, new HospitalConverter()), new LongSequencer(), roomRepository);
@@ -112,6 +121,8 @@ namespace SIMS
             patientRepository = new PatientRepository(new CSVStream<Patient>(patientFile, new PatientConverter()), new ComplexSequencer(), doctorRepository, userRepository);
             // PATIENT OK
 
+            
+            
             hospitalRepository.DoctorRepository = doctorRepository;
             hospitalRepository.ManagerRepository = managerRepository;
             hospitalRepository.SecretaryRepository = secretaryRepository;
@@ -177,6 +188,15 @@ namespace SIMS
 
 
             //ODAVDDE RADITI OSTALE
+
+            doctorStatisticRepository = new DoctorStatisticRepository("dSR", new CSVStream<StatsDoctor>(doctorStatisticsFile, new DoctorStatisticsConverter(",")), new LongSequencer(), doctorRepository);
+            // Doc Stats OK
+
+            inventoryStatisticRepository = new InventoryStatisticsRepository("iSR", new CSVStream<StatsInventory>(inventoryStatisticsFile, new InventoryStatisticsConverter(",")), new LongSequencer(), medicineRepository, inventoryItemRepository);
+            // InventoryStats OK
+
+            roomStatisticRepository = new RoomStatisticsRepository("rSR", new CSVStream<StatsRoom>(roomStatisticsFile, new RoomStatisticsConverter(",")), new LongSequencer(), roomRepository);
+            // RoomStats OK
         }
 
         public static AppResources getInstance()

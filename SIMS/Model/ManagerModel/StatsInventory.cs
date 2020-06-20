@@ -15,11 +15,11 @@ namespace SIMS.Model.ManagerModel
         private Medicine _medicine;
         private InventoryItem _inventoryItem;
 
-        public double Usage { get { return _usage; } set { } }
+        public double Usage { get { return _usage; } set { _usage = value; } }
 
-        public Medicine Medicine { get { return _medicine; } set { } }
+        public Medicine Medicine { get { return _medicine; } set { _medicine = value; } }
 
-        public InventoryItem InventoryItem { get { return _inventoryItem; } set { } }
+        public InventoryItem InventoryItem { get { return _inventoryItem; } set { _inventoryItem = value; } }
 
         public StatsInventory(double usage, Medicine medicine, InventoryItem inventoryItem): base()
         {
