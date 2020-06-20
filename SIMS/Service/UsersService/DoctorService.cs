@@ -17,25 +17,36 @@ namespace SIMS.Service.UsersService
     {
         DoctorRepository _doctorRepository;
 
+        string usernameRegex = "[a-zA-Z_0-9]+";
+        string passwordRegex = "[a-zA-Z_0-9]+";
+        string nameRegex = "([A-Z][a-z]+)+";
+        string uidnRegex = "[0-9]{13}";
+        string emailRegex = "[A-Za-z_.]+@([A-Za-z.])+\\.[a-z]+$";
+        string phoneRegex = "^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[- /0-9]*$";
+
         public DoctorService(DoctorRepository doctorRepository)
         {
             _doctorRepository = doctorRepository;
         }
 
-        public DoctorService()
-        {
-
-        }
 
         public IEnumerable<Doctor> GetActiveDoctors()
         {
-            throw new NotImplementedException();
+            List<Doctor> retVal = new List<Doctor>();
+
+            WorkingDaysEnum dayOfWeek = getDayOfWeek();
+
+            foreach(Doctor d in _doctorRepository.GetAllEager())
+            {
+                if (d.TimeTable.WorkingHours[dayOfWeek].IsDateTimeBetween(DateTime.Now))
+                    retVal.Add(d);
+            }
+
+            return retVal;
         }
 
         public IEnumerable<Doctor> GetDoctorByType(DocTypeEnum doctorType)
-        {
-            throw new NotImplementedException();
-        }
+            => _doctorRepository.GetDoctorByType(doctorType);
 
         public IEnumerable<Doctor> GetAvailableDoctorsByTime(Util.TimeInterval timeInterval)
         {
@@ -45,26 +56,28 @@ namespace SIMS.Service.UsersService
         public IEnumerable<Doctor> GetFilteredDoctors(Util.DoctorFilter filter)
             => _doctorRepository.GetFilteredDoctors(filter);
 
+        
+
         public bool CheckUsername(string username)
-            => Regex.IsMatch(username, "[a-zA-z_0-9]+");
+            => Regex.IsMatch(username, usernameRegex);
 
         public bool CheckPassword(string password)
-            => Regex.IsMatch(password, "[a-zA-z_0-9]+");
+            => Regex.IsMatch(password, passwordRegex);
 
         public bool CheckName(string name)
-            => Regex.IsMatch(name, "([A-Z][a-z]+)+");
+            => Regex.IsMatch(name, nameRegex);
 
         public bool CheckUidn(string uidn)
-            => Regex.IsMatch(uidn, "[0-9]{13}");
+            => Regex.IsMatch(uidn, uidnRegex);
 
         public bool CheckDateOfBirth(DateTime date)
             => DateTime.Compare(new DateTime(2000, 1, 1), date) > 0;
 
         public bool CheckEmail(string email)
-            => Regex.IsMatch(email, "[A-Za-z_.]+@([A-Za-z.])+\\.[a-z]+$");
+            => Regex.IsMatch(email, emailRegex);
 
         public bool CheckPhoneNumber(string phoneNumber)
-            => Regex.IsMatch(phoneNumber, "^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[- /0-9]*$");
+            => Regex.IsMatch(phoneNumber, phoneRegex);
 
         public IEnumerable<Doctor> GetAll()
             => _doctorRepository.GetAllEager();
@@ -80,7 +93,10 @@ namespace SIMS.Service.UsersService
 
         //TODO: proveriti
         public void Validate(Doctor user)
-            => _doctorRepository.Update(user);
+        {
+            //pozvati checkere
+        }
+
 
         //TODO: proveriti
         public void Login(User user)
@@ -93,5 +109,26 @@ namespace SIMS.Service.UsersService
 
         public IDoctorRepository iDoctorRepository;
 
+
+        private WorkingDaysEnum getDayOfWeek()
+        {
+           switch(DateTime.Now.DayOfWeek)
+           {
+                case DayOfWeek.Monday:
+                    return WorkingDaysEnum.MONDAY;
+                case DayOfWeek.Tuesday:
+                    return WorkingDaysEnum.TUESDAY;
+                case DayOfWeek.Wednesday:
+                    return WorkingDaysEnum.WEDNESDAY;
+                case DayOfWeek.Thursday:
+                    return WorkingDaysEnum.THURSDAY;
+                case DayOfWeek.Friday:
+                    return WorkingDaysEnum.FRIDAY;
+                case DayOfWeek.Saturday:
+                    return WorkingDaysEnum.SATURDAY;
+                default:
+                    return WorkingDaysEnum.SUNDAY;
+           };
+        }
     }
 }

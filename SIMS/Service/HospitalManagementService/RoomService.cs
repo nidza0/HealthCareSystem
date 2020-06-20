@@ -5,67 +5,84 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
+using SIMS.Model.PatientModel;
 using SIMS.Model.UserModel;
 using SIMS.Repository.Abstract.HospitalManagementAbstractRepository;
+using SIMS.Repository.CSVFileRepository.HospitalManagementRepository;
+using SIMS.Repository.CSVFileRepository.MedicalRepository;
 
 namespace SIMS.Service.HospitalManagementService
 {
     public class RoomService : IService<Room, long>
     {
-        public IEnumerable<Room> GetRoomsByType(RoomType type)
+        RoomRepository _roomRepository;
+        AppointmentRepository _appointmentRepository;
+
+        public RoomService(RoomRepository roomRepository, AppointmentRepository appointmentRepository)
         {
-            throw new NotImplementedException();
+            _roomRepository = roomRepository;
+            _appointmentRepository = appointmentRepository;
         }
+
+        public IEnumerable<Room> GetRoomsByType(RoomType type)
+            => _roomRepository.GetRoomsByType(type);
 
         public IEnumerable<Room> GetAvailableRoomsByDate(Util.TimeInterval timeInterval)
         {
-            throw new NotImplementedException();
+
+            List<Room> retVal = new List<Room>();
+
+            foreach(Room room in GetAll()) {
+                IEnumerable<Appointment> appointmentsForRoom = _appointmentRepository.GetAppointmentsByTime(timeInterval).Where(app => 
+                app.Room.GetId() == room.GetId());
+
+                if(appointmentsForRoom.Count() == 0)
+                {
+                    retVal.Add(room);
+                }
+            }
+            return retVal;
         }
 
-        public bool DivideRooms(Room initialRoom)
+        public void DivideRooms(Room initialRoom, String newNumber)
         {
-            throw new NotImplementedException();
+            initialRoom.RoomNumber = newNumber;
+            _roomRepository.Create(initialRoom);
         }
 
         public Room MergeRooms(IEnumerable<Room> roomsToMerge, string newName)
         {
-            throw new NotImplementedException();
+            foreach(Room room in roomsToMerge)
+            {
+                _roomRepository.Delete(room);
+            }
+
+            return _roomRepository.Create(new Room(newName, false, roomsToMerge.ToList()[0].Floor, roomsToMerge.ToList()[0].RoomType));
+
         }
 
         public Room GetRoomByName(string name)
-        {
-            throw new NotImplementedException();
-        }
+            => _roomRepository.GetRoomByName(name);
 
         public IEnumerable<Room> GetRoomsByFloor(int floor)
-        {
-            throw new NotImplementedException();
-        }
+            => _roomRepository.GetRoomsByFloor(floor);
 
         public IEnumerable<Room> GetAll()
-        {
-            throw new NotImplementedException();
-        }
+            => _roomRepository.GetAll();
 
         public Room GetByID(long id)
-        {
-            throw new NotImplementedException();
-        }
+            => this.GetAll().SingleOrDefault(room => room.GetId() == id);
 
         public Room Create(Room entity)
-        {
-            throw new NotImplementedException();
-        }
+            => _roomRepository.Create(entity);
 
-        public Room Update(Room entity)
-        {
-            throw new NotImplementedException();
-        }
+        public void Update(Room entity)
+            => _roomRepository.Update(entity);
 
         public void Delete(Room entity)
-        {
-            throw new NotImplementedException();
-        }
+            => _roomRepository.Delete(entity);
 
         void IService<Room, long>.Update(Room entity)
         {
