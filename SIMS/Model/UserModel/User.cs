@@ -5,6 +5,7 @@
 
 using SIMS.Repository.Abstract;
 using System;
+using System.Collections.Generic;
 
 namespace SIMS.Model.UserModel
 {
@@ -119,6 +120,11 @@ namespace SIMS.Model.UserModel
         {
             User otherUser = obj as User;
             return _userID.Equals(otherUser.GetId());
+        }
+
+        public override int GetHashCode()
+        {
+            return 328612020 + EqualityComparer<UserID>.Default.GetHashCode(_userID);
         }
     }
 }

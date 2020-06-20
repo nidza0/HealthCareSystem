@@ -47,6 +47,18 @@ namespace SIMS.Model.UserModel
         public int Floor { get => _floor; set => _floor = value; }
         public RoomType RoomType { get => _roomType; set => _roomType = value; }
 
+        public override bool Equals(object obj)
+        {
+            var room = obj as Room;
+            return room != null &&
+                   _id == room._id;
+        }
+
+        public override int GetHashCode()
+        {
+            return 1969571243 + _id.GetHashCode();
+        }
+
         public long GetId()
         {
             return _id;

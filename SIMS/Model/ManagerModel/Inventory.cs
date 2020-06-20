@@ -162,5 +162,17 @@ namespace SIMS.Model.ManagerModel
         {
             _id = id;
         }
+
+        public override bool Equals(object obj)
+        {
+            var inventory = obj as Inventory;
+            return inventory != null &&
+                   _id == inventory._id;
+        }
+
+        public override int GetHashCode()
+        {
+            return 1969571243 + _id.GetHashCode();
+        }
     }
 }
