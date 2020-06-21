@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using SIMS.Model.PatientModel;
 using SIMS.Model.UserModel;
 using SIMS.Repository.Abstract.MedicalAbstractRepository;
@@ -63,58 +64,41 @@ namespace SIMS.Service.MedicalService
 
         public Appointment CancelAppointment(Appointment appointment)
         {
-            throw new NotImplementedException();
+            // TODO: Proveri da li moze da se otkaze appointment
+            appointment.Canceled = true;
+            _appointmentRepository.Update(appointment);
+            return appointment;
         }
 
         public IEnumerable<Appointment> GetPatientAppointments(Patient patient)
-        {
-            throw new NotImplementedException();
-        }
+            => _appointmentRepository.GetPatientAppointments(patient);
 
         public IEnumerable<Appointment> GetAppointmentsByTime(Util.TimeInterval timeInterval)
-        {
-            throw new NotImplementedException();
-        }
+            => _appointmentRepository.GetAppointmentsByTime(timeInterval);
 
         public IEnumerable<Appointment> GetAppointmentsByDoctor(Doctor doctor)
-        {
-            throw new NotImplementedException();
-        }
+            => _appointmentRepository.GetAppointmentsByDoctor(doctor);
 
         public IEnumerable<Appointment> GetCanceledAppointments()
-        {
-            throw new NotImplementedException();
-        }
+            => _appointmentRepository.GetAllEager().Where(app => app.Canceled == true);
 
         public IEnumerable<Appointment> GetCompletedAppointmentsByPatient(Patient patient)
-        {
-            throw new NotImplementedException();
-        }
+            => _appointmentRepository.GetAllEager().Where(app => app.Canceled == false && app.TimeInterval.EndTime.CompareTo(DateTime.Now) < 0);
 
         public IEnumerable<Appointment> GetAppointmentsByRoom(Room room)
-        {
-            throw new NotImplementedException();
-        }
+            => _appointmentRepository.GetAppointmentsByRoom(room);
 
         public IEnumerable<Appointment> GetFilteredAppointment(AppointmentFilter appointmentFilter)
-        {
-            throw new NotImplementedException();
-        }
+            => _appointmentRepository.GetFilteredAppointment(appointmentFilter);
 
         public IEnumerable<Appointment> GetUpcomingAppointmentsForPatient(Patient patient)
-        {
-            throw new NotImplementedException();
-        }
+            => _appointmentRepository.GetUpcomingAppointmentsForPatient(patient);
 
-        public IEnumerable<Appointment> GetRecentDoctorsForPatient(Patient patient)
-        {
-            throw new NotImplementedException();
-        }
+        public IEnumerable<Doctor> GetRecentDoctorsForPatient(Patient patient)
+            => _appointmentRepository.GetPatientAppointments(patient).Select(app => app.DoctorInAppointment);
 
         public IEnumerable<Appointment> GetUpcomingAppointmentsForDoctor(Doctor doctor)
-        {
-            throw new NotImplementedException();
-        }
+            => _appointmentRepository.GetUpcomingAppointmentsForDoctor(doctor);
 
         public bool IsAppointmentChangeable(Appointment appointment)
             => _appointmentStrategy.isAppointmentChangeable(appointment);
@@ -145,7 +129,11 @@ namespace SIMS.Service.MedicalService
             => _appointmentRepository.Delete(entity);
 
         public void Update(Appointment entity)
-            => _appointmentRepository.Update(entity);
+        {
+            // TODO: Proveriti da li je update moguc
+            _appointmentRepository.Update(entity);
+        }
+            
 
 
 
