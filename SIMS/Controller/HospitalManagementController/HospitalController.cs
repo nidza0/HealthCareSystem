@@ -16,34 +16,22 @@ namespace SIMS.Controller.HospitalManagementController
         public HospitalService hospitalService;
 
         public IEnumerable<Hospital> GetHospitalByLocation(Location location)
-        {
-            throw new NotImplementedException();
-        }
+            => hospitalService.GetHospitalByLocation(location);
 
         public IEnumerable<Hospital> GetAll()
-        {
-            throw new NotImplementedException();
-        }
+            => hospitalService.GetAll();
 
         public Hospital GetByID(long id)
-        {
-            throw new NotImplementedException();
-        }
+            => hospitalService.GetByID(id);
 
         public Hospital Create(Hospital entity)
-        {
-            throw new NotImplementedException();
-        }
+            => hospitalService.Create(entity);
 
         public void Update(Hospital entity)
-        {
-            throw new NotImplementedException();
-        }
+            => hospitalService.Update(entity);
 
         public void Delete(Hospital entity)
-        {
-            throw new NotImplementedException();
-        }
+            => hospitalService.Delete(entity);
 
     }
 }

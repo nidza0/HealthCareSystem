@@ -102,7 +102,7 @@ namespace SIMS.Service.MedicalService
         public IEnumerable<Appointment> GetPatientAppointments(Patient patient)
             => _appointmentRepository.GetPatientAppointments(patient);
 
-        public IEnumerable<Appointment> GetAppointmentsByTime(Util.TimeInterval timeInterval)
+        public IEnumerable<Appointment> GetAppointmentsByTime(TimeInterval timeInterval)
             => _appointmentRepository.GetAppointmentsByTime(timeInterval);
 
         public IEnumerable<Appointment> GetAppointmentsByDoctor(Doctor doctor)

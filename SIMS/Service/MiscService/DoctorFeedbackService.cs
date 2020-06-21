@@ -74,12 +74,6 @@ namespace SIMS.Service.MiscService
         public void Delete(DoctorFeedback entity)
             => _doctorFeedbackRepository.Delete(entity);
 
-        void IService<DoctorFeedback, long>.Update(DoctorFeedback entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IDoctorFeedbackRepository iDoctorFeedbackRepository;
 
     }
 }

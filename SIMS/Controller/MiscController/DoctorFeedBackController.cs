@@ -14,52 +14,38 @@ namespace SIMS.Controller.MiscController
 {
     public class DoctorFeedBackController : IController<DoctorFeedback, long>
     {
+
+        public DoctorFeedbackService doctorFeedbackService;
         public DoctorFeedback GetByPatientDoctor(Patient patient, Doctor doctor)
-        {
-            throw new NotImplementedException();
-        }
+            => doctorFeedbackService.GetByPatientDoctor(patient, doctor);
 
         public IEnumerable<DoctorFeedback> GetByDoctor(Doctor doctor)
-        {
-            throw new NotImplementedException();
-        }
+            => doctorFeedbackService.GetByDoctor(doctor);
 
         public double GetAverageRatingByDoctor(Doctor doctor)
-        {
-            throw new NotImplementedException();
-        }
+            => doctorFeedbackService.GetAverageRatingByDoctor(doctor);
 
+
+        //TODO: 
         public IEnumerable<DoctorFeedback> GetRecentRatingsByDoctor(Doctor doctor)
         {
             throw new NotImplementedException();
         }
 
         public IEnumerable<DoctorFeedback> GetAll()
-        {
-            throw new NotImplementedException();
-        }
+            => doctorFeedbackService.GetAll();
 
         public DoctorFeedback GetByID(long id)
-        {
-            throw new NotImplementedException();
-        }
+            => doctorFeedbackService.GetByID(id);
 
         public DoctorFeedback Create(DoctorFeedback entity)
-        {
-            throw new NotImplementedException();
-        }
+            => doctorFeedbackService.Create(entity);
 
         public void Update(DoctorFeedback entity)
-        {
-            throw new NotImplementedException();
-        }
+            => doctorFeedbackService.Update(entity);
 
         public void Delete(DoctorFeedback entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public DoctorFeedbackService doctorFeedbackService;
+            => doctorFeedbackService.Delete(entity);
 
     }
 }

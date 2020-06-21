@@ -55,7 +55,5 @@ namespace SIMS.Service.MiscService
             throw new NotImplementedException();
         }
 
-        public IArticleRepository iArticleRepository;
-
     }
 }

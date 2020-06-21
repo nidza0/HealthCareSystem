@@ -15,6 +15,9 @@ namespace SIMS.Controller.HospitalManagementController
 {
     public class StatisticsController : IController<Stats, long>
     {
+
+        
+
         public IEnumerable<StatsDoctor> GetDoctorStatistics()
         {
             throw new NotImplementedException();

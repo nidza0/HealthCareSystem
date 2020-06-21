@@ -57,8 +57,12 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AppResources.cs" />
+
     <Compile Include="Exceptions\IllegalAppointmentBooking.cs" />
     <Compile Include="Exceptions\InvalidTimeException.cs" />
+
+    <Compile Include="Exceptions\MedicalRecordServiceException.cs" />
+
     <Compile Include="Model\UserModel\Question.cs" />
     <Compile Include="Repository\Abstract\HospitalManagementAbstractRepository\IDoctorStatisticRepository.cs" />
     <Compile Include="Repository\Abstract\HospitalManagementAbstractRepository\IInventoryStatisticsRepository.cs" />

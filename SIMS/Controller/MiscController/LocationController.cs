@@ -13,42 +13,29 @@ namespace SIMS.Controller.MiscController
 {
     public class LocationController : IController<Location, long>
     {
-        public IEnumerable<Location> GetLocationByCountry(string country)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<string> GetAllCountries()
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Location> GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Location GetByID(long id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Location Create(Location entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Update(Location entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Delete(Location entity)
-        {
-            throw new NotImplementedException();
-        }
 
         public LocationService locationService;
+
+        public IEnumerable<Location> GetLocationByCountry(string country)
+            => locationService.GetLocationByCountry(country);
+
+        public IEnumerable<string> GetAllCountries()
+            => locationService.GetAllCountries();
+
+        public IEnumerable<Location> GetAll()
+            => locationService.GetAll();
+
+        public Location GetByID(long id)
+            => locationService.GetByID(id);
+
+        public Location Create(Location entity)
+            => locationService.Create(entity);
+
+        public void Update(Location entity)
+            => locationService.Update(entity);
+
+        public void Delete(Location entity)
+            => locationService.Delete(entity);
 
     }
 }
