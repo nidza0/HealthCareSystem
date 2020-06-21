@@ -10,11 +10,11 @@ namespace SIMS.Service.MedicalService
 {
     public interface IAppointmentStrategy
     {
-        bool CheckType(Appointment appointment);
+        void CheckType(Appointment appointment);
 
         void checkDateTimeValid(Appointment appointment);
 
-        int Validate(Appointment appointment);
+        void Validate(Appointment appointment);
 
         bool isAppointmentChangeable(Appointment appointment);
 
