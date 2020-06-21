@@ -57,12 +57,13 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AppResources.cs" />
-
+    <Compile Include="Controller\HospitalManagementController\DoctorStatisticsController.cs" />
+    <Compile Include="Controller\HospitalManagementController\InventoryStatisticsController.cs" />
+    <Compile Include="Controller\HospitalManagementController\RoomStatisticsController.cs" />
     <Compile Include="Exceptions\IllegalAppointmentBooking.cs" />
     <Compile Include="Exceptions\InvalidTimeException.cs" />
-
+    <Compile Include="Exceptions\InvalidUserException.cs" />
     <Compile Include="Exceptions\MedicalRecordServiceException.cs" />
-
     <Compile Include="Model\UserModel\Question.cs" />
     <Compile Include="Repository\Abstract\HospitalManagementAbstractRepository\IDoctorStatisticRepository.cs" />
     <Compile Include="Repository\Abstract\HospitalManagementAbstractRepository\IInventoryStatisticsRepository.cs" />
@@ -180,10 +181,13 @@
     <Compile Include="Repository\Sequencer\ComplexSequencer.cs" />
     <Compile Include="Repository\Sequencer\ISequencer.cs" />
     <Compile Include="Repository\Sequencer\LongSequencer.cs" />
+    <Compile Include="Service\HospitalManagementService\DoctorStatisticsService.cs" />
     <Compile Include="Service\HospitalManagementService\HospitalService.cs" />
     <Compile Include="Service\HospitalManagementService\InventoryService.cs" />
+    <Compile Include="Service\HospitalManagementService\InventoryStatisticsService.cs" />
     <Compile Include="Service\HospitalManagementService\MedicineService.cs" />
     <Compile Include="Service\HospitalManagementService\RoomService.cs" />
+    <Compile Include="Service\HospitalManagementService\RoomStatisticsService.cs" />
     <Compile Include="Service\IService.cs" />
     <Compile Include="Service\MedicalService\AppointmentDoctorStrategy.cs" />
     <Compile Include="Service\MedicalService\AppointmentManagerStrategy.cs" />
