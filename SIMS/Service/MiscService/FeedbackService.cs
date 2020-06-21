@@ -14,7 +14,6 @@ namespace SIMS.Service.MiscService
 {
     public class FeedbackService : IService<Feedback, long>
     {
-        public IFeedbackRepository iFeedbackRepository;
         private FeedbackRepository _feedbackRepository;
 
         public FeedbackService(FeedbackRepository feedbackRepository)
@@ -37,9 +36,5 @@ namespace SIMS.Service.MiscService
         public void Update(Feedback entity)
             => _feedbackRepository.Update(entity);
 
-        void IService<Feedback, long>.Update(Feedback entity)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

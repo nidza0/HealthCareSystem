@@ -10,15 +10,18 @@ using SIMS.Model.UserModel;
 using SIMS.Repository.CSVFileRepository.MedicalRepository;
 using SIMS.Util;
 
+using System.Linq;
+
 namespace SIMS.Service.MedicalService
 {
     public class TherapyService : IService<Therapy, long>
     {
         private TherapyRepository _therapyRepository;
-
-        public TherapyService(TherapyRepository therapyRepository)
+        private MedicalRecordService _medicalRecordService;
+        public TherapyService(TherapyRepository therapyRepository,MedicalRecordService medicalRecordService)
         {
             _therapyRepository = therapyRepository;
+            _medicalRecordService = medicalRecordService;
         }
         
 

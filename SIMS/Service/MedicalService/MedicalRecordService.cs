@@ -37,6 +37,18 @@ namespace SIMS.Service.MedicalService
             return diagnosis;
         }
 
+        public IEnumerable<Allergy> GetPatientAllergies(Patient patient)
+        {
+            List<Allergy> patientAllergies = new List<Allergy>();
+            MedicalRecord patientMedicalRecord = GetPatientMedicalRecord(patient);
+
+            if (patientMedicalRecord == null) return patientAllergies;
+
+            patientAllergies.AddRange(patientMedicalRecord.Allergy);
+
+            return patientAllergies;
+        }
+
         public MedicalRecord GetPatientMedicalRecord(Patient patient)
             => _medicalRecordRepository.GetPatientMedicalRecord(patient);
 
@@ -53,8 +65,17 @@ namespace SIMS.Service.MedicalService
         public MedicalRecord GetByID(long id)
             => _medicalRecordRepository.GetEager(id);
 
-        public MedicalRecord Create(MedicalRecord entity)
-            => _medicalRecordRepository.Create(entity);
+        public MedicalRecord Create(MedicalRecord entity){
+            Patient patient = entity.Patient;
+            MedicalRecord patientMedicalRecord = GetPatientMedicalRecord(patient);
+            if (patientMedicalRecord != null)
+            {
+                //Patient already has a medical record, therefore we don't want to create a new one.
+                throw new MedicalRecordServiceException(String.Format("Patient {0} {1} already has a medical record with ID: {2}",patient.Name,patient.Surname, patientMedicalRecord.GetId()));
+            }
+
+            return _medicalRecordRepository.Create(entity);
+        }
 
 
         public void Delete(MedicalRecord entity)

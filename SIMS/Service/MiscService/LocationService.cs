@@ -42,12 +42,5 @@ namespace SIMS.Service.MiscService
         public void Delete(Location entity)
             => _locationRepository.Delete(entity);
 
-        void IService<Location, long>.Update(Location entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public ILocationRepository iLocationRepository;
-
     }
 }
