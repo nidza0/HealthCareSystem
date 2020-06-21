@@ -20,14 +20,19 @@ namespace SIMS.Controller.UsersController
             secretaryService = service;
         }
 
-        public Secretary Create(Secretary secretary) => secretaryService.Create(secretary);
+        public Secretary Create(Secretary secretary)
+            => secretaryService.Create(secretary);
 
-        public void Delete(Secretary secretary) => secretaryService.Delete(secretary);
+        public void Delete(Secretary secretary)
+            => secretaryService.Delete(secretary);
 
-        public IEnumerable<Secretary> GetAll() => secretaryService.GetAll();
+        public IEnumerable<Secretary> GetAll()
+            => secretaryService.GetAll();
 
-        public Secretary GetByID(UserID id) => secretaryService.GetByID(id);
+        public Secretary GetByID(UserID id)
+            => secretaryService.GetByID(id);
 
-        public void Update(Secretary secretary) => secretaryService.Update(secretary);
+        public void Update(Secretary secretary)
+            => secretaryService.Update(secretary);
     }
 }
