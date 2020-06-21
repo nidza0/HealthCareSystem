@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using SIMS.Exceptions;
 using SIMS.Model.PatientModel;
 using SIMS.Model.UserModel;
 using SIMS.Repository.Abstract.MedicalAbstractRepository;
@@ -28,72 +29,80 @@ namespace SIMS.Service.MedicalService
         }
 
         protected void validate(Appointment appointment)
-        {
-          
-        }
+            => _appointmentStrategy.Validate(appointment);
 
         protected void checkDateTimeValid(Appointment appointment)
             => _appointmentStrategy.checkDateTimeValid(appointment);
 
         protected void CheckSchedules(Appointment appointment)
         {
-            throw new NotImplementedException();
+            if (!CheckDoctorSchedule(appointment))
+            {
+                throw new IllegalAppointmentBooking();
+            }
+
+            if (!CheckPatientSchedule(appointment))
+            {
+                throw new IllegalAppointmentBooking();
+            }
         }
 
         protected bool CheckDoctorSchedule(Appointment appointment)
         {
-            throw new NotImplementedException();
-        }
+            IEnumerable<Appointment> overlapping = _appointmentRepository.GetAppointmentsByDoctor(appointment.DoctorInAppointment)
+                .Where(app => app.TimeInterval.IsOverlappingWith(appointment.TimeInterval));
 
-        //protected bool CheckPatientSchedule(Appointment appointment)
-        //{
-        //    _appointmentRepository.GetPatientAppointments(appointment.Patient).Where(app => IsAppointmentInTimeInterval(app.TimeInterval, appointment.TimeInterval));
-        //}
-
-        private bool DoTimeIntervalsOverlap(TimeInterval a, TimeInterval b)
-        {
-            if(a.StartTime.Ticks < b.StartTime.Ticks && b.StartTime.Ticks < a.EndTime.Ticks)            // B je unutar A
+            if (overlapping.Count() > 0)
             {
-                return true;
-            } else if(b.StartTime.Ticks < a.StartTime.Ticks && a.StartTime.Ticks < b.EndTime.Ticks)     // A je unutar B
-            {
-                return true;
+                return false;
             }
 
-            return false;
+            return true;
+        }
+
+        protected bool CheckPatientSchedule(Appointment appointment)
+        {
+            IEnumerable<Appointment> overlapping = _appointmentRepository.GetPatientAppointments(appointment.Patient)
+                .Where(app => app.TimeInterval.IsOverlappingWith(appointment.TimeInterval));
+
+            if(overlapping.Count() > 0)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         protected bool CheckRoomSchedules(Appointment appointment)
         {
             // Checks if the selected room is available
-            // TODO: ubaciti i vreme
-            IEnumerable<Appointment> appointments = _appointmentRepository.GetAppointmentsByRoom(appointment.Room);
-            if(appointments.Count() == 0)
-            {
-                return true;
-            } else
+            IEnumerable<Appointment> appointments = _appointmentRepository.GetAppointmentsByRoom(appointment.Room)
+                .Where(app => app.TimeInterval.IsOverlappingWith(appointment.TimeInterval));
+            if(appointments.Count() > 0)
             {
                 return false;
             }
+
+            return true;
         }
 
-        protected bool CheckType(Appointment appointment)
+        protected void CheckType(Appointment appointment)
             => _appointmentStrategy.CheckType(appointment);
 
         public Appointment CancelAppointment(Appointment appointment)
         {
             // TODO: Proveri da li moze da se otkaze appointment
-            if (this.IsAppointmentChangeable(appointment)) { 
-                appointment.Canceled = true;
-                _appointmentRepository.Update(appointment);
-            }
+            validate(appointment);
+            appointment.Canceled = true;
+            _appointmentRepository.Update(appointment);
+            
             return appointment;
         }
 
         public IEnumerable<Appointment> GetPatientAppointments(Patient patient)
             => _appointmentRepository.GetPatientAppointments(patient);
 
-        public IEnumerable<Appointment> GetAppointmentsByTime(Util.TimeInterval timeInterval)
+        public IEnumerable<Appointment> GetAppointmentsByTime(TimeInterval timeInterval)
             => _appointmentRepository.GetAppointmentsByTime(timeInterval);
 
         public IEnumerable<Appointment> GetAppointmentsByDoctor(Doctor doctor)
@@ -153,7 +162,7 @@ namespace SIMS.Service.MedicalService
 
         public void Update(Appointment entity)
         {
-            // TODO: Proveriti da li je update moguc
+            validate(entity);
             if (this.IsAppointmentChangeable(entity)) { 
                 _appointmentRepository.Update(entity);
             }

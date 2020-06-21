@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SIMS.Exceptions
 {
-    class EntityNotFoundException : System.Exception
+    class EntityNotFoundException : Exception
     {
         public EntityNotFoundException()
         {

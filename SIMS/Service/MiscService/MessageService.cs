@@ -37,16 +37,12 @@ namespace SIMS.Service.MiscService
         public Message Create(Message entity)
             => _messageRepository.Create(entity);
 
-        public Message Update(Message entity)
+        public void Update(Message entity)
             => _messageRepository.Create(entity);
 
         public void Delete(Message entity)
             => _messageRepository.Delete(entity);
 
-        void IService<Message, long>.Update(Message entity)
-            => _messageRepository.Update(entity);
-
-        public IMessageRepository iMessageRepository;
 
     }
 }

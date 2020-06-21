@@ -4,6 +4,7 @@
 // Purpose: Definition of Class AppointmentSecretaryStrategy
 
 using System;
+using SIMS.Exceptions;
 using SIMS.Model.PatientModel;
 
 namespace SIMS.Service.MedicalService
@@ -13,20 +14,41 @@ namespace SIMS.Service.MedicalService
         private readonly int minMinutes = 10;
         public void checkDateTimeValid(Appointment appointment)
         {
-            throw new NotImplementedException();
+            DateTime StartTime = appointment.TimeInterval.StartTime;
+            DateTime EndTime = appointment.TimeInterval.EndTime;
+
+            if (StartTime.CompareTo(DateTime.Now.AddMinutes(minMinutes)) < 0)
+                throw new InvalidTimeException();
+            else if (StartTime.CompareTo(EndTime) > 0)
+                throw new InvalidTimeException();
+
         }
 
-        public bool CheckType(Appointment appointment)
+        public void CheckType(Appointment appointment)
         {
-            throw new NotImplementedException();
+            if (appointment.AppointmentType == AppointmentType.operation)
+            {
+                if (appointment.DoctorInAppointment.DocTypeEnum != Model.DoctorModel.DocTypeEnum.FAMILYMEDICINE)
+                {
+                    throw new IllegalAppointmentBooking();
+                }
+            }
+            else if (appointment.AppointmentType == AppointmentType.renovation)
+            {
+                if (appointment.DoctorInAppointment != null || appointment.Patient != null)
+                {
+                    throw new IllegalAppointmentBooking();
+                }
+            }
         }
 
         public bool isAppointmentChangeable(Appointment appointment)
             => appointment.TimeInterval.StartTime < DateTime.Now.AddMinutes(-minMinutes); 
 
-        public int Validate(Appointment appointment)
+        public void Validate(Appointment appointment)
         {
-            throw new NotImplementedException();
+            checkDateTimeValid(appointment);
+            CheckType(appointment);
         }
     }
 }

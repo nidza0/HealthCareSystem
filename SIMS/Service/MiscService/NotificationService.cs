@@ -40,12 +40,6 @@ namespace SIMS.Service.MiscService
         public void Delete(Notification entity)
             => _notificationRepository.Delete(entity);
 
-        void IService<Notification, long>.Update(Notification entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public INotificationRepository iNotificationRepository;
 
     }
 }
