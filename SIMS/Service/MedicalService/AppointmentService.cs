@@ -33,9 +33,7 @@ namespace SIMS.Service.MedicalService
         }
 
         protected void checkDateTimeValid(Appointment appointment)
-        {
-            throw new NotImplementedException();
-        }
+            => _appointmentStrategy.checkDateTimeValid(appointment);
 
         protected void CheckSchedules(Appointment appointment)
         {
@@ -47,26 +45,48 @@ namespace SIMS.Service.MedicalService
             throw new NotImplementedException();
         }
 
-        protected bool CheckPatientSchedule(Appointment appointment)
+        //protected bool CheckPatientSchedule(Appointment appointment)
+        //{
+        //    _appointmentRepository.GetPatientAppointments(appointment.Patient).Where(app => IsAppointmentInTimeInterval(app.TimeInterval, appointment.TimeInterval));
+        //}
+
+        private bool DoTimeIntervalsOverlap(TimeInterval a, TimeInterval b)
         {
-            throw new NotImplementedException();
+            if(a.StartTime.Ticks < b.StartTime.Ticks && b.StartTime.Ticks < a.EndTime.Ticks)            // B je unutar A
+            {
+                return true;
+            } else if(b.StartTime.Ticks < a.StartTime.Ticks && a.StartTime.Ticks < b.EndTime.Ticks)     // A je unutar B
+            {
+                return true;
+            }
+
+            return false;
         }
 
         protected bool CheckRoomSchedules(Appointment appointment)
         {
-            throw new NotImplementedException();
+            // Checks if the selected room is available
+            // TODO: ubaciti i vreme
+            IEnumerable<Appointment> appointments = _appointmentRepository.GetAppointmentsByRoom(appointment.Room);
+            if(appointments.Count() == 0)
+            {
+                return true;
+            } else
+            {
+                return false;
+            }
         }
 
         protected bool CheckType(Appointment appointment)
-        {
-            throw new NotImplementedException();
-        }
+            => _appointmentStrategy.CheckType(appointment);
 
         public Appointment CancelAppointment(Appointment appointment)
         {
             // TODO: Proveri da li moze da se otkaze appointment
-            appointment.Canceled = true;
-            _appointmentRepository.Update(appointment);
+            if (this.IsAppointmentChangeable(appointment)) { 
+                appointment.Canceled = true;
+                _appointmentRepository.Update(appointment);
+            }
             return appointment;
         }
 
@@ -122,8 +142,11 @@ namespace SIMS.Service.MedicalService
             => _appointmentRepository.GetEager(id);
 
         public Appointment Create(Appointment entity)
-            => _appointmentRepository.Create(entity);
-
+        {
+            validate(entity);
+            _appointmentRepository.Create(entity);
+            return entity;
+        }
 
         public void Delete(Appointment entity)
             => _appointmentRepository.Delete(entity);
@@ -131,7 +154,9 @@ namespace SIMS.Service.MedicalService
         public void Update(Appointment entity)
         {
             // TODO: Proveriti da li je update moguc
-            _appointmentRepository.Update(entity);
+            if (this.IsAppointmentChangeable(entity)) { 
+                _appointmentRepository.Update(entity);
+            }
         }
             
 
