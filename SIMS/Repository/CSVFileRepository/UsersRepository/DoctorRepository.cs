@@ -109,7 +109,7 @@ namespace SIMS.Repository.CSVFileRepository.UsersRepository
         }
 
         public Doctor getDoctorByUsername(string username)
-            => GetAll().SingleOrDefault(doc => doc.UserName == username);
+            => GetAllEager().SingleOrDefault(doc => doc.UserName == username);
 
         private void BindDoctorsWithRooms(IEnumerable<Doctor> doctors, IEnumerable<Room> rooms)
             => doctors.ToList().ForEach(doctor => doctor.Office = GetOfficeById(doctor.Office, rooms));

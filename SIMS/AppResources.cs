@@ -14,6 +14,14 @@ using System;
 using SIMS.Repository.CSVFileRepository.MiscRepository;
 using SIMS.Repository.CSVFileRepository.Csv.Converter.MiscConverter;
 using SIMS.Model.DoctorModel;
+using SIMS.Service.HospitalManagementService;
+using SIMS.Service.MedicalService;
+using SIMS.Service.MiscService;
+using SIMS.Service.UsersService;
+using SIMS.Controller.HospitalManagementController;
+using SIMS.Controller.MedicalController;
+using SIMS.Controller.MiscController;
+using SIMS.Controller.UsersController;
 
 namespace SIMS
 {
@@ -33,6 +41,7 @@ namespace SIMS
         private readonly String doctorStatisticsFile = @"..\..\Files\HospitalManagementFiles\doctorStatistics.txt";
         private readonly String inventoryStatisticsFile = @"..\..\Files\HospitalManagementFiles\inventoryStatistics.txt";
         private readonly String roomStatisticsFile = @"..\..\Files\HospitalManagementFiles\roomStatistics.txt";
+        private readonly String inventoryFile = @"..\..\Files\HospitalManagementFiles\inventories.txt";
 
         //MiscFiles
         private readonly String locationFile = @"..\..\Files\MiscFiles\locations.txt";
@@ -71,6 +80,7 @@ namespace SIMS
         public DoctorStatisticRepository doctorStatisticRepository;
         public InventoryStatisticsRepository inventoryStatisticRepository;
         public RoomStatisticsRepository roomStatisticRepository;
+        public InventoryRepository inventoryRepository;
 
         //Misc repositories
         public LocationRepository locationRepository;
@@ -99,13 +109,81 @@ namespace SIMS
         public SymptomRepository symptomRepository;
         public TherapyRepository therapyRepository;
 
+        public IAppointmentStrategy appointmentStrategy;
+
+        #region service definitions
+        // HospitalManagementServices
+        public DoctorStatisticsService doctorStatisticsService;
+        public InventoryStatisticsService inventoryStatisticsService;
+        public RoomStatisticsService roomStatisticsService;
+        public HospitalService hospitalService;
+        public InventoryService inventoryService;
+        public MedicineService medicineService;
+        public RoomService roomService;
+
+        // MedicalService
+        public AppointmentService appointmentService;
+        public DiagnosisService diagnosisService;
+        public DiseaseService diseaseService;
+        public MedicalRecordService medicalRecordService;
+        public TherapyService therapyService;
+
+        // MiscService
+        public ArticleService articleService;
+        public DoctorFeedbackService doctorFeedbackService;
+        public FeedbackService feedbackService;
+        public LocationService locationService;
+        public MessageService messageService;
+        public NotificationService notificationService;
+
+        // UsersService
+        public DoctorService doctorService;
+        public ManagerService managerService;
+        public PatientService patientService;
+        public SecretaryService secretaryService;
+        #endregion
+
+        #region controller definitions
+        // HospitalManagementController
+        public DoctorStatisticsController doctorStatisticsController;
+        public InventoryStatisticsController inventoryStatisticsController;
+        public RoomStatisticsController roomStatisticsController;
+        public HospitalController hospitalController;
+        public InventoryController inventoryController;
+        public RoomController roomController;
+        public MedicineController medicineController;
+
+        // MedicalController
+        public AppointmentController appointmentController;
+        public DiseaseController diseaseController;
+
+        // MiscController
+        public ArticleController articleController;
+        public DoctorFeedBackController doctorFeedbackController;
+        
+        public LocationController locationController;
+        public MessageController messageController;
+        public NotificationController notificationController;
+
+        // UsersController
+        public DoctorController doctorController;
+        public ManagerController managerController;
+        public PatientController patientController;
+        public SecretaryController secretaryController;
+
+        #endregion
+
         private AppResources() {
+
+
             userRepository = new UserRepository(new CSVStream<User>(userFile, new UserConverter()), new ComplexSequencer());
             // USER OK
 
             
             roomRepository = new RoomRepository(new CSVStream<Room>(roomFile, new RoomConverter()), new LongSequencer());
             // ROOM OK
+
+
 
             inventoryItemRepository = new InventoryItemRepository(new CSVStream<InventoryItem>(inventoryItemFile, new InventoryItemConverter()), new LongSequencer(), roomRepository);
 
@@ -191,6 +269,8 @@ namespace SIMS
 
             //ODAVDDE RADITI OSTALE
 
+            inventoryRepository = new InventoryRepository("inventoryRepository", new CSVStream<Inventory>(inventoryFile, new InventoryConverter(",", ";")), new LongSequencer(), inventoryItemRepository, medicineRepository);
+
             doctorStatisticRepository = new DoctorStatisticRepository("dSR", new CSVStream<StatsDoctor>(doctorStatisticsFile, new DoctorStatisticsConverter(",")), new LongSequencer(), doctorRepository);
             // Doc Stats OK
 
@@ -199,6 +279,49 @@ namespace SIMS
 
             roomStatisticRepository = new RoomStatisticsRepository("rSR", new CSVStream<StatsRoom>(roomStatisticsFile, new RoomStatisticsConverter(",")), new LongSequencer(), roomRepository);
             // RoomStats OK
+
+            #region service initialization
+            // HospitalManagementService
+            doctorStatisticsService = new DoctorStatisticsService(doctorStatisticRepository);
+            inventoryStatisticsService = new InventoryStatisticsService(inventoryStatisticRepository);
+            roomStatisticsService = new RoomStatisticsService(roomStatisticRepository);
+            hospitalService = new HospitalService(hospitalRepository);
+            inventoryService = new InventoryService(inventoryRepository, inventoryItemRepository, medicineRepository);
+            roomService = new RoomService(roomRepository, appointmentRepository);
+            medicineService = new MedicineService(medicineRepository);
+
+            // MedicineService
+            appointmentService = new AppointmentService(appointmentRepository, appointmentStrategy);
+            diagnosisService = new DiagnosisService(diagnosisRepository);
+            diseaseService = new DiseaseService(diseaseRepository);
+            medicalRecordService = new MedicalRecordService(medicalRecordRepository);
+            therapyService = new TherapyService(therapyRepository, medicalRecordService);
+
+            // MiscService
+            articleService = new ArticleService(articleRepository);
+            doctorFeedbackService = new DoctorFeedbackService(doctorFeedbackRepository);
+            feedbackService = new FeedbackService(feedbackRepository);
+            locationService = new LocationService(locationRepository);
+            messageService = new MessageService(messageRepository);
+            notificationService = new NotificationService(notificationRepository);
+
+            // UsersService
+            doctorService = new DoctorService(doctorRepository);
+            managerService = new ManagerService(managerRepository);
+            patientService = new PatientService(patientRepository);
+            secretaryService = new SecretaryService(secretaryRepository);
+            #endregion
+
+            #region controller initialization
+            // HospitalManagementController
+            doctorStatisticsController = new DoctorStatisticsController(doctorStatisticsService);
+            inventoryStatisticsController = new InventoryStatisticsController(inventoryStatisticsService);
+            roomStatisticsController = new RoomStatisticsController(roomStatisticsService);
+            hospitalController = new HospitalController(hospitalService);
+            medicineController = new MedicineController();
+
+            #endregion
+
         }
 
         public void setLoggedInUser(Doctor loggedIn)

@@ -39,16 +39,18 @@ namespace SIMS.View.ViewDoctor.MainPages
             //    app => app.TimeInterval.StartTime.Date == ActiveDate.SelectedDate.Value.Date).ToList();
 
             List<Appointment> data = new List<Appointment>();
-            data.Add(new Appointment(151, AppResources.getLoggedInUser(), AppResources.getInstance().patientRepository.GetPatientByDoctor(AppResources.getLoggedInUser()).SingleOrDefault(patient => patient.Name == "Mika"),
-                new Model.UserModel.Room("111A", false, 1, Model.UserModel.RoomType.EXAMINATION), AppointmentType.checkup, new TimeInterval(DateTime.Now.AddHours(1), DateTime.Now.AddHours(1).AddMinutes(15))));
+            //data.Add(new Appointment(151, AppResources.getLoggedInUser(), AppResources.getInstance().patientRepository.GetPatientByDoctor(AppResources.getLoggedInUser()).SingleOrDefault(patient => patient.Name == "Mika"),
+            //    new Model.UserModel.Room("111A", false, 1, Model.UserModel.RoomType.EXAMINATION), AppointmentType.checkup, new TimeInterval(DateTime.Now.AddHours(1), DateTime.Now.AddHours(1).AddMinutes(15))));
 
-            foreach(Appointment temp in data)
-            {
-                cal = new Calendar();
-                Appointments.AppointmentView aw = new Appointments.AppointmentView(Checkups.Width, temp);
-                cal.AddAppointment(aw);
-                Checkups.Content = cal;
-            }
+            //foreach(Appointment temp in data)
+            //{
+            //    cal = new Calendar();
+            //    Appointments.AppointmentView aw = new Appointments.AppointmentView(Checkups.Width, temp);
+            //    cal.AddAppointment(aw);
+            //    Checkups.Content = cal;
+            //}
+
+            AppResources
         }
 
         private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
