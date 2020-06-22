@@ -5,83 +5,93 @@
 
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using SIMS.Model.UserModel;
 using SIMS.Repository.Abstract.UsersAbstractRepository;
+using SIMS.Repository.CSVFileRepository.UsersRepository;
+using SIMS.Exceptions;
 
 namespace SIMS.Service.UsersService
 {
     public class SecretaryService : Util.IUserValidation, IService<Secretary, UserID>, IUserService<Secretary>
     {
-        public ISecretaryRepository iSecretaryRepository;
+        SecretaryRepository _secretaryRepository;
+
+        string usernameRegex = "[a-zA-Z_0-9]+";
+        string passwordRegex = "[a-zA-Z_0-9]+";
+        string nameRegex = "([A-Z][a-z]+)+";
+        string uidnRegex = "[0-9]{13}";
+        string emailRegex = "[A-Za-z_.]+@([A-Za-z.])+\\.[a-z]+$";
+        string phoneRegex = "^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[- /0-9]*$";
+
+        public SecretaryService(SecretaryRepository secretaryRepository)
+        {
+            _secretaryRepository = secretaryRepository;
+        }
 
         public bool CheckDateOfBirth(DateTime date)
-        {
-            throw new NotImplementedException();
-        }
+             => DateTime.Compare(new DateTime(2000, 1, 1), date) > 0;
 
         public bool CheckEmail(string email)
-        {
-            throw new NotImplementedException();
-        }
+            => Regex.IsMatch(email, emailRegex);
 
         public bool CheckName(string name)
-        {
-            throw new NotImplementedException();
-        }
+            => Regex.IsMatch(name, nameRegex);
 
         public bool CheckPassword(string password)
-        {
-            throw new NotImplementedException();
-        }
+            => Regex.IsMatch(password, passwordRegex);
 
         public bool CheckPhoneNumber(string phoneNumber)
-        {
-            throw new NotImplementedException();
-        }
+            => Regex.IsMatch(phoneNumber, phoneRegex);
 
         public bool CheckUidn(string uidn)
-        {
-            throw new NotImplementedException();
-        }
+            => Regex.IsMatch(uidn, uidnRegex);
 
         public bool CheckUsername(string username)
-        {
-            throw new NotImplementedException();
-        }
+            => Regex.IsMatch(username, usernameRegex);
 
         public Secretary Create(Secretary entity)
-        {
-            throw new NotImplementedException();
-        }
+            => _secretaryRepository.Create(entity);
 
         public void Delete(Secretary entity)
-        {
-            throw new NotImplementedException();
-        }
+            => _secretaryRepository.Delete(entity);
 
         public IEnumerable<Secretary> GetAll()
-        {
-            throw new NotImplementedException();
-        }
+            => _secretaryRepository.GetAllEager();
 
         public Secretary GetByID(UserID id)
-        {
-            throw new NotImplementedException();
-        }
+            => _secretaryRepository.GetByID(id);
 
         public void Login(User user)
         {
             throw new NotImplementedException();
         }
 
-        public Secretary Update(Secretary entity)
-        {
-            throw new NotImplementedException();
-        }
-
         public void Validate(Secretary user)
         {
-            throw new NotImplementedException();
+            if (!CheckDateOfBirth(user.DateOfBirth))
+                throw new InvalidUserException("Invalid date of birth!");
+
+            if (!CheckEmail(user.Email1) || !CheckEmail(user.Email2))
+                throw new InvalidUserException("Invalid email!");
+
+            if (!CheckName(user.Name))
+                throw new InvalidUserException("Invalid name!");
+
+            if (!CheckPassword(user.Password))
+                throw new InvalidUserException("Invalid password");
+
+            if (!CheckPhoneNumber(user.CellPhone) || !CheckPhoneNumber(user.HomePhone))
+                throw new InvalidUserException("Invalid phone number!");
+
+            if (!CheckUidn(user.Uidn))
+                throw new InvalidUserException("Invalid UIDN!");
+
+            if (!CheckUsername(user.UserName))
+                throw new InvalidUserException("Invalid username!");
         }
+
+        public void Update(Secretary entity)
+            => _secretaryRepository.Update(entity);
     }
 }

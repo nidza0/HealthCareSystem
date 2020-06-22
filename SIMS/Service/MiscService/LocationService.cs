@@ -7,47 +7,40 @@ using System;
 using System.Collections.Generic;
 using SIMS.Model.UserModel;
 using SIMS.Repository.Abstract.MiscAbstractRepository;
+using SIMS.Repository.CSVFileRepository.MiscRepository;
 
 namespace SIMS.Service.MiscService
 {
     public class LocationService : IService<Location, long>
     {
-        public IEnumerable<Location> GetLocationByCountry(string country)
+
+        private LocationRepository _locationRepository;
+
+        public LocationService(LocationRepository locationRepository)
         {
-            throw new NotImplementedException();
+            _locationRepository = locationRepository;
         }
+
+        public IEnumerable<Location> GetLocationByCountry(string country)
+            => _locationRepository.GetLocationByCountry(country);
 
         public IEnumerable<string> GetAllCountries()
-        {
-            throw new NotImplementedException();
-        }
+            => _locationRepository.GetAllCountries();
 
         public IEnumerable<Location> GetAll()
-        {
-            throw new NotImplementedException();
-        }
+            => _locationRepository.GetAll();
 
         public Location GetByID(long id)
-        {
-            throw new NotImplementedException();
-        }
+            => _locationRepository.GetByID(id);
 
         public Location Create(Location entity)
-        {
-            throw new NotImplementedException();
-        }
+            => _locationRepository.Create(entity);
 
-        public Location Update(Location entity)
-        {
-            throw new NotImplementedException();
-        }
+        public void Update(Location entity)
+            => _locationRepository.Update(entity);
 
         public void Delete(Location entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public ILocationRepository iLocationRepository;
+            => _locationRepository.Delete(entity);
 
     }
 }

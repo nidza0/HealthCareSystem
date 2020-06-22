@@ -5,69 +5,70 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using SIMS.Model.ManagerModel;
 using SIMS.Model.PatientModel;
 using SIMS.Model.UserModel;
 using SIMS.Repository.Abstract.HospitalManagementAbstractRepository;
+using SIMS.Repository.CSVFileRepository.HospitalManagementRepository;
 
 namespace SIMS.Service.HospitalManagementService
 {
     public class InventoryService : IService<Inventory, long>
     {
-        public Inventory AddInventoryItem(Inventory inventory, InventoryItem item)
+
+        private InventoryRepository _inventoryRepository;
+        private InventoryItemRepository _inventoryItemRepository;
+        private MedicineRepository _medicineRepository;
+        
+        public InventoryService(InventoryRepository inventoryRepository, InventoryItemRepository inventoryItemRepository, MedicineRepository medicineRepository)
         {
-            throw new NotImplementedException();
+            _inventoryRepository = inventoryRepository;
+            _inventoryItemRepository = inventoryItemRepository;
+            _medicineRepository = medicineRepository;
         }
+
+        public Inventory AddInventoryItem(Inventory inventory, InventoryItem item)
+            => _inventoryRepository.AddInventoryItem(inventory, item);
 
         public Inventory SetInventoryItem(InventoryItem inventoryItem)
-        {
-            throw new NotImplementedException();
-        }
+            => _inventoryRepository.SetInventoryItem(inventoryItem);
 
-        public bool RemoveInventoryItem(Item item)
-        {
-            throw new NotImplementedException();
-        }
+        public void RemoveInventoryItem(InventoryItem item)
+            => _inventoryRepository.RemoveInventoryItem(item);
 
         public IEnumerable<InventoryItem> GetInventoryItemsForRoom(Room room)
-        {
-            throw new NotImplementedException();
-        }
+            => _inventoryItemRepository.GetAllEager().Where(ii => ii.Room.GetId() == room.GetId());
+
 
         public IEnumerable<Item> GetResupply()
         {
-            throw new NotImplementedException();
+            IEnumerable<InventoryItem> items = _inventoryItemRepository.GetAllEager().Where(ii => ii.InStock <= ii.MinNumber);
+            IEnumerable<Medicine> meds = _medicineRepository.GetAllEager().Where(med => med.InStock <= med.MinNumber);
+            List<Item> retList = new List<Item>();
+            retList.AddRange(items);
+            retList.AddRange(meds);
+            IEnumerable<Item> retEn = retList;
+            return retEn;
         }
 
         public IEnumerable<InventoryItem> GetInventoryItems()
-        {
-            throw new NotImplementedException();
-        }
+            => _inventoryItemRepository.GetAllEager();
 
         public IEnumerable<Inventory> GetAll()
-        {
-            throw new NotImplementedException();
-        }
+            => _inventoryRepository.GetAllEager();
 
         public Inventory GetByID(long id)
-        {
-            throw new NotImplementedException();
-        }
+            => _inventoryRepository.GetByID(id);
 
         public Inventory Create(Inventory entity)
-        {
-            throw new NotImplementedException();
-        }
+            => _inventoryRepository.Create(entity);
 
-        public Inventory Update(Inventory entity)
-        {
-            throw new NotImplementedException();
-        }
+        public void Update(Inventory entity)
+            => _inventoryRepository.Update(entity);
 
         public void Delete(Inventory entity)
-        {
-            throw new NotImplementedException();
-        }
+            => _inventoryRepository.Delete(entity);
 
         public IInventoryRepository iInventoryRepository;
 

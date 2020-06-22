@@ -25,7 +25,7 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.UsersConverter
 
             Doctor doc = new Doctor(id: new UserID(tokens[0]),
                                     userName: tokens[1],
-                                    password: tokens[2],
+                                    password: "" /*tokens[2]*/,
                                     dateCreated: DateTime.ParseExact(tokens[3], _dateTimeFormat, CultureInfo.InvariantCulture),
                                     name: tokens[4],
                                     surname: tokens[5],
@@ -33,14 +33,14 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.UsersConverter
                                     sex: (Sex)Enum.Parse(typeof(Sex), tokens[7]),
                                     dateOfBirth: tokens[8].Equals("") ? DateTime.MinValue : DateTime.ParseExact(tokens[8], _dateTimeFormat, CultureInfo.InvariantCulture),
                                     uidn: tokens[9],
-                                    address: new Address(tokens[10], new Location(tokens[11].Equals("") ? default : long.Parse(tokens[11]), tokens[12], tokens[13])),
+                                    address: tokens[11].Equals("") ? null : new Address(tokens[10], new Location(long.Parse(tokens[11]), tokens[12], tokens[13])),
                                     homePhone: tokens[14],
                                     cellPhone: tokens[15],
                                     email1: tokens[16],
                                     email2: tokens[17],
-                                    timeTable: new TimeTable(tokens[18].Equals("") ? default : long.Parse(tokens[18])),
-                                    hospital: new Hospital(tokens[19].Equals("") ? default : long.Parse(tokens[19])),
-                                    office: new Room(tokens[20].Equals("") ? default : long.Parse(tokens[20])),
+                                    timeTable: tokens[18].Equals("") ? null : new TimeTable(long.Parse(tokens[18])),
+                                    hospital: tokens[19].Equals("") ? null : new Hospital(long.Parse(tokens[19])),
+                                    office: tokens[20].Equals("") ? null : new Room(long.Parse(tokens[20])),
                                     doctorType: (DocTypeEnum)Enum.Parse(typeof(DocTypeEnum), tokens[21]));
 
             return doc;
@@ -50,7 +50,7 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.UsersConverter
             => string.Join(_delimiter,
                 doctor.GetId().ToString(),
                 doctor.UserName,
-                doctor.Password,
+                /*doctor.Password*/ "",
                 doctor.DateCreated.ToString(_dateTimeFormat),
                 doctor.Name,
                 doctor.Surname,

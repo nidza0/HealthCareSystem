@@ -58,5 +58,16 @@ namespace SIMS.Model.PatientModel
             _id = id;
         }
 
+        public override bool Equals(object obj)
+        {
+            var licence = obj as SpecialistBookingLicence;
+            return licence != null &&
+                   _id == licence._id;
+        }
+
+        public override int GetHashCode()
+        {
+            return 1969571243 + _id.GetHashCode();
+        }
     }
 }

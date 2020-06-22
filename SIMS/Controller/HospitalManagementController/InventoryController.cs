@@ -15,62 +15,40 @@ namespace SIMS.Controller.HospitalManagementController
 {
     public class InventoryController : IController<Inventory, long>
     {
-        public Inventory AddInventoryItem(Inventory inventory, InventoryItem item)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Inventory SetInventoryItem(InventoryItem inventoryItem)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool RemoveInventoryItem(Item item)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<InventoryItem> GetInventoryItemsForRoom(Room room)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Item> GetResupply()
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<InventoryItem> GetInventoryItems()
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Inventory> GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Inventory GetByID(long id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Inventory Create(Inventory entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Inventory Update(Inventory entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Delete(Inventory entity)
-        {
-            throw new NotImplementedException();
-        }
 
         public InventoryService inventoryService;
 
+        public Inventory AddInventoryItem(Inventory inventory, InventoryItem item)
+            => inventoryService.AddInventoryItem(inventory, item);
+
+        public Inventory SetInventoryItem(InventoryItem inventoryItem)
+            => inventoryService.SetInventoryItem(inventoryItem);
+
+        public void RemoveInventoryItem(InventoryItem item)
+            => inventoryService.RemoveInventoryItem(item);
+
+        public IEnumerable<InventoryItem> GetInventoryItemsForRoom(Room room)
+            => inventoryService.GetInventoryItemsForRoom(room);
+
+        public IEnumerable<Item> GetResupply()
+            => inventoryService.GetResupply();
+
+        public IEnumerable<InventoryItem> GetInventoryItems()
+            => inventoryService.GetInventoryItems();
+
+        public IEnumerable<Inventory> GetAll()
+            => inventoryService.GetAll();
+
+        public Inventory GetByID(long id)
+            => inventoryService.GetByID(id);
+
+        public Inventory Create(Inventory entity)
+            => inventoryService.Create(entity);
+
+        public void Update(Inventory entity)
+            => inventoryService.Update(entity);
+
+        public void Delete(Inventory entity)
+            => inventoryService.Delete(entity);
     }
 }

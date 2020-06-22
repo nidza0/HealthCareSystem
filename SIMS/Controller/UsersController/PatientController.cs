@@ -28,47 +28,27 @@ namespace SIMS.Controller.UsersController
             this.diagnosisService = diagnosisService;
         }
 
-        public IEnumerable<MedicalRecord> GetMedicalRecordByPatient(Patient patient)
-        {
-            throw new NotImplementedException();
-        }
+        public MedicalRecord GetMedicalRecordByPatient(Patient patient)
+            => medicalRecordService.GetPatientMedicalRecord(patient);
 
         public IEnumerable<Patient> GetPatientByType(PatientType patientType)
-        {
-            throw new NotImplementedException();
-        }
+            => patientService.GetPatientByType(patientType);
 
-        public IEnumerable<Patient> GetPatientByDoctor(Doctor doctor) => patientService.GetPatientByDoctor(doctor);
+        public IEnumerable<Patient> GetPatientByDoctor(Doctor doctor) 
+            => patientService.GetPatientByDoctor(doctor);
 
         public IEnumerable<Diagnosis> GetAllDiagnosisForPatient(Patient patient)
-        {
-            throw new NotImplementedException();
-        }
+            => diagnosisService.GetAllDiagnosisForPatient(patient);
 
-        public IEnumerable<Diagnosis> GetActiveDiagnosisForPatient(Patient patient)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Diagnosis> GetInactiveDiagnosisForPatient(Patient patient)
-        {
-            throw new NotImplementedException();
-        }
 
         public IEnumerable<Therapy> GetFilteredTherapy(Util.TherapyFilter therapyFilter)
-        {
-            throw new NotImplementedException();
-        }
+            => therapyService.GetFilteredTherapy(therapyFilter);
 
         public IEnumerable<Therapy> GetActiveTherapyForPatient(Patient patient)
-        {
-            throw new NotImplementedException();
-        }
+            => therapyService.GetActiveTherapyForPatient(patient);
 
         public Diagnosis AddDiagnosis(Patient patient, Diagnosis diagnosis)
-        {
-            throw new NotImplementedException();
-        }
+            => medicalRecordService.AddDiagnosis(patient, diagnosis);
 
         public IEnumerable<Allergy> GetPatientAllergies(Patient patient)
         {
@@ -76,28 +56,18 @@ namespace SIMS.Controller.UsersController
         }
 
         public IEnumerable<Patient> GetAll()
-        {
-            throw new NotImplementedException();
-        }
+            => patientService.GetAll();
 
         public Patient GetByID(UserID id)
-        {
-            throw new NotImplementedException();
-        }
+            => patientService.GetByID(id);
 
         public Patient Create(Patient entity)
-        {
-            throw new NotImplementedException();
-        }
+            => patientService.Create(entity);
 
-        public Patient Update(Patient entity)
-        {
-            throw new NotImplementedException();
-        }
+        public void Update(Patient entity)
+            => patientService.Update(entity);
 
         public void Delete(Patient entity)
-        {
-            throw new NotImplementedException();
-        }
+            => patientService.Delete(entity);
     }
 }

@@ -5,38 +5,36 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using SIMS.Model.UserModel;
 using SIMS.Repository.Abstract.MiscAbstractRepository;
+using SIMS.Repository.CSVFileRepository.MiscRepository;
 
 namespace SIMS.Service.MiscService
 {
     public class FeedbackService : IService<Feedback, long>
     {
-        public IFeedbackRepository iFeedbackRepository;
+        private FeedbackRepository _feedbackRepository;
+
+        public FeedbackService(FeedbackRepository feedbackRepository)
+        {
+            _feedbackRepository = feedbackRepository;
+        }
 
         public Feedback Create(Feedback entity)
-        {
-            throw new NotImplementedException();
-        }
+            => _feedbackRepository.Create(entity);
 
         public void Delete(Feedback entity)
-        {
-            throw new NotImplementedException();
-        }
+            => _feedbackRepository.Delete(entity);
 
         public IEnumerable<Feedback> GetAll()
-        {
-            throw new NotImplementedException();
-        }
+            => _feedbackRepository.GetAllEager();
 
         public Feedback GetByID(long id)
-        {
-            throw new NotImplementedException();
-        }
+            => GetAll().SingleOrDefault(feedback => feedback.GetId() == id);
 
-        public Feedback Update(Feedback entity)
-        {
-            throw new NotImplementedException();
-        }
+        public void Update(Feedback entity)
+            => _feedbackRepository.Update(entity);
+
     }
 }

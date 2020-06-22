@@ -70,5 +70,17 @@ namespace SIMS.Model.UserModel
             _number++;
             return this;
         }
+
+        public UserType GetUserType()
+        {
+            switch (_code)
+            {
+                case 'p': return UserType.PATIENT;
+                case 'd': return UserType.DOCTOR;
+                case 'm': return UserType.MANAGER;
+                case 's': return UserType.SECRETARY;
+                default: throw new InvalidUserIdException(this.ToString());
+            }
+        }
     }
 }

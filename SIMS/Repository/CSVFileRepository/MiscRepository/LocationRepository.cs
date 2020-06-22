@@ -17,14 +17,13 @@ namespace SIMS.Repository.CSVFileRepository.MiscRepository
 {
     public class LocationRepository : CSVRepository<Location, long>, ILocationRepository
     {
-        public LocationRepository(string entityName, ICSVStream<Location> stream, ISequencer<long> sequencer) : base(entityName, stream, sequencer, new LongIdGeneratorStrategy<Location>())
+        private const string ENTITY_NAME = "Location";
+        public LocationRepository(ICSVStream<Location> stream, ISequencer<long> sequencer) : base(ENTITY_NAME, stream, sequencer, new LongIdGeneratorStrategy<Location>())
         {
         }
 
         public IEnumerable<string> GetAllCountries()
-        {
-            throw new NotImplementedException();
-        }
+            => GetAll().Select(l => l.Country).Distinct();
 
         public IEnumerable<Location> GetLocationByCountry(string country)
             => GetAll().ToList().Where(location => location.Country == country);

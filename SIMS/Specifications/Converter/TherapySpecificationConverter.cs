@@ -23,12 +23,12 @@ namespace SIMS.Specifications.Converter
 
         private ISpecification<Therapy> GetSpecificationByDrugName(string drugName)
         {
-            return new ExpressionSpecification<Therapy>(o => o.Prescription.Medicine.Keys.ToList<Medicine>().Select(m => m.Name.ToLower()).Contains(drugName.ToLower()));
+            return new ExpressionSpecification<Therapy>(o => o.Prescription.Medicine == null ? false : o.Prescription.Medicine.Keys.ToList<Medicine>().Select(m => m.Name.ToLower()).Contains(drugName.ToLower()));
         }
 
         private ISpecification<Therapy> GetSpecificationByTimeInterval(TimeInterval timeInterval)
         {
-            return new ExpressionSpecification<Therapy>(o => o.TimeInterval.IsTimeBetween(timeInterval));
+            return new ExpressionSpecification<Therapy>(o => o.TimeInterval.IsDateTimeBetween(timeInterval));
         }
 
         private ISpecification<Therapy> GetSpecificationByTherapyTime(TherapyTime time)

@@ -15,6 +15,9 @@ namespace SIMS.Controller.HospitalManagementController
 {
     public class StatisticsController : IController<Stats, long>
     {
+
+        
+
         public IEnumerable<StatsDoctor> GetDoctorStatistics()
         {
             throw new NotImplementedException();
@@ -60,7 +63,7 @@ namespace SIMS.Controller.HospitalManagementController
             throw new NotImplementedException();
         }
 
-        public Stats Update(Stats entity)
+        public void Update(Stats entity)
         {
             throw new NotImplementedException();
         }
@@ -69,8 +72,6 @@ namespace SIMS.Controller.HospitalManagementController
         {
             throw new NotImplementedException();
         }
-
-        public StatisticsService statisticsService;
 
     }
 }

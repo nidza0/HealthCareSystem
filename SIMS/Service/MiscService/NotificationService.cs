@@ -5,44 +5,41 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using SIMS.Model.UserModel;
 using SIMS.Repository.Abstract.MiscAbstractRepository;
+using SIMS.Repository.CSVFileRepository.MiscRepository;
 
 namespace SIMS.Service.MiscService
 {
     public class NotificationService : IService<Notification, long>
     {
-        public IEnumerable<Notification> GetNotificationByUser(User user)
+
+        private NotificationRepository _notificationRepository;
+
+        public NotificationService(NotificationRepository notificationRepository)
         {
-            throw new NotImplementedException();
+            _notificationRepository = notificationRepository;
         }
+
+        public IEnumerable<Notification> GetNotificationByUser(User user)
+            => _notificationRepository.GetNotificationByUser(user);
 
         public IEnumerable<Notification> GetAll()
-        {
-            throw new NotImplementedException();
-        }
+            => _notificationRepository.GetAllEager();
 
         public Notification GetByID(long id)
-        {
-            throw new NotImplementedException();
-        }
+            => GetAll().SingleOrDefault(notification => notification.GetId() == id);
 
         public Notification Create(Notification entity)
-        {
-            throw new NotImplementedException();
-        }
+            => _notificationRepository.Create(entity);
 
-        public Notification Update(Notification entity)
-        {
-            throw new NotImplementedException();
-        }
+        public void Update(Notification entity)
+            => _notificationRepository.Update(entity);
 
         public void Delete(Notification entity)
-        {
-            throw new NotImplementedException();
-        }
+            => _notificationRepository.Delete(entity);
 
-        public INotificationRepository iNotificationRepository;
 
     }
 }

@@ -5,6 +5,7 @@
 
 using SIMS.Repository.Abstract;
 using System;
+using System.Collections.Generic;
 
 namespace SIMS.Model.UserModel
 {
@@ -14,10 +15,11 @@ namespace SIMS.Model.UserModel
         private string _password;
         private DateTime _dateCreated;
         private bool _deleted;
-
         private UserID _userID;
 
-        public User(UserID id) : base() { _userID = id; }
+        public User(UserID id) : base() {
+            _userID = id;
+        }
 
         public User(string userName,
                     string password, 
@@ -82,6 +84,9 @@ namespace SIMS.Model.UserModel
             _password = password;
         }
 
+        public UserType GetUserType()
+            => _userID.GetUserType();
+
         public User(UserID id,
                     string username,
                     string password,
@@ -115,6 +120,11 @@ namespace SIMS.Model.UserModel
         {
             User otherUser = obj as User;
             return _userID.Equals(otherUser.GetId());
+        }
+
+        public override int GetHashCode()
+        {
+            return 328612020 + EqualityComparer<UserID>.Default.GetHashCode(_userID);
         }
     }
 }

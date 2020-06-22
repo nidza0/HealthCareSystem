@@ -19,49 +19,31 @@ namespace SIMS.Controller.UsersController
         public Service.MedicalService.MedicalRecordService medicalRecordService;
 
         public IEnumerable<Doctor> GetActiveDoctors()
-        {
-            throw new NotImplementedException();
-        }
+            => doctorService.GetActiveDoctors();
 
         public IEnumerable<Doctor> GetDoctorByType(DocTypeEnum doctorType)
-        {
-            throw new NotImplementedException();
-        }
+            => doctorService.GetDoctorByType(doctorType);
 
         public IEnumerable<Doctor> GetAvailableDoctorsByTime(Util.TimeInterval timeInterval)
-        {
-            throw new NotImplementedException();
-        }
+            => doctorService.GetAvailableDoctorsByTime(timeInterval);
 
         public IEnumerable<Doctor> GetFilteredDoctors(Util.DoctorFilter filter)
-        {
-            throw new NotImplementedException();
-        }
+            => doctorService.GetFilteredDoctors(filter);
 
         public IEnumerable<Doctor> GetAll()
-        {
-            throw new NotImplementedException();
-        }
+            => doctorService.GetAll();
 
         public Doctor GetByID(UserID id)
-        {
-            throw new NotImplementedException();
-        }
+            => doctorService.GetByID(id);
 
         public Doctor Create(Doctor entity)
-        {
-            throw new NotImplementedException();
-        }
+            => doctorService.Create(entity);
 
-        public Doctor Update(Doctor entity)
-        {
-            throw new NotImplementedException();
-        }
+        public void Update(Doctor entity)
+            => doctorService.Update(entity);
 
         public void Delete(Doctor entity)
-        {
-            throw new NotImplementedException();
-        }
+            => doctorService.Delete(entity);
 
 
     }

@@ -7,93 +7,78 @@ using System;
 using System.Collections.Generic;
 using SIMS.Model.PatientModel;
 using SIMS.Model.UserModel;
-using SIMS.Repository.Abstract.MedicalAbstractRepository;
+using SIMS.Repository.CSVFileRepository.MedicalRepository;
+using SIMS.Util;
+
+using System.Linq;
 
 namespace SIMS.Service.MedicalService
 {
     public class TherapyService : IService<Therapy, long>
     {
-        public Prescription AddPerscription(Therapy therapy, Prescription perscription)
+        private TherapyRepository _therapyRepository;
+        private MedicalRecordService _medicalRecordService;
+        public TherapyService(TherapyRepository therapyRepository,MedicalRecordService medicalRecordService)
         {
-            throw new NotImplementedException();
+            _therapyRepository = therapyRepository;
+            _medicalRecordService = medicalRecordService;
+        }
+        
+
+        public Prescription SetPerscription(Therapy therapy, Prescription prescription)
+        {
+            therapy.Prescription = prescription;
+            _therapyRepository.Update(therapy);
+            return prescription;
         }
 
-        public IEnumerable<Therapy> GetTherapyByDate(Util.TimeInterval dateRange)
-        {
-            throw new NotImplementedException();
-        }
+        public IEnumerable<Therapy> GetTherapyByDate(TimeInterval dateRange)
+            => _therapyRepository.GetTherapyByDate(dateRange);
 
         public IEnumerable<Therapy> GetTherapyByMedicine(Medicine medicine)
-        {
-            throw new NotImplementedException();
-        }
+            => _therapyRepository.GetTherapyByMedicine(medicine);
 
         public IEnumerable<Therapy> GetTherapyByPatient(Patient patient)
-        {
-            throw new NotImplementedException();
-        }
+            => _therapyRepository.GetTherapyByPatient(patient);
 
-        public IEnumerable<Therapy> GetFilteredTherapy(Util.TherapyFilter filter)
-        {
-            throw new NotImplementedException();
-        }
+        public IEnumerable<Therapy> GetFilteredTherapy(TherapyFilter filter)
+            => _therapyRepository.GetFilteredTherapy(filter);
 
         public IEnumerable<Therapy> GetTherapyByDiagnosis(Diagnosis diagnosis)
-        {
-            throw new NotImplementedException();
-        }
+            => _therapyRepository.GetTherapyByDiagnosis(diagnosis);
 
         public IEnumerable<Therapy> GetActiveTherapyForPatient(Patient patient)
-        {
-            throw new NotImplementedException();
-        }
+            => _therapyRepository.GetActiveTherapyForPatient(patient);
 
         public IEnumerable<Therapy> GetPastTherapyForPatient(Patient patient)
-        {
-            throw new NotImplementedException();
-        }
+            => _therapyRepository.GetPastTherapyForPatient(patient);
+
 
         public void ConsumeTherapy(Therapy therapy)
         {
+            //TODO: Do we even need this?
             throw new NotImplementedException();
         }
 
         public IEnumerable<Therapy> GetActiveTherapyForDiagnosis(Diagnosis diagnosis)
-        {
-            throw new NotImplementedException();
-        }
+            => _therapyRepository.GetActiveTherapyForDiagnosis(diagnosis);
 
         public IEnumerable<Therapy> GetPastTherapiesForDiagnosis(Diagnosis diagnosis)
-        {
-            throw new NotImplementedException();
-        }
+            => _therapyRepository.GetPastTherapiesForDiagnosis(diagnosis);
 
         public IEnumerable<Therapy> GetAll()
-        {
-            throw new NotImplementedException();
-        }
+            => _therapyRepository.GetAllEager();
 
         public Therapy GetByID(long id)
-        {
-            throw new NotImplementedException();
-        }
+            => _therapyRepository.GetEager(id);
 
         public Therapy Create(Therapy entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Therapy Update(Therapy entity)
-        {
-            throw new NotImplementedException();
-        }
+            => _therapyRepository.Create(entity);
 
         public void Delete(Therapy entity)
-        {
-            throw new NotImplementedException();
-        }
+            => _therapyRepository.Delete(entity);
 
-        public ITherapyRepository iTherapyRepository;
-
+        public void Update(Therapy entity)
+            => _therapyRepository.Update(entity);
     }
 }

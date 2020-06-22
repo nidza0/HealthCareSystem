@@ -18,6 +18,11 @@ namespace SIMS.Model.UserModel
             _recipient = recipient;
         }
 
+        public Notification(string text, User recipient) : base(text)
+        {
+            _recipient = recipient;
+        }
+
         public Notification(long id, string text, User recipient, DateTime dateCreated) : base(id, text, dateCreated)
         {
             _recipient = recipient;

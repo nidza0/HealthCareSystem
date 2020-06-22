@@ -14,62 +14,40 @@ namespace SIMS.Controller.HospitalManagementController
 {
     public class RoomController : IController<Room, long>
     {
-        public IEnumerable<Room> GetRoomsByType(RoomType type)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Room> GetAvailableRoomsByDate(TimeInterval timeInterval)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool DivideRooms(Room initialRoom)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Room MergeRooms(IEnumerable<Room> roomsToMerge, string newName)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Room GetRoomByName(string name)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Room> GetRoomsByFloor(int floor)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Room> GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Room GetByID(long id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Room Create(Room entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Room Update(Room entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Delete(Room entity)
-        {
-            throw new NotImplementedException();
-        }
 
         public RoomService roomService;
+        public IEnumerable<Room> GetRoomsByType(RoomType type)
+            => roomService.GetRoomsByType(type);
+
+        public IEnumerable<Room> GetAvailableRoomsByDate(TimeInterval timeInterval)
+            => roomService.GetAvailableRoomsByDate(timeInterval);
+
+        public void DivideRooms(Room initialRoom, string newNumbe)
+            => roomService.DivideRooms(initialRoom, newNumbe);
+
+        public Room MergeRooms(IEnumerable<Room> roomsToMerge, string newName)
+            => roomService.MergeRooms(roomsToMerge, newName);
+
+        public Room GetRoomByName(string name)
+            => roomService.GetRoomByName(name);
+
+        public IEnumerable<Room> GetRoomsByFloor(int floor)
+            => roomService.GetRoomsByFloor(floor);
+
+        public IEnumerable<Room> GetAll()
+            => roomService.GetAll();
+
+        public Room GetByID(long id)
+            => roomService.GetByID(id);
+
+        public Room Create(Room entity)
+            => roomService.Create(entity);
+
+        public void Update(Room entity)
+            => roomService.Update(entity);
+
+        public void Delete(Room entity)
+            => roomService.Delete(entity);
 
     }
 }

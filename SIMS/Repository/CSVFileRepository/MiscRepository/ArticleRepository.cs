@@ -19,66 +19,52 @@ namespace SIMS.Repository.CSVFileRepository.MiscRepository
 {
     public class ArticleRepository : CSVRepository<Article, long>, IArticleRepository, IEagerCSVRepository<Article, long>
     {
-        
+        private const string ENTITY_NAME = "Article";
         private IDoctorRepository _doctorRepository;
         private IManagerRepository _managerRepository;
         private ISecretaryRepository _secretaryRepository;
 
-        public ArticleRepository(string entityName, IDoctorRepository doctorRepository, IManagerRepository managerRepository, ISecretaryRepository secretaryRepository, ICSVStream<Article> stream, ISequencer<long> sequencer) : base(entityName, stream, sequencer, new LongIdGeneratorStrategy<Article>())
+        public ArticleRepository(ICSVStream<Article> stream, ISequencer<long> sequencer, IDoctorRepository doctorRepository, IManagerRepository managerRepository, ISecretaryRepository secretaryRepository) : base(ENTITY_NAME, stream, sequencer, new LongIdGeneratorStrategy<Article>())
         {
-            
             _doctorRepository = doctorRepository;
             _managerRepository = managerRepository;
             _secretaryRepository = secretaryRepository;
         }
 
-        public void BindArticlesWithAuthors(IEnumerable<Article> articles)
+        public new Article Create(Article article)
         {
-            IEnumerable<Article> doctorArticles = articles.ToList().Where(article => article._author.GetId().ToString().ToLower().StartsWith("d"));
-            IEnumerable<Article> managerArticles = articles.ToList().Where(article => article._author.GetId().ToString().ToLower().StartsWith("m"));
-            IEnumerable<Article> secretaryArticles = articles.ToList().Where(article => article._author.GetId().ToString().ToLower().StartsWith("s"));
-
-            IEnumerable<Doctor> doctors = _doctorRepository.GetAll();
-            IEnumerable<Manager> managers = _managerRepository.GetAll();
-            IEnumerable<Secretary> secretaries = _secretaryRepository.GetAll();
-
-            BindArticlesWithDoctor(doctors, doctorArticles);
+            article.Date = DateTime.Now;
+            return base.Create(article);
         }
 
-        public void BindArticlesWithDoctor(IEnumerable<Doctor> doctors, IEnumerable<Article> articles)
-            => articles.ToList().ForEach(article => article.Author = GetDoctorById(doctors, article.Author.GetId()));
+        private void BindArticlesWithAuthors(IEnumerable<Article> articles)
+        {
+            IEnumerable<Employee> doctors = _doctorRepository.GetAll();
+            IEnumerable<Employee> managers = _managerRepository.GetAll();
+            IEnumerable<Employee> secretaries = _secretaryRepository.GetAll();
+            IEnumerable<Employee> employees = doctors.Concat(managers).Concat(secretaries);
 
-        private Doctor GetDoctorById(IEnumerable<Doctor> doctors, UserID id)
-            => doctors.ToList().SingleOrDefault(doctor => doctor.GetId().Equals(id));
+            articles.ToList().ForEach(a => a.Author = GetEmployeeById(employees, a.Author));
+        }
 
-        public void BindArticlesWithSecretary(IEnumerable<Secretary> secretaries, IEnumerable<Article> articles)
-            => articles.ToList().ForEach(article => article.Author = GetSecretaryById(secretaries, article.Author.GetId()));
-
-        private Secretary GetSecretaryById(IEnumerable<Secretary> secretaries, UserID id)
-            => secretaries.ToList().SingleOrDefault(secretary => secretary.GetId().Equals(id));
-
-        public void BindArticlesWithManager(IEnumerable<Manager> managers, IEnumerable<Article> articles)
-            => articles.ToList().ForEach(article => article.Author = GetManagerById(managers, article.Author.GetId()));
-        
-        private Manager GetManagerById(IEnumerable<Manager> managers, UserID id)
-            => managers.ToList().SingleOrDefault(manager => manager.GetId().Equals(id));
-
-
+        private Employee GetEmployeeById(IEnumerable<Employee> employees, Employee author)
+            => author == null ? null : employees.SingleOrDefault(e => e.GetId().Equals(author.GetId()));
 
         public IEnumerable<Article> GetArticleByAuthor(Employee author)
-            => GetAll().ToList().Where(article => article.Author.GetId().Equals(author.GetId()));
+            => GetAll().ToList().Where(article => IsAuthorIdsEqual(article.Author, author));
+
+        private bool IsAuthorIdsEqual(Employee authorId, Employee selectedAuthor)
+            => authorId == null ? false : selectedAuthor.GetId().Equals(authorId.GetId());
 
         public Article GetEager(long id)
             => GetAllEager().ToList().SingleOrDefault(article => article.GetId() == id);
 
         public IEnumerable<Article> GetAllEager()
         {
-            throw new NotImplementedException();
+            var articles = GetAll();
+            BindArticlesWithAuthors(articles);
+            return articles;
         }
-
-        public DoctorRepository doctorRepository;
-        public SecretaryRepository secretaryRepository;
-        public ManagerRepository managerRepository;
 
     }
 }
