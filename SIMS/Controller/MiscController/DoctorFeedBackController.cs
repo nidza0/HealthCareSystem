@@ -16,6 +16,12 @@ namespace SIMS.Controller.MiscController
     {
 
         public DoctorFeedbackService doctorFeedbackService;
+
+        public DoctorFeedBackController(DoctorFeedbackService doctorFeedbackService)
+        {
+            this.doctorFeedbackService = doctorFeedbackService;
+        }
+
         public DoctorFeedback GetByPatientDoctor(Patient patient, Doctor doctor)
             => doctorFeedbackService.GetByPatientDoctor(patient, doctor);
 

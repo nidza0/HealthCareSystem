@@ -16,6 +16,11 @@ namespace SIMS.Controller.MiscController
 
         public MessageService messageService;
 
+        public MessageController(MessageService messageService)
+        {
+            this.messageService = messageService;
+        }
+
         public IEnumerable<Message> GetSent(User user)
             => messageService.GetSent(user);
 

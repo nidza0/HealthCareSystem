@@ -15,6 +15,11 @@ namespace SIMS.Controller.MiscController
     {
         public ArticleService articleService;
 
+        public ArticleController(ArticleService articleService)
+        {
+            this.articleService = articleService;
+        }
+
         public IEnumerable<Article> GetArticleByAuthor(Employee author)
             => articleService.GetArticleByAuthor(author);
 

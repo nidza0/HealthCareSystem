@@ -15,6 +15,11 @@ namespace SIMS.Controller.HospitalManagementController
     {
         public HospitalService hospitalService;
 
+        public HospitalController(HospitalService hospitalService)
+        {
+            this.hospitalService = hospitalService;
+        }
+
         public IEnumerable<Hospital> GetHospitalByLocation(Location location)
             => hospitalService.GetHospitalByLocation(location);
 

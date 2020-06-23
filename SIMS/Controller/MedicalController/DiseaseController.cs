@@ -15,6 +15,11 @@ namespace SIMS.Controller.MedicalController
     {
         public DiseaseService diseaseService;
 
+        public DiseaseController(DiseaseService diseaseService)
+        {
+            this.diseaseService = diseaseService;
+        }
+
         public IEnumerable<Disease> GetDiseasesBySymptoms(IEnumerable<Symptom> symptoms)
             => diseaseService.GetDiseasesBySymptoms(symptoms);
 
