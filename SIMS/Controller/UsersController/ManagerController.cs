@@ -17,6 +17,11 @@ namespace SIMS.Controller.UsersController
 
         public ManagerService managerService;
 
+        public ManagerController(ManagerService managerService)
+        {
+            this.managerService = managerService;
+        }
+
         public ManagerController(ManagerService service)
         {
             managerService = service;

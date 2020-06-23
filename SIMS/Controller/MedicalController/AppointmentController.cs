@@ -18,6 +18,11 @@ namespace SIMS.Controller.MedicalController
 
         public AppointmentService appointmentService;
 
+        public AppointmentController(AppointmentService appointmentService)
+        {
+            this.appointmentService = appointmentService;
+        }
+
         public Appointment CancelAppointment(Appointment appointment)
             => appointmentService.CancelAppointment(appointment);
 

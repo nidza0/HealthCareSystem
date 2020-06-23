@@ -8,15 +8,25 @@ using System.Collections.Generic;
 using Controller;
 using SIMS.Model.DoctorModel;
 using SIMS.Model.UserModel;
+using SIMS.Service.MedicalService;
+using SIMS.Service.UsersService;
 
 namespace SIMS.Controller.UsersController
 {
     public class DoctorController : IController<Doctor, UserID>
     {
-        public Service.UsersService.DoctorService doctorService;
-        public Service.MedicalService.DiagnosisService diagnosisService;
-        public Service.MedicalService.TherapyService therapyService;
-        public Service.MedicalService.MedicalRecordService medicalRecordService;
+        public DoctorService doctorService;
+        public DiagnosisService diagnosisService;
+        public TherapyService therapyService;
+        public MedicalRecordService medicalRecordService;
+
+        public DoctorController(DoctorService doctorService, DiagnosisService diagnosisService, TherapyService therapyService, MedicalRecordService medicalRecordService)
+        {
+            this.doctorService = doctorService;
+            this.diagnosisService = diagnosisService;
+            this.therapyService = therapyService;
+            this.medicalRecordService = medicalRecordService;
+        }
 
         public IEnumerable<Doctor> GetActiveDoctors()
             => doctorService.GetActiveDoctors();

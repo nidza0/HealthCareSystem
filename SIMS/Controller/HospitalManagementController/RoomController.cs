@@ -16,6 +16,12 @@ namespace SIMS.Controller.HospitalManagementController
     {
 
         public RoomService roomService;
+
+        public RoomController(RoomService roomService)
+        {
+            this.roomService = roomService;
+        }
+
         public IEnumerable<Room> GetRoomsByType(RoomType type)
             => roomService.GetRoomsByType(type);
 

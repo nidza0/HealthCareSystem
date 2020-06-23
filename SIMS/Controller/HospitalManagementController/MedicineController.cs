@@ -17,6 +17,11 @@ namespace SIMS.Controller.HospitalManagementController
 
         public MedicineService medicineService;
 
+        public MedicineController(MedicineService medicineService)
+        {
+            this.medicineService = medicineService;
+        }
+
         public IEnumerable<Medicine> GetMedicineForDisease(Disease disease)
             => medicineService.GetMedicineForDisease(disease);
 

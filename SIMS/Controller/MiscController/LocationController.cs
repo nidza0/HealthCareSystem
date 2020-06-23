@@ -16,6 +16,11 @@ namespace SIMS.Controller.MiscController
 
         public LocationService locationService;
 
+        public LocationController(LocationService locationService)
+        {
+            this.locationService = locationService;
+        }
+
         public IEnumerable<Location> GetLocationByCountry(string country)
             => locationService.GetLocationByCountry(country);
 

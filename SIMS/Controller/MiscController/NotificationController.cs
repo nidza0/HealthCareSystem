@@ -16,6 +16,11 @@ namespace SIMS.Controller.MiscController
 
         public NotificationService notificationService;
 
+        public NotificationController(NotificationService notificationService)
+        {
+            this.notificationService = notificationService;
+        }
+
         public IEnumerable<Notification> GetNotificationByUser(User user)
             => notificationService.GetNotificationByUser(user);
 

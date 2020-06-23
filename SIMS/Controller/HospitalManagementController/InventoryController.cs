@@ -18,6 +18,11 @@ namespace SIMS.Controller.HospitalManagementController
 
         public InventoryService inventoryService;
 
+        public InventoryController(InventoryService inventoryService)
+        {
+            this.inventoryService = inventoryService;
+        }
+
         public Inventory AddInventoryItem(Inventory inventory, InventoryItem item)
             => inventoryService.AddInventoryItem(inventory, item);
 
