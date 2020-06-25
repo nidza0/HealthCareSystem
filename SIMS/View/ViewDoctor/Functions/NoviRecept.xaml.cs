@@ -75,8 +75,17 @@ namespace SIMS.View.ViewDoctor.Functions
                     // TODO: 
                     var controller = AppResources.getInstance().patientController;
                     var diagnosis = controller.GetAllDiagnosisForPatient(patient);
-                    
-                    
+                    var patientAllergies = controller.GetPatientAllergies(patient);
+
+                    if(patientAllergies.Where(allergy => allergy.AllergicToIngredient == new Ingredient(DrugName.Text)).Count() > 0)
+                    {
+                        MessageBoxButton button1 = MessageBoxButton.OK;
+                        string caption1 = "Greška";
+                        string messageBoxText1 = "Pacijent je alergican na lek!";
+                        MessageBox.Show(messageBoxText1, caption1, button1);
+
+                        return;
+                    }
                     
                     NavigationService.Navigate(new MainPageCenter());
                     MessageBoxButton button = MessageBoxButton.OK;
