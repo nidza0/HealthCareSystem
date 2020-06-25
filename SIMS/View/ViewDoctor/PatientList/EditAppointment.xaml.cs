@@ -54,7 +54,7 @@ namespace SIMS.View.ViewDoctor.PatientList
 
         private void fillComboBoxes()
         {
-            RoomsCombo.ItemsSource = AppResources.getInstance().roomRepository.GetAll();
+            RoomsCombo.ItemsSource = AppResources.getInstance().roomController.GetAll();
 
         }
 
@@ -79,7 +79,7 @@ namespace SIMS.View.ViewDoctor.PatientList
             appointment.Room = room;
             apps.Add(appointment);
 
-            //AppResources.getInstance().appointmentRepository.Update(appointment);
+            AppResources.getInstance().appointmentController.Update(appointment);
             panel.Children.Remove(this);
 
             dg.Items.Refresh();

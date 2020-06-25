@@ -24,15 +24,6 @@ using SIMS.Controller.MedicalController;
 using SIMS.Controller.MiscController;
 using SIMS.Controller.UsersController;
 
-using SIMS.Service.MedicalService;
-using SIMS.Service.MiscService;
-using SIMS.Controller.UsersController;
-using SIMS.Controller.MiscController;
-using SIMS.Controller.MedicalController;
-using SIMS.Controller.HospitalManagementController;
-using SIMS.Service.UsersService;
-using SIMS.Service.HospitalManagementService;
-
 
 namespace SIMS
 {
@@ -332,23 +323,6 @@ namespace SIMS
             inventoryStatisticsController = new InventoryStatisticsController(inventoryStatisticsService);
             roomStatisticsController = new RoomStatisticsController(roomStatisticsService);
             hospitalController = new HospitalController(hospitalService);
-
-            medicineController = new MedicineController();
-
-            #endregion
-
-        }
-
-        public void setLoggedInUser(Doctor loggedIn)
-        {
-            loggedInUser = loggedIn;
-        }
-
-        public static Doctor getLoggedInUser()
-        {
-            Console.WriteLine(loggedInUser);
-            return loggedInUser;
-
             medicineController = new MedicineController(medicineService);
             roomController = new RoomController(roomService);
             inventoryController = new InventoryController(inventoryService);
@@ -370,7 +344,19 @@ namespace SIMS
             patientController = new PatientController(patientService, medicalRecordService, therapyService, diagnosisService);
             secretaryController = new SecretaryController(secretaryService);
 
-            #endregion	
+            #endregion
+
+        }
+
+        public void setLoggedInUser(Doctor loggedIn)
+        {
+            loggedInUser = loggedIn;
+        }
+
+        public static Doctor getLoggedInUser()
+        {
+            Console.WriteLine(loggedInUser);
+            return loggedInUser;
 
         }
 

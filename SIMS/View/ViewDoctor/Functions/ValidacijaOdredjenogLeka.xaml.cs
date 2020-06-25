@@ -40,22 +40,6 @@ namespace SIMS.View.ViewDoctor.Functions
 
         private void setFields()
         {
-            /*   if (Lek.Doza == null && Lek.AktivniSastojak == null && Lek.Naziv == null && Lek.Tip == null)
-               {
-                   MessageBoxButton button = MessageBoxButton.OK;
-                   string caption = "Nije prenet lek";
-                   string messageBoxText = "Niste preneli validan lek.";
-                   MessageBox.Show(messageBoxText, caption, button);
-                   NavigationService.GoBack();
-               }
-               else
-               {
-                   DrugName_TextBox.Text = Lek.Naziv;
-                   DrugType_TextBox.Text = Lek.Tip;
-                   Ingredient_TextBox.Text = Lek.AktivniSastojak;
-                   UsedFor_TextBox.Text = "/";
-               }
-               */
             DrugName_TextBox.Text = medicine.Name;
             DrugType_TextBox.SelectedIndex = (int) medicine.MedicineType;
             if(medicine.Ingredient.Count > 0) { 
@@ -82,6 +66,9 @@ namespace SIMS.View.ViewDoctor.Functions
         private void OK_Button_Click(object sender, RoutedEventArgs e)
         {
             correctFields();
+
+            AppResources.getInstance().medicineController.Update(medicine);
+
             MessageBoxButton button = MessageBoxButton.OK;
             string caption = "Uspešno validiran lek";
             string messageBoxText = "Uspešno ste validirali "/* + Lek.Naziv + "."*/;
@@ -102,15 +89,9 @@ namespace SIMS.View.ViewDoctor.Functions
             medicine.MedicineType = (MedicineType) DrugType_TextBox.SelectedIndex;
             medicine.Ingredient.Add(new Ingredient(Ingredient_TextBox.Text));
             //medicine.UsedFor[0] = new Disease(UsedFor_TextBox.Text);
-            flushData();
-        }
-
-
-
-        private void flushData()
-        {
 
         }
+
 
         private void CANCEL_Button_Click(object sender, RoutedEventArgs e)
         {

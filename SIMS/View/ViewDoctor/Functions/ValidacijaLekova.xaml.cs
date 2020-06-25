@@ -35,10 +35,13 @@ namespace SIMS.View.ViewDoctor.Functions
 
         private void fillDataGrid()
         {
-            data = new List<Model.PatientModel.Medicine>();
-            data.Add(new Model.PatientModel.Medicine("Eferalgan", 500, MedicineType.TABLET, 100, 1));
-            data.Add(new Model.PatientModel.Medicine("Strepsils", 200, MedicineType.TABLET, 100, 1));
-            data.Add(new Model.PatientModel.Medicine("Brufen", 500, MedicineType.TABLET, 100, 1));
+            //data = new List<Model.PatientModel.Medicine>();
+            //data.Add(new Model.PatientModel.Medicine("Eferalgan", 500, MedicineType.TABLET, 100, 1));
+            //data.Add(new Model.PatientModel.Medicine("Strepsils", 200, MedicineType.TABLET, 100, 1));
+            //data.Add(new Model.PatientModel.Medicine("Brufen", 500, MedicineType.TABLET, 100, 1));
+
+            data = AppResources.getInstance().medicineController.GetMedicinePendingApproval().ToList();
+
             lekoviNaValidaciji.ItemsSource = data;
             //data = new Lekovi_EXAMPLE_LIST().getUnvalidated();
             //lekoviNaValidaciji.ItemsSource = data;

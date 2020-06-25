@@ -46,7 +46,7 @@ namespace SIMS.View.ViewDoctor.PatientList
 
         private void fillComboBoxes()
         {
-            RoomsCombo.ItemsSource = AppResources.getInstance().roomRepository.GetAll().Select(room => room.RoomNumber);
+            RoomsCombo.ItemsSource = AppResources.getInstance().roomController.GetAll().Select(room => room.RoomNumber);
             
         }
 
@@ -103,7 +103,9 @@ namespace SIMS.View.ViewDoctor.PatientList
 
                     //AppResources.getInstance().appointmentRepository.Create(new Model.PatientModel.Appointment(AppResources.getLoggedInUser(), patient, room, type, new TimeInterval(time, time.AddMinutes(standardTime))));
                     //this.Visibility = Visibility.Hidden;
-                    allAppointments.Add(new Model.PatientModel.Appointment(AppResources.getLoggedInUser(), patient, room, type, new TimeInterval(time, time.AddMinutes(standardTime))));
+                    //allAppointments.Add();
+
+                    AppResources.getInstance().appointmentController.Create(new Model.PatientModel.Appointment(AppResources.getLoggedInUser(), patient, room, type, new TimeInterval(time, time.AddMinutes(standardTime))));
 
                     panel.Children.Remove(this);
                     dg.Items.Refresh();

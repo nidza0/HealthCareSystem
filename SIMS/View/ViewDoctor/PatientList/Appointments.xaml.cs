@@ -46,18 +46,13 @@ namespace SIMS.View.ViewDoctor.PatientList
         private void fillDataGrid()
         {
             Console.WriteLine(AppResources.getLoggedInUser().GetId());
-            /*
-            List<Appointment> allApps = AppResources.getInstance().appointmentRepository.GetPatientAppointments(patient).ToList();
-            if(allApps.Count > 1)
-            {
-                allApps = allApps.Where(app => app.DoctorInAppointment.GetId()
-            .Equals(AppResources.getLoggedInUser().GetId()) && app.TimeInterval.StartTime.Day == ActiveDate.SelectedDate.Value.Day).ToList();
-            }
-            AppointmentList.ItemsSource = allApps;
-            */
+            
             allApps = new List<Model.PatientModel.Appointment>();
-            allApps.Add(new Appointment(151, AppResources.getLoggedInUser(), AppResources.getInstance().patientRepository.GetPatientByDoctor(AppResources.getLoggedInUser()).SingleOrDefault(patient => patient.Name == "Mika"),
-                new Model.UserModel.Room("111A", false, 1, Model.UserModel.RoomType.EXAMINATION), AppointmentType.checkup, new TimeInterval(DateTime.Now.AddHours(1), DateTime.Now.AddHours(1).AddMinutes(15))));
+            //allApps.Add(new Appointment(151, AppResources.getLoggedInUser(), AppResources.getInstance().patientRepository.GetPatientByDoctor(AppResources.getLoggedInUser()).SingleOrDefault(patient => patient.Name == "Mika"),
+            //    new Model.UserModel.Room("111A", false, 1, Model.UserModel.RoomType.EXAMINATION), AppointmentType.checkup, new TimeInterval(DateTime.Now.AddHours(1), DateTime.Now.AddHours(1).AddMinutes(15))));
+
+            allApps = AppResources.getInstance().appointmentController.GetAppointmentsByDoctor(AppResources.getLoggedInUser()).ToList();
+
             AppointmentList.ItemsSource = allApps;
         }
 

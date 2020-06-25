@@ -37,6 +37,7 @@ namespace SIMS.View.ViewDoctor.PatientList
 
         private void fillDataGrid()
         {
+            // TODO: uradi u controlleru preistup medical recordu!
             if(AppResources.getInstance().medicalRecordRepository.GetPatientMedicalRecord(patient) == null)
             {
                 AppResources.getInstance().medicalRecordRepository.Create(new MedicalRecord(patient));

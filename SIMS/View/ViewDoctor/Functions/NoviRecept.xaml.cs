@@ -1,4 +1,5 @@
-﻿using SIMS.Model.PatientModel;
+﻿using SIMS.Controller.UsersController;
+using SIMS.Model.PatientModel;
 using SIMS.Model.UserModel;
 using System;
 using System.Collections.Generic;
@@ -71,8 +72,12 @@ namespace SIMS.View.ViewDoctor.Functions
                     AppResources.getInstance().prescriptionRepository.Create(new Model.PatientModel.Prescription(Model.PatientModel.PrescriptionStatus.ACTIVE, AppResources.getLoggedInUser(), temp));
 
                     */
-
-
+                    // TODO: 
+                    var controller = AppResources.getInstance().patientController;
+                    var diagnosis = controller.GetAllDiagnosisForPatient(patient);
+                    
+                    
+                    
                     NavigationService.Navigate(new MainPageCenter());
                     MessageBoxButton button = MessageBoxButton.OK;
                     string caption = "Uspešno ste prepisali recept";

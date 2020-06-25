@@ -35,7 +35,7 @@ namespace SIMS.View.ViewDoctor.PatientList
         {
             AppResources ar = AppResources.getInstance();
             //patients = AppResources.getInstance().patientRepository.GetPatientByDoctor(AppResources.getLoggedInUser()).ToList();
-            data = AppResources.getInstance().patientRepository.GetPatientByDoctor(AppResources.getLoggedInUser()).ToList();
+            data = AppResources.getInstance().patientController.GetPatientByDoctor(AppResources.getLoggedInUser()).ToList();
             
             PacijentiSpisak.ItemsSource = data;
             
