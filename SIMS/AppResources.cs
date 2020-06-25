@@ -14,6 +14,7 @@ using System;
 using SIMS.Repository.CSVFileRepository.MiscRepository;
 using SIMS.Repository.CSVFileRepository.Csv.Converter.MiscConverter;
 using SIMS.Model.DoctorModel;
+
 using SIMS.Service.HospitalManagementService;
 using SIMS.Service.MedicalService;
 using SIMS.Service.MiscService;
@@ -22,6 +23,16 @@ using SIMS.Controller.HospitalManagementController;
 using SIMS.Controller.MedicalController;
 using SIMS.Controller.MiscController;
 using SIMS.Controller.UsersController;
+
+using SIMS.Service.MedicalService;
+using SIMS.Service.MiscService;
+using SIMS.Controller.UsersController;
+using SIMS.Controller.MiscController;
+using SIMS.Controller.MedicalController;
+using SIMS.Controller.HospitalManagementController;
+using SIMS.Service.UsersService;
+using SIMS.Service.HospitalManagementService;
+
 
 namespace SIMS
 {
@@ -160,7 +171,7 @@ namespace SIMS
         // MiscController
         public ArticleController articleController;
         public DoctorFeedBackController doctorFeedbackController;
-        
+
         public LocationController locationController;
         public MessageController messageController;
         public NotificationController notificationController;
@@ -172,6 +183,7 @@ namespace SIMS
         public SecretaryController secretaryController;
 
         #endregion
+
 
         private AppResources() {
 
@@ -280,6 +292,8 @@ namespace SIMS
             roomStatisticRepository = new RoomStatisticsRepository("rSR", new CSVStream<StatsRoom>(roomStatisticsFile, new RoomStatisticsConverter(",")), new LongSequencer(), roomRepository);
             // RoomStats OK
 
+            inventoryRepository = new InventoryRepository("iR", new CSVStream<Inventory>(inventoryFile, new InventoryConverter(",", ";")), new LongSequencer(), inventoryItemRepository, medicineRepository);
+
             #region service initialization
             // HospitalManagementService
             doctorStatisticsService = new DoctorStatisticsService(doctorStatisticRepository);
@@ -318,6 +332,7 @@ namespace SIMS
             inventoryStatisticsController = new InventoryStatisticsController(inventoryStatisticsService);
             roomStatisticsController = new RoomStatisticsController(roomStatisticsService);
             hospitalController = new HospitalController(hospitalService);
+
             medicineController = new MedicineController();
 
             #endregion
@@ -333,6 +348,30 @@ namespace SIMS
         {
             Console.WriteLine(loggedInUser);
             return loggedInUser;
+
+            medicineController = new MedicineController(medicineService);
+            roomController = new RoomController(roomService);
+            inventoryController = new InventoryController(inventoryService);
+
+            // MedicalController
+            appointmentController = new AppointmentController(appointmentService);
+            diseaseController = new DiseaseController(diseaseService);
+
+            // MiscController
+            articleController = new ArticleController(articleService);
+            doctorFeedbackController = new DoctorFeedBackController(doctorFeedbackService);
+            locationController = new LocationController(locationService);
+            messageController = new MessageController(messageService);
+            notificationController = new NotificationController(notificationService);
+
+            // UsersController
+            doctorController = new DoctorController(doctorService, diagnosisService, therapyService, medicalRecordService);
+            managerController = new ManagerController(managerService);
+            patientController = new PatientController(patientService, medicalRecordService, therapyService, diagnosisService);
+            secretaryController = new SecretaryController(secretaryService);
+
+            #endregion	
+
         }
 
         public static AppResources getInstance()
