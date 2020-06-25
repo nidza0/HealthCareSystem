@@ -51,9 +51,7 @@ namespace SIMS.Controller.UsersController
             => medicalRecordService.AddDiagnosis(patient, diagnosis);
 
         public IEnumerable<Allergy> GetPatientAllergies(Patient patient)
-        {
-            throw new NotImplementedException();
-        }
+            => medicalRecordService.GetPatientAllergies(patient);
 
         public IEnumerable<Patient> GetAll()
             => patientService.GetAll();
@@ -69,5 +67,9 @@ namespace SIMS.Controller.UsersController
 
         public void Delete(Patient entity)
             => patientService.Delete(entity);
+
+        public Prescription GivePrescription(Therapy therapy, Prescription prescription)
+            => therapyService.SetPerscription(therapy, prescription);
+        
     }
 }
