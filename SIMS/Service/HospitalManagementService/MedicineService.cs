@@ -8,18 +8,20 @@ using System.Collections.Generic;
 using SIMS.Model.PatientModel;
 using SIMS.Repository.Abstract.HospitalManagementAbstractRepository;
 using SIMS.Repository.CSVFileRepository.HospitalManagementRepository;
+using SIMS.Service.ValidateServices.ValidateHospitalManagementServices;
 
 namespace SIMS.Service.HospitalManagementService
 {
     public class MedicineService : IService<Medicine, long>
     {
 
-        MedicineRepository _medicineRepository;
-        
+        private MedicineRepository _medicineRepository;
+        private ValidateMedicine _validateMedicine;
 
         public MedicineService(MedicineRepository medicineRepository)
         {
             _medicineRepository = medicineRepository;
+            _validateMedicine = new ValidateMedicine();
         }
 
         public IEnumerable<Medicine> GetMedicineForDisease(Disease disease)
@@ -45,30 +47,23 @@ namespace SIMS.Service.HospitalManagementService
 
         public Medicine Create(Medicine entity)
         {
-            // TODO: Validate
+            Validate(entity);
             return _medicineRepository.Create(entity);
         }
 
         public void Update(Medicine entity)
-        {   
-            // TODO: Validate
+        {
+            Validate(entity);
             _medicineRepository.Update(entity);
         }
 
         public void Delete(Medicine entity)
             => _medicineRepository.Delete(entity);
 
-        void IService<Medicine, long>.Update(Medicine entity)
-        {
-            throw new NotImplementedException();
-        }
-
         public void Validate(Medicine entity)
         {
-            throw new NotImplementedException();
+            _validateMedicine.Validate(entity);
         }
-
-        public IMedicineRepository iMedicineRepository;
 
     }
 }

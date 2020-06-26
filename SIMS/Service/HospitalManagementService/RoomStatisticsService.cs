@@ -1,5 +1,6 @@
 ﻿using SIMS.Model.ManagerModel;
 using SIMS.Repository.CSVFileRepository.HospitalManagementRepository;
+using SIMS.Service.ValidateServices.ValidateHospitalManagementServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,8 +11,8 @@ namespace SIMS.Service.HospitalManagementService
 {
     public class RoomStatisticsService : IService<StatsRoom, long>
     {
-
-        RoomStatisticsRepository _roomStatisticsRepository;
+        private RoomStatisticsRepository _roomStatisticsRepository;
+        private ValidateRoomStatistics _validateRoomStatistics;
 
         public RoomStatisticsService(RoomStatisticsRepository roomStatisticsRepository)
         {
@@ -20,7 +21,7 @@ namespace SIMS.Service.HospitalManagementService
 
         public StatsRoom Create(StatsRoom entity)
         {
-            // TODO: Validate
+            Validate(entity);
             return _roomStatisticsRepository.Create(entity);
         }
 
@@ -35,13 +36,13 @@ namespace SIMS.Service.HospitalManagementService
 
         public void Update(StatsRoom entity)
         {
-            // TODO: Validate
+            Validate(entity);
             _roomStatisticsRepository.Update(entity);
         }
 
         public void Validate(StatsRoom entity)
         {
-            throw new NotImplementedException();
+            _validateRoomStatistics.Validate(entity);
         }
     }
 }
