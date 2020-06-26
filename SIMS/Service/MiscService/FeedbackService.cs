@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using SIMS.Exceptions;
 using SIMS.Model.UserModel;
 using SIMS.Repository.Abstract.MiscAbstractRepository;
 using SIMS.Repository.CSVFileRepository.MiscRepository;
@@ -44,7 +45,15 @@ namespace SIMS.Service.MiscService
 
         public void Validate(Feedback entity)
         {
-            throw new NotImplementedException();
+            if (entity.User == null)
+            {
+                throw new ServiceException("FeedbackService - User is null!");
+            }
+
+            if (entity.Comment.Length < 1 && entity.Rating == null)
+            {
+                throw new ServiceException("FeedbackService - Feedback is empty!");
+            }
         }
     }
 }
