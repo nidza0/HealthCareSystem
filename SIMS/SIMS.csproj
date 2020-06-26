@@ -60,6 +60,7 @@
     <Compile Include="Controller\HospitalManagementController\DoctorStatisticsController.cs" />
     <Compile Include="Controller\HospitalManagementController\InventoryStatisticsController.cs" />
     <Compile Include="Controller\HospitalManagementController\RoomStatisticsController.cs" />
+    <Compile Include="Controller\UsersController\UserController.cs" />
     <Compile Include="Exceptions\IllegalAppointmentBooking.cs" />
     <Compile Include="Exceptions\InvalidTimeException.cs" />
     <Compile Include="Exceptions\InvalidUserException.cs" />
@@ -207,10 +208,12 @@
     <Compile Include="Service\MiscService\MessageService.cs" />
     <Compile Include="Service\MiscService\NotificationService.cs" />
     <Compile Include="Service\UsersService\DoctorService.cs" />
+    <Compile Include="Exceptions\InvalidLoginException.cs" />
     <Compile Include="Service\UsersService\IUserService.cs" />
     <Compile Include="Service\UsersService\ManagerService.cs" />
     <Compile Include="Service\UsersService\PatientService.cs" />
     <Compile Include="Service\UsersService\SecretaryService.cs" />
+    <Compile Include="Service\UsersService\UserService.cs" />
     <Compile Include="Service\ValidateServices\IValidateService.cs" />
     <Compile Include="Service\ValidateServices\ValidateHospitalManagementServices\ValidateDoctorStatistics.cs" />
     <Compile Include="Service\ValidateServices\ValidateHospitalManagementServices\ValidateHospital.cs" />

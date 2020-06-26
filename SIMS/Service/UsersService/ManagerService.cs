@@ -14,7 +14,7 @@ using SIMS.Util;
 
 namespace SIMS.Service.UsersService
 {
-    public class ManagerService : IService<Manager, UserID>, IUserService<Manager>
+    public class ManagerService : IService<Manager, UserID>
     {
         ManagerRepository _managerRepository;
         UserValidation _userValidation;
@@ -24,8 +24,6 @@ namespace SIMS.Service.UsersService
             _managerRepository = managerRepository;
             _userValidation = new UserValidation();
         }
-
-
 
         public Manager Create(Manager entity)
         {
@@ -41,11 +39,6 @@ namespace SIMS.Service.UsersService
 
         public Manager GetByID(UserID id)
             => _managerRepository.GetByID(id);
-
-        public void Login(User user)
-        {
-            throw new NotImplementedException();
-        }
 
         public void Validate(Manager user)
             => _userValidation.Validate(user);

@@ -14,7 +14,7 @@ using SIMS.Util;
 
 namespace SIMS.Service.UsersService
 {
-    public class SecretaryService : IService<Secretary, UserID>, IUserService<Secretary>
+    public class SecretaryService : IService<Secretary, UserID>
     {
         SecretaryRepository _secretaryRepository;
         UserValidation _userValidation;
@@ -24,7 +24,6 @@ namespace SIMS.Service.UsersService
             _secretaryRepository = secretaryRepository;
             _userValidation = new UserValidation();
         }
-
 
         public Secretary Create(Secretary entity)
         {
@@ -40,11 +39,6 @@ namespace SIMS.Service.UsersService
 
         public Secretary GetByID(UserID id)
             => _secretaryRepository.GetByID(id);
-
-        public void Login(User user)
-        {
-            throw new NotImplementedException();
-        }
 
         public void Validate(Secretary user)
             => _userValidation.Validate(user);

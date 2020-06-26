@@ -114,7 +114,7 @@ namespace SIMS.Model.UserModel
         public string UserName { get => _userName; }
         public string Password { get => _password; }
         public DateTime DateCreated { get => _dateCreated; set => _dateCreated = value; }
-        public bool Deleted { get => _deleted; }
+        public bool Deleted { get => _deleted; set => _deleted = value; }
 
         public override bool Equals(object obj)
         {

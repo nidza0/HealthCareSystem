@@ -14,7 +14,7 @@ using SIMS.Util;
 
 namespace SIMS.Service.UsersService
 {
-    public class PatientService : IService<Patient, UserID>, IUserService<Patient>
+    public class PatientService : IService<Patient, UserID>
     {
         PatientRepository _patientRepository;
         UserValidation _userValidation;
@@ -49,11 +49,6 @@ namespace SIMS.Service.UsersService
 
         public void Validate(Patient user)
             => _userValidation.Validate(user);
-
-        public void Login(User user)
-        {
-            throw new NotImplementedException();
-        }
 
         public void Update(Patient entity)
         {

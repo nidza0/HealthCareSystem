@@ -21,6 +21,8 @@ namespace SIMS.Service.MedicalService
         private AppointmentRepository _appointmentRepository;
         private DateTime dayBeforeAutoDelete;
 
+        public IAppointmentStrategy AppointmentStrategy { get => _appointmentStrategy; set => _appointmentStrategy = value; }
+
         public AppointmentService(AppointmentRepository appointmentRepository,IAppointmentStrategy appointmentStrategy)
         {
             _appointmentRepository = appointmentRepository;
