@@ -31,8 +31,6 @@ namespace SIMS
             InitializeComponent();
             //Patient p = new Patient();
 
-            
-
             //HospitalConverter converter = new HospitalConverter(",");
             //List<Room> testList = new List<Room>();
             //testList.Add(new Room(1, "22", true, 2, RoomType.operation, new Model.ManagerModel.InventoryItem()));

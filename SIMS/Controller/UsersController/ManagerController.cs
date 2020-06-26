@@ -38,8 +38,5 @@ namespace SIMS.Controller.UsersController
         public void Update(Manager manager)
             => managerService.Update(manager);
 
-        public void Login(Manager user)
-            => managerService.Login(user);
-
     }
 }

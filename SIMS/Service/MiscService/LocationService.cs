@@ -55,12 +55,12 @@ namespace SIMS.Service.MiscService
             string namingPattern = @"[a-zA-Z\\- ]*";
             if (!Regex.Match(entity.City, namingPattern).Success)
             {
-                throw new LocationCityException("LocationService - City contains illegal characters!");
+                throw new LocationServiceException("City contains illegal characters!");
             }
 
             if (!Regex.Match(entity.Country, namingPattern).Success)
             {
-                throw new LocationCountryException("LocationService - Country contains illegal characters!");
+                throw new LocationServiceException("Country contains illegal characters!");
             }
         }
     }

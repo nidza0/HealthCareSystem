@@ -43,43 +43,17 @@ namespace SIMS.Service.MedicalService
         }
 
         protected bool CheckDoctorSchedule(Appointment appointment)
-        {
-            IEnumerable<Appointment> overlapping = _appointmentRepository.GetAppointmentsByDoctor(appointment.DoctorInAppointment)
-                .Where(app => app.TimeInterval.IsOverlappingWith(appointment.TimeInterval));
-
-            if (overlapping.Count() > 0)
-            {
-                return false;
-            }
-
-            return true;
-        }
+            => _appointmentRepository.GetAppointmentsByDoctor(appointment.DoctorInAppointment)
+                .Where(app => app.TimeInterval.IsOverlappingWith(appointment.TimeInterval)).Count() <= 0;
 
         protected bool CheckPatientSchedule(Appointment appointment)
-        {
-            IEnumerable<Appointment> overlapping = _appointmentRepository.GetPatientAppointments(appointment.Patient)
-                .Where(app => app.TimeInterval.IsOverlappingWith(appointment.TimeInterval));
-
-            if(overlapping.Count() > 0)
-            {
-                return false;
-            }
-
-            return true;
-        }
+            => _appointmentRepository.GetPatientAppointments(appointment.Patient)
+                .Where(app => app.TimeInterval.IsOverlappingWith(appointment.TimeInterval)).Count() <= 0;
 
         protected bool CheckRoomSchedules(Appointment appointment)
-        {
-            // Checks if the selected room is available
-            IEnumerable<Appointment> appointments = _appointmentRepository.GetAppointmentsByRoom(appointment.Room)
-                .Where(app => app.TimeInterval.IsOverlappingWith(appointment.TimeInterval));
-            if(appointments.Count() > 0)
-            {
-                return false;
-            }
+            => _appointmentRepository.GetAppointmentsByRoom(appointment.Room)
+                .Where(app => app.TimeInterval.IsOverlappingWith(appointment.TimeInterval)).Count() <= 0;
 
-            return true;
-        }
 
         protected void CheckType(Appointment appointment)
             => _appointmentStrategy.CheckType(appointment);
@@ -164,6 +138,10 @@ namespace SIMS.Service.MedicalService
         }
 
         public void Validate(Appointment entity)
-            => _appointmentStrategy.Validate(entity);
+        {
+            _appointmentStrategy.Validate(entity);
+            CheckSchedules(entity);
+        }
+
     }
 }

@@ -61,7 +61,6 @@
     <Compile Include="Controller\HospitalManagementController\InventoryStatisticsController.cs" />
     <Compile Include="Controller\HospitalManagementController\RoomStatisticsController.cs" />
     <Compile Include="Controller\UsersController\UserController.cs" />
-    <Compile Include="Exceptions\IllegalAppointmentBooking.cs" />
     <Compile Include="Exceptions\AppointmentServiceException.cs" />
     <Compile Include="Exceptions\DiseaseServiceException.cs" />
     <Compile Include="Exceptions\DoctorServiceException.cs" />
@@ -198,11 +197,14 @@
     <Compile Include="Service\HospitalManagementService\InventoryStatisticsService.cs" />
     <Compile Include="Service\HospitalManagementService\MedicineService.cs" />
     <Compile Include="Service\HospitalManagementService\RoomService.cs" />
+    <Compile Include="Exceptions\RoomServiceException.cs" />
+    <Compile Include="Exceptions\RoomStatisticServiceException.cs" />
     <Compile Include="Service\HospitalManagementService\RoomStatisticsService.cs" />
     <Compile Include="Service\IService.cs" />
     <Compile Include="Service\MedicalService\AppointmentDoctorStrategy.cs" />
     <Compile Include="Service\MedicalService\AppointmentManagerStrategy.cs" />
     <Compile Include="Service\MedicalService\AppointmentPatientStrategy.cs" />
+    <Compile Include="Exceptions\AppointmentRecommendationService.cs" />
     <Compile Include="Service\MedicalService\AppointmentSecretaryStrategy.cs" />
     <Compile Include="Service\MedicalService\AppointmentService.cs" />
     <Compile Include="Service\MedicalService\DiagnosisService.cs" />
@@ -211,9 +213,13 @@
     <Compile Include="Service\MedicalService\MedicalRecordService.cs" />
     <Compile Include="Service\MedicalService\TherapyService.cs" />
     <Compile Include="Service\MiscService\ArticleService.cs" />
+    <Compile Include="Exceptions\ArticleServiceException.cs" />
     <Compile Include="Service\MiscService\DoctorFeedbackService.cs" />
+    <Compile Include="Exceptions\DoctorFeedbackServiceException.cs" />
     <Compile Include="Service\MiscService\FeedbackService.cs" />
+    <Compile Include="Exceptions\FeedbackServiceException.cs" />
     <Compile Include="Service\MiscService\LocationService.cs" />
+    <Compile Include="Exceptions\LocationServiceException.cs" />
     <Compile Include="Service\MiscService\MessageService.cs" />
     <Compile Include="Service\MiscService\NotificationService.cs" />
     <Compile Include="Service\UsersService\DoctorService.cs" />
@@ -254,6 +260,7 @@
     <Compile Include="Util\IPersonValidation.cs" />
     <Compile Include="Util\IUserValidation.cs" />
     <Compile Include="Util\MedicineFilter.cs" />
+    <Compile Include="Util\RecommendationDTO.cs" />
     <Compile Include="Util\Regexes.cs" />
     <Compile Include="Util\TherapyFilter.cs" />
     <Compile Include="Util\TimeInterval.cs" />

@@ -55,7 +55,5 @@ namespace SIMS.Controller.UsersController
         public void Delete(Doctor entity)
             => doctorService.Delete(entity);
 
-        public void Login(Doctor user)
-            => doctorService.Login(user);
     }
 }

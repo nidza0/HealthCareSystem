@@ -90,7 +90,7 @@ namespace SIMS.Service.MedicalService
 
         public void Validate(Therapy entity)
         {
-            if (entity.TimeInterval.StartTime.Ticks > entity.TimeInterval.EndTime.Ticks)
+            if (entity.TimeInterval.StartTime > entity.TimeInterval.EndTime)
                 throw new TherapyServiceException("Start time must be before end time!");
             if (entity.TimeInterval.StartTime < DateTime.Now)
                 throw new TherapyServiceException("Therapy start time must be in the future!");  

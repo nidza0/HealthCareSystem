@@ -1,27 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// File:    DoctorFeedbackService.cs
+// Author:  vule
+// Created: 21. maj 2020 15:04:26
+// Purpose: Definition of Class DoctorFeedbackService
 
-namespace SIMS.Exceptions
+using System;
+using System.Runtime.Serialization;
+
+namespace SIMS.Service.MiscService
 {
-    class DoctorFeedbackServiceException: Exception
+    [Serializable]
+    internal class DoctorFeedbackServiceException : Exception
     {
         public DoctorFeedbackServiceException()
         {
-
         }
 
         public DoctorFeedbackServiceException(string message) : base(message)
         {
-
         }
 
-        public DoctorFeedbackServiceException(string message, Exception inner) : base(message, inner)
+        public DoctorFeedbackServiceException(string message, Exception innerException) : base(message, innerException)
         {
-
         }
 
+        protected DoctorFeedbackServiceException(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+        }
     }
 }

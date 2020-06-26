@@ -82,7 +82,7 @@ namespace SIMS.Service.UsersService
 
         public void Validate(User entity)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
     }
 }

@@ -47,12 +47,12 @@ namespace SIMS.Service.MiscService
         {
             if (entity.User == null)
             {
-                throw new FeedbackNullException("FeedbackService - User is null!");
+                throw new FeedbackServiceException("User is null!");
             }
 
             if (entity.Comment.Length < 1 && entity.Rating == null)
             {
-                throw new FeedbackEmptyException("FeedbackService - Feedback is empty!");
+                throw new FeedbackServiceException("Feedback is empty!");
             }
         }
     }

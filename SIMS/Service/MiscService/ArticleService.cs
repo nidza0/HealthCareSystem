@@ -57,7 +57,7 @@ namespace SIMS.Service.MiscService
 
             if (entity.Author == null)
             {
-                throw new ArticleServiceException("ArticleService - Author is not set!");
+                throw new ArticleServiceException("Author is not set!");
             }
         }
     }

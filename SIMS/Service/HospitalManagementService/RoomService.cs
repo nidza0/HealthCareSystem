@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Text.RegularExpressions;
 using SIMS.Model.PatientModel;
 using SIMS.Model.UserModel;
 using SIMS.Repository.Abstract.HospitalManagementAbstractRepository;
@@ -21,13 +22,11 @@ namespace SIMS.Service.HospitalManagementService
     {
         private RoomRepository _roomRepository;
         private AppointmentRepository _appointmentRepository;
-        private ValidateRoom _validateRoom;
 
         public RoomService(RoomRepository roomRepository, AppointmentRepository appointmentRepository)
         {
             _roomRepository = roomRepository;
             _appointmentRepository = appointmentRepository;
-            _validateRoom = new ValidateRoom();
         }
 
         public IEnumerable<Room> GetRoomsByType(RoomType type)
@@ -101,8 +100,20 @@ namespace SIMS.Service.HospitalManagementService
 
         public void Validate(Room entity)
         {
-            _validateRoom.Validate(entity);
+            CheckFloorNumber(entity.Floor);
+            CheckRoomNumber(entity.RoomNumber);
         }
 
+        private void CheckRoomNumber(string roomNumber)
+        {
+            if (!Regex.Match(roomNumber, Regexes.roomNumberPattern).Success)
+                throw new RoomServiceException("RoomNumber contains illegal characters!");
+        }
+
+        private void CheckFloorNumber(int floor)
+        {
+            if (floor < 0)
+                throw new RoomServiceException("RoomService - Floor is less than zero!");
+        }
     }
 }

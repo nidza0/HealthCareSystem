@@ -12,7 +12,6 @@ namespace SIMS.Service.HospitalManagementService
     public class RoomStatisticsService : IService<StatsRoom, long>
     {
         private RoomStatisticsRepository _roomStatisticsRepository;
-        private ValidateRoomStatistics _validateRoomStatistics;
 
         public RoomStatisticsService(RoomStatisticsRepository roomStatisticsRepository)
         {
@@ -42,7 +41,27 @@ namespace SIMS.Service.HospitalManagementService
 
         public void Validate(StatsRoom entity)
         {
-            _validateRoomStatistics.Validate(entity);
+            CheckAppointmentTime(entity.AvgAppointmentTime);
+            CheckTimeOccupied(entity.TimeOccupied);
+            CheckUsage(entity.Usage);
+        }
+
+        private void CheckUsage(double usage)
+        {
+            if (usage < 0)
+                throw new RoomStatisticServiceException("Usage is less than zero!");
+        }
+
+        private void CheckTimeOccupied(double timeOccupied)
+        {
+            if (timeOccupied < 0)
+                throw new RoomStatisticServiceException("TimeOccupied is less than zero!");
+        }
+
+        private void CheckAppointmentTime(int avgAppointmentTime)
+        {
+            if (avgAppointmentTime < 0)
+                throw new RoomStatisticServiceException("AvgAppointmentTime is less than zero!");
         }
     }
 }

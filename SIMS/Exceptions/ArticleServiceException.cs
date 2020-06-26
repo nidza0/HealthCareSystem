@@ -1,27 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// File:    ArticleService.cs
+// Author:  Geri
+// Created: 7. maj 2020 12:01:08
+// Purpose: Definition of Class ArticleService
 
-namespace SIMS.Exceptions
+using System;
+using System.Runtime.Serialization;
+
+namespace SIMS.Service.MiscService
 {
-    class ArticleServiceException : Exception
+    [Serializable]
+    internal class ArticleServiceException : Exception
     {
-
         public ArticleServiceException()
         {
-
         }
 
         public ArticleServiceException(string message) : base(message)
         {
-
         }
 
-        public ArticleServiceException(string message, Exception inner) : base(message, inner)
+        public ArticleServiceException(string message, Exception innerException) : base(message, innerException)
         {
+        }
 
+        protected ArticleServiceException(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
         }
     }
 }
