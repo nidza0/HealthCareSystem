@@ -2,6 +2,7 @@
 using SIMS.Model.ManagerModel;
 using SIMS.Model.UserModel;
 using SIMS.Repository.CSVFileRepository.HospitalManagementRepository;
+using SIMS.Service.UsersService;
 using SIMS.Service.ValidateServices;
 using System;
 using System.Collections.Generic;
@@ -53,7 +54,7 @@ namespace SIMS.Service.HospitalManagementService
         {
             if (statsDoctor.Doctor == null)
             {
-                throw new ServiceException("DoctorStatistics - Doctor is not set!");
+                throw new DoctorServiceException("DoctorStatistics - Doctor is not set!");
             }
         }
 
@@ -61,7 +62,7 @@ namespace SIMS.Service.HospitalManagementService
         {
             if (statsDoctor.NumberOfAppointments < 0)
             {
-                throw new ServiceException("DoctorStatistics - Average appointment number is less than zero!");
+                throw new DoctorServiceException("DoctorStatistics - Average appointment number is less than zero!");
             }
         }
     }
