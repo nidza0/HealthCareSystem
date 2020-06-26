@@ -37,25 +37,27 @@ namespace SIMS.Service.MiscService
             => GetAll().SingleOrDefault(article => article.GetId() == id);
 
         public Article Create(Article entity)
-            => _articleRepository.Create(entity);
+        {
+            Validate(entity);
+            return _articleRepository.Create(entity);
+        }
+
 
         public void Update(Article entity)
-            => _articleRepository.Update(entity);
+        {
+            Validate(entity);
+            _articleRepository.Update(entity);
+        }
 
         public void Delete(Article entity)
             => _articleRepository.Delete(entity);
-
-        void IService<Article, long>.Update(Article entity)
-        {
-            throw new NotImplementedException();
-        }
 
         public void Validate(Article entity)
         {
 
             if (entity.Author == null)
             {
-                throw new ServiceException("ArticleService - Author is not set!");
+                throw new ArticleServiceException("ArticleService - Author is not set!");
             }
         }
     }

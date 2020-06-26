@@ -24,7 +24,7 @@ namespace SIMS.Service.MiscService
 
         public Feedback Create(Feedback entity)
         {
-            // TODO: Validate
+            Validate(entity);
             return _feedbackRepository.Create(entity);
         }
 
@@ -39,7 +39,7 @@ namespace SIMS.Service.MiscService
 
         public void Update(Feedback entity)
         {
-            // TODO: Validate
+            Validate(entity);
             _feedbackRepository.Update(entity);
         }
 
@@ -47,12 +47,12 @@ namespace SIMS.Service.MiscService
         {
             if (entity.User == null)
             {
-                throw new ServiceException("FeedbackService - User is null!");
+                throw new FeedbackNullException("FeedbackService - User is null!");
             }
 
             if (entity.Comment.Length < 1 && entity.Rating == null)
             {
-                throw new ServiceException("FeedbackService - Feedback is empty!");
+                throw new FeedbackEmptyException("FeedbackService - Feedback is empty!");
             }
         }
     }
