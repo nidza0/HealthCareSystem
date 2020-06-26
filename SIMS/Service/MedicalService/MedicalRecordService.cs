@@ -66,17 +66,7 @@ namespace SIMS.Service.MedicalService
             => _medicalRecordRepository.GetEager(id);
 
         public MedicalRecord Create(MedicalRecord entity){
-            // TODO: Validate (if patient is null)
-
-            Patient patient = entity.Patient;
-            MedicalRecord patientMedicalRecord = GetPatientMedicalRecord(patient);
-
-            if (patientMedicalRecord != null)
-            {
-                //Patient already has a medical record, therefore we don't want to create a new one.
-                throw new MedicalRecordServiceException(String.Format("Patient {0} {1} already has a medical record with ID: {2}",patient.Name,patient.Surname, patientMedicalRecord.GetId()));
-            }
-
+            Validate(entity);
             return _medicalRecordRepository.Create(entity);
         }
 
@@ -86,13 +76,24 @@ namespace SIMS.Service.MedicalService
 
         public void Update(MedicalRecord entity)
         {
-            // TODO; Validate
             _medicalRecordRepository.Update(entity);
+        }
+
+        private void checkIfPatientAlreadyHasMedicalRecord(Patient patient)
+        {
+            MedicalRecord patientMedicalRecord = GetPatientMedicalRecord(patient);
+            if (patientMedicalRecord != null)
+            {
+                //Patient already has a medical record, therefore we don't want to create a new one.
+                throw new MedicalRecordServiceException(String.Format("Patient {0} {1} already has a medical record with ID: {2}", patient.Name, patient.Surname, patientMedicalRecord.GetId()));
+            }
         }
 
         public void Validate(MedicalRecord entity)
         {
-            throw new NotImplementedException();
+            if (entity.Patient == null)
+                throw new MedicalRecordServiceException("Medical record must contain an information about patient!");
+            checkIfPatientAlreadyHasMedicalRecord(entity.Patient);
         }
     }
 }
