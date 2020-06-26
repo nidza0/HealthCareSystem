@@ -28,28 +28,16 @@ namespace SIMS.Service.MedicalService
 
         }
 
-        protected void validate(Appointment appointment)
-            => _appointmentStrategy.Validate(appointment);
-
-        protected void checkDateTimeValid(Appointment appointment)
-            => _appointmentStrategy.checkDateTimeValid(appointment);
-
         protected void CheckSchedules(Appointment appointment)
         {
             if (!CheckDoctorSchedule(appointment))
-            {
-                throw new IllegalAppointmentBooking();
-            }
+                throw new AppointmentServiceException("Appointment clashes with doctor appointments!");
 
             if (!CheckPatientSchedule(appointment))
-            {
-                throw new IllegalAppointmentBooking();
-            }
+                throw new AppointmentServiceException("Appointment clashes with patient appointments!");
 
             if (!CheckRoomSchedules(appointment))
-            {
-                throw new IllegalAppointmentBooking();
-            }
+                throw new AppointmentServiceException("Appointment clashes with room appointments!");
         }
 
         protected bool CheckDoctorSchedule(Appointment appointment)
@@ -97,7 +85,7 @@ namespace SIMS.Service.MedicalService
         public Appointment CancelAppointment(Appointment appointment)
         {
             // TODO: Proveri da li moze da se otkaze appointment
-            validate(appointment);
+            Validate(appointment);
             appointment.Canceled = true;
             _appointmentRepository.Update(appointment);
             
@@ -157,7 +145,7 @@ namespace SIMS.Service.MedicalService
 
         public Appointment Create(Appointment entity)
         {
-            validate(entity);
+            Validate(entity);
             _appointmentRepository.Create(entity);
             return entity;
         }
@@ -167,15 +155,13 @@ namespace SIMS.Service.MedicalService
 
         public void Update(Appointment entity)
         {
-            validate(entity);
+            Validate(entity);
             if (this.IsAppointmentChangeable(entity)) { 
                 _appointmentRepository.Update(entity);
             }
         }
 
         public void Validate(Appointment entity)
-        {
-            throw new NotImplementedException();
-        }
+            => _appointmentStrategy.Validate(entity);
     }
 }

@@ -12,6 +12,7 @@ using SIMS.Util;
 
 using System.Linq;
 
+using SIMS.Exceptions;
 namespace SIMS.Service.MedicalService
 {
     public class TherapyService : IService<Therapy, long>
@@ -74,7 +75,7 @@ namespace SIMS.Service.MedicalService
 
         public Therapy Create(Therapy entity)
         {
-            // TODO: Validate
+            Validate(entity);
             return _therapyRepository.Create(entity);
         }
 
@@ -83,13 +84,16 @@ namespace SIMS.Service.MedicalService
 
         public void Update(Therapy entity)
         {
-            // TODO: Validate
+            Validate(entity);
             _therapyRepository.Update(entity);
         }
 
         public void Validate(Therapy entity)
         {
-            throw new NotImplementedException();
+            if (entity.TimeInterval.StartTime.Ticks > entity.TimeInterval.EndTime.Ticks)
+                throw new TherapyServiceException("Start time must be before end time!");
+            if (entity.TimeInterval.StartTime < DateTime.Now)
+                throw new TherapyServiceException("Therapy start time must be in the future!");  
         }
     }
 }
