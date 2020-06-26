@@ -34,13 +34,13 @@ namespace SIMS.Service.MiscService
 
         public Notification Create(Notification entity)
         {
-            // TODO: Validate
+            Validate(entity);
             return _notificationRepository.Create(entity);
         }
 
         public void Update(Notification entity)
         {
-            // TODO: Validate
+            Validate(entity);
             _notificationRepository.Update(entity);
         }
 
@@ -51,7 +51,7 @@ namespace SIMS.Service.MiscService
         {
             if (entity.Recipient == null)
             {
-                throw new ServiceException("NotificationService - Recipient is not set!");
+                throw new NotificationServiceException("NotificationService - Recipient is not set!");
             }
         }
     }

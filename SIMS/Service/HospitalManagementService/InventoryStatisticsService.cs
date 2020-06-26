@@ -50,7 +50,7 @@ namespace SIMS.Service.HospitalManagementService
         {
             if (entity.Usage < 0)
             {
-                throw new ServiceException("InventoryStatisticsService - usage is less than zero!");
+                throw new InventoryStatisticServiceException("InventoryStatisticsService - usage is less than zero!");
             }
         }
     }
