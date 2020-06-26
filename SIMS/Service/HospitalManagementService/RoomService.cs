@@ -12,24 +12,28 @@ using SIMS.Model.UserModel;
 using SIMS.Repository.Abstract.HospitalManagementAbstractRepository;
 using SIMS.Repository.CSVFileRepository.HospitalManagementRepository;
 using SIMS.Repository.CSVFileRepository.MedicalRepository;
+using SIMS.Service.ValidateServices.ValidateHospitalManagementServices;
+using SIMS.Util;
 
 namespace SIMS.Service.HospitalManagementService
 {
     public class RoomService : IService<Room, long>
     {
-        RoomRepository _roomRepository;
-        AppointmentRepository _appointmentRepository;
+        private RoomRepository _roomRepository;
+        private AppointmentRepository _appointmentRepository;
+        private ValidateRoom _validateRoom;
 
         public RoomService(RoomRepository roomRepository, AppointmentRepository appointmentRepository)
         {
             _roomRepository = roomRepository;
             _appointmentRepository = appointmentRepository;
+            _validateRoom = new ValidateRoom();
         }
 
         public IEnumerable<Room> GetRoomsByType(RoomType type)
             => _roomRepository.GetRoomsByType(type);
 
-        public IEnumerable<Room> GetAvailableRoomsByDate(Util.TimeInterval timeInterval)
+        public IEnumerable<Room> GetAvailableRoomsByDate(TimeInterval timeInterval)
         {
 
             List<Room> retVal = new List<Room>();
@@ -77,13 +81,13 @@ namespace SIMS.Service.HospitalManagementService
 
         public Room Create(Room entity)
         {
-            // TODO: Validate
+            Validate(entity);
             return _roomRepository.Create(entity);
         }
 
         public void Update(Room entity)
         {
-            // TODO: Validate
+            Validate(entity);
             _roomRepository.Update(entity);
         }
 
@@ -97,10 +101,8 @@ namespace SIMS.Service.HospitalManagementService
 
         public void Validate(Room entity)
         {
-            throw new NotImplementedException();
+            _validateRoom.Validate(entity);
         }
-
-        public IRoomRepository iRoomRepository;
 
     }
 }

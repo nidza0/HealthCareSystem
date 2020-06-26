@@ -1,5 +1,6 @@
 ﻿using SIMS.Exceptions;
 using SIMS.Model.UserModel;
+using SIMS.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,18 +14,20 @@ namespace SIMS.Service.ValidateServices.ValidateHospitalManagementServices
     {
         public void Validate(Room entity)
         {
+            CheckFloorNumber(entity.Floor);
+            CheckRoomNumber(entity.RoomNumber);
+        }
 
-            string numberPattern = @"[a-zA-Z0-9\\- ]*";
-
-            if(entity.Floor < 0)
-            {
-                throw new ServiceException("RoomService - Floor is less than zero!");
-            }
-
-            if(!Regex.Match(entity.RoomNumber, numberPattern).Success)
-            {
+        private void CheckRoomNumber(string roomNumber)
+        {
+            if (!Regex.Match(roomNumber, Regexes.roomNumberPattern).Success)
                 throw new ServiceException("RoomService - RoomNumber contains illegal characters!");
-            }
+        }
+
+        private void CheckFloorNumber(int floor)
+        {
+            if (floor < 0)
+                throw new ServiceException("RoomService - Floor is less than zero!");
         }
     }
 }
