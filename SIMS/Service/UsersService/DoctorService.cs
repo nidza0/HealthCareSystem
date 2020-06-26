@@ -71,7 +71,6 @@ namespace SIMS.Service.UsersService
         public void Delete(Doctor entity)
             => _doctorRepository.Delete(entity);
 
-        //TODO: proveriti
         public void Validate(Doctor user)
             => _userValidation.Validate(user);
 

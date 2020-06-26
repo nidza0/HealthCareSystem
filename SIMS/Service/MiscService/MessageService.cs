@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.Generic;
+using SIMS.Exceptions;
 using SIMS.Model.UserModel;
 using SIMS.Repository.Abstract.MiscAbstractRepository;
 using SIMS.Repository.CSVFileRepository.MiscRepository;
@@ -20,7 +21,6 @@ namespace SIMS.Service.MiscService
         {
             _messageRepository = messageRepository;
         }
-
 
         public IEnumerable<Message> GetSent(User user)
             => _messageRepository.GetSent(user);
@@ -51,7 +51,15 @@ namespace SIMS.Service.MiscService
 
         public void Validate(Message entity)
         {
-            throw new NotImplementedException();
+            if (entity.Sender == null)
+            {
+                throw new ServiceException("MessageService - Sender is not set!");
+            }
+
+            if (entity.Recipient == null)
+            {
+                throw new ServiceException("MessageService - Recipient is not set!");
+            }
         }
     }
 }

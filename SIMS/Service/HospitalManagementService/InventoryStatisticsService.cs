@@ -1,4 +1,5 @@
-﻿using SIMS.Model.ManagerModel;
+﻿using SIMS.Exceptions;
+using SIMS.Model.ManagerModel;
 using SIMS.Repository.CSVFileRepository.HospitalManagementRepository;
 using SIMS.Service.ValidateServices.ValidateHospitalManagementServices;
 using System;
@@ -21,7 +22,7 @@ namespace SIMS.Service.HospitalManagementService
 
         public StatsInventory Create(StatsInventory entity)
         {
-            // TODO: Validate
+            Validate(entity);
             return _inventoryStatisticsRepository.Create(entity);
         }
 
@@ -36,13 +37,21 @@ namespace SIMS.Service.HospitalManagementService
 
         public void Update(StatsInventory entity)
         {
-            // TODO: Validate
+            Validate(entity);
             _inventoryStatisticsRepository.Update(entity);
         }
 
         public void Validate(StatsInventory entity)
         {
-            throw new NotImplementedException();
+            CheckUsage(entity);
+        }
+
+        private void CheckUsage(StatsInventory entity)
+        {
+            if (entity.Usage < 0)
+            {
+                throw new ServiceException("InventoryStatisticsService - usage is less than zero!");
+            }
         }
     }
 }
