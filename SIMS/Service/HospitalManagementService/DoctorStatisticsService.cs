@@ -1,4 +1,5 @@
-﻿using SIMS.Model.ManagerModel;
+﻿using SIMS.Exceptions;
+using SIMS.Model.ManagerModel;
 using SIMS.Model.UserModel;
 using SIMS.Repository.CSVFileRepository.HospitalManagementRepository;
 using SIMS.Service.ValidateServices;
@@ -24,9 +25,8 @@ namespace SIMS.Service.HospitalManagementService
 
         public StatsDoctor Create(StatsDoctor entity)
         {
-            // TODO: Validate
-            _doctorStatisticRepository.Create(entity);
-            return entity;
+            Validate(entity);
+            return _doctorStatisticRepository.Create(entity);
         }
         public void Delete(StatsDoctor entity)
             => _doctorStatisticRepository.Delete(entity);
@@ -39,13 +39,30 @@ namespace SIMS.Service.HospitalManagementService
 
         public void Update(StatsDoctor entity)
         {
-            // TODO: Validate
+            Validate(entity);
             _doctorStatisticRepository.Update(entity);
         }
 
         public void Validate(StatsDoctor entity)
         {
-            throw new NotImplementedException();
+            CheckNumAppointments(entity);
+            CheckDoctor(entity);
+        }
+
+        private void CheckDoctor(StatsDoctor statsDoctor)
+        {
+            if (statsDoctor.Doctor == null)
+            {
+                throw new ServiceException("DoctorStatistics - Doctor is not set!");
+            }
+        }
+
+        private void CheckNumAppointments(StatsDoctor statsDoctor)
+        {
+            if (statsDoctor.NumberOfAppointments < 0)
+            {
+                throw new ServiceException("DoctorStatistics - Average appointment number is less than zero!");
+            }
         }
     }
 }

@@ -45,7 +45,7 @@ namespace SIMS.Util
 
         public void CheckName(string name)
         {
-            if (!Regex.IsMatch(name, Regexes.nameRegex))
+            if (Regex.IsMatch(name, Regexes.illegalNameCharactersRegex))
             {
                 throw new InvalidUserException("Invalid name!");
             }

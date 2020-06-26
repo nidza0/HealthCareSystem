@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml;
 using SIMS.Model.UserModel;
 using SIMS.Repository.Abstract.MiscAbstractRepository;
 using SIMS.Repository.CSVFileRepository.MiscRepository;
@@ -57,7 +58,15 @@ namespace SIMS.Service.MiscService
 
         public void Validate(Article entity)
         {
-            throw new NotImplementedException();
+            CheckAuthor(entity.Author);
+        }
+
+        private void CheckAuthor(User entity)
+        {
+            if (entity.Author == null)
+            {
+                throw new ServiceException("ArticleService - Author is not set!");
+            }
         }
     }
 }
