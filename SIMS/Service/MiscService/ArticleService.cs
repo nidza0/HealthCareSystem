@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using SIMS.Exceptions;
 using SIMS.Model.UserModel;
 using SIMS.Repository.Abstract.MiscAbstractRepository;
 using SIMS.Repository.CSVFileRepository.MiscRepository;
@@ -22,18 +23,8 @@ namespace SIMS.Service.MiscService
             _articleRepository = articleRepository;
         }
 
-        //protected void CheckEditingPermission(Article article, Employee employee)
-        //{
-
-        //}
-
         public IEnumerable<Article> GetArticleByAuthor(Employee author)
             => _articleRepository.GetArticleByAuthor(author);
-
-        //public void ValidateArticle(Article article)
-        //{
-
-        //}
 
         public IEnumerable<Article> GetAll()
             => _articleRepository.GetAllEager();
@@ -57,7 +48,10 @@ namespace SIMS.Service.MiscService
 
         public void Validate(Article entity)
         {
-            throw new NotImplementedException();
+            if (entity.Author == null)
+            {
+                throw new ServiceException("ArticleService - Author is not set!");
+            }
         }
     }
 }

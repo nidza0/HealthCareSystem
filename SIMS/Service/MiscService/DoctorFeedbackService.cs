@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using SIMS.Exceptions;
 using SIMS.Model.DoctorModel;
 using SIMS.Model.UserModel;
 using SIMS.Repository.Abstract.MiscAbstractRepository;
@@ -53,7 +54,10 @@ namespace SIMS.Service.MiscService
 
         public void Validate(DoctorFeedback doctorFeedback)
         {
-            throw new NotImplementedException();
+            if (doctorFeedback.Doctor == null)
+            {
+                throw new ServiceException("DoctorFeedbackService - Doctor is null!");
+            }
         }
 
         public DoctorFeedback GetByPatientDoctor(Patient patient, Doctor doctor)
