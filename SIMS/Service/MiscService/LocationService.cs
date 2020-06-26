@@ -5,6 +5,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
+using SIMS.Exceptions;
 using SIMS.Model.UserModel;
 using SIMS.Repository.Abstract.MiscAbstractRepository;
 using SIMS.Repository.CSVFileRepository.MiscRepository;
@@ -50,7 +52,16 @@ namespace SIMS.Service.MiscService
 
         public void Validate(Location entity)
         {
-            throw new NotImplementedException();
+            string namingPattern = @"[a-zA-Z\\- ]*";
+            if (!Regex.Match(entity.City, namingPattern).Success)
+            {
+                throw new ServiceException("LocationService - City contains illegal characters!");
+            }
+
+            if (!Regex.Match(entity.Country, namingPattern).Success)
+            {
+                throw new ServiceException("LocationService - Country contains illegal characters!");
+            }
         }
     }
 }

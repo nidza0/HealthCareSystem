@@ -1,10 +1,5 @@
 ﻿using SIMS.Exceptions;
 using SIMS.Model.ManagerModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SIMS.Service.ValidateServices.ValidateHospitalManagementServices
 {
@@ -12,20 +7,27 @@ namespace SIMS.Service.ValidateServices.ValidateHospitalManagementServices
     {
         public void Validate(StatsRoom entity)
         {
-            if(entity.AvgAppointmentTime < 0)
-            {
-                throw new ServiceException("RoomStatisticsService - AvgAppointmentTime is less than zero!");
-            }
+            CheckAppointmentTime(entity.AvgAppointmentTime);
+            CheckTimeOccupied(entity.TimeOccupied);
+            CheckUsage(entity.Usage); 
+        }
 
-            if(entity.TimeOccupied < 0)
-            {
-                throw new ServiceException("RoomStatisticsService - TimeOccupied is less than zero!");
-            }
-
-            if (entity.Usage < 0)
-            {
+        private void CheckUsage(double usage)
+        {
+            if (usage < 0)
                 throw new ServiceException("RoomStatisticsService - Usage is less than zero!");
-            }
+        }
+
+        private void CheckTimeOccupied(double timeOccupied)
+        {
+            if (timeOccupied < 0)
+                throw new ServiceException("RoomStatisticsService - TimeOccupied is less than zero!");
+        }
+
+        private void CheckAppointmentTime(int avgAppointmentTime)
+        {
+            if (avgAppointmentTime < 0)
+                throw new ServiceException("RoomStatisticsService - AvgAppointmentTime is less than zero!");
         }
     }
 }
