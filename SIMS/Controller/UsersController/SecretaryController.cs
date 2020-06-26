@@ -34,5 +34,8 @@ namespace SIMS.Controller.UsersController
 
         public void Update(Secretary secretary)
             => secretaryService.Update(secretary);
+
+        public void Login(Secretary user)
+            => secretaryService.Login(user);
     }
 }

@@ -8,6 +8,9 @@ using System.Collections.Generic;
 using SIMS.Model.PatientModel;
 using SIMS.Repository.Abstract.MedicalAbstractRepository;
 using SIMS.Repository.CSVFileRepository.MedicalRepository;
+using System.Text.RegularExpressions;
+using SIMS.Util;
+using SIMS.Exceptions;
 
 namespace SIMS.Service.MedicalService
 {
@@ -34,7 +37,7 @@ namespace SIMS.Service.MedicalService
 
         public Disease Create(Disease entity)
         {
-            // TODO: Validate
+            Validate(entity);
             return _diseaseRepository.Create(entity);
         }
 
@@ -43,13 +46,14 @@ namespace SIMS.Service.MedicalService
 
         public void Update(Disease entity)
         {
-            // TODO: Validate
+            Validate(entity);
             _diseaseRepository.Update(entity);
         }
 
         public void Validate(Disease entity)
         {
-            throw new NotImplementedException();
+            if (Regex.IsMatch(Regexes.diseaseName, entity.Name))
+                throw new DiseaseServiceException("Disease name is not valid!");
         }
     }
 }

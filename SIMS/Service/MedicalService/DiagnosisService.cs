@@ -44,7 +44,7 @@ namespace SIMS.Service.MedicalService
 
         public void Validate(Diagnosis entity)
         {
-            throw new NotImplementedException();
+            //Nothing to validate.
         }
     }
 }

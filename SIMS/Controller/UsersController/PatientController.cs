@@ -70,6 +70,9 @@ namespace SIMS.Controller.UsersController
 
         public Prescription GivePrescription(Therapy therapy, Prescription prescription)
             => therapyService.SetPerscription(therapy, prescription);
+
+        public void Login(Patient user)
+            => patientService.Login(user);
         
     }
 }

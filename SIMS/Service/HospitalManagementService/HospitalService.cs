@@ -58,7 +58,7 @@ namespace SIMS.Service.HospitalManagementService
         {
             if (!Regex.Match(hospital.Telephone, Regexes.phoneRegex).Success)
             {
-                throw new ServiceException("Hospital Service - Telephone is not valid!");
+                throw new HospitalServiceException("Hospital Service - Telephone is not valid!");
             }
         }
 
@@ -66,7 +66,7 @@ namespace SIMS.Service.HospitalManagementService
         { 
             if(Regex.IsMatch(Regexes.nameRegex, hospital.Name))
             {
-                throw new ServiceException("Hospital Service - Name is not valid!");
+                throw new HospitalServiceException("Hospital Service - Name is not valid!");
             }
         }
 

@@ -36,13 +36,13 @@ namespace SIMS.Service.MiscService
 
         public Message Create(Message entity)
         {
-            // TODO: Validate
+            Validate(entity);
             return _messageRepository.Create(entity);
         }
 
         public void Update(Message entity)
         {
-            // TODO: Validate
+            Validate(entity);
             _messageRepository.Create(entity);
         }
 
@@ -53,12 +53,12 @@ namespace SIMS.Service.MiscService
         {
             if (entity.Sender == null)
             {
-                throw new ServiceException("MessageService - Sender is not set!");
+                throw new MessageServiceException("MessageService - Sender is not set!");
             }
 
             if (entity.Recipient == null)
             {
-                throw new ServiceException("MessageService - Recipient is not set!");
+                throw new MessageServiceException("MessageService - Recipient is not set!");
             }
         }
     }

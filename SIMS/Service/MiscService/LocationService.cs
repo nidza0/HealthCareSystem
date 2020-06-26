@@ -37,13 +37,13 @@ namespace SIMS.Service.MiscService
 
         public Location Create(Location entity)
         {
-            // TODO: Validate
+            Validate(entity);
             return _locationRepository.Create(entity);
         }
 
         public void Update(Location entity)
         {
-            // TODO: Validate
+            Validate(entity);
             _locationRepository.Update(entity);
         }
 
@@ -55,12 +55,12 @@ namespace SIMS.Service.MiscService
             string namingPattern = @"[a-zA-Z\\- ]*";
             if (!Regex.Match(entity.City, namingPattern).Success)
             {
-                throw new ServiceException("LocationService - City contains illegal characters!");
+                throw new LocationCityException("LocationService - City contains illegal characters!");
             }
 
             if (!Regex.Match(entity.Country, namingPattern).Success)
             {
-                throw new ServiceException("LocationService - Country contains illegal characters!");
+                throw new LocationCountryException("LocationService - Country contains illegal characters!");
             }
         }
     }
