@@ -12,6 +12,7 @@ using SIMS.Model.DoctorModel;
 using SIMS.Model.UserModel;
 using SIMS.Repository.Abstract.MiscAbstractRepository;
 using SIMS.Repository.CSVFileRepository.MiscRepository;
+using SIMS.Service.ValidateServices.ValidateMiscService;
 
 namespace SIMS.Service.MiscService
 {
@@ -56,7 +57,7 @@ namespace SIMS.Service.MiscService
         {
             if (doctorFeedback.Doctor == null)
             {
-                throw new ServiceException("DoctorFeedbackService - Doctor is null!");
+                throw new DoctorFeedbackServiceException("DoctorFeedbackService - Doctor is null!");
             }
         }
 
@@ -71,13 +72,13 @@ namespace SIMS.Service.MiscService
 
         public DoctorFeedback Create(DoctorFeedback entity)
         {
-            // TODO: Validate
+            Validate(entity);
             return _doctorFeedbackRepository.Create(entity);
         }
 
         public void Update(DoctorFeedback entity)
         {
-            // TODO: Validate
+            Validate(entity);
             _doctorFeedbackRepository.Update(entity);
         }
 
