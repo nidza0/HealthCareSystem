@@ -74,7 +74,7 @@ namespace SIMS.View.ViewSecretary.ViewModel
                 {
                     if (doc.TimeTable.getWorkingHours().ContainsKey(day))
                     {
-                        if (doc.TimeTable.getWorkingHours()[day].IsDateTimeBetween(DateTime.Now))
+                        if (doc.TimeTable.getWorkingHours()[day].IsTimeBetween(new TimeInterval(DateTime.Now, DateTime.Now.AddMinutes(10))))
                         {
                             Doctors.Add(doc);
                         }
