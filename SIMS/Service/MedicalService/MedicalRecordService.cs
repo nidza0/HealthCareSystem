@@ -66,8 +66,11 @@ namespace SIMS.Service.MedicalService
             => _medicalRecordRepository.GetEager(id);
 
         public MedicalRecord Create(MedicalRecord entity){
+            // TODO: Validate (if patient is null)
+
             Patient patient = entity.Patient;
             MedicalRecord patientMedicalRecord = GetPatientMedicalRecord(patient);
+
             if (patientMedicalRecord != null)
             {
                 //Patient already has a medical record, therefore we don't want to create a new one.
@@ -82,7 +85,14 @@ namespace SIMS.Service.MedicalService
             => _medicalRecordRepository.Delete(entity);
 
         public void Update(MedicalRecord entity)
-            => _medicalRecordRepository.Update(entity);
+        {
+            // TODO; Validate
+            _medicalRecordRepository.Update(entity);
+        }
 
+        public void Validate(MedicalRecord entity)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

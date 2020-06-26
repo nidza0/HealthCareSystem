@@ -73,12 +73,23 @@ namespace SIMS.Service.MedicalService
             => _therapyRepository.GetEager(id);
 
         public Therapy Create(Therapy entity)
-            => _therapyRepository.Create(entity);
+        {
+            // TODO: Validate
+            return _therapyRepository.Create(entity);
+        }
 
         public void Delete(Therapy entity)
             => _therapyRepository.Delete(entity);
 
         public void Update(Therapy entity)
-            => _therapyRepository.Update(entity);
+        {
+            // TODO: Validate
+            _therapyRepository.Update(entity);
+        }
+
+        public void Validate(Therapy entity)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -64,6 +64,7 @@
     <Compile Include="Exceptions\InvalidTimeException.cs" />
     <Compile Include="Exceptions\InvalidUserException.cs" />
     <Compile Include="Exceptions\MedicalRecordServiceException.cs" />
+    <Compile Include="Exceptions\ServiceException.cs" />
     <Compile Include="Model\UserModel\Question.cs" />
     <Compile Include="Repository\Abstract\HospitalManagementAbstractRepository\IDoctorStatisticRepository.cs" />
     <Compile Include="Repository\Abstract\HospitalManagementAbstractRepository\IInventoryStatisticsRepository.cs" />
@@ -210,6 +211,22 @@
     <Compile Include="Service\UsersService\ManagerService.cs" />
     <Compile Include="Service\UsersService\PatientService.cs" />
     <Compile Include="Service\UsersService\SecretaryService.cs" />
+    <Compile Include="Service\ValidateServices\IValidateService.cs" />
+    <Compile Include="Service\ValidateServices\ValidateHospitalManagementServices\ValidateDoctorStatistics.cs" />
+    <Compile Include="Service\ValidateServices\ValidateHospitalManagementServices\ValidateHospital.cs" />
+    <Compile Include="Service\ValidateServices\ValidateHospitalManagementServices\ValidateInventoryStatistics.cs" />
+    <Compile Include="Service\ValidateServices\ValidateHospitalManagementServices\ValidateMedicine.cs" />
+    <Compile Include="Service\ValidateServices\ValidateHospitalManagementServices\ValidateRoom.cs" />
+    <Compile Include="Service\ValidateServices\ValidateHospitalManagementServices\ValidateRoomStatistics.cs" />
+    <Compile Include="Service\ValidateServices\ValidateMedicalService\ValidateDisease.cs" />
+    <Compile Include="Service\ValidateServices\ValidateMedicalService\ValidateMedicalRecord.cs" />
+    <Compile Include="Service\ValidateServices\ValidateMedicalService\ValidateTherapy.cs" />
+    <Compile Include="Service\ValidateServices\ValidateMiscService\ValidateArticle.cs" />
+    <Compile Include="Service\ValidateServices\ValidateMiscService\ValidateDoctorFeedback.cs" />
+    <Compile Include="Service\ValidateServices\ValidateMiscService\ValidateFeedback.cs" />
+    <Compile Include="Service\ValidateServices\ValidateMiscService\ValidateLocation.cs" />
+    <Compile Include="Service\ValidateServices\ValidateMiscService\ValidateMessage.cs" />
+    <Compile Include="Service\ValidateServices\ValidateMiscService\ValidateNotification.cs" />
     <Compile Include="Specifications\AndSpecification.cs" />
     <Compile Include="Specifications\CompositeSpecification.cs" />
     <Compile Include="Specifications\Converter\AppointmentSpecificationConverter.cs" />
@@ -225,8 +242,10 @@
     <Compile Include="Util\IPersonValidation.cs" />
     <Compile Include="Util\IUserValidation.cs" />
     <Compile Include="Util\MedicineFilter.cs" />
+    <Compile Include="Util\Regexes.cs" />
     <Compile Include="Util\TherapyFilter.cs" />
     <Compile Include="Util\TimeInterval.cs" />
+    <Compile Include="Util\UserValidation.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

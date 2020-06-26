@@ -15,6 +15,7 @@ namespace SIMS.Service.HospitalManagementService
     {
 
         MedicineRepository _medicineRepository;
+        
 
         public MedicineService(MedicineRepository medicineRepository)
         {
@@ -43,15 +44,26 @@ namespace SIMS.Service.HospitalManagementService
             => _medicineRepository.GetByID(id);
 
         public Medicine Create(Medicine entity)
-            => _medicineRepository.Create(entity);
+        {
+            // TODO: Validate
+            return _medicineRepository.Create(entity);
+        }
 
         public void Update(Medicine entity)
-            => _medicineRepository.Update(entity);
+        {   
+            // TODO: Validate
+            _medicineRepository.Update(entity);
+        }
 
         public void Delete(Medicine entity)
             => _medicineRepository.Delete(entity);
 
         void IService<Medicine, long>.Update(Medicine entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Validate(Medicine entity)
         {
             throw new NotImplementedException();
         }

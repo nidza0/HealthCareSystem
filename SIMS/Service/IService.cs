@@ -20,5 +20,7 @@ namespace SIMS.Service
 
         void Delete(T entity);
 
+        void Validate(T entity);
+
     }
 }

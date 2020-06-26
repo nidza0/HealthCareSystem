@@ -76,15 +76,26 @@ namespace SIMS.Service.HospitalManagementService
             => this.GetAll().SingleOrDefault(room => room.GetId() == id);
 
         public Room Create(Room entity)
-            => _roomRepository.Create(entity);
+        {
+            // TODO: Validate
+            return _roomRepository.Create(entity);
+        }
 
         public void Update(Room entity)
-            => _roomRepository.Update(entity);
+        {
+            // TODO: Validate
+            _roomRepository.Update(entity);
+        }
 
         public void Delete(Room entity)
             => _roomRepository.Delete(entity);
 
         void IService<Room, long>.Update(Room entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Validate(Room entity)
         {
             throw new NotImplementedException();
         }

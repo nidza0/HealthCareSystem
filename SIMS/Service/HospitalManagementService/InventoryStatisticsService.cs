@@ -1,5 +1,6 @@
 ﻿using SIMS.Model.ManagerModel;
 using SIMS.Repository.CSVFileRepository.HospitalManagementRepository;
+using SIMS.Service.ValidateServices.ValidateHospitalManagementServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,10 @@ namespace SIMS.Service.HospitalManagementService
         }
 
         public StatsInventory Create(StatsInventory entity)
-            => _inventoryStatisticsRepository.Create(entity);
+        {
+            // TODO: Validate
+            return _inventoryStatisticsRepository.Create(entity);
+        }
 
         public void Delete(StatsInventory entity)
             => _inventoryStatisticsRepository.Delete(entity);
@@ -31,6 +35,14 @@ namespace SIMS.Service.HospitalManagementService
             => this.GetAll().SingleOrDefault(stat => stat.GetId() == id);
 
         public void Update(StatsInventory entity)
-            => _inventoryStatisticsRepository.Update(entity);
+        {
+            // TODO: Validate
+            _inventoryStatisticsRepository.Update(entity);
+        }
+
+        public void Validate(StatsInventory entity)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

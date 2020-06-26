@@ -70,6 +70,11 @@ namespace SIMS.Service.HospitalManagementService
         public void Delete(Inventory entity)
             => _inventoryRepository.Delete(entity);
 
+        public void Validate(Inventory entity)
+        {
+            throw new NotImplementedException();
+        }
+
         public IInventoryRepository iInventoryRepository;
 
     }

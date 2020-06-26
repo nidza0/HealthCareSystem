@@ -32,14 +32,23 @@ namespace SIMS.Service.MiscService
             => GetAll().SingleOrDefault(notification => notification.GetId() == id);
 
         public Notification Create(Notification entity)
-            => _notificationRepository.Create(entity);
+        {
+            // TODO: Validate
+            return _notificationRepository.Create(entity);
+        }
 
         public void Update(Notification entity)
-            => _notificationRepository.Update(entity);
+        {
+            // TODO: Validate
+            _notificationRepository.Update(entity);
+        }
 
         public void Delete(Notification entity)
             => _notificationRepository.Delete(entity);
 
-
+        public void Validate(Notification entity)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

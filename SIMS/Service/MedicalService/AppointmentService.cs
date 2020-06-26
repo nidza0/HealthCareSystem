@@ -45,6 +45,11 @@ namespace SIMS.Service.MedicalService
             {
                 throw new IllegalAppointmentBooking();
             }
+
+            if (!CheckRoomSchedules(appointment))
+            {
+                throw new IllegalAppointmentBooking();
+            }
         }
 
         protected bool CheckDoctorSchedule(Appointment appointment)
@@ -167,9 +172,10 @@ namespace SIMS.Service.MedicalService
                 _appointmentRepository.Update(entity);
             }
         }
-            
 
-
-
+        public void Validate(Appointment entity)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -22,7 +22,10 @@ namespace SIMS.Service.MiscService
         }
 
         public Feedback Create(Feedback entity)
-            => _feedbackRepository.Create(entity);
+        {
+            // TODO: Validate
+            return _feedbackRepository.Create(entity);
+        }
 
         public void Delete(Feedback entity)
             => _feedbackRepository.Delete(entity);
@@ -34,7 +37,14 @@ namespace SIMS.Service.MiscService
             => GetAll().SingleOrDefault(feedback => feedback.GetId() == id);
 
         public void Update(Feedback entity)
-            => _feedbackRepository.Update(entity);
+        {
+            // TODO: Validate
+            _feedbackRepository.Update(entity);
+        }
 
+        public void Validate(Feedback entity)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

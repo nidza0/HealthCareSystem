@@ -34,13 +34,23 @@ namespace SIMS.Service.MiscService
             => _locationRepository.GetByID(id);
 
         public Location Create(Location entity)
-            => _locationRepository.Create(entity);
+        {
+            // TODO: Validate
+            return _locationRepository.Create(entity);
+        }
 
         public void Update(Location entity)
-            => _locationRepository.Update(entity);
+        {
+            // TODO: Validate
+            _locationRepository.Update(entity);
+        }
 
         public void Delete(Location entity)
             => _locationRepository.Delete(entity);
 
+        public void Validate(Location entity)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

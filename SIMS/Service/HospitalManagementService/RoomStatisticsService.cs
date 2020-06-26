@@ -19,7 +19,10 @@ namespace SIMS.Service.HospitalManagementService
         }
 
         public StatsRoom Create(StatsRoom entity)
-            => _roomStatisticsRepository.Create(entity);
+        {
+            // TODO: Validate
+            return _roomStatisticsRepository.Create(entity);
+        }
 
         public void Delete(StatsRoom entity)
             => _roomStatisticsRepository.Delete(entity);
@@ -31,6 +34,14 @@ namespace SIMS.Service.HospitalManagementService
             => this.GetAll().SingleOrDefault(stat => stat.GetId() == id);
 
         public void Update(StatsRoom entity)
-            => _roomStatisticsRepository.Update(entity);
+        {
+            // TODO: Validate
+            _roomStatisticsRepository.Update(entity);
+        }
+
+        public void Validate(StatsRoom entity)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

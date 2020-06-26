@@ -55,5 +55,9 @@ namespace SIMS.Service.MiscService
             throw new NotImplementedException();
         }
 
+        public void Validate(Article entity)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -18,9 +18,9 @@ namespace SIMS.Service.MedicalService
             DateTime EndTime = appointment.TimeInterval.EndTime;
 
             if (StartTime.CompareTo(DateTime.Now.AddMinutes(minMinutes)) < 0)
-                throw new InvalidTimeException();
+                throw new IllegalAppointmentBooking("Time invalid!");
             else if (StartTime.CompareTo(EndTime) > 0)
-                throw new InvalidTimeException();
+                throw new IllegalAppointmentBooking("Time invalid!");
 
         }
 
@@ -30,14 +30,14 @@ namespace SIMS.Service.MedicalService
             {
                 if (appointment.DoctorInAppointment.DocTypeEnum != Model.DoctorModel.DocTypeEnum.FAMILYMEDICINE)
                 {
-                    throw new IllegalAppointmentBooking();
+                    throw new IllegalAppointmentBooking("Family medicine doctor can not book operation!");
                 }
             }
             else if (appointment.AppointmentType == AppointmentType.renovation)
             {
                 if (appointment.DoctorInAppointment != null || appointment.Patient != null)
                 {
-                    throw new IllegalAppointmentBooking();
+                    throw new IllegalAppointmentBooking("Doctor and patient can not be in renovation appointment!");
                 }
             }
         }

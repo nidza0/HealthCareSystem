@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using SIMS.Model.UserModel;
 using SIMS.Repository.Abstract.HospitalManagementAbstractRepository;
 using SIMS.Repository.CSVFileRepository.HospitalManagementRepository;
+using SIMS.Service.ValidateServices.ValidateHospitalManagementServices;
 
 namespace SIMS.Service.HospitalManagementService
 {
@@ -30,13 +31,24 @@ namespace SIMS.Service.HospitalManagementService
             => _hospitalRepository.GetByID(id);
 
         public Hospital Create(Hospital entity)
-            => _hospitalRepository.Create(entity);
+        {
+            // TODO: Validate
+            return _hospitalRepository.Create(entity);
+        }
 
         public void Update(Hospital entity)
-            => _hospitalRepository.Update(entity);
+        {
+            // TODO: Validate
+            _hospitalRepository.Update(entity);
+        }
 
         public void Delete(Hospital entity)
             => _hospitalRepository.Delete(entity);
+
+        public void Validate(Hospital entity)
+        {
+            throw new NotImplementedException();
+        }
 
         public IHospitalRepository iHospitalRepository;
 

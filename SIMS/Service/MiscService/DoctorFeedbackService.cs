@@ -66,10 +66,16 @@ namespace SIMS.Service.MiscService
             => GetAll().SingleOrDefault(df => df.GetId() == id);
 
         public DoctorFeedback Create(DoctorFeedback entity)
-            => _doctorFeedbackRepository.Create(entity);
+        {
+            // TODO: Validate
+            return _doctorFeedbackRepository.Create(entity);
+        }
 
         public void Update(DoctorFeedback entity)
-            => _doctorFeedbackRepository.Update(entity);
+        {
+            // TODO: Validate
+            _doctorFeedbackRepository.Update(entity);
+        }
 
         public void Delete(DoctorFeedback entity)
             => _doctorFeedbackRepository.Delete(entity);

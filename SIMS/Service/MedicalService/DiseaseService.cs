@@ -33,12 +33,23 @@ namespace SIMS.Service.MedicalService
             => _diseaseRepository.GetEager(id);
 
         public Disease Create(Disease entity)
-            => _diseaseRepository.Create(entity);
+        {
+            // TODO: Validate
+            return _diseaseRepository.Create(entity);
+        }
 
         public void Delete(Disease entity)
             => _diseaseRepository.Delete(entity);
 
         public void Update(Disease entity)
-            => _diseaseRepository.Update(entity);
+        {
+            // TODO: Validate
+            _diseaseRepository.Update(entity);
+        }
+
+        public void Validate(Disease entity)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

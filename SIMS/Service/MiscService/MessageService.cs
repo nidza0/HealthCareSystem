@@ -35,14 +35,23 @@ namespace SIMS.Service.MiscService
             => _messageRepository.GetByID(id);
 
         public Message Create(Message entity)
-            => _messageRepository.Create(entity);
+        {
+            // TODO: Validate
+            return _messageRepository.Create(entity);
+        }
 
         public void Update(Message entity)
-            => _messageRepository.Create(entity);
+        {
+            // TODO: Validate
+            _messageRepository.Create(entity);
+        }
 
         public void Delete(Message entity)
             => _messageRepository.Delete(entity);
 
-
+        public void Validate(Message entity)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
