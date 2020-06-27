@@ -40,6 +40,18 @@ namespace SIMS.Model.PatientModel
         public int MinNumber { get => _minNumber; set => _minNumber = value; }
         public long Id { get => _id; set => _id = value; }
 
+        public override bool Equals(object obj)
+        {
+            var item = obj as Item;
+            return item != null &&
+                   _id == item._id;
+        }
+
+        public override int GetHashCode()
+        {
+            return 1969571243 + _id.GetHashCode();
+        }
+
         public long GetId()
             => _id;
 

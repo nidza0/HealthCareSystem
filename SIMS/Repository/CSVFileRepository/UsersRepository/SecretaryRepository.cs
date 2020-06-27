@@ -34,7 +34,13 @@ namespace SIMS.Repository.CSVFileRepository.UsersRepository
         public new Secretary Create(Secretary secretary)
         {
             if (IsUsernameUnique(secretary.UserName))
-                return base.Create(secretary);
+            {
+                secretary.DateCreated = DateTime.Now;
+
+                secretary = base.Create(secretary);
+                _userRepository.AddUser(secretary);
+                return secretary;
+            }
             else
                 throw new NotUniqueException(string.Format(NOT_UNIQUE_ERROR, secretary.UserName));
         }
@@ -54,11 +60,17 @@ namespace SIMS.Repository.CSVFileRepository.UsersRepository
         {
             var secretary = GetByID(id);
             var timetables = _timeTableRepository.GetAll();
-            secretary.TimeTable = timetables.SingleOrDefault(timetable => timetable.GetId() == secretary.TimeTable.GetId());
+            secretary.TimeTable = GetTimeTableById(secretary.TimeTable, timetables);
             var hospitals = _hospitalRepository.GetAll();
-            secretary.Hospital = hospitals.SingleOrDefault(hospital => hospital.GetId() == secretary.Hospital.GetId());
+            secretary.Hospital = GetHospitalById(secretary.Hospital, hospitals);
             return secretary;
         }
+
+        private Hospital GetHospitalById(Hospital hospitalId, IEnumerable<Hospital> hospitals)
+            => hospitalId == null ? null : hospitals.SingleOrDefault(h => h.GetId() == hospitalId.GetId());
+
+        private TimeTable GetTimeTableById(TimeTable timeTableId, IEnumerable<TimeTable> timetables)
+            => timeTableId == null ? null : timetables.SingleOrDefault(t => t.GetId() == timeTableId.GetId());
 
         private void Bind(IEnumerable<Secretary> secretaries)
         {
@@ -70,9 +82,9 @@ namespace SIMS.Repository.CSVFileRepository.UsersRepository
         }
 
         private void BindSecretariesWithTimetables(IEnumerable<Secretary> secretaries, IEnumerable<TimeTable> timetables)
-            => secretaries.ToList().ForEach(secretary => secretary.TimeTable = timetables.SingleOrDefault(timetable => timetable.GetId() == secretary.TimeTable.GetId()));
+            => secretaries.ToList().ForEach(secretary => secretary.TimeTable = GetTimeTableById(secretary.TimeTable, timetables));
 
         private void BindSecretariesWithHospitals(IEnumerable<Secretary> secretaries, IEnumerable<Hospital> hospitals)
-            => secretaries.ToList().ForEach(secretary => secretary.Hospital = hospitals.SingleOrDefault(hospital => hospital.GetId() == secretary.Hospital.GetId()));
+            => secretaries.ToList().ForEach(secretary => secretary.Hospital = GetHospitalById(secretary.Hospital, hospitals));
     }
 }

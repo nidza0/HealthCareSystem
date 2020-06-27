@@ -14,12 +14,9 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.HospitalManagementConv
     public class RoomConverter : ICSVConverter<Room>
     {
         private readonly string _delimiter = ",";
-        private readonly string _listDelimiter = ";";
 
-        public RoomConverter(string delimiter, string listDelimiter)
+        public RoomConverter()
         {
-            _delimiter = delimiter;
-            _listDelimiter = listDelimiter;
         }
 
         public Room ConvertCSVToEntity(string roomCSVFormat)
@@ -29,8 +26,7 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.HospitalManagementConv
                             tokens[1],
                             bool.Parse(tokens[2]),
                             int.Parse(tokens[3]),
-                            (RoomType) Enum.Parse(typeof(RoomType),tokens[4]),
-                            (tokens[5] == "") ? new List<InventoryItem>() : GetInventoryItemsCSVlist(tokens[5].Split(_listDelimiter.ToCharArray()))
+                            (RoomType) Enum.Parse(typeof(RoomType),tokens[4])
                             );
         }
 
@@ -40,15 +36,8 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.HospitalManagementConv
                            room.RoomNumber,
                            room.Occupied,
                            room.Floor,
-                           room.RoomType,
-                           GetInventoryItemsCSVstring(room.InventoryItem));
-
-
-        private string GetInventoryItemsCSVstring(List<InventoryItem> inventoryItem)
-           => string.Join(_listDelimiter, inventoryItem.Select(room => room.GetId()));
-
-        private List<InventoryItem> GetInventoryItemsCSVlist(string[] ids)
-            => ids.ToList().ConvertAll(x => new InventoryItem(long.Parse(x)));
+                           room.RoomType
+                           );
 
     }
 }

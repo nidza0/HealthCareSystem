@@ -22,12 +22,20 @@ namespace SIMS.Util
             _endTime = endTime;
         }
 
-        public bool IsTimeBetween(DateTime dateTime)
+        public bool IsDateTimeBetween(DateTime dateTime)
             => ((dateTime >= StartTime) && (dateTime <= EndTime));
+
+        public bool IsDateTimeBetween(TimeInterval timeInterval)
+        {
+            return (timeInterval.StartTime >= StartTime) && (timeInterval.EndTime <= EndTime);
+        }
 
         public bool IsTimeBetween(TimeInterval timeInterval)
         {
-            return (timeInterval.StartTime >= StartTime) && (timeInterval.EndTime <= EndTime);
+            //Note (Gergo) : This method ignores date values and compares only time values, useful when comparing timetable time with actual datetime
+            DateTime compareStart = new DateTime(StartTime.Year, StartTime.Month, StartTime.Day, timeInterval.StartTime.Hour, timeInterval.StartTime.Minute, timeInterval.StartTime.Second);
+            DateTime compareEnd = new DateTime(EndTime.Year, EndTime.Month, EndTime.Day, timeInterval.EndTime.Hour, timeInterval.EndTime.Minute, timeInterval.EndTime.Second);
+            return (compareStart >= StartTime) && (compareEnd <= EndTime);
         }
 
         public bool IsOverlappingWith(TimeInterval timeInterval)

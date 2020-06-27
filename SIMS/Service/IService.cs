@@ -16,9 +16,11 @@ namespace SIMS.Service
 
         T Create(T entity);
 
-        T Update(T entity);
+        void Update(T entity);
 
         void Delete(T entity);
+
+        void Validate(T entity);
 
     }
 }

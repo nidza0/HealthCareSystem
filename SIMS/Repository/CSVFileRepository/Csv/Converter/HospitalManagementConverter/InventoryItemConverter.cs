@@ -16,11 +16,10 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.HospitalManagementConv
         //private int _minNumber;
         //private long _id;
         //private Room _room;
-        private readonly string _delimiter;
+        private readonly string _delimiter = ">";
 
-        public InventoryItemConverter(string delimiter)
+        public InventoryItemConverter()
         {
-            _delimiter = delimiter;
         }
         public InventoryItem ConvertCSVToEntity(string csv)
         {

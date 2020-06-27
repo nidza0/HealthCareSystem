@@ -12,13 +12,11 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.HospitalManagementConv
 {
     public class HospitalConverter : ICSVConverter<Hospital>
     {
-        private readonly string _delimiter = ",";
-        private readonly string _listDelimiter = ";"; //Delimiter used for separating room IDs.
+        private readonly string _delimiter = "|";
+        private readonly string _listDelimiter = "~"; //Delimiter used for separating room IDs.
 
-        public HospitalConverter(string delimiter, string listDelimiter)
+        public HospitalConverter()
         {
-            _delimiter = delimiter;
-            _listDelimiter = listDelimiter;
         }
 
         public Hospital ConvertCSVToEntity(string csv)
@@ -50,7 +48,7 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.HospitalManagementConv
                 GetEmployeeIDSCSVstring(entity.Employee));
 
         private string GetAddressCSVstring(Address address)
-           => string.Join(_listDelimiter, address.Street, address.Location.GetId());
+           => string.Join(_listDelimiter, address.Street, address.Location.GetId(), address.Location.Country, address.Location.City);
 
         private string GetRoomIDSCSVstring(IEnumerable<Room> roomList)
             => string.Join(_listDelimiter, roomList.Select(room => room.GetId()));
@@ -68,7 +66,7 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.HospitalManagementConv
             => ids.ToList().ConvertAll(x => new Employee(new UserID(x)));
 
         private Address GetDummyAddress(string[] data)
-            => new Address(data[0], new Location(long.Parse(data[1])));
+            => new Address(data[0], new Location(long.Parse(data[1]), data[2], data[3]));
 
     }
 }

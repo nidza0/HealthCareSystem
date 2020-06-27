@@ -19,19 +19,19 @@ namespace SIMS.Specifications.Converter
         {
             _filter = filter;
         }
-        private ISpecification<Appointment> GetSpecificationByDoctorType(DocTypeEnum type)
+        private ISpecification<Appointment> GetSpecificationByDoctorType(DoctorType type)
         {
-            return new ExpressionSpecification<Appointment>(o => o.DoctorInAppointment.DocTypeEnum == type);
+            return new ExpressionSpecification<Appointment>(o => o.DoctorInAppointment == null ? false : o.DoctorInAppointment.DoctorType == type);
         }
 
         private ISpecification<Appointment> GetSpecificationByDoctor(Doctor doctor)
         {
-            return new ExpressionSpecification<Appointment>(o => o.DoctorInAppointment.Equals(doctor));
+            return new ExpressionSpecification<Appointment>(o => o.DoctorInAppointment == null ? false : o.DoctorInAppointment.Equals(doctor));
         }
 
         private ISpecification<Appointment> GetSpecificationByTimeInterval(Util.TimeInterval timeInterval)
         {
-            return new ExpressionSpecification<Appointment>(o => o.TimeInterval.Equals(timeInterval));
+            return new ExpressionSpecification<Appointment>(o => o.TimeInterval == null ? false : o.TimeInterval.Equals(timeInterval));
         }
 
         private ISpecification<Appointment> GetSpecificationByType(AppointmentType type)
@@ -39,23 +39,24 @@ namespace SIMS.Specifications.Converter
             return new ExpressionSpecification<Appointment>(o => o.AppointmentType.Equals(type));
         }
 
-        public ISpecification<Appointment> GetSpecification(AppointmentFilter filter)
+        public ISpecification<Appointment> GetSpecification()
         {
             ISpecification<Appointment> specification = new ExpressionSpecification<Appointment>(o => true);
             
-            specification = specification.And(GetSpecificationByType(filter.Type));
+            specification = specification.And(GetSpecificationByType(_filter.Type));
 
-            if(filter.TimeInterval != null)
+            if(_filter.TimeInterval != null)
             {
-                specification = specification.And(GetSpecificationByTimeInterval(filter.TimeInterval));
+                specification = specification.And(GetSpecificationByTimeInterval(_filter.TimeInterval));
             }
 
-            if(filter.Doctor != null)
+            if(_filter.Doctor != null)
             {
-                specification = specification.And(GetSpecificationByDoctor(filter.Doctor));
+                specification = specification.And(GetSpecificationByDoctor(_filter.Doctor));
             }
 
-            specification = specification.And(GetSpecificationByDoctorType(filter.DoctorType));
+            if(_filter.DoctorType != DoctorType.UNDEFINED)
+                specification = specification.And(GetSpecificationByDoctorType(_filter.DoctorType));
 
             return specification;
         }

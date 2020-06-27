@@ -13,42 +13,33 @@ namespace SIMS.Controller.MedicalController
 {
     public class DiseaseController : IController<Disease, long>
     {
-        public IEnumerable<Disease> GetDiseasesBySymptoms(IEnumerable<Symptom> symptoms)
+        public DiseaseService diseaseService;
+
+        public DiseaseController(DiseaseService diseaseService)
         {
-            throw new NotImplementedException();
+            this.diseaseService = diseaseService;
         }
+
+        public IEnumerable<Disease> GetDiseasesBySymptoms(IEnumerable<Symptom> symptoms)
+            => diseaseService.GetDiseasesBySymptoms(symptoms);
 
         public IEnumerable<Disease> GetDiseasesByType(DiseaseType type)
-        {
-            throw new NotImplementedException();
-        }
+            => diseaseService.GetDiseasesByType(type);
 
         public IEnumerable<Disease> GetAll()
-        {
-            throw new NotImplementedException();
-        }
+            => diseaseService.GetAll();
 
         public Disease GetByID(long id)
-        {
-            throw new NotImplementedException();
-        }
+            => diseaseService.GetByID(id);
 
         public Disease Create(Disease entity)
-        {
-            throw new NotImplementedException();
-        }
+            => diseaseService.Create(entity);
 
-        public Disease Update(Disease entity)
-        {
-            throw new NotImplementedException();
-        }
+        public void Update(Disease entity)
+            => diseaseService.Update(entity);
 
         public void Delete(Disease entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public DiseaseService diseaseService;
+            => diseaseService.Delete(entity);
 
     }
 }

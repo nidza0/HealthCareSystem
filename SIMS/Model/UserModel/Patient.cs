@@ -44,6 +44,29 @@ namespace SIMS.Model.UserModel
             _emergencyContact = emergencyContact;
         }
 
+        public Patient(string userName,
+                        string password,
+                        string name,
+                        string surname,
+                        string middleName,
+                        Sex sex,
+                        DateTime dateOfBirth,
+                        string uidn,
+                        Address address,
+                        string homePhone,
+                        string cellPhone,
+                        string email1,
+                        string email2,
+                        EmergencyContact emergencyContact,
+                        PatientType patientType,
+                        Doctor selectedDoctor)
+            : base(userName, password, name, surname, middleName, sex, dateOfBirth, uidn, address, homePhone, cellPhone, email1, email2)
+        {
+            _patientType = patientType;
+            _selectedDoctor = selectedDoctor;
+            _emergencyContact = emergencyContact;
+        }
+
         public Patient( UserID id, 
                         string userName, 
                         string password, 
@@ -71,6 +94,6 @@ namespace SIMS.Model.UserModel
 
         public PatientType PatientType { get => _patientType; }
         public EmergencyContact EmergencyContact { get => _emergencyContact; }
-        public Doctor SelectedDoctor { get => _selectedDoctor; }
+        public Doctor SelectedDoctor { get => _selectedDoctor; set => _selectedDoctor = value; }
     }
 }

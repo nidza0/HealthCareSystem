@@ -8,61 +8,52 @@ using System.Collections.Generic;
 using Controller;
 using SIMS.Model.DoctorModel;
 using SIMS.Model.UserModel;
+using SIMS.Service.MedicalService;
+using SIMS.Service.UsersService;
 
 namespace SIMS.Controller.UsersController
 {
     public class DoctorController : IController<Doctor, UserID>
     {
-        public Service.UsersService.DoctorService doctorService;
-        public Service.MedicalService.DiagnosisService diagnosisService;
-        public Service.MedicalService.TherapyService therapyService;
-        public Service.MedicalService.MedicalRecordService medicalRecordService;
+        public DoctorService doctorService;
+        public DiagnosisService diagnosisService;
+        public TherapyService therapyService;
+        public MedicalRecordService medicalRecordService;
+
+        public DoctorController(DoctorService doctorService, DiagnosisService diagnosisService, TherapyService therapyService, MedicalRecordService medicalRecordService)
+        {
+            this.doctorService = doctorService;
+            this.diagnosisService = diagnosisService;
+            this.therapyService = therapyService;
+            this.medicalRecordService = medicalRecordService;
+        }
 
         public IEnumerable<Doctor> GetActiveDoctors()
-        {
-            throw new NotImplementedException();
-        }
+            => doctorService.GetActiveDoctors();
 
-        public IEnumerable<Doctor> GetDoctorByType(DocTypeEnum doctorType)
-        {
-            throw new NotImplementedException();
-        }
+        public IEnumerable<Doctor> GetDoctorByType(DoctorType doctorType)
+            => doctorService.GetDoctorByType(doctorType);
 
         public IEnumerable<Doctor> GetAvailableDoctorsByTime(Util.TimeInterval timeInterval)
-        {
-            throw new NotImplementedException();
-        }
+            => doctorService.GetAvailableDoctorsByTime(timeInterval);
 
         public IEnumerable<Doctor> GetFilteredDoctors(Util.DoctorFilter filter)
-        {
-            throw new NotImplementedException();
-        }
+            => doctorService.GetFilteredDoctors(filter);
 
         public IEnumerable<Doctor> GetAll()
-        {
-            throw new NotImplementedException();
-        }
+            => doctorService.GetAll();
 
         public Doctor GetByID(UserID id)
-        {
-            throw new NotImplementedException();
-        }
+            => doctorService.GetByID(id);
 
         public Doctor Create(Doctor entity)
-        {
-            throw new NotImplementedException();
-        }
+            => doctorService.Create(entity);
 
-        public Doctor Update(Doctor entity)
-        {
-            throw new NotImplementedException();
-        }
+        public void Update(Doctor entity)
+            => doctorService.Update(entity);
 
         public void Delete(Doctor entity)
-        {
-            throw new NotImplementedException();
-        }
-
+            => doctorService.Delete(entity);
 
     }
 }

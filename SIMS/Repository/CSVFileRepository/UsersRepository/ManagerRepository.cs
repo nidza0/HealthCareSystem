@@ -34,7 +34,12 @@ namespace SIMS.Repository.CSVFileRepository.UsersRepository
         public new Manager Create(Manager manager)
         {
             if (IsUsernameUnique(manager.UserName))
-                return base.Create(manager);
+            {
+                manager.DateCreated = DateTime.Now;
+                manager = base.Create(manager);
+                _userRepository.AddUser(manager);
+                return manager;
+            }
             else
                 throw new NotUniqueException(string.Format(NOT_UNIQUE_ERROR, manager.UserName));
         }
@@ -54,13 +59,19 @@ namespace SIMS.Repository.CSVFileRepository.UsersRepository
             var manager = GetByID(id);
             
             var timetables = _timeTableRepository.GetAll();
-            manager.TimeTable = timetables.SingleOrDefault(timetable => timetable.GetId() == manager.TimeTable.GetId());
+            manager.TimeTable = GetTimeTableById(manager.TimeTable, timetables);
 
             var hospitals = _hospitalRepository.GetAll();
-            manager.Hospital = hospitals.SingleOrDefault(hospital => hospital.GetId() == manager.Hospital.GetId());
+            manager.Hospital = GetHospitalById(manager.Hospital, hospitals);
             
             return manager;
         }
+
+        private Hospital GetHospitalById(Hospital hospitalId, IEnumerable<Hospital> hospitals)
+            => hospitalId == null ? null : hospitals.SingleOrDefault(h => h.GetId() == hospitalId.GetId());
+
+        private TimeTable GetTimeTableById(TimeTable timeTableId, IEnumerable<TimeTable> timetables)
+            => timeTableId == null ? null : timetables.SingleOrDefault(t => t.GetId() == timeTableId.GetId());
 
         private void Bind(IEnumerable<Manager> managers)
         {
@@ -72,9 +83,9 @@ namespace SIMS.Repository.CSVFileRepository.UsersRepository
         }
 
         private void BindManagersWithTimetables(IEnumerable<Manager> managers, IEnumerable<TimeTable> timetables)
-            => managers.ToList().ForEach(manager => manager.TimeTable = timetables.SingleOrDefault(timetable => timetable.GetId() == manager.TimeTable.GetId()));
+            => managers.ToList().ForEach(manager => manager.TimeTable = GetTimeTableById(manager.TimeTable, timetables));
 
         private void BindManagerssWithHospitals(IEnumerable<Manager> managers, IEnumerable<Hospital> hospitals)
-            => managers.ToList().ForEach(manager => manager.Hospital = hospitals.SingleOrDefault(hospital => hospital.GetId() == manager.Hospital.GetId()));
+            => managers.ToList().ForEach(manager => manager.Hospital = GetHospitalById(manager.Hospital, hospitals));
     }
 }

@@ -5,6 +5,7 @@
 
 using SIMS.Repository.Abstract;
 using System;
+using System.Collections.Generic;
 
 namespace SIMS.Model.UserModel
 {
@@ -14,10 +15,11 @@ namespace SIMS.Model.UserModel
         private string _password;
         private DateTime _dateCreated;
         private bool _deleted;
-
         private UserID _userID;
 
-        public User(UserID id) : base() { _userID = id; }
+        public User(UserID id) : base() {
+            _userID = id;
+        }
 
         public User(string userName,
                     string password, 
@@ -63,6 +65,28 @@ namespace SIMS.Model.UserModel
             _dateCreated = dateCreated;
         }
 
+        public User(string userName,
+                    string password,
+                    string name,
+                    string surname,
+                    string middleName,
+                    Sex sex,
+                    DateTime dateOfBirth,
+                    string uidn,
+                    Address address,
+                    string homePhone,
+                    string cellPhone,
+                    string email1,
+                    string email2)
+            : base(name, surname, middleName, sex, dateOfBirth, uidn, address, homePhone, cellPhone, email1, email2)
+        {
+            _userName = userName;
+            _password = password;
+        }
+
+        public UserType GetUserType()
+            => _userID.GetUserType();
+
         public User(UserID id,
                     string username,
                     string password,
@@ -89,13 +113,18 @@ namespace SIMS.Model.UserModel
 
         public string UserName { get => _userName; }
         public string Password { get => _password; }
-        public DateTime DateCreated { get => _dateCreated; }
-        public bool Deleted { get => _deleted; }
+        public DateTime DateCreated { get => _dateCreated; set => _dateCreated = value; }
+        public bool Deleted { get => _deleted; set => _deleted = value; }
 
         public override bool Equals(object obj)
         {
             User otherUser = obj as User;
             return _userID.Equals(otherUser.GetId());
+        }
+
+        public override int GetHashCode()
+        {
+            return 328612020 + EqualityComparer<UserID>.Default.GetHashCode(_userID);
         }
     }
 }

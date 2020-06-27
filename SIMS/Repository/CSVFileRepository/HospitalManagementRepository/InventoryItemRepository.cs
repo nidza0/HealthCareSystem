@@ -12,44 +12,48 @@ using SIMS.Model.UserModel;
 using SIMS.Repository.CSVFileRepository.Csv.IdGenerator;
 using SIMS.Repository.CSVFileRepository.Csv.Stream;
 using SIMS.Repository.Sequencer;
+using System.Linq;
 
 namespace SIMS.Repository.CSVFileRepository.HospitalManagementRepository
 {
-    class InventoryItemRepository : CSVRepository<InventoryItem, long>, IInventoryItemRepository, IEagerCSVRepository<InventoryItem, long>
+    public class InventoryItemRepository : CSVRepository<InventoryItem, long>, IInventoryItemRepository, IEagerCSVRepository<InventoryItem, long>
     {
-        public InventoryItemRepository(string entityName, ICSVStream<InventoryItem> stream, ISequencer<long> sequencer, IIdGeneratorStrategy<InventoryItem, long> idGeneratorStrategy) : base(entityName, stream, sequencer, idGeneratorStrategy)
+        private const string ENTITY_NAME = "InventoryItem";
+        private IRoomRepository _roomRepository;
+        public InventoryItemRepository(ICSVStream<InventoryItem> stream, ISequencer<long> sequencer, IRoomRepository roomRepository) : base(ENTITY_NAME, stream, sequencer, new LongIdGeneratorStrategy<InventoryItem>())
         {
+            _roomRepository = roomRepository;
         }
 
         public IEnumerable<InventoryItem> GetAllEager()
         {
-            throw new NotImplementedException();
+            IEnumerable<InventoryItem> inventoryItems = GetAll();
+            IEnumerable<Room> rooms = _roomRepository.GetAll();
+
+            Bind(inventoryItems, rooms);
+
+            return inventoryItems;
         }
 
         public InventoryItem GetEager(long id)
-        {
-            throw new NotImplementedException();
-        }
+            => GetAllEager().ToList().SingleOrDefault(item => item.GetId() == id);
 
 
         private void BindInventoryItemsWithRooms(IEnumerable<InventoryItem> inventoryItems, IEnumerable<Room> rooms)
-        {
-            throw new NotImplementedException();
-        }
+            => inventoryItems.ToList().ForEach(item => item.Room = GetRoomById(rooms, item.Id));
+
+        private Room GetRoomById(IEnumerable<Room> rooms, long id)
+            => rooms.ToList().SingleOrDefault(room => room.GetId() == id);
 
         public void Bind(IEnumerable<InventoryItem> inventoryItems, IEnumerable<Room> rooms)
         {
-            throw new NotImplementedException();
+            BindInventoryItemsWithRooms(inventoryItems, rooms);
         }
 
         public IEnumerable<InventoryItem> GetInventoryItemsForRoom(Room room)
-        {
-            throw new NotImplementedException();
-        }
+            => GetAll().ToList().Where(item => item.Room.Equals(room));
 
         public IEnumerable<InventoryItem> GetInventoryItems()
-        {
-            throw new NotImplementedException();
-        }
+            => GetAll();
     }
 }

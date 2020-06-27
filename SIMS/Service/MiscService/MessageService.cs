@@ -5,49 +5,61 @@
 
 using System;
 using System.Collections.Generic;
+using SIMS.Exceptions;
 using SIMS.Model.UserModel;
 using SIMS.Repository.Abstract.MiscAbstractRepository;
+using SIMS.Repository.CSVFileRepository.MiscRepository;
 
 namespace SIMS.Service.MiscService
 {
     public class MessageService : IService<Message, long>
     {
-        public IEnumerable<Message> GetSent(User user)
+        MessageRepository _messageRepository;
+
+
+        public MessageService(MessageRepository messageRepository)
         {
-            throw new NotImplementedException();
+            _messageRepository = messageRepository;
         }
+
+        public IEnumerable<Message> GetSent(User user)
+            => _messageRepository.GetSent(user);
 
         public IEnumerable<Message> GetRecieved(User user)
-        {
-            throw new NotImplementedException();
-        }
+            => _messageRepository.GetReceived(user);
 
         public IEnumerable<Message> GetAll()
-        {
-            throw new NotImplementedException();
-        }
+            => _messageRepository.GetAllEager();
 
         public Message GetByID(long id)
-        {
-            throw new NotImplementedException();
-        }
+            => _messageRepository.GetByID(id);
 
         public Message Create(Message entity)
         {
-            throw new NotImplementedException();
+            Validate(entity);
+            return _messageRepository.Create(entity);
         }
 
-        public Message Update(Message entity)
+        public void Update(Message entity)
         {
-            throw new NotImplementedException();
+            Validate(entity);
+            _messageRepository.Create(entity);
         }
 
         public void Delete(Message entity)
+            => _messageRepository.Delete(entity);
+
+        public void Validate(Message entity)
         {
-            throw new NotImplementedException();
+            if (entity.Sender == null)
+            {
+                throw new MessageServiceException("MessageService - Sender is not set!");
+            }
+
+            if (entity.Recipient == null)
+            {
+                throw new MessageServiceException("MessageService - Recipient is not set!");
+            }
         }
-
-        public IMessageRepository iMessageRepository;
-
     }
 }

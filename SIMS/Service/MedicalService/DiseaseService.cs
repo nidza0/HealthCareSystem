@@ -7,47 +7,53 @@ using System;
 using System.Collections.Generic;
 using SIMS.Model.PatientModel;
 using SIMS.Repository.Abstract.MedicalAbstractRepository;
+using SIMS.Repository.CSVFileRepository.MedicalRepository;
+using System.Text.RegularExpressions;
+using SIMS.Util;
+using SIMS.Exceptions;
 
 namespace SIMS.Service.MedicalService
 {
     public class DiseaseService : IService<Disease, long>
     {
-        public IEnumerable<Disease> GetDiseasesBySymptoms(IEnumerable<Symptom> symptoms)
+        private DiseaseRepository _diseaseRepository;
+
+        public DiseaseService(DiseaseRepository diseaseRepository)
         {
-            throw new NotImplementedException();
+            _diseaseRepository = diseaseRepository;
         }
+
+        public IEnumerable<Disease> GetDiseasesBySymptoms(IEnumerable<Symptom> symptoms)
+            => _diseaseRepository.GetDiseasesBySymptoms(symptoms);
 
         public IEnumerable<Disease> GetDiseasesByType(DiseaseType type)
-        {
-            throw new NotImplementedException();
-        }
+            => _diseaseRepository.GetDiseasesByType(type);
 
         public IEnumerable<Disease> GetAll()
-        {
-            throw new NotImplementedException();
-        }
+            => _diseaseRepository.GetAllEager();
 
         public Disease GetByID(long id)
-        {
-            throw new NotImplementedException();
-        }
+            => _diseaseRepository.GetEager(id);
 
         public Disease Create(Disease entity)
         {
-            throw new NotImplementedException();
-        }
-
-        public Disease Update(Disease entity)
-        {
-            throw new NotImplementedException();
+            Validate(entity);
+            return _diseaseRepository.Create(entity);
         }
 
         public void Delete(Disease entity)
+            => _diseaseRepository.Delete(entity);
+
+        public void Update(Disease entity)
         {
-            throw new NotImplementedException();
+            Validate(entity);
+            _diseaseRepository.Update(entity);
         }
 
-        public IDiseaseRepository iDiseaseRepository;
-
+        public void Validate(Disease entity)
+        {
+            if (Regex.IsMatch(Regexes.diseaseName, entity.Name))
+                throw new DiseaseServiceException("Disease name is not valid!");
+        }
     }
 }

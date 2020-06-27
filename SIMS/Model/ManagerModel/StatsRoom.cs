@@ -15,8 +15,9 @@ namespace SIMS.Model.ManagerModel
         private double _timeOccupied;
         private int _avgAppointmentTime;
 
-        private List<Room> _room;
+        private Room _room;
 
+        public int AvgAppointmentTime { get { return _avgAppointmentTime; } set { _avgAppointmentTime = value; } }
         public double Usage { get { return _usage; } set { } }
 
         public double TimeOccupied { get { return _timeOccupied; } set { } }
@@ -26,26 +27,25 @@ namespace SIMS.Model.ManagerModel
         /// Property for collection of Model.User.Room
         /// </summary>
         /// <pdGenerated>Default opposite class collection property</pdGenerated>
-        public List<Room> Room
+        public Room Room
         {
             get
             {
                 if (_room == null)
-                    _room = new System.Collections.Generic.List<Room>();
+                    return null;
                 return _room;
             }
             set
             {
-                RemoveAllRoom();
+                
                 if (value != null)
                 {
-                    foreach (Room oRoom in value)
-                        AddRoom(oRoom);
+                    _room = value;
                 }
             }
         }
 
-        public StatsRoom(double usage, double timeOccupied, int avgAppointmentTime, List<Room> room): base()
+        public StatsRoom(double usage, double timeOccupied, int avgAppointmentTime, Room room): base()
         {
             _usage = usage;
             _timeOccupied = timeOccupied;
@@ -53,7 +53,7 @@ namespace SIMS.Model.ManagerModel
             _room = room;
         }
 
-        public StatsRoom(long id, double usage, double timeOccupied, int avgAppointmentTime, List<Room> room) : base(id)
+        public StatsRoom(long id, double usage, double timeOccupied, int avgAppointmentTime, Room room) : base(id)
         {
             _usage = usage;
             _timeOccupied = timeOccupied;
@@ -66,43 +66,6 @@ namespace SIMS.Model.ManagerModel
 
         }
 
-
-        /// <summary>
-        /// Add a new Model.User.Room in the collection
-        /// </summary>
-        /// <pdGenerated>Default Add</pdGenerated>
-        public void AddRoom(Room newRoom)
-        {
-            if (newRoom == null)
-                return;
-            if (_room == null)
-                _room = new System.Collections.Generic.List<Room>();
-            if (!_room.Contains(newRoom))
-                _room.Add(newRoom);
-        }
-
-        /// <summary>
-        /// Remove an existing Model.User.Room from the collection
-        /// </summary>
-        /// <pdGenerated>Default Remove</pdGenerated>
-        public void RemoveRoom(Room oldRoom)
-        {
-            if (oldRoom == null)
-                return;
-            if (_room != null)
-                if (_room.Contains(oldRoom))
-                    _room.Remove(oldRoom);
-        }
-
-        /// <summary>
-        /// Remove all instances of Model.User.Room from the collection
-        /// </summary>
-        /// <pdGenerated>Default removeAll</pdGenerated>
-        public void RemoveAllRoom()
-        {
-            if (_room != null)
-                _room.Clear();
-        }
-
+        
     }
 }

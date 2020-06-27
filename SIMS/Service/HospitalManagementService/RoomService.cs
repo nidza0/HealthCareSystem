@@ -5,69 +5,115 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
+using System.Text.RegularExpressions;
+using SIMS.Model.PatientModel;
 using SIMS.Model.UserModel;
 using SIMS.Repository.Abstract.HospitalManagementAbstractRepository;
+using SIMS.Repository.CSVFileRepository.HospitalManagementRepository;
+using SIMS.Repository.CSVFileRepository.MedicalRepository;
+using SIMS.Service.ValidateServices.ValidateHospitalManagementServices;
+using SIMS.Util;
 
 namespace SIMS.Service.HospitalManagementService
 {
     public class RoomService : IService<Room, long>
     {
+        private RoomRepository _roomRepository;
+        private AppointmentRepository _appointmentRepository;
+
+        public RoomService(RoomRepository roomRepository, AppointmentRepository appointmentRepository)
+        {
+            _roomRepository = roomRepository;
+            _appointmentRepository = appointmentRepository;
+        }
+
         public IEnumerable<Room> GetRoomsByType(RoomType type)
+            => _roomRepository.GetRoomsByType(type);
+
+        public IEnumerable<Room> GetAvailableRoomsByDate(TimeInterval timeInterval)
         {
-            throw new NotImplementedException();
+
+            List<Room> retVal = new List<Room>();
+
+            foreach(Room room in GetAll()) {
+                IEnumerable<Appointment> appointmentsForRoom = _appointmentRepository.GetAppointmentsByTime(timeInterval).Where(app => 
+                app.Room.GetId() == room.GetId());
+
+                if(appointmentsForRoom.Count() == 0)
+                {
+                    retVal.Add(room);
+                }
+            }
+            return retVal;
         }
 
-        public IEnumerable<Room> GetAvailableRoomsByDate(Util.TimeInterval timeInterval)
+        public void DivideRooms(Room initialRoom, String newNumber)
         {
-            throw new NotImplementedException();
-        }
-
-        public bool DivideRooms(Room initialRoom)
-        {
-            throw new NotImplementedException();
+            initialRoom.RoomNumber = newNumber;
+            _roomRepository.Create(initialRoom);
         }
 
         public Room MergeRooms(IEnumerable<Room> roomsToMerge, string newName)
         {
-            throw new NotImplementedException();
+            foreach(Room room in roomsToMerge)
+            {
+                _roomRepository.Delete(room);
+            }
+
+            return _roomRepository.Create(new Room(newName, false, roomsToMerge.ToList()[0].Floor, roomsToMerge.ToList()[0].RoomType));
+
         }
 
         public Room GetRoomByName(string name)
-        {
-            throw new NotImplementedException();
-        }
+            => _roomRepository.GetRoomByName(name);
 
         public IEnumerable<Room> GetRoomsByFloor(int floor)
-        {
-            throw new NotImplementedException();
-        }
+            => _roomRepository.GetRoomsByFloor(floor);
 
         public IEnumerable<Room> GetAll()
-        {
-            throw new NotImplementedException();
-        }
+            => _roomRepository.GetAll();
 
         public Room GetByID(long id)
-        {
-            throw new NotImplementedException();
-        }
+            => this.GetAll().SingleOrDefault(room => room.GetId() == id);
 
         public Room Create(Room entity)
         {
-            throw new NotImplementedException();
+            Validate(entity);
+            return _roomRepository.Create(entity);
         }
 
-        public Room Update(Room entity)
+        public void Update(Room entity)
         {
-            throw new NotImplementedException();
+            Validate(entity);
+            _roomRepository.Update(entity);
         }
 
         public void Delete(Room entity)
+            => _roomRepository.Delete(entity);
+
+        void IService<Room, long>.Update(Room entity)
         {
             throw new NotImplementedException();
         }
 
-        public IRoomRepository iRoomRepository;
+        public void Validate(Room entity)
+        {
+            CheckFloorNumber(entity.Floor);
+            CheckRoomNumber(entity.RoomNumber);
+        }
 
+        private void CheckRoomNumber(string roomNumber)
+        {
+            if (!Regex.Match(roomNumber, Regexes.roomNumberPattern).Success)
+                throw new RoomServiceException("RoomNumber contains illegal characters!");
+        }
+
+        private void CheckFloorNumber(int floor)
+        {
+            if (floor < 0)
+                throw new RoomServiceException("RoomService - Floor is less than zero!");
+        }
     }
 }

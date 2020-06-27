@@ -13,42 +13,32 @@ namespace SIMS.Controller.MiscController
 {
     public class ArticleController : IController<Article, long>
     {
-        public IEnumerable<Article> GetArticleByAuthor(Employee author)
+        public ArticleService articleService;
+
+        public ArticleController(ArticleService articleService)
         {
-            throw new NotImplementedException();
+            this.articleService = articleService;
         }
 
-        public void ValidateArticle(Article article)
-        {
-            throw new NotImplementedException();
-        }
+        public IEnumerable<Article> GetArticleByAuthor(Employee author)
+            => articleService.GetArticleByAuthor(author);
 
         public IEnumerable<Article> GetAll()
-        {
-            throw new NotImplementedException();
-        }
+            => articleService.GetAll();
 
         public Article GetByID(long id)
-        {
-            throw new NotImplementedException();
-        }
+            => articleService.GetByID(id);
 
         public Article Create(Article entity)
-        {
-            throw new NotImplementedException();
-        }
+            => articleService.Create(entity);
 
-        public Article Update(Article entity)
-        {
-            throw new NotImplementedException();
-        }
+        public void Update(Article entity)
+            => articleService.Update(entity);
 
         public void Delete(Article entity)
-        {
-            throw new NotImplementedException();
-        }
+            => articleService.Delete(entity);
 
-        public ArticleService articleService;
+        
 
     }
 }

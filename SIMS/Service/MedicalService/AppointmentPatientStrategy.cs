@@ -4,28 +4,55 @@
 // Purpose: Definition of Class AppointmentPatientStrategy
 
 using System;
+using SIMS.Exceptions;
+using SIMS.Model.DoctorModel;
 using SIMS.Model.PatientModel;
+using SIMS.Model.UserModel;
 
 namespace SIMS.Service.MedicalService
 {
     public class AppointmentPatientStrategy : IAppointmentStrategy
     {
-        private DateTime bottomHourMargin;
-        private DateTime topDayMargin;
+        private readonly int bottomHourMargin = 24; //Represent hours after which you can't make an appointment
+        private readonly int topDayMargin = 90; //Represents maximum upfront days when patient can make an appointment
 
         public void checkDateTimeValid(Appointment appointment)
         {
-            throw new NotImplementedException();
+            DateTime startTime = appointment.TimeInterval.StartTime;
+            DateTime endTime = appointment.TimeInterval.EndTime;
+
+            if (startTime < DateTime.Now.AddHours(bottomHourMargin))
+                throw new AppointmentServiceException("Appointment start time is too soon!");
+
+            if (startTime > endTime)
+                throw new AppointmentServiceException("Appointment start time must be before end time!");
+
+            if (startTime > DateTime.Now.AddDays(topDayMargin))
+                throw new AppointmentServiceException("Appointment can't be made too far in the future!");
         }
 
-        public bool CheckType(Appointment appointment)
+        public void CheckType(Appointment appointment)
         {
-            throw new NotImplementedException();
+            AppointmentType appointmentType = appointment.AppointmentType;
+            Doctor doctor = appointment.DoctorInAppointment;
+            Patient patient = appointment.Patient;
+
+            if (appointmentType == AppointmentType.operation && (doctor.DoctorType == DoctorType.FAMILYMEDICINE))
+                throw new AppointmentServiceException("Family medicine doctor can not book operation!");
+            else if (appointmentType == AppointmentType.renovation && (doctor != null || patient != null))
+                throw new AppointmentServiceException("Doctor and patient can not be in renovation appointment!");
         }
 
-        public int Validate(Appointment appointment)
+        public bool isAppointmentChangeable(Appointment appointment)
         {
-            throw new NotImplementedException();
+            DateTime startTime = appointment.TimeInterval.StartTime;
+            return startTime.AddHours(-bottomHourMargin) > DateTime.Now && startTime.AddDays(-topDayMargin) < DateTime.Now;
+        }
+
+        public void Validate(Appointment appointment)
+        {
+            checkDateTimeValid(appointment);
+            CheckType(appointment);
         }
     }
 }

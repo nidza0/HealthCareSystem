@@ -5,49 +5,63 @@
 
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
+using SIMS.Exceptions;
 using SIMS.Model.UserModel;
 using SIMS.Repository.Abstract.MiscAbstractRepository;
+using SIMS.Repository.CSVFileRepository.MiscRepository;
 
 namespace SIMS.Service.MiscService
 {
     public class LocationService : IService<Location, long>
     {
-        public IEnumerable<Location> GetLocationByCountry(Country country)
+
+        private LocationRepository _locationRepository;
+
+        public LocationService(LocationRepository locationRepository)
         {
-            throw new NotImplementedException();
+            _locationRepository = locationRepository;
         }
 
-        public IEnumerable<Country> GetAllCountries()
-        {
-            throw new NotImplementedException();
-        }
+        public IEnumerable<Location> GetLocationByCountry(string country)
+            => _locationRepository.GetLocationByCountry(country);
+
+        public IEnumerable<string> GetAllCountries()
+            => _locationRepository.GetAllCountries();
 
         public IEnumerable<Location> GetAll()
-        {
-            throw new NotImplementedException();
-        }
+            => _locationRepository.GetAll();
 
         public Location GetByID(long id)
-        {
-            throw new NotImplementedException();
-        }
+            => _locationRepository.GetByID(id);
 
         public Location Create(Location entity)
         {
-            throw new NotImplementedException();
+            Validate(entity);
+            return _locationRepository.Create(entity);
         }
 
-        public Location Update(Location entity)
+        public void Update(Location entity)
         {
-            throw new NotImplementedException();
+            Validate(entity);
+            _locationRepository.Update(entity);
         }
 
         public void Delete(Location entity)
+            => _locationRepository.Delete(entity);
+
+        public void Validate(Location entity)
         {
-            throw new NotImplementedException();
+            string namingPattern = @"[a-zA-Z\\- ]*";
+            if (!Regex.Match(entity.City, namingPattern).Success)
+            {
+                throw new LocationServiceException("City contains illegal characters!");
+            }
+
+            if (!Regex.Match(entity.Country, namingPattern).Success)
+            {
+                throw new LocationServiceException("Country contains illegal characters!");
+            }
         }
-
-        public ILocationRepository iLocationRepository;
-
     }
 }

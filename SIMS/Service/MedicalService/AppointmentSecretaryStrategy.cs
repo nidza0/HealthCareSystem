@@ -4,25 +4,50 @@
 // Purpose: Definition of Class AppointmentSecretaryStrategy
 
 using System;
+using SIMS.Exceptions;
+using SIMS.Model.DoctorModel;
 using SIMS.Model.PatientModel;
+using SIMS.Model.UserModel;
 
 namespace SIMS.Service.MedicalService
 {
     public class AppointmentSecretaryStrategy : IAppointmentStrategy
     {
+        private readonly int bottomMinuteMargin = 10;
         public void checkDateTimeValid(Appointment appointment)
         {
-            throw new NotImplementedException();
+            DateTime startTime = appointment.TimeInterval.StartTime;
+            DateTime endTime = appointment.TimeInterval.EndTime;
+
+            if (startTime < DateTime.Now.AddMinutes(bottomMinuteMargin))
+                throw new AppointmentServiceException("Appointment start time is too soon!");
+
+            if (startTime > endTime)
+                throw new AppointmentServiceException("Appointment start time must be before end time!");
+
+
         }
 
-        public bool CheckType(Appointment appointment)
+        public void CheckType(Appointment appointment)
         {
-            throw new NotImplementedException();
+            AppointmentType appointmentType = appointment.AppointmentType;
+            Doctor doctor = appointment.DoctorInAppointment;
+            Patient patient = appointment.Patient;
+
+            if (appointmentType == AppointmentType.operation && (doctor.DoctorType == DoctorType.FAMILYMEDICINE))
+                throw new AppointmentServiceException("Family medicine doctor can not book operation!");
+            else if (appointmentType == AppointmentType.renovation && (doctor != null || patient != null))
+                throw new AppointmentServiceException("Doctor and patient can not be in renovation appointment!");
         }
 
-        public int Validate(Appointment appointment)
+        public bool isAppointmentChangeable(Appointment appointment)
+            => appointment.TimeInterval.StartTime.AddMinutes(-bottomMinuteMargin) > DateTime.Now;
+
+
+        public void Validate(Appointment appointment)
         {
-            throw new NotImplementedException();
+            checkDateTimeValid(appointment);
+            CheckType(appointment);
         }
     }
 }

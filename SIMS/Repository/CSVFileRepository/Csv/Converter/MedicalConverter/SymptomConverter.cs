@@ -10,11 +10,10 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.MedicalConverter
 {
     public class SymptomConverter : ICSVConverter<Symptom>
     {
-        private readonly string _delimiter;
+        private readonly string _delimiter = ",";
 
-        public SymptomConverter(string delimiter)
+        public SymptomConverter()
         {
-            _delimiter = delimiter;
         }
 
         public Symptom ConvertCSVToEntity(string csv)

@@ -5,83 +5,48 @@
 
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
+using SIMS.Exceptions;
 using SIMS.Model.UserModel;
 using SIMS.Repository.Abstract.UsersAbstractRepository;
+using SIMS.Repository.CSVFileRepository.UsersRepository;
+using SIMS.Util;
 
 namespace SIMS.Service.UsersService
 {
-    public class ManagerService : Util.IUserValidation, IService<Manager, UserID>, IUserService<Manager>
+    public class ManagerService : IService<Manager, UserID>
     {
-        public IManagerRepository iManagerRepository;
+        ManagerRepository _managerRepository;
+        UserValidation _userValidation;
 
-        public bool CheckDateOfBirth(DateTime date)
+        public ManagerService(ManagerRepository managerRepository)
         {
-            throw new NotImplementedException();
-        }
-
-        public bool CheckEmail(string email)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool CheckName(string name)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool CheckPassword(string password)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool CheckPhoneNumber(string phoneNumber)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool CheckUidn(string uidn)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool CheckUsername(string username)
-        {
-            throw new NotImplementedException();
+            _managerRepository = managerRepository;
+            _userValidation = new UserValidation();
         }
 
         public Manager Create(Manager entity)
         {
-            throw new NotImplementedException();
+            Validate(entity);
+            return _managerRepository.Create(entity);
         }
 
         public void Delete(Manager entity)
-        {
-            throw new NotImplementedException();
-        }
+            => _managerRepository.Delete(entity);
 
         public IEnumerable<Manager> GetAll()
-        {
-            throw new NotImplementedException();
-        }
+            => _managerRepository.GetAll();
 
         public Manager GetByID(UserID id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Login(User user)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Manager Update(Manager entity)
-        {
-            throw new NotImplementedException();
-        }
+            => _managerRepository.GetByID(id);
 
         public void Validate(Manager user)
+            => _userValidation.Validate(user);
+
+        public void Update(Manager entity)
         {
-            throw new NotImplementedException();
+            Validate(entity);
+            _managerRepository.Update(entity);
         }
     }
 }
