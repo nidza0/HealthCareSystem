@@ -204,7 +204,7 @@
     <Compile Include="Service\MedicalService\AppointmentDoctorStrategy.cs" />
     <Compile Include="Service\MedicalService\AppointmentManagerStrategy.cs" />
     <Compile Include="Service\MedicalService\AppointmentPatientStrategy.cs" />
-    <Compile Include="Exceptions\AppointmentRecommendationService.cs" />
+    <Compile Include="Service\MedicalService\AppointmentRecommendationService.cs" />
     <Compile Include="Service\MedicalService\AppointmentSecretaryStrategy.cs" />
     <Compile Include="Service\MedicalService\AppointmentService.cs" />
     <Compile Include="Service\MedicalService\DiagnosisService.cs" />
@@ -256,14 +256,17 @@
     <Compile Include="Specifications\NotSpecification.cs" />
     <Compile Include="Specifications\OrSpecification.cs" />
     <Compile Include="Util\AppointmentFilter.cs" />
+    <Compile Include="Util\AppointmentRecommendationDTO.cs" />
     <Compile Include="Util\DoctorFilter.cs" />
     <Compile Include="Util\IPersonValidation.cs" />
     <Compile Include="Util\IUserValidation.cs" />
     <Compile Include="Util\MedicineFilter.cs" />
     <Compile Include="Util\RecommendationDTO.cs" />
+    <Compile Include="Util\RecommendationPriority.cs" />
     <Compile Include="Util\Regexes.cs" />
     <Compile Include="Util\TherapyFilter.cs" />
     <Compile Include="Util\TimeInterval.cs" />
+    <Compile Include="Util\TimeIterator.cs" />
     <Compile Include="Util\UserValidation.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -297,7 +300,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\DoctorModel\DoctorFeedback.cs" />
-    <Compile Include="Model\DoctorModel\DocTypeEnum.cs" />
+    <Compile Include="Model\DoctorModel\DoctorType.cs" />
     <Compile Include="Model\ManagerModel\Inventory.cs" />
     <Compile Include="Model\ManagerModel\InventoryItem.cs" />
     <Compile Include="Model\ManagerModel\Stats.cs" />

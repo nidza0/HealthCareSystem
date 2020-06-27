@@ -16,48 +16,53 @@ namespace SIMS.Controller.MedicalController
     public class AppointmentController : IController<Appointment, long>
     {
 
-        public AppointmentService appointmentService;
+        private AppointmentService _appointmentService;
+        private AppointmentRecommendationService _appointmentRecommendationService;
 
-        public AppointmentController(AppointmentService appointmentService)
+        public AppointmentController(AppointmentService appointmentService, AppointmentRecommendationService appointmentRecommendationService)
         {
-            this.appointmentService = appointmentService;
+            _appointmentService = appointmentService;
+            _appointmentRecommendationService = appointmentRecommendationService;
         }
 
+        public List<Appointment> GetRecommendedAppointments(AppointmentRecommendationDTO recommendation)
+            => _appointmentRecommendationService.GetRecommendedAppointments(recommendation);
+
         public Appointment CancelAppointment(Appointment appointment)
-            => appointmentService.CancelAppointment(appointment);
+            => _appointmentService.CancelAppointment(appointment);
 
         public IEnumerable<Appointment> GetPatientAppointments(Patient patient)
-            => appointmentService.GetPatientAppointments(patient);
+            => _appointmentService.GetPatientAppointments(patient);
 
         public IEnumerable<Appointment> GetAppointmentsByTime(TimeInterval timeInterval)
-            => appointmentService.GetAppointmentsByTime(timeInterval);
+            => _appointmentService.GetAppointmentsByTime(timeInterval);
 
         public IEnumerable<Appointment> GetAppointmentsByDoctor(Doctor doctor)
-            => appointmentService.GetAppointmentsByDoctor(doctor);
+            => _appointmentService.GetAppointmentsByDoctor(doctor);
 
         public IEnumerable<Appointment> GetCanceledAppointments()
-            => appointmentService.GetCanceledAppointments();
+            => _appointmentService.GetCanceledAppointments();
 
         public IEnumerable<Appointment> GetCompletedAppointmentsByPatient(Patient patient)
-            => appointmentService.GetCompletedAppointmentsByPatient(patient);
+            => _appointmentService.GetCompletedAppointmentsByPatient(patient);
 
         public IEnumerable<Appointment> GetAppointmentsByRoom(Room room)
-            => appointmentService.GetAppointmentsByRoom(room);
+            => _appointmentService.GetAppointmentsByRoom(room);
 
         public IEnumerable<Appointment> GetFilteredAppointment(AppointmentFilter appointmentFilter)
-            => appointmentService.GetFilteredAppointment(appointmentFilter);
+            => _appointmentService.GetFilteredAppointment(appointmentFilter);
 
         public IEnumerable<Appointment> GetUpcomingAppointmentsForPatient(Patient patient)
-            => appointmentService.GetUpcomingAppointmentsForPatient(patient);
+            => _appointmentService.GetUpcomingAppointmentsForPatient(patient);
 
         public IEnumerable<Doctor> GetRecentDoctorsForPatient(Patient patient)
-            => appointmentService.GetRecentDoctorsForPatient(patient);
+            => _appointmentService.GetRecentDoctorsForPatient(patient);
 
         public IEnumerable<Appointment> GetUpcomingAppointmentsForDoctor(Doctor doctor)
-            => appointmentService.GetUpcomingAppointmentsForDoctor(doctor);
+            => _appointmentService.GetUpcomingAppointmentsForDoctor(doctor);
 
         public bool IsAppointmentChangeable(Appointment appointment)
-            => appointmentService.IsAppointmentChangeable(appointment);
+            => _appointmentService.IsAppointmentChangeable(appointment);
 
         public IEnumerable<Doctor> GetAvailableDoctorsByTime(TimeInterval timeInterval)
         {
@@ -65,22 +70,22 @@ namespace SIMS.Controller.MedicalController
         }
 
         public void AutoDeleteCanceledAppointments()
-            => appointmentService.AutoDeleteCanceledAppointments();
+            => _appointmentService.AutoDeleteCanceledAppointments();
 
         public IEnumerable<Appointment> GetAll()
-            => appointmentService.GetAll();
+            => _appointmentService.GetAll();
 
         public Appointment GetByID(long id)
-            => appointmentService.GetByID(id);
+            => _appointmentService.GetByID(id);
 
         public Appointment Create(Appointment entity)
-            => appointmentService.Create(entity);
+            => _appointmentService.Create(entity);
 
         public void Update(Appointment entity)
-            => appointmentService.Update(entity);
+            => _appointmentService.Update(entity);
 
         public void Delete(Appointment entity)
-            => appointmentService.Delete(entity);
+            => _appointmentService.Delete(entity);
 
     }
 }

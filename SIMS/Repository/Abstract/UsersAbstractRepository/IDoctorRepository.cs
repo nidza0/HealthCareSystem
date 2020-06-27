@@ -12,7 +12,7 @@ namespace SIMS.Repository.Abstract.UsersAbstractRepository
 {
     public interface IDoctorRepository : IRepository<Doctor, UserID>
     {
-        IEnumerable<Doctor> GetDoctorByType(DocTypeEnum doctorType);
+        IEnumerable<Doctor> GetDoctorByType(DoctorType doctorType);
 
         IEnumerable<Doctor> GetFilteredDoctors(Util.DoctorFilter filter);
 

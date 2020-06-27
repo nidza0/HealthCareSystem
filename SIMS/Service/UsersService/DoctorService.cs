@@ -56,7 +56,7 @@ namespace SIMS.Service.UsersService
             return workingDoctors;
         }
 
-        public IEnumerable<Doctor> GetDoctorByType(DocTypeEnum doctorType)
+        public IEnumerable<Doctor> GetDoctorByType(DoctorType doctorType)
             => _doctorRepository.GetDoctorByType(doctorType);
 
         public IEnumerable<Doctor> GetAvailableDoctorsByTime(TimeInterval timeInterval)

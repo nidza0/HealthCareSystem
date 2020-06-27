@@ -54,8 +54,8 @@ namespace SIMS.Repository.CSVFileRepository.UsersRepository
         private bool IsUsernameUnique(string userName)
             => _userRepository.GetByUsername(userName) == null;
 
-        public IEnumerable<Doctor> GetDoctorByType(DocTypeEnum doctorType)
-            => _stream.ReadAll().Where(doctor => doctor.DocTypeEnum == doctorType);
+        public IEnumerable<Doctor> GetDoctorByType(DoctorType doctorType)
+            => _stream.ReadAll().Where(doctor => doctor.DoctorType == doctorType);
 
         public IEnumerable<Doctor> GetFilteredDoctors(DoctorFilter filter)
         {

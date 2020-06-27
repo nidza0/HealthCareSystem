@@ -37,7 +37,7 @@ namespace SIMS.Service.MedicalService
             Doctor doctor = appointment.DoctorInAppointment;
             Patient patient = appointment.Patient;
 
-            if (appointmentType == AppointmentType.operation && (doctor.DocTypeEnum == DocTypeEnum.FAMILYMEDICINE) )
+            if (appointmentType == AppointmentType.operation && (doctor.DoctorType == DoctorType.FAMILYMEDICINE) )
                 throw new AppointmentServiceException("Family medicine doctor can not book operation!");
             else if (appointmentType == AppointmentType.renovation && (doctor != null || patient != null))
                 throw new AppointmentServiceException("Doctor and patient can not be in renovation appointment!");
