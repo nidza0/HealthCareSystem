@@ -1,0 +1,98 @@
+﻿<Page x:Class="SIMS.View.ViewManager.MedicineDetailPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SIMS.View.ViewManager"
+      mc:Ignorable="d" 
+      d:DesignHeight="950" d:DesignWidth="550"
+      Title="MedicineDetailPage"
+      FontSize="22">
+
+    <Grid>
+        <!--Images-->
+        <Grid.Background>
+            <ImageBrush ImageSource="/View/ImagesManager/background.png" TileMode="FlipX" Stretch="UniformToFill"/>
+        </Grid.Background>
+        <Image Source="/View/ImagesManager/pills.jpg" Margin="0,0,0,629" Stretch="UniformToFill"/>
+        <!--#endregion-->
+
+        <!--Labels-->
+        <Label x:Name="NameLabel" HorizontalContentAlignment="Center" FontSize="30"  FontWeight="Bold" Foreground="Black" Content="" Margin="90,351,90,0" VerticalAlignment="Top"/>
+        <Label Content="Doza:" Foreground="#ec1c70" HorizontalAlignment="Left" Margin="30,450,0,0" VerticalAlignment="Top" Width="169" FontWeight="Bold" />
+        <Label Content="ID broj:" Foreground="#ec1c70" Margin="0,450,30,0" VerticalAlignment="Top" FontWeight="Bold" HorizontalAlignment="Right" Width="169" />
+        <Label Content="Min. dozvoljen broj:" Foreground="#ec1c70" HorizontalAlignment="Left" Margin="30,550,0,0" VerticalAlignment="Top" Width="236" FontWeight="Bold" />
+        <Label Content="Na stanju:" Foreground="#ec1c70" HorizontalAlignment="Right" Margin="0,550,49,0" VerticalAlignment="Top" Width="150" FontWeight="Bold" />
+        <Label Content="Validnost:" Foreground="#ec1c70" HorizontalAlignment="Left" Margin="30,651,0,0" VerticalAlignment="Top" Width="169" FontWeight="Bold" />
+        <Label x:Name="dozaLabel"  Content="" FontWeight="Bold" HorizontalAlignment="Left" Margin="30,500,0,0" VerticalAlignment="Top" Width="185" Height="41"/>
+        <Label x:Name="idLabel"  Content="" FontWeight="Bold" HorizontalAlignment="Left" Margin="355,500,0,0" VerticalAlignment="Top" Width="185" Height="41"/>
+        <Label x:Name="minNumberLabel"  Content="" FontWeight="Bold" HorizontalAlignment="Left" Margin="30,594,0,0" Width="185" Height="41" VerticalAlignment="Top"/>
+        <Label x:Name="inStockLabel"  Content="" FontWeight="Bold" HorizontalAlignment="Left" Margin="355,589,0,0" VerticalAlignment="Top" Width="185" Height="41"/>
+        <Label x:Name="isValidLabel"  Content="" FontWeight="Bold" HorizontalAlignment="Left" Margin="30,695,0,0" Width="185" Height="41" VerticalAlignment="Top"/>
+        <!--#endregion-->
+
+        <!--Buttons-->
+        <Button x:Name="homeButton" Click="homeButton_Click" Foreground="#ec1c70" FontSize="30" FontWeight="Bold" Background="Transparent" BorderThickness="4" BorderBrush="#ec1c70" Margin="0,25,10,0" VerticalAlignment="Top" Height="70" Content="Početna" HorizontalAlignment="Right" Width="140"/>
+        <Button x:Name="backButton" Click="backButton_Click" Foreground="Black" FontSize="30" FontWeight="Bold" Background="Transparent" BorderThickness="4" BorderBrush="#ec1c70" Margin="0,0,10,20" Content="Nazad" HorizontalAlignment="Right" Width="140" Height="70" VerticalAlignment="Bottom"/>
+        <!--#endregion-->
+        
+        <!--Menu-->
+        <Popup x:Name="MenuPopup" Placement="RelativePoint"  StaysOpen="False"  >
+            <StackPanel Background="#232829" HorizontalAlignment="Left" Height="950" VerticalAlignment="Top" Width="400">
+                <Grid Height="950">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="50*"/>
+                        <RowDefinition Height="50*"/>
+                        <RowDefinition Height="50*"/>
+                        <RowDefinition Height="50*"/>
+                        <RowDefinition Height="50*"/>
+                        <RowDefinition Height="50*"/>
+                        <RowDefinition Height="50*"/>
+
+                    </Grid.RowDefinitions>
+                    <Button x:Name="MenuSmene" Click="MenuSmene_Click" Grid.Column="1" Grid.Row="1" Content="Smene" Style="{x:Null}" FontSize="20" FontWeight="Bold" Foreground="Snow" Background="Transparent" BorderBrush="#ec1c70" BorderThickness="3" HorizontalAlignment="Right" Width="250" Height="80" Margin="0,10,7,10" />
+                    <Button x:Name="MenuLekari" Click="MenuLekari_Click" Grid.Column="1" Grid.Row="2" Content="Lekari" Style="{x:Null}" FontSize="20" FontWeight="Bold" Foreground="Snow" Background="Transparent" BorderBrush="#ec1c70" BorderThickness="3" HorizontalAlignment="Right" Width="250" Height="80" Margin="0,10,7,10" />
+                    <Button x:Name="MenuInventar" Click="MenuInventar_Click" Grid.Column="1" Grid.Row="3" Content="Inventar" Style="{x:Null}" FontSize="20" FontWeight="Bold" Foreground="Snow" Background="Transparent" BorderBrush="#ec1c70" BorderThickness="3" HorizontalAlignment="Right" Width="250" Height="80" Margin="0,10,7,10" />
+                    <Button x:Name="MenuLekovi" Click="MenuLekovi_Click" Grid.Column="1" Grid.Row="4" Content="Lekovi" Style="{x:Null}" FontSize="20" FontWeight="Bold" Foreground="Snow" Background="Transparent" BorderBrush="#ec1c70" BorderThickness="3" HorizontalAlignment="Right" Width="250" Height="80" Margin="0,10,7,10" />
+                    <Button x:Name="MenuSale" Click="MenuSale_Click" Grid.Column="1" Grid.Row="5" Content="Sale" Style="{x:Null}" FontSize="20" FontWeight="Bold" Foreground="Snow" Background="Transparent" BorderBrush="#ec1c70" BorderThickness="3" HorizontalAlignment="Right" Width="250" Height="80" Margin="0,10,7,10" />
+                    <Button x:Name="MenuDodavanje" Click="MenuDodavanje_Click" Grid.Column="1" Grid.Row="6" Content="Dodavanje osoblja" Style="{x:Null}" FontSize="20" FontWeight="Bold" Foreground="Snow" Background="Transparent" BorderBrush="#ec1c70" BorderThickness="3" HorizontalAlignment="Right" Width="250" Height="80" Margin="0,10,7,10" />
+                    <Button x:Name="MenuDemo" Grid.Column="1" Grid.Row="7" Content="Demo" Style="{x:Null}" FontSize="20" FontWeight="Bold" Foreground="Snow" Background="Transparent" BorderBrush="#ec1c70" BorderThickness="3" HorizontalAlignment="Right" Width="250" Height="80" Margin="0,10,7,10" />
+                    <Image Grid.Column="0" Grid.Row="1"   Width="81" Height="80" Source="/View/ImagesManager/clock.png" Margin="22,0,29,25" VerticalAlignment="Bottom"/>
+                    <Image Grid.Column="0" Grid.Row="2" Margin="10,10,17,10" Height="80" Source="/View/ImagesManager/docIcon.png"/>
+                    <Image Grid.Column="0" Grid.Row="3"   Width="81" Height="80" Margin="10,10,17,10" Source="/View/ImagesManager/stetoskopIcon.png" />
+                    <Image Grid.Column="0" Grid.Row="4" Margin="10,10,17,10" Height="80" Source="/View/ImagesManager/pillsIcon.png"/>
+                    <Image Grid.Column="0" Grid.Row="5"  Width="81" Height="80" Source="/View/ImagesManager/viewlist.png" Margin="10,10,0,0"/>
+                    <Image Grid.Column="0" Grid.Row="6"  Width="81" Height="80" Margin="10,10,17,0" Source="/View/ImagesManager/addperson.png"/>
+                    <Image Grid.Column="0" Grid.Row="7"   Width="81" Height="80" Source="/View/ImagesManager/help.png" Margin="10,10,0,0"/>
+                </Grid>
+            </StackPanel>
+        </Popup>
+
+        <Button Style="{x:Null}" x:Name="MenuButton" Foreground="#ec1c70" FontSize="30" FontWeight="Bold" Background="Transparent" BorderThickness="4" BorderBrush="#ec1c70" Margin="15,25,0,0" HorizontalAlignment="Left" Width="140" VerticalAlignment="Top" Height="70">
+            Menu
+            <Button.Triggers>
+                <EventTrigger RoutedEvent="Button.Click">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <BooleanAnimationUsingKeyFrames
+                                    Storyboard.TargetName="MenuPopup"
+                                    Storyboard.TargetProperty="IsOpen">
+                                    <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="True"/>
+                                </BooleanAnimationUsingKeyFrames>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+            </Button.Triggers>
+        </Button>
+        <Button x:Name="editButton" Click="editButton_Click" Foreground="Black" FontSize="30" FontWeight="Bold" Background="Transparent" BorderThickness="4" BorderBrush="#ec1c70" Margin="0,0,395,20" Content="Izmena" HorizontalAlignment="Right" Width="140" Height="70" VerticalAlignment="Bottom"/>
+
+        <!--#endregion-->
+    </Grid>
+</Page>

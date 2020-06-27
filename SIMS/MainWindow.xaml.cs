@@ -160,6 +160,7 @@ namespace SIMS
 
             /** Prescription tests **/
 
+
             //Dictionary<Medicine, TherapyDose> medicine = new Dictionary<Medicine, TherapyDose>();
             //Dictionary<TherapyTime, double> dosage1 = new Dictionary<TherapyTime, double>();
             //dosage1.Add(TherapyTime.Afternoon, 7);
@@ -188,7 +189,7 @@ namespace SIMS
             //Console.WriteLine(csv1.Equals(csv2));
 
 
-            //Allergy allergy = new Allergy(55);
+            //Allergy allergy = new Allergy(55);*/
 
             //Symptom symptom = new Symptom(1);
             //Symptom symptom1 = new Symptom(2);

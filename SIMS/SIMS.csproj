@@ -36,8 +36,15 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PdfSharp, Version=1.50.5147.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp.1.50.5147\lib\net20\PdfSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp.Charting, Version=1.50.5147.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp.1.50.5147\lib\net20\PdfSharp.Charting.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -268,6 +275,104 @@
     <Compile Include="Util\TimeInterval.cs" />
     <Compile Include="Util\TimeIterator.cs" />
     <Compile Include="Util\UserValidation.cs" />
+    <Compile Include="View\Dummies\DummyDoctors.cs" />
+    <Compile Include="View\ViewManager\DemoAddingPage2.xaml.cs">
+      <DependentUpon>DemoAddingPage2.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewManager\DemoDoctorOverView.xaml.cs">
+      <DependentUpon>DemoDoctorOverView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewManager\DemoDoctorsAdding1.xaml.cs">
+      <DependentUpon>DemoDoctorsAdding1.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewManager\DemoMedicineAdding.xaml.cs">
+      <DependentUpon>DemoMedicineAdding.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewManager\DemoMedicineOverview.xaml.cs">
+      <DependentUpon>DemoMedicineOverview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewManager\DoctorAddingPage2.xaml.cs">
+      <DependentUpon>DoctorAddingPage2.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewManager\DoctorDetailPage.xaml.cs">
+      <DependentUpon>DoctorDetailPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewManager\DoctorFilterListPage.xaml.cs">
+      <DependentUpon>DoctorFilterListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewManager\DoctorsOverviewPage.xaml.cs">
+      <DependentUpon>DoctorsOverviewPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewManager\DoctorWorkingHoursPage.xaml.cs">
+      <DependentUpon>DoctorWorkingHoursPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewManager\InventoryAddingPage.xaml.cs">
+      <DependentUpon>InventoryAddingPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewManager\InventoryDetailPage.xaml.cs">
+      <DependentUpon>InventoryDetailPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewManager\InventoryEdit.xaml.cs">
+      <DependentUpon>InventoryEdit.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewManager\InventoryFilterListPage.xaml.cs">
+      <DependentUpon>InventoryFilterListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewManager\InventoryLowStock.xaml.cs">
+      <DependentUpon>InventoryLowStock.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewManager\InventoryOverviewPage.xaml.cs">
+      <DependentUpon>InventoryOverviewPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewManager\LoginPage.xaml.cs">
+      <DependentUpon>LoginPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewManager\ManagerMainPage.xaml.cs">
+      <DependentUpon>ManagerMainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewManager\ManagerWindow.xaml.cs">
+      <DependentUpon>ManagerWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewManager\MedicineAddingPage.xaml.cs">
+      <DependentUpon>MedicineAddingPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewManager\MedicineDetailPage.xaml.cs">
+      <DependentUpon>MedicineDetailPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewManager\MedicineEdit.xaml.cs">
+      <DependentUpon>MedicineEdit.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewManager\MedicineFilterListPage.xaml.cs">
+      <DependentUpon>MedicineFilterListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewManager\MedicineLowStock.xaml.cs">
+      <DependentUpon>MedicineLowStock.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewManager\MedicineOverviewPage.xaml.cs">
+      <DependentUpon>MedicineOverviewPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewManager\DoctorAddingPage.xaml.cs">
+      <DependentUpon>DoctorAddingPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewManager\RoomDetailPage.xaml.cs">
+      <DependentUpon>RoomDetailPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewManager\RoomFilterListPage.xaml.cs">
+      <DependentUpon>RoomFilterListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewManager\RoomRenovationPage.xaml.cs">
+      <DependentUpon>RoomRenovationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewManager\RoomsOverviewPage.xaml.cs">
+      <DependentUpon>RoomsOverviewPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewManager\RoomTimetable.xaml.cs">
+      <DependentUpon>RoomTimetable.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewManager\ShiftsOverviewPage.xaml.cs">
+      <DependentUpon>ShiftsOverviewPage.xaml</DependentUpon>
+    </Compile>
+
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -297,6 +402,134 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\ViewManager\DemoAddingPage2.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewManager\DemoDoctorOverView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewManager\DemoDoctorsAdding1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewManager\DemoMedicineAdding.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewManager\DemoMedicineOverview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewManager\DoctorAddingPage2.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewManager\DoctorDetailPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewManager\DoctorFilterListPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewManager\DoctorsOverviewPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewManager\DoctorWorkingHoursPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewManager\InventoryAddingPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewManager\InventoryDetailPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewManager\InventoryEdit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewManager\InventoryFilterListPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewManager\InventoryLowStock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewManager\InventoryOverviewPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewManager\LoginPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewManager\ManagerMainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewManager\ManagerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewManager\MedicineAddingPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewManager\MedicineDetailPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewManager\MedicineEdit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewManager\MedicineFilterListPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewManager\MedicineLowStock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewManager\MedicineOverviewPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewManager\DoctorAddingPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewManager\RoomDetailPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewManager\RoomFilterListPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewManager\RoomRenovationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewManager\RoomsOverviewPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewManager\RoomTimetable.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewManager\ShiftsOverviewPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\DoctorModel\DoctorFeedback.cs" />
@@ -366,6 +599,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -375,7 +609,39 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="View\" />
+    <Resource Include="View\ImagesManager\background.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\ImagesManager\docBg.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\ImagesManager\zdravo2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\ImagesManager\help.png" />
+    <Resource Include="View\ImagesManager\viewlist.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\ImagesManager\docIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\ImagesManager\pillsIcon.png" />
+    <Resource Include="View\ImagesManager\stetoskopIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\ImagesManager\addperson.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\ImagesManager\clock.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\ImagesManager\inventory.jpeg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\ImagesManager\pills.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\ImagesManager\room.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Files\HospitalManagementFiles\hospitals.txt" />
