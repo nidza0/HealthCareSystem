@@ -249,7 +249,7 @@ namespace SIMS
             // UsersService
             doctorService = new DoctorService(doctorRepository, userRepository, appointmentService);
             managerService = new ManagerService(managerRepository);
-            patientService = new PatientService(patientRepository);
+            patientService = new PatientService(patientRepository,medicalRecordRepository);
             secretaryService = new SecretaryService(secretaryRepository);
             userService = new UserService(userRepository);
 
