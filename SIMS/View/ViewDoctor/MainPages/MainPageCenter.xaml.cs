@@ -1,4 +1,5 @@
-﻿using SIMS.View.ViewDoctor.MainPages;
+﻿using SIMS.View.ViewDoctor.Functions;
+using SIMS.View.ViewDoctor.MainPages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -114,6 +115,11 @@ namespace SIMS.View.ViewDoctor
         private void Help_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new Help.Help());
+        }
+
+        private void Articles_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Articles());
         }
     }
 }

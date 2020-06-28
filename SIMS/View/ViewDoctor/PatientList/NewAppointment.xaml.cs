@@ -105,7 +105,7 @@ namespace SIMS.View.ViewDoctor.PatientList
                     //this.Visibility = Visibility.Hidden;
                     //allAppointments.Add();
 
-                    AppResources.getInstance().appointmentController.Create(new Model.PatientModel.Appointment(AppResources.getInstance().getLoggedInDoctor(), patient, room, type, new TimeInterval(time, time.AddMinutes(standardTime))));
+                    AppResources.getInstance().appointmentController.Create(new Model.PatientModel.Appointment(AppResources.getInstance().getLoggedInDoctor(), patient, room, type, new TimeInterval(StartTime, StartTime.AddMinutes(standardTime))));
 
                     panel.Children.Remove(this);
                     dg.Items.Refresh();

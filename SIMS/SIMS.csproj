@@ -268,7 +268,6 @@
     <Compile Include="Util\Regexes.cs" />
     <Compile Include="Util\TherapyFilter.cs" />
     <Compile Include="Util\TimeInterval.cs" />
-
     <Compile Include="View\ViewDoctor\Appointments\AppointmentView.xaml.cs">
       <DependentUpon>AppointmentView.xaml</DependentUpon>
     </Compile>
@@ -278,11 +277,17 @@
     <Compile Include="View\ViewDoctor\Forms\SaveOrPrint.xaml.cs">
       <DependentUpon>SaveOrPrint.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\ViewDoctor\Functions\Articles.xaml.cs">
+      <DependentUpon>Articles.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\ViewDoctor\Functions\Izvestaj\ListaDijagnozaZaPacijenta.xaml.cs">
       <DependentUpon>ListaDijagnozaZaPacijenta.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ViewDoctor\Functions\ListaDijagnoza.xaml.cs">
       <DependentUpon>ListaDijagnoza.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewDoctor\Functions\NewArticle.xaml.cs">
+      <DependentUpon>NewArticle.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ViewDoctor\Functions\NoviRecept.xaml.cs">
       <DependentUpon>NoviRecept.xaml</DependentUpon>
@@ -392,10 +397,8 @@
     </Compile>
     <Compile Include="View\ViewDoctor\Utility\Converter\IzvestajConverter.cs" />
     <Compile Include="View\ViewDoctor\Utility\SaveUtility.cs" />
-
     <Compile Include="Util\TimeIterator.cs" />
     <Compile Include="Util\UserValidation.cs" />
-
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -437,11 +440,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\ViewDoctor\Functions\Articles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\ViewDoctor\Functions\Izvestaj\ListaDijagnozaZaPacijenta.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\ViewDoctor\Functions\ListaDijagnoza.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewDoctor\Functions\NewArticle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

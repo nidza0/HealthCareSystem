@@ -45,6 +45,13 @@ namespace SIMS.View.ViewDoctor.PatientList
                 symptomsList.Add(new Symptom(temp.Trim().ToLower(), null));
             }
             AppResources ar = AppResources.getInstance();
+            var tempList = new List<Symptom>();
+            tempList.Add(new Symptom("S1", ""));
+
+            Disease tempDisease = new Disease(DiseaseTextBox.Text, "", true, new DiseaseType(false, true, "genetic"), tempList, null);
+
+            
+            ar.patientController.AddDiagnosis(patient, new SIMS.Model.PatientModel.Diagnosis(tempDisease, null));
             //ar.diseaseRepository.Create(new Model.PatientModel.Disease(ar.diseaseRepository.GetMaxId(ar.diseaseRepository.GetAll()) + 1));
             //allDiags.Add();
 
