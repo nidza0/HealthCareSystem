@@ -44,15 +44,15 @@ namespace SIMS.Service.MedicalService
 
         protected bool CheckDoctorSchedule(Appointment appointment)
             => _appointmentRepository.GetAppointmentsByDoctor(appointment.DoctorInAppointment)
-                .Where(app => app.TimeInterval.IsOverlappingWith(appointment.TimeInterval)).Count() <= 0;
+                .Where(app => app.TimeInterval.IsOverlappingWith(appointment.TimeInterval) && app.GetId() != appointment.GetId()).Count() <= 0;
 
         protected bool CheckPatientSchedule(Appointment appointment)
             => _appointmentRepository.GetPatientAppointments(appointment.Patient)
-                .Where(app => app.TimeInterval.IsOverlappingWith(appointment.TimeInterval)).Count() <= 0;
+                .Where(app => app.TimeInterval.IsOverlappingWith(appointment.TimeInterval) && app.GetId() != appointment.GetId()).Count() <= 0;
 
         protected bool CheckRoomSchedules(Appointment appointment)
             => _appointmentRepository.GetAppointmentsByRoom(appointment.Room)
-                .Where(app => app.TimeInterval.IsOverlappingWith(appointment.TimeInterval)).Count() <= 0;
+                .Where(app => app.TimeInterval.IsOverlappingWith(appointment.TimeInterval) && app.GetId() != appointment.GetId()).Count() <= 0;
 
 
         protected void CheckType(Appointment appointment)

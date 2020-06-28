@@ -338,6 +338,25 @@ namespace SIMS
             //testDocStats();
             //testInventoryStats();
             //testRoomStats();
+            //public Doctor(string userName,
+            //           string password,
+            //           string name,
+            //           string surname,
+            //           string middleName,
+            //           Sex sex,
+            //           DateTime dateOfBirth,
+            //           string uidn,
+            //           Address address,
+            //           string homePhone,
+            //           string cellPhone,
+            //           string email1,
+            //           string email2,
+            //           TimeTable timeTable,
+            //           Hospital hospital,
+            //           Room office,
+            //           DoctorType doctorType)
+
+           
         }
 
         private void testRoomStats()
@@ -1180,5 +1199,7 @@ namespace SIMS
                 Console.WriteLine(l.City + " " + l.Country);
             }
         }
+
+       
     }
 }

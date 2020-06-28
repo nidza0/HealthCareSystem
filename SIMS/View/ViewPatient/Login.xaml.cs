@@ -19,6 +19,9 @@ using SIMS.Model.UserModel;
 using SIMS.View.ViewPatient.Exceptions;
 using SIMS.View.ViewPatient.RepoSimulator;
 using SIMS.Service.UsersService;
+using SIMS.Util;
+using SIMS.Model.DoctorModel;
+using SIMS.Model.PatientModel;
 
 namespace SIMS.View.ViewPatient
 {
@@ -40,6 +43,8 @@ namespace SIMS.View.ViewPatient
             userRepo = UserRepo.Instance;
             InitializeComponent();
             defaultBorderColor = username.BorderBrush;
+
+
         }
 
         private void ResetButton_Click(object sender, RoutedEventArgs e)
@@ -137,6 +142,14 @@ namespace SIMS.View.ViewPatient
         {
             VideoTutorial videoTutorial = new VideoTutorial();
             videoTutorial.Show();
+        }
+
+
+        
+
+        private void appointmentsData()
+        {
+          
         }
     }
 }

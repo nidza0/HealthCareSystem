@@ -18,6 +18,6 @@ namespace SIMS.Util
         public static string diseaseName = ".{3,}";
 
         public static string medicineNamePattern = @"[a-zA-Z0-9\\-\\! ]*";
-        public static string roomNumberPattern = @"[a-zA-Z0-9\\- ]*";
+        public static string roomNumberPattern = @"[a-zA-Z0-9 ]*";
     }
 }

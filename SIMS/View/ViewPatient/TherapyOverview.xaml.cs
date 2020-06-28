@@ -29,10 +29,8 @@ namespace SIMS.View.ViewPatient
     /// </summary>
     public partial class TherapyOverview : Window
     {
-
-        private TherapyRepo therapyRepo = TherapyRepo.Instance;
         private string selectedFilterDrugName;
-        private string selectedFilterDoctor;
+        private Doctor selectedFilterDoctor;
         private DateTime selectedStartDate = DateTime.Now;
         private DateTime selectedEndDate = DateTime.Now;
 
@@ -44,10 +42,15 @@ namespace SIMS.View.ViewPatient
 
         private ObservableCollection<PatientSingleTherapy> allTherapies; //za naseg pacijenta, podrazumeva se
 
+        private List<Therapy> therapyList;
+
 
         
         public TherapyOverview()
         {
+            allTherapies = new ObservableCollection<PatientSingleTherapy>();
+            fillWithDefaultValues();
+
             this.DataContext = this;
             InitializeComponent();
 
@@ -57,8 +60,18 @@ namespace SIMS.View.ViewPatient
             
         }
 
+        public void fillWithDefaultValues()
+        {
+            ClearTherapyList();
+            foreach (PatientSingleTherapy therapy in GetPatientSingleTherapies(GetAllTherapies().ToList()))
+            {
+                //initial therpaies
+                allTherapies.Add(therapy);
+            }
+        }
+
         public string SelectedFilterDrugName { get => selectedFilterDrugName; set => selectedFilterDrugName = value; }
-        public string SelectedFilterDoctor { get => selectedFilterDoctor; set => selectedFilterDoctor = value; }
+        public Doctor SelectedFilterDoctor { get => selectedFilterDoctor; set => selectedFilterDoctor = value; }
         public DateTime SelectedStartDate { get => selectedStartDate; set => selectedStartDate = value; }
         public DateTime SelectedEndDate { get => selectedEndDate; set => selectedEndDate = value; }
         public bool SelectedWhenIGetUpCheckBox { get => selectedWhenIGetUpCheckBox; set => selectedWhenIGetUpCheckBox = value; }
@@ -66,74 +79,78 @@ namespace SIMS.View.ViewPatient
         public bool SelectedInTheEveningCheckBox { get => selectedInTheEveningCheckBox; set => selectedInTheEveningCheckBox = value; }
         public bool SelectedBeforeBedCheckBox { get => selectedBeforeBedCheckBox; set => selectedBeforeBedCheckBox = value; }
         public ObservableCollection<PatientSingleTherapy> AllTherapies {
-            get
-            {
-                return GetObservablePatientSingleTherapies();
-            }
+            get => allTherapies;
+            
             set => allTherapies = value;
         }
 
+        private void ClearTherapyList()
+        {
+            while (AllTherapies.Count > 0)
+            {
+                AllTherapies.RemoveAt(AllTherapies.Count - 1);
+            }
+        }
+
+
+
         private void FilterButton_Click(object sender, RoutedEventArgs e)
         {
+            List<TherapyTime> therapyTimes = new List<TherapyTime>();
+            if (selectedWhenIGetUpCheckBox) therapyTimes.Add(TherapyTime.WhenIWakeUp);
+            if (selectedInTheAfternoonCheckBox) therapyTimes.Add(TherapyTime.Afternoon);
+            if (selectedInTheEveningCheckBox) therapyTimes.Add(TherapyTime.Evening);
+            if (selectedBeforeBedCheckBox) therapyTimes.Add(TherapyTime.BeforeBed);
+            TherapyFilter therapyFilter = new TherapyFilter(selectedFilterDrugName, selectedFilterDoctor, new TimeInterval(selectedStartDate, selectedEndDate), therapyTimes);
+
+            List<Therapy> therapies = AppResources.getInstance().therapyService.GetFilteredTherapy(therapyFilter).ToList();
+
+            ClearTherapyList();
+
+            foreach(PatientSingleTherapy therapy in GetPatientSingleTherapies(therapies))
+            {
+                AllTherapies.Add(therapy);
+            }
 
         }
 
         private IEnumerable<Therapy> GetAllTherapies()
         {
             //poziv kontrolera
-
-            return therapyRepo.TherapyList;
+            Patient patient = AppResources.getInstance().patientController.GetByID(AppResources.getInstance().loggedInUser.GetId());
+            return AppResources.getInstance().patientController.GetActiveTherapyForPatient(patient);
         }
 
 
 
-        private List<PatientSingleTherapy> GetPatientSingleTherapies()
+        private ObservableCollection<PatientSingleTherapy> GetPatientSingleTherapies(List<Therapy> therapies)
         {
             List<PatientSingleTherapy> retVal = new List<PatientSingleTherapy>();
 
-            List<Therapy> allTherapies = GetAllTherapies().ToList();
-
-            foreach(Therapy therapy in allTherapies)
+            foreach(Therapy therapy in therapies)
             {
                 Prescription therapyPrescription = therapy.Prescription;
 
-                foreach(KeyValuePair<Medicine,TherapyDose> pair in therapyPrescription.Medicine)
+                foreach (KeyValuePair<Medicine, TherapyDose> pair in therapyPrescription.Medicine)
                 {
                     //za svaki lek
-                    PatientSingleTherapy patientSingleTherapy = new PatientSingleTherapy(pair.Key, therapy.TimeInterval, pair.Value.Dosage,therapyPrescription.Doctor);
+                    PatientSingleTherapy patientSingleTherapy = new PatientSingleTherapy(pair.Key, therapy.TimeInterval, pair.Value.Dosage, therapyPrescription.Doctor);
                     retVal.Add(patientSingleTherapy);
                 }
             }
 
 
-
-
-
-            return retVal;
+            return new ObservableCollection<PatientSingleTherapy>(retVal);
         }
 
 
-        private ObservableCollection<PatientSingleTherapy> GetObservablePatientSingleTherapies()
-        {
-            List<PatientSingleTherapy> patientSingleTherapies = GetPatientSingleTherapies();
-            Console.WriteLine(patientSingleTherapies.Count);
-            ObservableCollection<PatientSingleTherapy> retVal = new ObservableCollection<PatientSingleTherapy>();
-
-            foreach(PatientSingleTherapy therapy in patientSingleTherapies)
-            {
-                retVal.Add(therapy);
-            }
-
-
-            return retVal;
-        }
 
         private ObservableCollection<Doctor> Doctors
         {
             get
             {
-                List<Doctor> doctors = GetPatientSingleTherapies().ToList().Select(therapy => therapy.Doctor).Distinct().ToList();
-
+                //List<Doctor> doctors = GetPatientSingleTherapies().ToList().Select(therapy => therapy.Doctor).Distinct().ToList();
+                List<Doctor> doctors = AppResources.getInstance().doctorController.GetActiveDoctors().ToList();
                 ObservableCollection<Doctor> retVal = new ObservableCollection<Doctor>();
 
                 foreach (Doctor doc in doctors)

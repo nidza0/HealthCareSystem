@@ -59,6 +59,10 @@ namespace SIMS.View.ViewPatient
 
             doctorTypeComboBox.ItemsSource = Enum.GetValues(typeof(DoctorType)).Cast<DoctorType>();
             appointmentTypeComboBox.ItemsSource = Enum.GetValues(typeof(AppointmentType)).Cast<AppointmentType>();
+
+
+
+
         }
 
         public DoctorType SelectedFilterDoctorType { get => selectedFilterDoctorType; set => selectedFilterDoctorType = value; }
@@ -98,7 +102,7 @@ namespace SIMS.View.ViewPatient
         private IEnumerable<Appointment> GetAllPatientAppointments()
         {
             //call controller
-            return myAppointmentsRepo.MyAppointments;
+            return AppResources.getInstance().appointmentController.GetUpcomingAppointmentsForPatient(AppResources.getInstance().patientController.GetByID(AppResources.getInstance().loggedInUser.GetId()));
             
            
         }
@@ -298,10 +302,11 @@ namespace SIMS.View.ViewPatient
             MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("Are you sure you want to cancel this appointment?", "Cancel appointment confirmation", System.Windows.MessageBoxButton.YesNo);
             if (messageBoxResult == MessageBoxResult.Yes)
             {
-                myAppointmentsRepo.cancelAppointment(appointment);
+                appointment.Canceled = true;
+                AppResources.getInstance().appointmentController.Update(appointment);
                 AllAppointments.Remove(appointment);
 
-                doctorAppointmentsRepo.cancelAnAppointment(appointment);
+                //doctorAppointmentsRepo.cancelAnAppointment(appointment);
 
                 MessageBox.Show("Appointment successfully canceled!");
             }
