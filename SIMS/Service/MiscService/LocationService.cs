@@ -5,6 +5,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
+using SIMS.Exceptions;
 using SIMS.Model.UserModel;
 using SIMS.Repository.Abstract.MiscAbstractRepository;
 using SIMS.Repository.CSVFileRepository.MiscRepository;
@@ -34,13 +36,32 @@ namespace SIMS.Service.MiscService
             => _locationRepository.GetByID(id);
 
         public Location Create(Location entity)
-            => _locationRepository.Create(entity);
+        {
+            Validate(entity);
+            return _locationRepository.Create(entity);
+        }
 
         public void Update(Location entity)
-            => _locationRepository.Update(entity);
+        {
+            Validate(entity);
+            _locationRepository.Update(entity);
+        }
 
         public void Delete(Location entity)
             => _locationRepository.Delete(entity);
 
+        public void Validate(Location entity)
+        {
+            string namingPattern = @"[a-zA-Z\\- ]*";
+            if (!Regex.Match(entity.City, namingPattern).Success)
+            {
+                throw new LocationServiceException("City contains illegal characters!");
+            }
+
+            if (!Regex.Match(entity.Country, namingPattern).Success)
+            {
+                throw new LocationServiceException("Country contains illegal characters!");
+            }
+        }
     }
 }

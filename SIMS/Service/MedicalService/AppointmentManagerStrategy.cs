@@ -5,7 +5,9 @@
 
 using System;
 using SIMS.Exceptions;
+using SIMS.Model.DoctorModel;
 using SIMS.Model.PatientModel;
+using SIMS.Model.UserModel;
 
 namespace SIMS.Service.MedicalService
 {
@@ -16,37 +18,36 @@ namespace SIMS.Service.MedicalService
 
         public void checkDateTimeValid(Appointment appointment)
         {
-            DateTime StartTime = appointment.TimeInterval.StartTime;
-            DateTime EndTime = appointment.TimeInterval.EndTime;
+            DateTime startTime = appointment.TimeInterval.StartTime;
+            DateTime endTime = appointment.TimeInterval.EndTime;
 
-            if (StartTime.CompareTo(DateTime.Now.AddHours(bottomHourMargin)) < 0)
-                throw new InvalidTimeException();
-            else if (StartTime.CompareTo(EndTime) > 0)
-                throw new InvalidTimeException();
-            else if (StartTime.CompareTo(DateTime.Now.AddDays(topDayMargin)) > 0)
-                throw new InvalidTimeException();
+            if (startTime < DateTime.Now.AddHours(bottomHourMargin))
+                throw new AppointmentServiceException("Appointment start time is too soon!");
+
+            if (startTime > endTime)
+                throw new AppointmentServiceException("Appointment start time must be before end time!");
+
+            if (startTime > DateTime.Now.AddDays(topDayMargin))
+                throw new AppointmentServiceException("Appointment can't be made too far in the future!");
         }
 
         public void CheckType(Appointment appointment)
         {
-            if (appointment.AppointmentType == AppointmentType.operation)
-            {
-                if (appointment.DoctorInAppointment.DocTypeEnum != Model.DoctorModel.DocTypeEnum.FAMILYMEDICINE)
-                {
-                    throw new IllegalAppointmentBooking();
-                }
-            }
-            else if (appointment.AppointmentType == AppointmentType.renovation)
-            {
-                if (appointment.DoctorInAppointment != null || appointment.Patient != null)
-                {
-                    throw new IllegalAppointmentBooking();
-                }
-            }
+            AppointmentType appointmentType = appointment.AppointmentType;
+            Doctor doctor = appointment.DoctorInAppointment;
+            Patient patient = appointment.Patient;
+
+            if (appointmentType == AppointmentType.operation && (doctor.DoctorType == DoctorType.FAMILYMEDICINE))
+                throw new AppointmentServiceException("Family medicine doctor can not book operation!");
+            else if (appointmentType == AppointmentType.renovation && (doctor != null || patient != null))
+                throw new AppointmentServiceException("Doctor and patient can not be in renovation appointment!");
         }
 
         public bool isAppointmentChangeable(Appointment appointment)
-        => appointment.TimeInterval.StartTime.AddHours(-bottomHourMargin) > DateTime.Now;
+        {
+            DateTime startTime = appointment.TimeInterval.StartTime;
+            return startTime.AddHours(-bottomHourMargin) > DateTime.Now && startTime.AddDays(-topDayMargin) < DateTime.Now;
+        }
 
         public void Validate(Appointment appointment)
         {

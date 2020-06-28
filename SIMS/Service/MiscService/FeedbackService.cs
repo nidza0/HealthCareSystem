@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using SIMS.Exceptions;
 using SIMS.Model.UserModel;
 using SIMS.Repository.Abstract.MiscAbstractRepository;
 using SIMS.Repository.CSVFileRepository.MiscRepository;
@@ -22,7 +23,10 @@ namespace SIMS.Service.MiscService
         }
 
         public Feedback Create(Feedback entity)
-            => _feedbackRepository.Create(entity);
+        {
+            Validate(entity);
+            return _feedbackRepository.Create(entity);
+        }
 
         public void Delete(Feedback entity)
             => _feedbackRepository.Delete(entity);
@@ -34,7 +38,22 @@ namespace SIMS.Service.MiscService
             => GetAll().SingleOrDefault(feedback => feedback.GetId() == id);
 
         public void Update(Feedback entity)
-            => _feedbackRepository.Update(entity);
+        {
+            Validate(entity);
+            _feedbackRepository.Update(entity);
+        }
 
+        public void Validate(Feedback entity)
+        {
+            if (entity.User == null)
+            {
+                throw new FeedbackServiceException("User is null!");
+            }
+
+            if (entity.Comment.Length < 1 && entity.Rating == null)
+            {
+                throw new FeedbackServiceException("Feedback is empty!");
+            }
+        }
     }
 }

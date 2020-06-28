@@ -5,16 +5,20 @@
 
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
+using SIMS.Exceptions;
 using SIMS.Model.PatientModel;
 using SIMS.Repository.Abstract.HospitalManagementAbstractRepository;
 using SIMS.Repository.CSVFileRepository.HospitalManagementRepository;
+using SIMS.Service.ValidateServices.ValidateHospitalManagementServices;
+using SIMS.Util;
 
 namespace SIMS.Service.HospitalManagementService
 {
     public class MedicineService : IService<Medicine, long>
     {
 
-        MedicineRepository _medicineRepository;
+        private MedicineRepository _medicineRepository;
 
         public MedicineService(MedicineRepository medicineRepository)
         {
@@ -43,20 +47,51 @@ namespace SIMS.Service.HospitalManagementService
             => _medicineRepository.GetByID(id);
 
         public Medicine Create(Medicine entity)
-            => _medicineRepository.Create(entity);
+        {
+            Validate(entity);
+            return _medicineRepository.Create(entity);
+        }
 
         public void Update(Medicine entity)
-            => _medicineRepository.Update(entity);
+        {
+            Validate(entity);
+            _medicineRepository.Update(entity);
+        }
 
         public void Delete(Medicine entity)
             => _medicineRepository.Delete(entity);
 
-        void IService<Medicine, long>.Update(Medicine entity)
+        public void Validate(Medicine entity)
         {
-            throw new NotImplementedException();
+            CheckStrength(entity.Strength);
+            CheckInStock(entity.InStock);
+            CheckMinNumber(entity.MinNumber);
+            CheckName(entity.Name);
         }
 
-        public IMedicineRepository iMedicineRepository;
+        private void CheckName(string name)
+        {
+            if (!Regex.Match(name, Regexes.medicineNamePattern).Success)
+                throw new MedicineServiceException("Name contains illegal characters!");
+        }
+
+        private void CheckMinNumber(int minNumber)
+        {
+            if (minNumber < 0)
+                throw new MedicineServiceException("MinNumber is less than zero!");
+        }
+
+        private void CheckInStock(int inStock)
+        {
+            if (inStock < 0)
+                throw new MedicineServiceException("InStock is less than zero!");
+        }
+
+        private void CheckStrength(double strength)
+        {
+            if (strength < 0)
+                throw new MedicineServiceException("Strength is less than zero!");
+        }
 
     }
 }

@@ -21,6 +21,8 @@ namespace SIMS.Service.MedicalService
         private AppointmentRepository _appointmentRepository;
         private DateTime dayBeforeAutoDelete;
 
+        public IAppointmentStrategy AppointmentStrategy { get => _appointmentStrategy; set => _appointmentStrategy = value; }
+
         public AppointmentService(AppointmentRepository appointmentRepository,IAppointmentStrategy appointmentStrategy)
         {
             _appointmentRepository = appointmentRepository;
@@ -28,63 +30,30 @@ namespace SIMS.Service.MedicalService
 
         }
 
-        protected void validate(Appointment appointment)
-            => _appointmentStrategy.Validate(appointment);
-
-        protected void checkDateTimeValid(Appointment appointment)
-            => _appointmentStrategy.checkDateTimeValid(appointment);
-
         protected void CheckSchedules(Appointment appointment)
         {
             if (!CheckDoctorSchedule(appointment))
-            {
-                throw new IllegalAppointmentBooking();
-            }
+                throw new AppointmentServiceException("Appointment clashes with doctor appointments!");
 
             if (!CheckPatientSchedule(appointment))
-            {
-                throw new IllegalAppointmentBooking();
-            }
+                throw new AppointmentServiceException("Appointment clashes with patient appointments!");
+
+            if (!CheckRoomSchedules(appointment))
+                throw new AppointmentServiceException("Appointment clashes with room appointments!");
         }
 
         protected bool CheckDoctorSchedule(Appointment appointment)
-        {
-            IEnumerable<Appointment> overlapping = _appointmentRepository.GetAppointmentsByDoctor(appointment.DoctorInAppointment)
-                .Where(app => app.TimeInterval.IsOverlappingWith(appointment.TimeInterval));
-
-            if (overlapping.Count() > 0)
-            {
-                return false;
-            }
-
-            return true;
-        }
+            => _appointmentRepository.GetAppointmentsByDoctor(appointment.DoctorInAppointment)
+                .Where(app => app.TimeInterval.IsOverlappingWith(appointment.TimeInterval)).Count() <= 0;
 
         protected bool CheckPatientSchedule(Appointment appointment)
-        {
-            IEnumerable<Appointment> overlapping = _appointmentRepository.GetPatientAppointments(appointment.Patient)
-                .Where(app => app.TimeInterval.IsOverlappingWith(appointment.TimeInterval));
-
-            if(overlapping.Count() > 0)
-            {
-                return false;
-            }
-
-            return true;
-        }
+            => _appointmentRepository.GetPatientAppointments(appointment.Patient)
+                .Where(app => app.TimeInterval.IsOverlappingWith(appointment.TimeInterval)).Count() <= 0;
 
         protected bool CheckRoomSchedules(Appointment appointment)
-        {
-            // Checks if the selected room is available
-            IEnumerable<Appointment> appointments = _appointmentRepository.GetAppointmentsByRoom(appointment.Room)
-                .Where(app => app.TimeInterval.IsOverlappingWith(appointment.TimeInterval));
-            if(appointments.Count() > 0)
-            {
-                return false;
-            }
+            => _appointmentRepository.GetAppointmentsByRoom(appointment.Room)
+                .Where(app => app.TimeInterval.IsOverlappingWith(appointment.TimeInterval)).Count() <= 0;
 
-            return true;
-        }
 
         protected void CheckType(Appointment appointment)
             => _appointmentStrategy.CheckType(appointment);
@@ -92,7 +61,7 @@ namespace SIMS.Service.MedicalService
         public Appointment CancelAppointment(Appointment appointment)
         {
             // TODO: Proveri da li moze da se otkaze appointment
-            validate(appointment);
+            Validate(appointment);
             appointment.Canceled = true;
             _appointmentRepository.Update(appointment);
             
@@ -152,7 +121,7 @@ namespace SIMS.Service.MedicalService
 
         public Appointment Create(Appointment entity)
         {
-            validate(entity);
+            Validate(entity);
             _appointmentRepository.Create(entity);
             return entity;
         }
@@ -162,14 +131,17 @@ namespace SIMS.Service.MedicalService
 
         public void Update(Appointment entity)
         {
-            validate(entity);
+            Validate(entity);
             if (this.IsAppointmentChangeable(entity)) { 
                 _appointmentRepository.Update(entity);
             }
         }
-            
 
-
+        public void Validate(Appointment entity)
+        {
+            _appointmentStrategy.Validate(entity);
+            CheckSchedules(entity);
+        }
 
     }
 }

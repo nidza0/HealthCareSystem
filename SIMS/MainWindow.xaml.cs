@@ -53,7 +53,6 @@ namespace SIMS
             //    new EmergencyContact("Pera", "Peric", "pera.peric@uns.ac.rs", "+381655555555"), PatientType.GENERAL, haus);
 
 
-
             //Appointment newApp = new Appointment(152, haus, Mika, room2, AppointmentType.checkup, new TimeInterval(DateTime.Now, DateTime.Now.AddMinutes(15)));
             //AppResources.getInstance().appointmentRepository.Create(newApp);
             //Room room = new Room(100, "101A", false, 1, RoomType.EXAMINATION);
@@ -79,7 +78,6 @@ namespace SIMS
 
             AppResources.getInstance().patientRepository.Create(Mika);
             */
-
 
             //HospitalConverter converter = new HospitalConverter(",");
             //List<Room> testList = new List<Room>();
@@ -409,7 +407,7 @@ namespace SIMS
         private void testDocStats()
         {
             Address address = new Address("koste sokice 3", new Location(22, "Srbija", "Novi Sad"));
-            Doctor doctor = new Doctor(new UserID("D123"), "pera", "pera123", DateTime.Now, "Pera", "Vunic", "Puck", Sex.MALE, DateTime.Now, "12345667", address, "555-333", "06130959858", "pera@gmail.com", "pera111@gmail.com", new TimeTable(new Dictionary<WorkingDaysEnum, Util.TimeInterval>()), new Hospital("test", address, "555-333", "zzzz"), new Room(1), DocTypeEnum.CARDIOLOGIST);
+            Doctor doctor = new Doctor(new UserID("D123"), "pera", "pera123", DateTime.Now, "Pera", "Vunic", "Puck", Sex.MALE, DateTime.Now, "12345667", address, "555-333", "06130959858", "pera@gmail.com", "pera111@gmail.com", new TimeTable(new Dictionary<WorkingDaysEnum, Util.TimeInterval>()), new Hospital("test", address, "555-333", "zzzz"), new Room(1), DoctorType.CARDIOLOGIST);
             DoctorStatisticRepository dsr = AppResources.getInstance().doctorStatisticRepository;
 
             //StatsDoctor temp = new StatsDoctor(111, 15, "15 minutes", doctor);
@@ -956,7 +954,7 @@ namespace SIMS
 
             res.appointmentRepository.GetAllEager();
 
-            AppointmentFilter filter = new AppointmentFilter(res.doctorRepository.GetByID(new UserID("d1")), DocTypeEnum.UNDEFINED, null, AppointmentType.checkup);
+            AppointmentFilter filter = new AppointmentFilter(res.doctorRepository.GetByID(new UserID("d1")), DoctorType.UNDEFINED, null, AppointmentType.checkup);
             res.appointmentRepository.GetFilteredAppointment(filter);
 
         }
@@ -1009,67 +1007,67 @@ namespace SIMS
         {
             AppResources res = AppResources.getInstance();
 
-            Doctor d1 = new Doctor("drstrange", "VVVVV", "Stephen", "Strange", "Doctor", Sex.MALE, DateTime.Now, "4578457854", null, "0081747474", "", "drstrange@marvel.com", "stephen.strange@marvel.com", null, null, null, DocTypeEnum.SURGEON);
-            Doctor d2 = new Doctor("p.kon", "", "Predrag", "Kon", "", Sex.MALE, DateTime.Now, "113543545488", null, "0118754786", "", "dr.kon@zdrav.gov.rs", "", null, null, null, DocTypeEnum.INFECTOLOGIST);
-            Doctor d3 = new Doctor("darija", "", "Darija", "Kisic", "", Sex.FEMALE, DateTime.Now, "251812065115", null, "0118798449", "", "darija.kk@gmail.com", "", null, null, null, DocTypeEnum.INFECTOLOGIST);
-            Doctor d4 = new Doctor("doktorr", "", "OKurrr", "Kisic", "", Sex.FEMALE, DateTime.Now, "251812065115", null, "0118798449", "", "darija.kk@gmail.com", "", null, null, null, DocTypeEnum.INFECTOLOGIST);
+            Doctor d1 = new Doctor("drstrange", "VVVVV", "Stephen", "Strange", "Doctor", Sex.MALE, DateTime.Now, "4578457854", null, "0081747474", "", "drstrange@marvel.com", "stephen.strange@marvel.com", null, null, null, DoctorType.SURGEON);
+            Doctor d2 = new Doctor("p.kon", "", "Predrag", "Kon", "", Sex.MALE, DateTime.Now, "113543545488", null, "0118754786", "", "dr.kon@zdrav.gov.rs", "", null, null, null, DoctorType.INFECTOLOGIST);
+            Doctor d3 = new Doctor("darija", "", "Darija", "Kisic", "", Sex.FEMALE, DateTime.Now, "251812065115", null, "0118798449", "", "darija.kk@gmail.com", "", null, null, null, DoctorType.INFECTOLOGIST);
+            Doctor d4 = new Doctor("doktorr", "", "OKurrr", "Kisic", "", Sex.FEMALE, DateTime.Now, "251812065115", null, "0118798449", "", "darija.kk@gmail.com", "", null, null, null, DoctorType.INFECTOLOGIST);
 
             //res.doctorRepository.Create(d1);
             //res.doctorRepository.Create(d2);
             //res.doctorRepository.Create(d3);
             //res.doctorRepository.Create(d4);
             
-            IEnumerable<Doctor> docs = res.doctorRepository.GetDoctorByType(DocTypeEnum.CARDIOLOGIST);
+            IEnumerable<Doctor> docs = res.doctorRepository.GetDoctorByType(DoctorType.CARDIOLOGIST);
             Console.WriteLine("ByType(CARDIOLOGIST): " + (docs.ToList().Count == 0));
 
-            IEnumerable<Doctor> docs2 = res.doctorRepository.GetDoctorByType(DocTypeEnum.INFECTOLOGIST);
+            IEnumerable<Doctor> docs2 = res.doctorRepository.GetDoctorByType(DoctorType.INFECTOLOGIST);
             foreach(Doctor doc in docs2)
             {
-                Console.WriteLine(doc.Name + " " + doc.Surname + " " + doc.DocTypeEnum);
+                Console.WriteLine(doc.Name + " " + doc.Surname + " " + doc.DoctorType);
             }
 
 
             Console.WriteLine("Doctor Filter");
 
-            DoctorFilter filter1 = new DoctorFilter("Stephen", null, DocTypeEnum.UNDEFINED);
+            DoctorFilter filter1 = new DoctorFilter("Stephen", null, DoctorType.UNDEFINED);
             Console.WriteLine("Only Stephen");
             IEnumerable<Doctor> filtered1 = res.doctorRepository.GetFilteredDoctors(filter1);
             foreach (Doctor doc in filtered1)
             {
-                Console.WriteLine(doc.Name + " " + doc.Surname + " " + doc.DocTypeEnum);
+                Console.WriteLine(doc.Name + " " + doc.Surname + " " + doc.DoctorType);
             }
 
-            DoctorFilter filter2 = new DoctorFilter("", null, DocTypeEnum.INFECTOLOGIST);
+            DoctorFilter filter2 = new DoctorFilter("", null, DoctorType.INFECTOLOGIST);
             Console.WriteLine("Only infectologists");
             IEnumerable<Doctor> filtered2 = res.doctorRepository.GetFilteredDoctors(filter2);
             foreach (Doctor doc in filtered2)
             {
-                Console.WriteLine(doc.Name + " " + doc.Surname + " " + doc.DocTypeEnum);
+                Console.WriteLine(doc.Name + " " + doc.Surname + " " + doc.DoctorType);
             }
 
-            DoctorFilter filter3 = new DoctorFilter("", "Kisic", DocTypeEnum.INFECTOLOGIST);
+            DoctorFilter filter3 = new DoctorFilter("", "Kisic", DoctorType.INFECTOLOGIST);
             Console.WriteLine("Only Kisic Infectologist");
             IEnumerable<Doctor> filtered3 = res.doctorRepository.GetFilteredDoctors(filter3);
             foreach (Doctor doc in filtered3)
             {
-                Console.WriteLine(doc.Name + " " + doc.Surname + " " + doc.DocTypeEnum);
+                Console.WriteLine(doc.Name + " " + doc.Surname + " " + doc.DoctorType);
             }
 
-            DoctorFilter filter4 = new DoctorFilter("Predrag", "Kon", DocTypeEnum.INFECTOLOGIST);
+            DoctorFilter filter4 = new DoctorFilter("Predrag", "Kon", DoctorType.INFECTOLOGIST);
             Console.WriteLine("Only Predrag Kon");
             IEnumerable<Doctor> filtered4 = res.doctorRepository.GetFilteredDoctors(filter4);
             foreach (Doctor doc in filtered4)
             {
-                Console.WriteLine(doc.Name + " " + doc.Surname + " " + doc.DocTypeEnum);
+                Console.WriteLine(doc.Name + " " + doc.Surname + " " + doc.DoctorType);
             }
 
-            DoctorFilter filter5 = new DoctorFilter("Predrag", "Kon", DocTypeEnum.DERMATOLOGIST);
+            DoctorFilter filter5 = new DoctorFilter("Predrag", "Kon", DoctorType.DERMATOLOGIST);
             Console.WriteLine("Empty");
             IEnumerable<Doctor> filtered5 = res.doctorRepository.GetFilteredDoctors(filter5);
             Console.WriteLine(filtered5.Count() == 0);
             foreach (Doctor doc in filtered5)
             {
-                Console.WriteLine(doc.Name + " " + doc.Surname + " " + doc.DocTypeEnum);
+                Console.WriteLine(doc.Name + " " + doc.Surname + " " + doc.DoctorType);
             }
 
             filtered4.ToList()[0].TimeTable = res.timeTableRepository.GetByID(1);

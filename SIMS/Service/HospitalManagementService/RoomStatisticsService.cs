@@ -1,5 +1,6 @@
 ﻿using SIMS.Model.ManagerModel;
 using SIMS.Repository.CSVFileRepository.HospitalManagementRepository;
+using SIMS.Service.ValidateServices.ValidateHospitalManagementServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,8 +11,7 @@ namespace SIMS.Service.HospitalManagementService
 {
     public class RoomStatisticsService : IService<StatsRoom, long>
     {
-
-        RoomStatisticsRepository _roomStatisticsRepository;
+        private RoomStatisticsRepository _roomStatisticsRepository;
 
         public RoomStatisticsService(RoomStatisticsRepository roomStatisticsRepository)
         {
@@ -19,7 +19,10 @@ namespace SIMS.Service.HospitalManagementService
         }
 
         public StatsRoom Create(StatsRoom entity)
-            => _roomStatisticsRepository.Create(entity);
+        {
+            Validate(entity);
+            return _roomStatisticsRepository.Create(entity);
+        }
 
         public void Delete(StatsRoom entity)
             => _roomStatisticsRepository.Delete(entity);
@@ -31,6 +34,34 @@ namespace SIMS.Service.HospitalManagementService
             => this.GetAll().SingleOrDefault(stat => stat.GetId() == id);
 
         public void Update(StatsRoom entity)
-            => _roomStatisticsRepository.Update(entity);
+        {
+            Validate(entity);
+            _roomStatisticsRepository.Update(entity);
+        }
+
+        public void Validate(StatsRoom entity)
+        {
+            CheckAppointmentTime(entity.AvgAppointmentTime);
+            CheckTimeOccupied(entity.TimeOccupied);
+            CheckUsage(entity.Usage);
+        }
+
+        private void CheckUsage(double usage)
+        {
+            if (usage < 0)
+                throw new RoomStatisticServiceException("Usage is less than zero!");
+        }
+
+        private void CheckTimeOccupied(double timeOccupied)
+        {
+            if (timeOccupied < 0)
+                throw new RoomStatisticServiceException("TimeOccupied is less than zero!");
+        }
+
+        private void CheckAppointmentTime(int avgAppointmentTime)
+        {
+            if (avgAppointmentTime < 0)
+                throw new RoomStatisticServiceException("AvgAppointmentTime is less than zero!");
+        }
     }
 }

@@ -42,5 +42,9 @@ namespace SIMS.Service.MedicalService
         public void Delete(Diagnosis entity)
             => _diagnosisRepository.Delete(entity);
 
+        public void Validate(Diagnosis entity)
+        {
+            //Nothing to validate.
+        }
     }
 }

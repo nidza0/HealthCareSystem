@@ -7,18 +7,21 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Text.RegularExpressions;
 using SIMS.Model.PatientModel;
 using SIMS.Model.UserModel;
 using SIMS.Repository.Abstract.HospitalManagementAbstractRepository;
 using SIMS.Repository.CSVFileRepository.HospitalManagementRepository;
 using SIMS.Repository.CSVFileRepository.MedicalRepository;
+using SIMS.Service.ValidateServices.ValidateHospitalManagementServices;
+using SIMS.Util;
 
 namespace SIMS.Service.HospitalManagementService
 {
     public class RoomService : IService<Room, long>
     {
-        RoomRepository _roomRepository;
-        AppointmentRepository _appointmentRepository;
+        private RoomRepository _roomRepository;
+        private AppointmentRepository _appointmentRepository;
 
         public RoomService(RoomRepository roomRepository, AppointmentRepository appointmentRepository)
         {
@@ -29,7 +32,7 @@ namespace SIMS.Service.HospitalManagementService
         public IEnumerable<Room> GetRoomsByType(RoomType type)
             => _roomRepository.GetRoomsByType(type);
 
-        public IEnumerable<Room> GetAvailableRoomsByDate(Util.TimeInterval timeInterval)
+        public IEnumerable<Room> GetAvailableRoomsByDate(TimeInterval timeInterval)
         {
 
             List<Room> retVal = new List<Room>();
@@ -76,10 +79,16 @@ namespace SIMS.Service.HospitalManagementService
             => this.GetAll().SingleOrDefault(room => room.GetId() == id);
 
         public Room Create(Room entity)
-            => _roomRepository.Create(entity);
+        {
+            Validate(entity);
+            return _roomRepository.Create(entity);
+        }
 
         public void Update(Room entity)
-            => _roomRepository.Update(entity);
+        {
+            Validate(entity);
+            _roomRepository.Update(entity);
+        }
 
         public void Delete(Room entity)
             => _roomRepository.Delete(entity);
@@ -89,7 +98,22 @@ namespace SIMS.Service.HospitalManagementService
             throw new NotImplementedException();
         }
 
-        public IRoomRepository iRoomRepository;
+        public void Validate(Room entity)
+        {
+            CheckFloorNumber(entity.Floor);
+            CheckRoomNumber(entity.RoomNumber);
+        }
 
+        private void CheckRoomNumber(string roomNumber)
+        {
+            if (!Regex.Match(roomNumber, Regexes.roomNumberPattern).Success)
+                throw new RoomServiceException("RoomNumber contains illegal characters!");
+        }
+
+        private void CheckFloorNumber(int floor)
+        {
+            if (floor < 0)
+                throw new RoomServiceException("RoomService - Floor is less than zero!");
+        }
     }
 }

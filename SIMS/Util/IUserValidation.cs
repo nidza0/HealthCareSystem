@@ -9,9 +9,9 @@ namespace SIMS.Util
 {
     public interface IUserValidation : IPersonValidation
     {
-        bool CheckUsername(string username);
+        void CheckUsername(string username);
 
-        bool CheckPassword(string password);
+        void CheckPassword(string password);
 
     }
 }

@@ -16,7 +16,7 @@ namespace SIMS.Model.PatientModel
     public class SpecialistBookingLicence : IIdentifiable<long>
     {
         private long _id;
-        private DocTypeEnum _doctorAllowed;
+        private DoctorType _doctorAllowed;
         private int _numberOfAppointments;
         private bool _active;
         public Patient _patient;
@@ -26,7 +26,7 @@ namespace SIMS.Model.PatientModel
 
         //TODO: Constructors
 
-        public SpecialistBookingLicence(long id, DocTypeEnum doctorAllowed, int numberOfAppointments, bool Active, Patient patient, TimeInterval timeInterval, List<Doctor> handsOutLicence) 
+        public SpecialistBookingLicence(long id, DoctorType doctorAllowed, int numberOfAppointments, bool Active, Patient patient, TimeInterval timeInterval, List<Doctor> handsOutLicence) 
         {
             _id = id;
             _doctorAllowed = doctorAllowed;
@@ -37,7 +37,7 @@ namespace SIMS.Model.PatientModel
             _handsOutLicence = handsOutLicence;
         }
 
-        public SpecialistBookingLicence (DocTypeEnum doctorAllowed, int numberOfAppointments, bool Active, Patient patient, TimeInterval timeInterval, List<Doctor> handsOutLicence)
+        public SpecialistBookingLicence (DoctorType doctorAllowed, int numberOfAppointments, bool Active, Patient patient, TimeInterval timeInterval, List<Doctor> handsOutLicence)
         {
             _doctorAllowed = doctorAllowed;
             _numberOfAppointments = numberOfAppointments;

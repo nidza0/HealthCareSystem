@@ -31,7 +31,7 @@ namespace SIMS.Controller.UsersController
         public IEnumerable<Doctor> GetActiveDoctors()
             => doctorService.GetActiveDoctors();
 
-        public IEnumerable<Doctor> GetDoctorByType(DocTypeEnum doctorType)
+        public IEnumerable<Doctor> GetDoctorByType(DoctorType doctorType)
             => doctorService.GetDoctorByType(doctorType);
 
         public IEnumerable<Doctor> GetAvailableDoctorsByTime(Util.TimeInterval timeInterval)
@@ -54,7 +54,6 @@ namespace SIMS.Controller.UsersController
 
         public void Delete(Doctor entity)
             => doctorService.Delete(entity);
-
 
     }
 }

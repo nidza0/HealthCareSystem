@@ -6,80 +6,81 @@
 using System;
 using System.CodeDom;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using SIMS.Exceptions;
 using SIMS.Model.DoctorModel;
+using SIMS.Model.PatientModel;
 using SIMS.Model.UserModel;
 using SIMS.Repository.Abstract.UsersAbstractRepository;
 using SIMS.Repository.CSVFileRepository.UsersRepository;
+using SIMS.Service.MedicalService;
+using SIMS.Util;
 
 namespace SIMS.Service.UsersService
 {
-    public class DoctorService : Util.IUserValidation, IService<Doctor, UserID>, IUserService<Doctor>
+    public class DoctorService : IService<Doctor, UserID>
     {
-        DoctorRepository _doctorRepository;
+        private UserRepository _userRepository;
+        private DoctorRepository _doctorRepository;
+        private UserValidation _userValidation;
+        private AppointmentService _appointmentService;
 
-        string usernameRegex = "[a-zA-Z_0-9]+";
-        string passwordRegex = "[a-zA-Z_0-9]+";
-        string nameRegex = "([A-Z][a-z]+)+";
-        string uidnRegex = "[0-9]{13}";
-        string emailRegex = "[A-Za-z_.]+@([A-Za-z.])+\\.[a-z]+$";
-        string phoneRegex = "^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[- /0-9]*$";
-
-        public DoctorService(DoctorRepository doctorRepository)
+        public DoctorService(DoctorRepository doctorRepository,UserRepository userRepository, AppointmentService appointmentService)
         {
             _doctorRepository = doctorRepository;
+            _appointmentService = appointmentService;
+            _userValidation = new UserValidation();
+            _userRepository = userRepository;
         }
-
 
         public IEnumerable<Doctor> GetActiveDoctors()
         {
-            List<Doctor> retVal = new List<Doctor>();
-
-            WorkingDaysEnum dayOfWeek = getDayOfWeek();
-
-            foreach(Doctor d in _doctorRepository.GetAllEager())
-            {
-                if (d.TimeTable.WorkingHours[dayOfWeek].IsDateTimeBetween(DateTime.Now))
-                    retVal.Add(d);
-            }
-
-            return retVal;
+            var doctors = _doctorRepository.GetAllEager();
+            TimeInterval time = new TimeInterval(DateTime.Now, DateTime.Now.AddMinutes(10));  // Note (Gergo) : Gets doctors who are going to be at work in the next 10 minutes
+            return GetWorkingDoctors(doctors, time);
         }
 
-        public IEnumerable<Doctor> GetDoctorByType(DocTypeEnum doctorType)
+        private IEnumerable<Doctor> GetWorkingDoctors(IEnumerable<Doctor> doctors, TimeInterval time)
+        {
+            List<Doctor> workingDoctors = new List<Doctor>();
+
+            WorkingDaysEnum dayOfWeek = GetDayOfWeek(time.StartTime.DayOfWeek);
+
+            foreach (Doctor d in doctors)
+            {
+                if (d.TimeTable.WorkingHours[dayOfWeek].IsTimeBetween(time))
+                    workingDoctors.Add(d);
+            }
+
+            return workingDoctors;
+        }
+
+        public IEnumerable<Doctor> GetDoctorByType(DoctorType doctorType)
             => _doctorRepository.GetDoctorByType(doctorType);
 
-        public IEnumerable<Doctor> GetAvailableDoctorsByTime(Util.TimeInterval timeInterval)
+        public IEnumerable<Doctor> GetAvailableDoctorsByTime(TimeInterval timeInterval)
         {
-            throw new NotImplementedException();
+            var appointments = _appointmentService.GetAppointmentsByTime(timeInterval).Where(ap => !ap.Canceled);
+            var doctors = _doctorRepository.GetAllEager();
+
+            RemoveUnavailableDoctors(doctors, appointments);
+            return GetWorkingDoctors(doctors, timeInterval);
+        }
+
+        private void RemoveUnavailableDoctors(IEnumerable<Doctor> doctors, IEnumerable<Appointment> appointments)
+        {
+            foreach (Appointment a in appointments)
+            {
+                if (a.DoctorInAppointment != null)
+                {
+                    doctors = doctors.Where(d => !d.GetId().Equals(a.DoctorInAppointment.GetId()));
+                }
+            }
         }
 
         public IEnumerable<Doctor> GetFilteredDoctors(Util.DoctorFilter filter)
             => _doctorRepository.GetFilteredDoctors(filter);
-
-        
-
-        public bool CheckUsername(string username)
-            => Regex.IsMatch(username, usernameRegex);
-
-        public bool CheckPassword(string password)
-            => Regex.IsMatch(password, passwordRegex);
-
-        public bool CheckName(string name)
-            => Regex.IsMatch(name, nameRegex);
-
-        public bool CheckUidn(string uidn)
-            => Regex.IsMatch(uidn, uidnRegex);
-
-        public bool CheckDateOfBirth(DateTime date)
-            => DateTime.Compare(new DateTime(2000, 1, 1), date) > 0;
-
-        public bool CheckEmail(string email)
-            => Regex.IsMatch(email, emailRegex);
-
-        public bool CheckPhoneNumber(string phoneNumber)
-            => Regex.IsMatch(phoneNumber, phoneRegex);
 
         public IEnumerable<Doctor> GetAll()
             => _doctorRepository.GetAllEager();
@@ -88,53 +89,23 @@ namespace SIMS.Service.UsersService
             => _doctorRepository.GetByID(id);
 
         public Doctor Create(Doctor entity)
-            => _doctorRepository.Create(entity);
+        {
+            Validate(entity);
+            return _doctorRepository.Create(entity);
+        }
 
         public void Delete(Doctor entity)
             => _doctorRepository.Delete(entity);
-
-        //TODO: proveriti
+        
         public void Validate(Doctor user)
-        {
-            if (!CheckDateOfBirth(user.DateOfBirth))
-                throw new InvalidUserException("Invalid date of birth!");
-
-
-            if (!CheckEmail(user.Email1) || !CheckEmail(user.Email2))
-                throw new InvalidUserException("Invalid email!");
-
-            if (!CheckName(user.Name))
-                throw new InvalidUserException("Invalid name!");
-
-            if (!CheckUsername(user.UserName))
-                throw new InvalidUserException("Invalid username!");
-
-            if (!CheckPassword(user.Password))
-                throw new InvalidUserException("Invalid password!");
-
-            if (!CheckPhoneNumber(user.CellPhone) || !CheckPhoneNumber(user.HomePhone))
-                throw new InvalidUserException("Invalid phone number!");
-
-            if (!CheckUidn(user.Uidn))
-                throw new InvalidUserException("Invalid UIDN!");
-        }
-
-
-        //TODO: proveriti
-        public void Login(User user)
-        {
-            throw new NotImplementedException();
-        }
+            => _userValidation.Validate(user);
 
         public void Update(Doctor entity)
             => _doctorRepository.Update(entity);
 
-        public IDoctorRepository iDoctorRepository;
-
-
-        private WorkingDaysEnum getDayOfWeek()
+        private WorkingDaysEnum GetDayOfWeek(DayOfWeek day)
         {
-           switch(DateTime.Now.DayOfWeek)
+           switch(day)
            {
                 case DayOfWeek.Monday:
                     return WorkingDaysEnum.MONDAY;

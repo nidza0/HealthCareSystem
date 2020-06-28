@@ -5,9 +5,13 @@
 
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
+using SIMS.Exceptions;
 using SIMS.Model.UserModel;
 using SIMS.Repository.Abstract.HospitalManagementAbstractRepository;
 using SIMS.Repository.CSVFileRepository.HospitalManagementRepository;
+using SIMS.Service.ValidateServices.ValidateHospitalManagementServices;
+using SIMS.Util;
 
 namespace SIMS.Service.HospitalManagementService
 {
@@ -30,13 +34,41 @@ namespace SIMS.Service.HospitalManagementService
             => _hospitalRepository.GetByID(id);
 
         public Hospital Create(Hospital entity)
-            => _hospitalRepository.Create(entity);
+        {
+            Validate(entity);
+            return _hospitalRepository.Create(entity);
+        }
 
         public void Update(Hospital entity)
-            => _hospitalRepository.Update(entity);
+        {
+            Validate(entity);
+            _hospitalRepository.Update(entity);
+        }
 
         public void Delete(Hospital entity)
             => _hospitalRepository.Delete(entity);
+
+        public void Validate(Hospital entity)
+        {
+            CheckName(entity);
+            CheckPhone(entity);
+        }
+
+        private void CheckPhone(Hospital hospital)
+        {
+            if (!Regex.Match(hospital.Telephone, Regexes.phoneRegex).Success)
+            {
+                throw new HospitalServiceException("Hospital Service - Telephone is not valid!");
+            }
+        }
+
+        private void CheckName(Hospital hospital)
+        { 
+            if(Regex.IsMatch(Regexes.nameRegex, hospital.Name))
+            {
+                throw new HospitalServiceException("Hospital Service - Name is not valid!");
+            }
+        }
 
         public IHospitalRepository iHospitalRepository;
 

@@ -7,10 +7,12 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using SIMS.Exceptions;
 using SIMS.Model.DoctorModel;
 using SIMS.Model.UserModel;
 using SIMS.Repository.Abstract.MiscAbstractRepository;
 using SIMS.Repository.CSVFileRepository.MiscRepository;
+using SIMS.Service.ValidateServices.ValidateMiscService;
 
 namespace SIMS.Service.MiscService
 {
@@ -53,7 +55,10 @@ namespace SIMS.Service.MiscService
 
         public void Validate(DoctorFeedback doctorFeedback)
         {
-            throw new NotImplementedException();
+            if (doctorFeedback.Doctor == null)
+            {
+                throw new DoctorFeedbackServiceException("DoctorFeedbackService - Doctor is null!");
+            }
         }
 
         public DoctorFeedback GetByPatientDoctor(Patient patient, Doctor doctor)
@@ -66,10 +71,16 @@ namespace SIMS.Service.MiscService
             => GetAll().SingleOrDefault(df => df.GetId() == id);
 
         public DoctorFeedback Create(DoctorFeedback entity)
-            => _doctorFeedbackRepository.Create(entity);
+        {
+            Validate(entity);
+            return _doctorFeedbackRepository.Create(entity);
+        }
 
         public void Update(DoctorFeedback entity)
-            => _doctorFeedbackRepository.Update(entity);
+        {
+            Validate(entity);
+            _doctorFeedbackRepository.Update(entity);
+        }
 
         public void Delete(DoctorFeedback entity)
             => _doctorFeedbackRepository.Delete(entity);
