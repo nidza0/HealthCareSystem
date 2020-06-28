@@ -25,7 +25,7 @@ namespace SIMS.View.ViewSecretary.ViewModel
 
         private void GetEagerPatient(Patient p)
         {
-            patient = SecretaryAppResources.GetInstance().patientRepository.GetEager(p.GetId());
+            patient = AppResources.getInstance().patientController.GetByID(p.GetId());
         }
 
     }

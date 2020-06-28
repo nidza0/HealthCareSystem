@@ -1,4 +1,6 @@
-﻿using SIMS.Model.UserModel;
+﻿using SIMS.Exceptions;
+using SIMS.Model.UserModel;
+using SIMS.Repository.CSVFileRepository.UsersRepository;
 using SIMS.View.ViewSecretary.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -99,18 +101,37 @@ namespace SIMS.View.ViewSecretary.Pages.Patients
             {
                 if(mode == CREATE)
                 {
-                    patientVM.Patient = SecretaryAppResources.GetInstance().patientRepository.Create(patientVM.Patient);
-                    errUsernameNotUnique.Visibility = Visibility.Collapsed;
-                    MessageBox.Show(patientVM.Patient.FullName + " as " + patientVM.Patient.UserName, "New Patient Created", MessageBoxButton.OK, MessageBoxImage.Information);
-                    if (FrameManager.getInstance().CentralFrame.CanGoBack)
-                        FrameManager.getInstance().CentralFrame.GoBack();
+                    try
+                    {
+                        patientVM.Patient = AppResources.getInstance().patientController.Create(patientVM.Patient);
+                        errUsernameNotUnique.Visibility = Visibility.Collapsed;
+                        MessageBox.Show(patientVM.Patient.FullName + " as " + patientVM.Patient.UserName, "New Patient Created", MessageBoxButton.OK, MessageBoxImage.Information);
+                        if (FrameManager.getInstance().CentralFrame.CanGoBack)
+                            FrameManager.getInstance().CentralFrame.GoBack();
+                    }
+                    catch(InvalidUserException ex)
+                    {
+                        MessageBox.Show(ex.Message, "New Patient Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    catch(NotUniqueException ex)
+                    {
+                        errUsernameNotUnique.Visibility = Visibility.Visible;
+                    }
                 }
                 else
                 {
-                    SecretaryAppResources.GetInstance().patientRepository.Update(patientVM.Patient);
-                    MessageBox.Show(patientVM.Patient.FullName + " as " + patientVM.Patient.UserName, "Patient Updated", MessageBoxButton.OK, MessageBoxImage.Information);
-                    if (FrameManager.getInstance().CentralFrame.CanGoBack)
-                        FrameManager.getInstance().CentralFrame.GoBack();
+                    try
+                    {
+                        AppResources.getInstance().patientController.Update(patientVM.Patient);
+                        //SecretaryAppResources.GetInstance().patientRepository.Update(patientVM.Patient);
+                        MessageBox.Show(patientVM.Patient.FullName + " as " + patientVM.Patient.UserName, "Patient Updated", MessageBoxButton.OK, MessageBoxImage.Information);
+                        if (FrameManager.getInstance().CentralFrame.CanGoBack)
+                            FrameManager.getInstance().CentralFrame.GoBack();
+                    }
+                    catch (InvalidUserException ex)
+                    {
+                        MessageBox.Show(ex.Message, "Patient Update Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
                 }
             }
             catch(Exception ex)

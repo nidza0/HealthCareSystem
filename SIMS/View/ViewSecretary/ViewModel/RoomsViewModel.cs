@@ -27,6 +27,11 @@ namespace SIMS.View.ViewSecretary.ViewModel
 
         public void LoadAllAvailableRooms(TimeInterval time)
         {
+            var availableRooms = AppResources.getInstance().roomController.GetAvailableRoomsByDate(time);
+            rooms.Clear();
+            availableRooms.ToList().ForEach(rooms.Add);
+
+            /*
             //TODO: Load all available rooms by time
             var appointments = SecretaryAppResources.GetInstance().appointmentRepository.GetAppointmentsByTime(time).Where(ap => !ap.Canceled);
             var allRooms = SecretaryAppResources.GetInstance().roomRepository.GetAll().ToList();
@@ -41,12 +46,13 @@ namespace SIMS.View.ViewSecretary.ViewModel
 
             rooms.Clear();
             allRooms.ToList().ForEach(rooms.Add);
+            */
         }
 
         public void LoadRooms()
         {
             //TODO: Load all rooms
-            var allRomms = SecretaryAppResources.GetInstance().roomRepository.GetAll();
+            var allRomms = AppResources.getInstance().roomController.GetAll();
             rooms.Clear();
             allRomms.ToList().ForEach(rooms.Add);
         }

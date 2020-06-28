@@ -23,7 +23,7 @@ namespace SIMS.View.ViewSecretary.ViewModel
                 loggedInUser = value;
                 if(loggedInUser.TimeTable != null)
                 {
-                    TimeTable tt = SecretaryAppResources.GetInstance().timeTableRepository.GetByID(loggedInUser.TimeTable.GetId());
+                    TimeTable tt = AppResources.getInstance().timeTableRepository.GetByID(loggedInUser.TimeTable.GetId());
                     Dictionary<WorkingDaysEnum, TimeInterval> sh = tt.getWorkingHours();
                     shifts.Add(sh.ContainsKey(WorkingDaysEnum.MONDAY) ? sh[WorkingDaysEnum.MONDAY] : null);
                     shifts.Add(sh.ContainsKey(WorkingDaysEnum.TUESDAY) ? sh[WorkingDaysEnum.TUESDAY] : null);

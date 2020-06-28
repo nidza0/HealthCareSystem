@@ -26,14 +26,13 @@ namespace SIMS.View.ViewSecretary
         public MainSecretary()
         {
             InitializeComponent();
-            SecretaryAppResources.GetInstance();
+            AppResources.getInstance();
             FrameManager.getInstance().MainFrame = MainFrame;
             //MakeTimeTables();
             //MakeDoctors();
             //MakePatients();
             //MakeQuestion();
             MainFrame.Navigate(new LoginPage());
-            //MainFrame.Navigate(new FlowDoc());
         }
 
         private void MakeQuestion()

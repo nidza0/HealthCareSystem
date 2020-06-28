@@ -1,10 +1,12 @@
-﻿using SIMS.Model.PatientModel;
+﻿using SIMS.Exceptions;
+using SIMS.Model.PatientModel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace SIMS.View.ViewSecretary.ViewModel
 {
@@ -21,7 +23,7 @@ namespace SIMS.View.ViewSecretary.ViewModel
 
         private void GetEagerAppointment(Appointment a)
         {
-            appointment = SecretaryAppResources.GetInstance().appointmentRepository.GetEager(a.GetId());
+            appointment = AppResources.getInstance().appointmentController.GetByID(a.GetId());
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -32,8 +34,16 @@ namespace SIMS.View.ViewSecretary.ViewModel
 
         internal void CancelAppointment()
         {
-            appointment.Canceled = true;
-            SecretaryAppResources.GetInstance().appointmentRepository.Update(appointment);
+            //appointment.Canceled = true;
+            //SecretaryAppResources.GetInstance().appointmentRepository.Update(appointment);
+            try
+            {
+                AppResources.getInstance().appointmentController.CancelAppointment(appointment);
+            }
+            catch(AppointmentServiceException ex)
+            {
+                MessageBox.Show(ex.Message, "Cancel Appointment Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }

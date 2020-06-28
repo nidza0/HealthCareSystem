@@ -25,7 +25,9 @@ namespace SIMS.View.ViewSecretary.ViewModel
 
         internal void LoadCurrentAppointments()
         {
-            var appointments = SecretaryAppResources.GetInstance().appointmentRepository.GetAppointmentsByTime(new TimeInterval(DateTime.Now, DateTime.Now.AddMinutes(2))).Where(ap => !ap.Canceled);
+            TimeInterval currentTime = new TimeInterval(DateTime.Now, DateTime.Now.AddMinutes(2));
+            var appointments = AppResources.getInstance().appointmentController.GetAppointmentsByTime(currentTime).Where(ap => !ap.Canceled);
+            //var appointments = SecretaryAppResources.GetInstance().appointmentRepository.GetAppointmentsByTime(new TimeInterval(DateTime.Now, DateTime.Now.AddMinutes(2))).Where(ap => !ap.Canceled);
             Appointments.Clear();
             appointments.ToList().ForEach(Appointments.Add);
         }
@@ -44,7 +46,8 @@ namespace SIMS.View.ViewSecretary.ViewModel
 
         public void LoadCancelledAppointments()
         {
-            var cancelledAppointments = SecretaryAppResources.GetInstance().appointmentRepository.GetCanceledAppointments();
+            var cancelledAppointments = AppResources.getInstance().appointmentController.GetCanceledAppointments();
+            //var cancelledAppointments = SecretaryAppResources.GetInstance().appointmentRepository.GetCanceledAppointments();
             Appointments.Clear();
             cancelledAppointments.ToList().ForEach(Appointments.Add);
         }
@@ -53,22 +56,24 @@ namespace SIMS.View.ViewSecretary.ViewModel
         {
             TimeInterval time = GetDayTimeInterval(date);
             Appointments.Clear();
-            var appointments = new ObservableCollection<Appointment>(SecretaryAppResources.GetInstance().appointmentRepository.GetAppointmentsByTime(time)).Where(ap => !ap.Canceled).OrderBy(ap => ap.TimeInterval.StartTime);
+            //var appointments = new ObservableCollection<Appointment>(SecretaryAppResources.GetInstance().appointmentRepository.GetAppointmentsByTime(time)).Where(ap => !ap.Canceled).OrderBy(ap => ap.TimeInterval.StartTime);
+            var appointments = new ObservableCollection<Appointment>(AppResources.getInstance().appointmentController.GetAppointmentsByTime(time)).Where(ap => !ap.Canceled).OrderBy(ap => ap.TimeInterval.StartTime);
             appointments.ToList().ForEach(Appointments.Add);
         }
 
         private void LoadRooms()
         {
-            //TODO Load all rooms
-            var allRomms = SecretaryAppResources.GetInstance().roomRepository.GetAll();
+            var allRooms = AppResources.getInstance().roomController.GetAll();
+            //var allRooms = SecretaryAppResources.GetInstance().roomRepository.GetAll();
             rooms.Clear();
-            allRomms.ToList().ForEach(rooms.Add);
+            allRooms.ToList().ForEach(rooms.Add);
         }
 
         public void LoadAppointmentsByRoomWithFreeTime(DateTime date, Room room)
         {
             TimeInterval time = GetDayTimeInterval(date);
-            var roomAppointments = SecretaryAppResources.GetInstance().appointmentRepository.GetAppointmentsByTime(time).Where(ap => !ap.Canceled && ap.Room.GetId() == room.GetId()).OrderBy(ap => ap.TimeInterval.StartTime).ToList();
+            var roomAppointments = AppResources.getInstance().appointmentController.GetAppointmentsByTime(time).Where(ap => !ap.Canceled && ap.Room.GetId() == room.GetId()).OrderBy(ap => ap.TimeInterval.StartTime).ToList();
+            //var roomAppointments = SecretaryAppResources.GetInstance().appointmentRepository.GetAppointmentsByTime(time).Where(ap => !ap.Canceled && ap.Room.GetId() == room.GetId()).OrderBy(ap => ap.TimeInterval.StartTime).ToList();
             appointments.Clear();
             int minutesDuration = 15;
             DateTime start1 = new DateTime(date.Year, date.Month, date.Day, 7, 0, 0);

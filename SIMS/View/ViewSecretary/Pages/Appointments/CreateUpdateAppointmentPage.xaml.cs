@@ -1,4 +1,5 @@
-﻿using SIMS.Model.PatientModel;
+﻿using SIMS.Exceptions;
+using SIMS.Model.PatientModel;
 using SIMS.Model.UserModel;
 using SIMS.Util;
 using SIMS.View.ViewSecretary.ViewModel;
@@ -291,10 +292,19 @@ namespace SIMS.View.ViewSecretary.Pages.Appointments
                         MessageBoxImage.Question);
                     if(r == MessageBoxResult.Yes)
                     {
-                        SecretaryAppResources.GetInstance().appointmentRepository.Create(new Appointment(doctor, patient, room, AppointmentType.checkup, time));
-                        if (FrameManager.getInstance().SideFrame.CanGoBack)
-                            FrameManager.getInstance().SideFrame.GoBack();
-                        Refresh();
+                        Appointment newAppointment = new Appointment(doctor, patient, room, AppointmentType.checkup, time);
+                        try
+                        {
+                            AppResources.getInstance().appointmentController.Create(newAppointment);
+
+                            if (FrameManager.getInstance().SideFrame.CanGoBack)
+                                FrameManager.getInstance().SideFrame.GoBack();
+                            Refresh();
+                        }
+                        catch(AppointmentServiceException ex)
+                        {
+                            MessageBox.Show(ex.Message, "Create Appointment Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
                     }
                 }
                 else if(_mode == UPDATE)
@@ -320,10 +330,17 @@ namespace SIMS.View.ViewSecretary.Pages.Appointments
                     if(result == MessageBoxResult.Yes)
                     {
                         _appointmentUpdate.Canceled = false;
-                        SecretaryAppResources.GetInstance().appointmentRepository.Update(_appointmentUpdate);
-                        if (FrameManager.getInstance().SideFrame.CanGoBack)
-                            FrameManager.getInstance().SideFrame.GoBack();
-                        Refresh();
+                        try
+                        {
+                            AppResources.getInstance().appointmentController.Update(_appointmentUpdate);
+                            if (FrameManager.getInstance().SideFrame.CanGoBack)
+                                FrameManager.getInstance().SideFrame.GoBack();
+                            Refresh();
+                        }
+                        catch(AppointmentServiceException ex)
+                        {
+                            MessageBox.Show(ex.Message, "Appointment Update Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
                     }
                 }
 

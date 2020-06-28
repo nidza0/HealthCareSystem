@@ -1,4 +1,5 @@
 ﻿using SIMS.Model.UserModel;
+using SIMS.Service.UsersService;
 using SIMS.View.ViewSecretary.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -27,11 +28,22 @@ namespace SIMS.View.ViewSecretary.Pages
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-            //TODO: Login
+            string username = txtUsername.Text;
+            string password = passwordBox.Password.ToString();
             
-            String username = txtUsername.Text;
-            String password = passwordBox.Password.ToString();
-
+            try
+            {
+                AppResources.getInstance().userController.Login(username, password);
+                User loggedUser = AppResources.getInstance().loggedInUser;
+                UserViewModel.GetInstance().LoggedInUser = AppResources.getInstance().secretaryController.GetByID(loggedUser.GetId());
+                FrameManager.getInstance().MainFrame.Navigate(new MainWindowPage());
+            }
+            catch(InvalidLoginException ex)
+            {
+                MessageBox.Show(ex.Message, "Login Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            
+            /*
             User user = SecretaryAppResources.GetInstance().userRepository.GetByUsername(username);
 
             if(user == null)
@@ -52,20 +64,6 @@ namespace SIMS.View.ViewSecretary.Pages
             //NAVIGATE TO MAIN WINDOW
 
             FrameManager.getInstance().MainFrame.Navigate(new MainWindowPage());
-            /*
-            Frame pageFrame = null;
-            DependencyObject currParent = VisualTreeHelper.GetParent(this);
-            while (currParent != null && pageFrame == null)
-            {
-                pageFrame = currParent as Frame;
-                currParent = VisualTreeHelper.GetParent(currParent);
-            }
-
-            // Change the page of the frame.
-            if (pageFrame != null)
-            {
-                pageFrame.Navigate(new MainWindowPage());
-            }
             */
         }
     }

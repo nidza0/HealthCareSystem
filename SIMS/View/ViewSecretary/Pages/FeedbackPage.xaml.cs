@@ -68,7 +68,7 @@ namespace SIMS.View.ViewSecretary.Pages
 
         private void LoadQuestions()
         {
-            var questions = SecretaryAppResources.GetInstance().questionRepository.GetAll();
+            var questions = AppResources.getInstance().feedbackController.GetQuestions();
             Question1 = questions.FirstOrDefault(q => q.GetId() == 1);
             Question2 = questions.FirstOrDefault(q => q.GetId() == 2);
             Question3 = questions.FirstOrDefault(q => q.GetId() == 3);
@@ -138,7 +138,7 @@ namespace SIMS.View.ViewSecretary.Pages
                     Console.WriteLine("Logged in user == null");
                     return;
                 }
-                SecretaryAppResources.GetInstance().feedbackRepository.Create(fb);
+                AppResources.getInstance().feedbackController.Create(fb);
                 if (FrameManager.getInstance().SideFrame.CanGoBack)
                     FrameManager.getInstance().SideFrame.GoBack();
             }
@@ -150,7 +150,7 @@ namespace SIMS.View.ViewSecretary.Pages
                 rating.Add(Question3, new Rating(Comment3, rating3.Value));
                 rating.Add(Question4, new Rating(Comment4, rating4.Value));
                 updateFeedback.Rating = rating;
-                SecretaryAppResources.GetInstance().feedbackRepository.Update(updateFeedback);
+                AppResources.getInstance().feedbackController.Update(updateFeedback);
                 if (FrameManager.getInstance().SideFrame.CanGoBack)
                     FrameManager.getInstance().SideFrame.GoBack();
             }
@@ -160,7 +160,7 @@ namespace SIMS.View.ViewSecretary.Pages
         {
             if(mode == UPDATE)
             {
-                SecretaryAppResources.GetInstance().feedbackRepository.Delete(updateFeedback);
+                AppResources.getInstance().feedbackController.Delete(updateFeedback);
                 if (FrameManager.getInstance().SideFrame.CanGoBack)
                     FrameManager.getInstance().SideFrame.GoBack();
             }

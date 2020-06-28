@@ -1,4 +1,5 @@
-﻿using SIMS.View.ViewSecretary.ViewModel;
+﻿using SIMS.Model.UserModel;
+using SIMS.View.ViewSecretary.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -69,7 +70,9 @@ namespace SIMS.View.ViewSecretary.Pages
 
         private void btnFeedback_Click(object sender, RoutedEventArgs e)
         {
-            var feedback = SecretaryAppResources.GetInstance().feedbackRepository.GetAllEager().FirstOrDefault(fb => fb.User.GetId().Equals(UserViewModel.GetInstance().LoggedInUser.GetId()));
+            User loggedInUser = UserViewModel.GetInstance().LoggedInUser;
+            var feedback = AppResources.getInstance().feedbackController.GetByUser(loggedInUser);
+            
             if(feedback == null)
             {
                 FrameManager.getInstance().SideFrame.Navigate(new FeedbackPage());

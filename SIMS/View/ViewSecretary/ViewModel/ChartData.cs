@@ -12,7 +12,7 @@ namespace SIMS.View.ViewSecretary.ViewModel
 {
     class ChartData
     {
-        private Dictionary<DocTypeEnum, int> doctorChart = new Dictionary<DocTypeEnum, int>();
+        private Dictionary<DoctorType, int> doctorChart = new Dictionary<DoctorType, int>();
         private Dictionary<string, int> maleChart = new Dictionary<string, int>();
         private Dictionary<string, int> femaleChart = new Dictionary<string, int>();
         private Dictionary<string, int> otherChart = new Dictionary<string, int>();
@@ -23,7 +23,7 @@ namespace SIMS.View.ViewSecretary.ViewModel
 
         }
 
-        public Dictionary<DocTypeEnum, int> DoctorChart { get => doctorChart; set => doctorChart = value; }
+        public Dictionary<DoctorType, int> DoctorChart { get => doctorChart; set => doctorChart = value; }
         public Dictionary<string, int> MaleChart { get => maleChart; set => maleChart = value; }
         public Dictionary<string, int> FemaleChart { get => femaleChart; set => femaleChart = value; }
         public Dictionary<string, int> OtherChart { get => otherChart; set => otherChart = value; }
@@ -32,13 +32,13 @@ namespace SIMS.View.ViewSecretary.ViewModel
         public void LoadDoctorChart()
         {
             doctorChart.Clear();
-            var doctors = SecretaryAppResources.GetInstance().doctorRepository.GetAll();
+            var doctors = AppResources.getInstance().doctorController.GetAll();
             foreach(Doctor doc in doctors)
             {
-                if (doctorChart.ContainsKey(doc.DocTypeEnum))
-                    doctorChart[doc.DocTypeEnum] += 1;
+                if (doctorChart.ContainsKey(doc.DoctorType))
+                    doctorChart[doc.DoctorType] += 1;
                 else
-                    doctorChart.Add(doc.DocTypeEnum, 1);
+                    doctorChart.Add(doc.DoctorType, 1);
             }
         }
 
@@ -48,7 +48,7 @@ namespace SIMS.View.ViewSecretary.ViewModel
             femaleChart.Clear();
             otherChart.Clear();
 
-            var patients = SecretaryAppResources.GetInstance().patientRepository.GetAll();
+            var patients = AppResources.getInstance().patientController.GetAll();
 
             foreach(Patient p in patients)
             {
@@ -111,7 +111,7 @@ namespace SIMS.View.ViewSecretary.ViewModel
             DateTime today = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
             DateTime tomorrow = today.AddDays(1);
             TimeInterval time = new TimeInterval(today, tomorrow);
-            var appointments = SecretaryAppResources.GetInstance().appointmentRepository.GetAppointmentsByTime(time).Where(ap => !ap.Canceled);
+            var appointments = AppResources.getInstance().appointmentController.GetAppointmentsByTime(time).Where(ap => !ap.Canceled);
 
             Dictionary<string, TimeSpan> appointmentDuration = new Dictionary<string, TimeSpan>();
             TimeSpan total = TimeSpan.Zero;

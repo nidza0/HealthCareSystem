@@ -31,6 +31,11 @@ namespace SIMS.View.ViewSecretary.ViewModel
         public void LoadAllAvailableDoctors(TimeInterval time)
         {
             //TODO: Load all available doctors
+            List<Doctor> availableDoctors = new List<Doctor>();
+
+            availableDoctors = AppResources.getInstance().doctorController.GetAvailableDoctorsByTime(time).ToList();
+
+            /*
             var appointments = SecretaryAppResources.GetInstance().appointmentRepository.GetAppointmentsByTime(time).Where(ap => !ap.Canceled);
             var allDoctors = SecretaryAppResources.GetInstance().doctorRepository.GetAllEager();
 
@@ -42,7 +47,6 @@ namespace SIMS.View.ViewSecretary.ViewModel
                 }
             }
 
-            List<Doctor> availableDoctors = new List<Doctor>();
 
             foreach(Doctor doctor in allDoctors)
             {
@@ -58,6 +62,7 @@ namespace SIMS.View.ViewSecretary.ViewModel
                     }
                 }
             }
+            */
 
             Doctors.Clear();
             availableDoctors.ToList().ForEach(Doctors.Add);
@@ -65,6 +70,11 @@ namespace SIMS.View.ViewSecretary.ViewModel
 
         internal void LoadDoctorsAtWork()
         {
+            var availableDoctors = AppResources.getInstance().doctorController.GetActiveDoctors();
+            Doctors.Clear();
+            availableDoctors.ToList().ForEach(Doctors.Add);
+
+            /*
             var allDoctors = SecretaryAppResources.GetInstance().doctorRepository.GetAllEager();
             Doctors.Clear();
             foreach(Doctor doc in allDoctors)
@@ -81,6 +91,7 @@ namespace SIMS.View.ViewSecretary.ViewModel
                     }
                 }
             }
+            */
         }
 
         private WorkingDaysEnum GetWorkingDay(DayOfWeek d)
@@ -102,7 +113,7 @@ namespace SIMS.View.ViewSecretary.ViewModel
         public void LoadAllDoctors()
         {
             //TODO: Load all doctors
-            doctors = new ObservableCollection<Doctor>(SecretaryAppResources.GetInstance().doctorRepository.GetAllEager());
+            doctors = new ObservableCollection<Doctor>(AppResources.getInstance().doctorController.GetAll());
         }
 
         public string FilterString

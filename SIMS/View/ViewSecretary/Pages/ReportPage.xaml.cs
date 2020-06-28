@@ -126,8 +126,10 @@ namespace SIMS.View.ViewSecretary.Pages
             html.Append("</p>");
             html.Append("<ul>");
 
-            var appointments = SecretaryAppResources.GetInstance().appointmentRepository.GetAppointmentsByTime(time).Where(ap => !ap.Canceled);
-            var rooms = SecretaryAppResources.GetInstance().roomRepository.GetAll().OrderBy(r => r.RoomNumber);
+            var appointments = AppResources.getInstance().appointmentController.GetAppointmentsByTime(time).Where(ap => !ap.Canceled);
+            //var appointments = SecretaryAppResources.GetInstance().appointmentRepository.GetAppointmentsByTime(time).Where(ap => !ap.Canceled);
+            var rooms = AppResources.getInstance().roomController.GetAll().OrderBy(r => r.RoomNumber);
+            //var rooms = SecretaryAppResources.GetInstance().roomRepository.GetAll().OrderBy(r => r.RoomNumber);
 
             foreach(Room room in rooms)
             {

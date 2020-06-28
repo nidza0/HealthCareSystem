@@ -41,13 +41,13 @@ namespace SIMS.View.ViewSecretary.ViewModel
             if (!string.IsNullOrEmpty(country))
             {
                 locations.Clear();
-                SecretaryAppResources.GetInstance().locationRepository.GetLocationByCountry(country).ToList().ForEach(locations.Add);
+                AppResources.getInstance().locationController.GetLocationByCountry(country).ToList().ForEach(locations.Add);
             }
         }
 
         private void LoadAllCountries()
         {
-            var allCountries = SecretaryAppResources.GetInstance().locationRepository.GetAllCountries();
+            var allCountries = AppResources.getInstance().locationController.GetAllCountries();
             allCountries.ToList().ForEach(countries.Add);
         }
     }
