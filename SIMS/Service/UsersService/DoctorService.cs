@@ -49,8 +49,9 @@ namespace SIMS.Service.UsersService
 
             foreach (Doctor d in doctors)
             {
-                if (d.TimeTable.WorkingHours[dayOfWeek].IsTimeBetween(time))
-                    workingDoctors.Add(d);
+                if(d.TimeTable.WorkingHours.ContainsKey(dayOfWeek))
+                    if (d.TimeTable.WorkingHours[dayOfWeek].IsTimeBetween(time))
+                        workingDoctors.Add(d);
             }
 
             return workingDoctors;

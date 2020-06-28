@@ -64,7 +64,6 @@ namespace SIMS.Service.UsersService
             _patientRepository.Update(entity);
         }
 
-        public IPatientRepository iPatientRepository;
-
+        public UserValidation UserValidation { get => _userValidation; set => _userValidation = value; }
     }
 }

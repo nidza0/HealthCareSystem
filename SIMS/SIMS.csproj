@@ -250,6 +250,7 @@
     <Compile Include="Util\RecommendationDTO.cs" />
     <Compile Include="Util\RecommendationPriority.cs" />
     <Compile Include="Util\Regexes.cs" />
+    <Compile Include="Util\SecretaryPatientValidation.cs" />
     <Compile Include="Util\TherapyFilter.cs" />
     <Compile Include="Util\TimeInterval.cs" />
     <Compile Include="Util\TimeIterator.cs" />

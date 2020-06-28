@@ -22,6 +22,7 @@ using SIMS.Controller.MedicalController;
 using SIMS.Controller.HospitalManagementController;
 using SIMS.Service.UsersService;
 using SIMS.Service.HospitalManagementService;
+using SIMS.Util;
 
 namespace SIMS
 {
@@ -402,6 +403,7 @@ namespace SIMS
             //TODO: Ovde se mogu ucitati strategy pattern i slicne specificne stvari za sekretara
             // Ucitava se prilikom login-a
             appointmentService.AppointmentStrategy = new AppointmentSecretaryStrategy();
+            patientService.UserValidation = new SecretaryPatientValidation();
         }
     }
 }
