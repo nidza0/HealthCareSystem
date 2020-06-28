@@ -13,7 +13,6 @@ using SIMS.Model.UserModel;
 using SIMS.Repository.Abstract.HospitalManagementAbstractRepository;
 using SIMS.Repository.CSVFileRepository.HospitalManagementRepository;
 using SIMS.Repository.CSVFileRepository.MedicalRepository;
-using SIMS.Service.ValidateServices.ValidateHospitalManagementServices;
 using SIMS.Util;
 
 namespace SIMS.Service.HospitalManagementService

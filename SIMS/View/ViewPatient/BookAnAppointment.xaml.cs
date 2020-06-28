@@ -39,8 +39,6 @@ namespace SIMS.View.ViewPatient
         private DateTime selectedDate;
         public BookAnAppointment(Doctor doctor)
         {
-            this.doctorAppointmentsRepo = DoctorAppointmentsRepo.Instance;
-            this.userRepo = UserRepo.Instance;
             SelectedDate = DateTime.Now.AddDays(1);
             firstAllowedDate = DateTime.Now.AddDays(1);
             appointments = new ObservableCollection<Appointment>();
@@ -65,7 +63,8 @@ namespace SIMS.View.ViewPatient
 
         private void check()
         {
-            List<Appointment> takenAppointments = doctorAppointmentsRepo.getDoctorAppointments(Doctor);
+            
+            List<Appointment> takenAppointments = AppResources.getInstance().appointmentController.GetAppointmentsByDoctor(_doctor).ToList();
 
             foreach (Appointment appointment in appointments)
             {
@@ -122,7 +121,7 @@ namespace SIMS.View.ViewPatient
 
 
                 DateTime currTime = timeInterval.StartTime;
-                DateTime moveTime = timeInterval.StartTime.AddMinutes(20);
+                DateTime moveTime = timeInterval.StartTime.AddMinutes(15);
                 DateTime endTime = timeInterval.EndTime;
 
                
@@ -131,8 +130,8 @@ namespace SIMS.View.ViewPatient
                 {
                     TimeInterval appointmentTimeInterval = new TimeInterval(currTime, moveTime);
                     appointments.Add(new Appointment(Doctor, null, Doctor.Office, AppointmentType.checkup, appointmentTimeInterval));
-                    moveTime = moveTime.AddMinutes(20);
-                    currTime = currTime.AddMinutes(20);
+                    moveTime = moveTime.AddMinutes(15);
+                    currTime = currTime.AddMinutes(15);
                 }
             }
 

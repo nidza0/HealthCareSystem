@@ -34,9 +34,7 @@ namespace SIMS.View.ViewPatient.RepoSimulator
 
         public List<Appointment> getDoctorAppointments(Doctor doc)
         {
-           
-
-            return takenAppointments[doc];
+            return AppResources.getInstance().appointmentController.GetAppointmentsByDoctor(doc).ToList();
         }
        
 

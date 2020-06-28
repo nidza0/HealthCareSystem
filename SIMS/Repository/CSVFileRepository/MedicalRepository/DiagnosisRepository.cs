@@ -68,7 +68,7 @@ namespace SIMS.Repository.CSVFileRepository.MedicalRepository
 
             MedicalRecord patientMedicalRecord = _medicalRecordRepository.GetPatientMedicalRecord(patient);
 
-            return patientMedicalRecord.PatientDiagnosis;
+            return patientMedicalRecord?.PatientDiagnosis;
         }
 
         public IEnumerable<Diagnosis> GetDiagnosisByMedicine(Medicine medicine)

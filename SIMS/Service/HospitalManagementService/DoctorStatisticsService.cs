@@ -3,7 +3,6 @@ using SIMS.Model.ManagerModel;
 using SIMS.Model.UserModel;
 using SIMS.Repository.CSVFileRepository.HospitalManagementRepository;
 using SIMS.Service.UsersService;
-using SIMS.Service.ValidateServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;

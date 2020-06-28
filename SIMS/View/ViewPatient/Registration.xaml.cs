@@ -112,7 +112,7 @@ namespace SIMS.View.ViewPatient
           
             InitializeComponent();
 
-            passwordTextBox.Password = patient.Password;
+            passwordTextBox.Password = AppResources.getInstance().userController.GetByID(patient.GetId()).Password;
             cityTextBox.Text = patient.Address.Location.City;
 
             genderComboBox.ItemsSource = Enum.GetValues(typeof(Sex)).Cast<Sex>();
@@ -128,7 +128,7 @@ namespace SIMS.View.ViewPatient
             update = true;
 
             usernameTextBox.IsEnabled = false;
-            passwordTextBox.IsEnabled = false;
+            //passwordTextBox.IsEnabled = false;
         }
 
         public Registration()

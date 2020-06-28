@@ -108,7 +108,7 @@ namespace SIMS.View.ViewPatient
         {
             //zamenisi sa kotnrolerom
 
-            return userRepo.DoctorList.ToList();
+            return AppResources.getInstance().doctorController.GetAll();
 
             //TimeInterval timeInterval = new TimeInterval(new DateTime(2020,10,6,8,0,0), new DateTime(2020, 10, 6, 16, 0, 0));
             //Dictionary<WorkingDaysEnum, TimeInterval> dict = new Dictionary<WorkingDaysEnum, TimeInterval>();
@@ -233,18 +233,7 @@ namespace SIMS.View.ViewPatient
 
         public ObservableCollection<Hospital> Hospitals
         {
-            get
-            {
-                //call controller -> service -> repo getAll
-                Hospital hospital1 = new Hospital(63, "Decje", new Address("Bulevar Mihajla Pupina 5", new Location(45, "Srbija", "Novi Sad")), "555-333", "testsajt", new List<Room>(), new List<Employee>());
-                Hospital hospital2 = new Hospital(63, "Perina bolnica", new Address("Bulevar Mihajla Pupina 5", new Location(45, "Srbija", "Novi Sad")), "555-333", "testsajt", new List<Room>(), new List<Employee>());
-                Hospital hospital3 = new Hospital(63, "miroljub bolnica", new Address("Bulevar Mihajla Pupina 5", new Location(45, "Srbija", "Novi Sad")), "555-333", "testsajt", new List<Room>(), new List<Employee>());
-                ObservableCollection<Hospital> retVal = new ObservableCollection<Hospital>();
-                retVal.Add(hospital1);
-                retVal.Add(hospital2);
-                retVal.Add(hospital3);
-                return retVal;
-            }
+            get  => new ObservableCollection<Hospital>(AppResources.getInstance().hospitalController.GetAll());
         }
 
 
