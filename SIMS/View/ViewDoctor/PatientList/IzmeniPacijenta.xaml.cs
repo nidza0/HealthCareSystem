@@ -40,12 +40,12 @@ namespace SIMS.View.ViewDoctor.PatientList
 
         private void SubmitButton_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.GoBack();
+            
 
             updatePatientInfo();
 
             AppResources.getInstance().patientController.Update(patient);
-
+            NavigationService.GoBack();
             MessageBoxButton button = MessageBoxButton.OK;
             string caption = "Uspešno ste izmenili podatke";
             string messageBoxText = "Uspešno ste izmenili podatke pacijenta.";
@@ -54,6 +54,7 @@ namespace SIMS.View.ViewDoctor.PatientList
 
         private void updatePatientInfo()
         {
+            patient.Password = AppResources.getInstance().patientController.GetByID(patient.GetId()).Password;
             
         }
 

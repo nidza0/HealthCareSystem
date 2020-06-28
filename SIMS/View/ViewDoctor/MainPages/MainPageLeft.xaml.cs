@@ -50,7 +50,7 @@ namespace SIMS.View.ViewDoctor.MainPages
             //    Checkups.Content = cal;
             //}
 
-            AppResources
+            
         }
 
         private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

@@ -1,6 +1,7 @@
 ﻿using SIMS.Controller.UsersController;
 using SIMS.Model.PatientModel;
 using SIMS.Model.UserModel;
+using SIMS.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -73,19 +74,32 @@ namespace SIMS.View.ViewDoctor.Functions
 
                     */
                     // TODO: 
+                    
                     var controller = AppResources.getInstance().patientController;
-                    var diagnosis = controller.GetAllDiagnosisForPatient(patient);
-                    var patientAllergies = controller.GetPatientAllergies(patient);
-
-                    if(patientAllergies.Where(allergy => allergy.AllergicToIngredient == new Ingredient(DrugName.Text)).Count() > 0)
+                    Medicine medicine;
+                    if(AppResources.getInstance().medicineController.GetMedicineByName(DrugName.Text) == null)
                     {
-                        MessageBoxButton button1 = MessageBoxButton.OK;
-                        string caption1 = "Greška";
-                        string messageBoxText1 = "Pacijent je alergican na lek!";
-                        MessageBox.Show(messageBoxText1, caption1, button1);
-
-                        return;
+                        medicine = AppResources.getInstance().medicineController.Create(new Medicine(DrugName.Text, 100, MedicineType.TOPICAL_MEDICINE, 1000, 1));
+                    } else
+                    {
+                        medicine = AppResources.getInstance().medicineController.GetMedicineByName(DrugName.Text);
                     }
+
+                    var dict = new Dictionary<Medicine, TherapyDose>();
+                    var dict2 = new Dictionary<TherapyTime, double>();
+                    dict2.Add(TherapyTime.AsNeeded, double.Parse(DailyAmount_TextBox.Text));
+                    dict.Add(medicine, new TherapyDose(dict2));
+
+                    Therapy therapy;
+                    if(controller.GetActiveTherapyForPatient(patient).ToList().Count < 1)
+                    {
+                        therapy = new Therapy(new TimeInterval(date.AddDays(1), date.AddDays(int.Parse(DayCount_TextBox.Text) + 1)), new Prescription(PrescriptionStatus.ACTIVE, AppResources.getInstance().getLoggedInDoctor(), dict));
+                        controller.AddTherapy(therapy);
+                    } else
+                    {
+                        therapy = controller.GetActiveTherapyForPatient(patient).ToList()[0];
+                    }
+                    controller.GivePrescription(therapy, new Prescription(new Random().Next()));
                     
                     NavigationService.Navigate(new MainPageCenter());
                     MessageBoxButton button = MessageBoxButton.OK;

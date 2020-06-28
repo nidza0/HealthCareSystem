@@ -66,6 +66,7 @@ namespace SIMS.View.ViewDoctor.Functions
         private void OK_Button_Click(object sender, RoutedEventArgs e)
         {
             correctFields();
+            medicine.IsValid = true;
 
             AppResources.getInstance().medicineController.Update(medicine);
 

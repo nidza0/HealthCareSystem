@@ -48,8 +48,8 @@ namespace SIMS.View.ViewDoctor.PatientList
             //ar.diseaseRepository.Create(new Model.PatientModel.Disease(ar.diseaseRepository.GetMaxId(ar.diseaseRepository.GetAll()) + 1));
             //allDiags.Add();
 
-            AppResources.getInstance().patientController.AddDiagnosis(new Model.PatientModel.Diagnosis(ar.diseaseRepository.GetMaxId(ar.diseaseRepository.GetAll()) + 1,
-                new Disease(DiseaseTextBox.Text.ToLower().Trim(), null, false, new DiseaseType(false, true, "Genetic"), symptomsList, null)));
+            //AppResources.getInstance().patientController.AddDiagnosis(new Model.PatientModel.Diagnosis(ar.diseaseRepository.GetMaxId(ar.diseaseRepository.GetAll()) + 1,
+            //    new Disease(DiseaseTextBox.Text.ToLower().Trim(), null, false, new DiseaseType(false, true, "Genetic"), symptomsList, null)));
 
             dg.Items.Refresh();
             sp.Children.Remove(this);

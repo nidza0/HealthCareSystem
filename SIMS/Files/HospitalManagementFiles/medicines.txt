@@ -1,2 +1,1 @@
-﻿1,Oljaprofen,10000,PILL,False,1,,5,7
-2,Zetaprofen,1200,PILL,False,1,,5,7
+﻿1,Eferalgan,100,TOPICAL_MEDICINE,True,,0;0;0,1000,1

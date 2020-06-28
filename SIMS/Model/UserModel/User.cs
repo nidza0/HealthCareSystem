@@ -112,7 +112,7 @@ namespace SIMS.Model.UserModel
         }
 
         public string UserName { get => _userName; }
-        public string Password { get => _password; }
+        public string Password { get => _password; set => _password = value; }
         public DateTime DateCreated { get => _dateCreated; set => _dateCreated = value; }
         public bool Deleted { get => _deleted; set => _deleted = value; }
 

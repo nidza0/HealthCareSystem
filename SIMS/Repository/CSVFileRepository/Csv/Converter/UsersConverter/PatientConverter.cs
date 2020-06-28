@@ -24,7 +24,7 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.UsersConverter
 
             Patient patient = new Patient(id: new UserID(tokens[0]),
                                             userName: tokens[1],
-                                            password: "" /*tokens[2]*/,
+                                            password: tokens[2],
                                             dateCreated: DateTime.ParseExact(tokens[3], _dateTimeFormat, CultureInfo.InvariantCulture),
                                             name: tokens[4],
                                             surname: tokens[5],

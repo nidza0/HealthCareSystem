@@ -86,7 +86,7 @@ namespace SIMS.View.ViewDoctor.PatientList
 
         private void ConfirmBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (TypeCombo.SelectedIndex == 1 && AppResources.getLoggedInUser().DocTypeEnum == Model.DoctorModel.DocTypeEnum.FAMILYMEDICINE)
+            if (TypeCombo.SelectedIndex == 1 && AppResources.getInstance().getLoggedInDoctor().DoctorType == Model.DoctorModel.DoctorType.FAMILYMEDICINE)
             {
                 MessageBoxButton button1 = MessageBoxButton.OK;
                 string caption1 = "Nije moguće zakazati operacju";
@@ -105,7 +105,7 @@ namespace SIMS.View.ViewDoctor.PatientList
                     //this.Visibility = Visibility.Hidden;
                     //allAppointments.Add();
 
-                    AppResources.getInstance().appointmentController.Create(new Model.PatientModel.Appointment(AppResources.getLoggedInUser(), patient, room, type, new TimeInterval(time, time.AddMinutes(standardTime))));
+                    AppResources.getInstance().appointmentController.Create(new Model.PatientModel.Appointment(AppResources.getInstance().getLoggedInDoctor(), patient, room, type, new TimeInterval(time, time.AddMinutes(standardTime))));
 
                     panel.Children.Remove(this);
                     dg.Items.Refresh();

@@ -103,7 +103,7 @@ namespace SIMS
         public DoctorFeedbackRepository doctorFeedbackRepository;
 
 
-        public static Doctor loggedInUser;
+        //public static Doctor loggedInUser;
 
         //Hospital management
         public MedicineRepository medicineRepository;
@@ -139,6 +139,7 @@ namespace SIMS
         public DiseaseService diseaseService;
         public MedicalRecordService medicalRecordService;
         public TherapyService therapyService;
+        public AppointmentRecommendationService appointmentRecommendationService;
 
         // MiscService
         public ArticleService articleService;
@@ -205,9 +206,7 @@ namespace SIMS
             roomController = new RoomController(roomService);
             inventoryController = new InventoryController(inventoryService);
 
-            // MedicalController
-            appointmentController = new AppointmentController(appointmentService);
-            diseaseController = new DiseaseController(diseaseService);
+
 
             // MiscController
             articleController = new ArticleController(articleService);
@@ -222,6 +221,11 @@ namespace SIMS
             patientController = new PatientController(patientService, medicalRecordService, therapyService, diagnosisService);
             secretaryController = new SecretaryController(secretaryService);
             userController = new UserController(userService);
+
+            // MedicalController
+            appointmentRecommendationService = new AppointmentRecommendationService(appointmentService, doctorService);
+            appointmentController = new AppointmentController(appointmentService, appointmentRecommendationService);
+            diseaseController = new DiseaseController(diseaseService);
         }
 
         private void LoadServices()
@@ -393,7 +397,7 @@ namespace SIMS
             notificationService = new NotificationService(notificationRepository);
 
             // UsersService
-            doctorService = new DoctorService(doctorRepository);
+            doctorService = new DoctorService(doctorRepository, userRepository, appointmentService);
             managerService = new ManagerService(managerRepository);
             patientService = new PatientService(patientRepository);
             secretaryService = new SecretaryService(secretaryRepository);
@@ -410,7 +414,7 @@ namespace SIMS
             inventoryController = new InventoryController(inventoryService);
 
             // MedicalController
-            appointmentController = new AppointmentController(appointmentService);
+            appointmentController = new AppointmentController(appointmentService, appointmentRecommendationService);
             diseaseController = new DiseaseController(diseaseService);
 
             // MiscController
@@ -430,17 +434,16 @@ namespace SIMS
 
         }
 
-        public void setLoggedInUser(Doctor loggedIn)
-        {
-            loggedInUser = loggedIn;
-        }
+        //public void setLoggedInUser(Doctor loggedIn)
+        //{
+        //    loggedInUser = loggedIn;
+        //}
 
-        public static Doctor getLoggedInUser()
-        {
-            Console.WriteLine(loggedInUser);
-            return loggedInUser;
+        //public static User getLoggedInUser()
+        //{
+        //    return loggedInUser;
 
-        }
+        //}
 
         public static AppResources getInstance()
         {
@@ -452,6 +455,10 @@ namespace SIMS
             return instance;
         }
 
+        public Doctor getLoggedInDoctor()
+        {
+            return doctorController.GetByID(loggedInUser.GetId());
+        }
         public void LoadDoctorResources()
         {
             //TODO: Ovde se mogu ucitati strategy pattern i slicne specificne stvari za doktora

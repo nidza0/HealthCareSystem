@@ -45,7 +45,7 @@ namespace SIMS.View.ViewDoctor.PatientList
 
         private void fillList()
         {
-            data = AppResources.getInstance().patientRepository.GetPatientByDoctor(AppResources.getLoggedInUser()).ToList();
+            data = AppResources.getInstance().patientRepository.GetPatientByDoctor(AppResources.getInstance().getLoggedInDoctor()).ToList();
             patientList.ItemsSource = data;
         }
 

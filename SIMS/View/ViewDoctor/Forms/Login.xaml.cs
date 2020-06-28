@@ -44,24 +44,27 @@ namespace SIMS.View.ViewDoctor.Forms
             fillData();
             // keepLoggedIn();
             TestAndLogin();
-            
 
+            navigate();
             
         }
 
         private void TestAndLogin()
         {
-            Doctor retVal = AppResources.getInstance().doctorRepository.getDoctorByUsername(Username_TextBox.Text);
-            if (retVal != null && retVal.Password == Password_TextBox.Password)
-            {
-                AppResources.getInstance().setLoggedInUser(retVal);
-                Console.WriteLine(AppResources.getLoggedInUser());
-                NavigationService.Navigate(new MainPageCenter());
-            }
-            else
-            {
-                PogresnaSifra.Visibility = Visibility.Visible;
-            }
+            //Doctor retVal = AppResources.getInstance().doctorRepository.getDoctorByUsername(Username_TextBox.Text);
+
+            AppResources.getInstance().userController.Login(username, password);
+
+            //if (retVal != null && retVal.Password == Password_TextBox.Password)
+            //{
+            //    AppResources.getInstance().setLoggedInUser(retVal);
+            //    Console.WriteLine(AppResources.getLoggedInUser());
+            //    NavigationService.Navigate(new MainPageCenter());
+            //}
+            //else
+            //{
+            //    PogresnaSifra.Visibility = Visibility.Visible;
+            //}
         }
 
        

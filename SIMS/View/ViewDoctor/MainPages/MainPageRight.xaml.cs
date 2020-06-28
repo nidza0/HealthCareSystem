@@ -28,13 +28,13 @@ namespace SIMS.View.ViewDoctor.MainPages
         private Patient recipient;
         public MainPageRight()
         {
-            Doctor doc = AppResources.getLoggedInUser();
+            Doctor doc = AppResources.getInstance().getLoggedInDoctor();
             
             InitializeComponent();
             Name_TextBlock.Text = doc.Name + " " + doc.Surname;
-            TipDoktora_TextBlock.Text = doc.DocTypeEnum.ToString();
+            TipDoktora_TextBlock.Text = doc.DoctorType.ToString();
 
-            Contacts_DataGrid.ItemsSource = AppResources.getInstance().patientRepository.GetPatientByDoctor(AppResources.getLoggedInUser()).ToList();
+            Contacts_DataGrid.ItemsSource = AppResources.getInstance().patientRepository.GetPatientByDoctor(AppResources.getInstance().getLoggedInDoctor()).ToList();
 
             SendBtn.IsEnabled = false;
 
@@ -92,15 +92,20 @@ namespace SIMS.View.ViewDoctor.MainPages
         private void SendBtn_Click(object sender, RoutedEventArgs e)
         {
             
-            cp.addSentMessage(messageText.Text, DateTime.Now.ToString());
+            cp.addSentMessage(messageText.Text, DateTime.Now.ToString(), AppResources.getInstance().getLoggedInDoctor(), recipient);
             MainFrame.Content = cp;
             messageText.Text = "";
         }
 
         private void Contacts_DataGrid_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
         {
-            cp = new ConversationPage();
+            if((Patient)Contacts_DataGrid.SelectedItem == null)
+            {
+                cp = new ConversationPage();
+            }
             recipient = (Patient)Contacts_DataGrid.SelectedItem;
+            cp = new ConversationPage(AppResources.getInstance().getLoggedInDoctor(), recipient);
+            
             SendBtn.IsEnabled = true;
         }
     }

@@ -45,13 +45,13 @@ namespace SIMS.View.ViewDoctor.PatientList
 
         private void fillDataGrid()
         {
-            Console.WriteLine(AppResources.getLoggedInUser().GetId());
+            Console.WriteLine(AppResources.getInstance().loggedInUser.GetId());
             
             allApps = new List<Model.PatientModel.Appointment>();
             //allApps.Add(new Appointment(151, AppResources.getLoggedInUser(), AppResources.getInstance().patientRepository.GetPatientByDoctor(AppResources.getLoggedInUser()).SingleOrDefault(patient => patient.Name == "Mika"),
             //    new Model.UserModel.Room("111A", false, 1, Model.UserModel.RoomType.EXAMINATION), AppointmentType.checkup, new TimeInterval(DateTime.Now.AddHours(1), DateTime.Now.AddHours(1).AddMinutes(15))));
 
-            allApps = AppResources.getInstance().appointmentController.GetAppointmentsByDoctor(AppResources.getLoggedInUser()).ToList();
+            allApps = AppResources.getInstance().appointmentController.GetAppointmentsByDoctor(AppResources.getInstance().getLoggedInDoctor()).ToList();
 
             AppointmentList.ItemsSource = allApps;
         }
