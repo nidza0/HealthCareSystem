@@ -51,7 +51,7 @@
                         </Label>
 
                             <Label VerticalContentAlignment="Center">
-                                <TextBlock Foreground="{StaticResource labelColor}" Text="{Binding Path=Doctor.DocTypeEnum}">
+                                <TextBlock Foreground="{StaticResource labelColor}" Text="{Binding Path=Doctor.DoctorType}">
                                 </TextBlock>
                             </Label>
                     </StackPanel>

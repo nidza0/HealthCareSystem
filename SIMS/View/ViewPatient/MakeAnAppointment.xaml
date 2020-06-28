@@ -217,7 +217,7 @@
                                                                     </TextBlock.Text>
                                                                 </TextBlock>
                                                             </Label>
-                                                            <Label FontSize="12" Content="{Binding Path=DocTypeEnum}"/>
+                                                            <Label FontSize="12" Content="{Binding Path=DoctorType}"/>
                                                         </StackPanel>
                                                         <Label VerticalAlignment="Top" Style="{StaticResource searchFieldLabel}" Margin="10 0 0 0" Content="Rating:"/>
                                                         <Label VerticalAlignment="Top" Margin="5 0 0 0" Content="5"/>

@@ -29,12 +29,12 @@ namespace SIMS.View.ViewPatient
         public ObservableCollection<Article> articles = new ObservableCollection<Article>();
         public ObservableCollection<Diagnosis> diagnosisList = new ObservableCollection<Diagnosis>();
 
-        public HomePage(Patient loggedInPatient)
+        public HomePage(User loggedInPatient)
         {
-            loggedPatient = loggedInPatient;
+            loggedPatient = AppResources.getInstance().patientController.GetByID(loggedInPatient.GetId());
             InitializeComponent();
-            Doctor doctor = new Doctor(new UserID("D333"),"pera","pera",DateTime.Now,"Nikola","Dragic","Milos",Sex.MALE,DateTime.Now,"1234567",new Address("test",new Location(1)),"555-333","zzzz","zzz","zzzzz",new TimeTable(2),new Hospital(1),new Room(2),Model.DoctorModel.DocTypeEnum.SURGEON);
-            Doctor doctor2 = new Doctor(new UserID("D333"), "pera", "pera", DateTime.Now, "Pera", "Peric", "Milos", Sex.MALE, DateTime.Now, "1234567", new Address("test", new Location(1)), "555-333", "zzzz", "zzz", "zzzzz", new TimeTable(2), new Hospital(1), new Room(2), Model.DoctorModel.DocTypeEnum.SURGEON);
+            Doctor doctor = new Doctor(new UserID("D333"),"pera","pera",DateTime.Now,"Nikola","Dragic","Milos",Sex.MALE,DateTime.Now,"1234567",new Address("test",new Location(1)),"555-333","zzzz","zzz","zzzzz",new TimeTable(2),new Hospital(1),new Room(2),Model.DoctorModel.DoctorType.SURGEON);
+            Doctor doctor2 = new Doctor(new UserID("D333"), "pera", "pera", DateTime.Now, "Pera", "Peric", "Milos", Sex.MALE, DateTime.Now, "1234567", new Address("test", new Location(1)), "555-333", "zzzz", "zzz", "zzzzz", new TimeTable(2), new Hospital(1), new Room(2), Model.DoctorModel.DoctorType.SURGEON);
             Room room = new Room(22, "O123", true, 2, RoomType.AFTERCARE);
             //AppointmentConverter appointmentConverter = new AppointmentConverter(",", ";");
             Appointment appointment = new Appointment(69, doctor, new Patient(new UserID("62")), room, AppointmentType.operation, new TimeInterval(DateTime.Now, DateTime.Now));
@@ -170,7 +170,7 @@ namespace SIMS.View.ViewPatient
             //                          new EmergencyContact("Milana", "Milanović", "", "0217474859"),
             //                          PatientType.GENERAL,
             //                          null);
-            Registration editProfile = new Registration(loggedPatient);
+            Registration editProfile = new Registration(AppResources.getInstance().patientController.GetByID(loggedPatient.GetId()));
             editProfile.ShowDialog();
         }
 

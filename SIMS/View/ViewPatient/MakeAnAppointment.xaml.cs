@@ -35,6 +35,8 @@ namespace SIMS.View.ViewPatient
 
         private UserRepo userRepo;
 
+        private Patient patient = AppResources.getInstance().patientController.GetByID(AppResources.getInstance().loggedInUser.GetId());
+
 
         private ValidationRegex validationRegex;
         private bool firstNameValid = true;
@@ -71,10 +73,13 @@ namespace SIMS.View.ViewPatient
 
         private void RecentChecked(object sender, RoutedEventArgs e)
         {
-            Doctors.Clear();
-
-            foreach (Doctor doctor in getAllDoctors())
+            ClearDoctorList();
+            AppResources appResources = AppResources.getInstance();
+            
+            foreach (Doctor doctor in appResources.appointmentController.GetRecentDoctorsForPatient(patient))
                 Doctors.Add(doctor);
+
+            refreshDoctorList();
 
             //TimeInterval timeInterval = new TimeInterval(new DateTime(2020, 10, 6, 8, 0, 0), new DateTime(2020, 10, 6, 16, 0, 0));
             //Dictionary<WorkingDaysEnum, TimeInterval> dict = new Dictionary<WorkingDaysEnum, TimeInterval>();
@@ -88,18 +93,15 @@ namespace SIMS.View.ViewPatient
             //TimeTable timeTable = new TimeTable(dict);
 
             //List<Doctor> retVal = new List<Doctor>();
-            //Doctor doctor = new Doctor(new UserID("d123"), "pera", "pera123", DateTime.Now, "Pera", "Vunic", "Puck", Sex.MALE, DateTime.Now, "12345667", new Address("Bulevar Mihajla Pupina 5", new Location(45, "Srbija", "Novi Sad")), "555-333", "06130959858", "pera@gmail.com", "pera111@gmail.com", timeTable, new Hospital("test", new Address("Bulevar Oslobodjenja 69", new Location(45, "Srbija", "Novi Sad")), "555-333", "zzzz"), new Room("B123", false, 5, RoomType.EXAMINATION), DocTypeEnum.CARDIOLOGIST);
-            //Doctor doctor1 = new Doctor(new UserID("d1266"), "pera", "pera123", DateTime.Now, "Nikola", "Dragic", "Puck", Sex.MALE, DateTime.Now, "12345667", new Address("Bulevar Mihajla Pupina 5", new Location(45, "Srbija", "Novi Sad")), "555-444", "0613021959858", "nikola@gmail.com", "pera111@gmail.com", timeTable, new Hospital("test", new Address("Koste Sokice 2", new Location(45, "Srbija", "Novi Sad")), "555-333", "zzzz"), new Room("B124", false, 5, RoomType.EXAMINATION), DocTypeEnum.CARDIOLOGIST);
-            //Doctor doctor2 = new Doctor(new UserID("d1267"), "pera", "pera123", DateTime.Now, "Veljko", "Dragic", "Puck", Sex.MALE, DateTime.Now, "12345667", new Address("Bulevar Mihajla Pupina 5", new Location(45, "Srbija", "Novi Sad")), "555-444", "0613021959858", "nikola@gmail.com", "pera111@gmail.com", timeTable, new Hospital("test", new Address("Koste Sokice 2", new Location(45, "Srbija", "Novi Sad")), "555-333", "zzzz"), new Room("B125", false, 5, RoomType.EXAMINATION), DocTypeEnum.INFECTOLOGIST);
+            //Doctor doctor = new Doctor(new UserID("d123"), "pera", "pera123", DateTime.Now, "Pera", "Vunic", "Puck", Sex.MALE, DateTime.Now, "12345667", new Address("Bulevar Mihajla Pupina 5", new Location(45, "Srbija", "Novi Sad")), "555-333", "06130959858", "pera@gmail.com", "pera111@gmail.com", timeTable, new Hospital("test", new Address("Bulevar Oslobodjenja 69", new Location(45, "Srbija", "Novi Sad")), "555-333", "zzzz"), new Room("B123", false, 5, RoomType.EXAMINATION), DoctorType.CARDIOLOGIST);
+            //Doctor doctor1 = new Doctor(new UserID("d1266"), "pera", "pera123", DateTime.Now, "Nikola", "Dragic", "Puck", Sex.MALE, DateTime.Now, "12345667", new Address("Bulevar Mihajla Pupina 5", new Location(45, "Srbija", "Novi Sad")), "555-444", "0613021959858", "nikola@gmail.com", "pera111@gmail.com", timeTable, new Hospital("test", new Address("Koste Sokice 2", new Location(45, "Srbija", "Novi Sad")), "555-333", "zzzz"), new Room("B124", false, 5, RoomType.EXAMINATION), DoctorType.CARDIOLOGIST);
+            //Doctor doctor2 = new Doctor(new UserID("d1267"), "pera", "pera123", DateTime.Now, "Veljko", "Dragic", "Puck", Sex.MALE, DateTime.Now, "12345667", new Address("Bulevar Mihajla Pupina 5", new Location(45, "Srbija", "Novi Sad")), "555-444", "0613021959858", "nikola@gmail.com", "pera111@gmail.com", timeTable, new Hospital("test", new Address("Koste Sokice 2", new Location(45, "Srbija", "Novi Sad")), "555-333", "zzzz"), new Room("B125", false, 5, RoomType.EXAMINATION), DoctorType.INFECTOLOGIST);
 
             //Doctors.Add(doctor);
             //Doctors.Add(doctor1);
             //Doctors.Add(doctor2);
             //foreach (Doctor doc in getAllDoctors())
             //    Doctors.Add(doc);
-
-
-            refreshDoctorList();
         }
 
         private IEnumerable<Doctor> getAllDoctors()
@@ -120,13 +122,13 @@ namespace SIMS.View.ViewPatient
             //TimeTable timeTable = new TimeTable(dict);
             
             //List<Doctor> retVal = new List<Doctor>();
-            //Doctor doctor = new Doctor(new UserID("d123"), "pera", "pera123", DateTime.Now, "Pera", "Vunic", "Puck", Sex.MALE, DateTime.Now, "12345667", new Address("Bulevar Mihajla Pupina 5", new Location(45, "Srbija", "Novi Sad")), "555-333", "06130959858", "pera@gmail.com", "pera111@gmail.com", timeTable, new Hospital("test", new Address("Bulevar Oslobodjenja 69", new Location(45, "Srbija", "Novi Sad")), "555-333", "zzzz"), new Room("B123",false,5,RoomType.EXAMINATION), DocTypeEnum.CARDIOLOGIST);
-            //Doctor doctor1 = new Doctor(new UserID("d1266"), "pera", "pera123", DateTime.Now, "Nikola", "Dragic", "Puck", Sex.MALE, DateTime.Now, "12345667", new Address("Bulevar Mihajla Pupina 5", new Location(45, "Srbija", "Novi Sad")), "555-444", "0613021959858", "nikola@gmail.com", "pera111@gmail.com", timeTable, new Hospital("test", new Address("Koste Sokice 2", new Location(45, "Srbija", "Novi Sad")), "555-333", "zzzz"), new Room("B124", false, 5, RoomType.EXAMINATION), DocTypeEnum.CARDIOLOGIST);
-            //Doctor doctor2 = new Doctor(new UserID("d1267"), "pera", "pera123", DateTime.Now, "Veljko", "Dragic", "Puck", Sex.MALE, DateTime.Now, "12345667", new Address("Bulevar Mihajla Pupina 5", new Location(45, "Srbija", "Novi Sad")), "555-444", "0613021959858", "nikola@gmail.com", "pera111@gmail.com", timeTable, new Hospital("test", new Address("Koste Sokice 2", new Location(45, "Srbija", "Novi Sad")), "555-333", "zzzz"), new Room("B125", false, 5, RoomType.EXAMINATION), DocTypeEnum.INFECTOLOGIST);
-            //Doctor doctor3 = new Doctor(new UserID("d1262"), "pera", "pera123", DateTime.Now, "Pera", "Dragic", "Puck", Sex.MALE, DateTime.Now, "12345667", new Address("Bulevar Mihajla Pupina 5", new Location(45, "Srbija", "Novi Sad")), "555-444", "0613021959858", "nikola@gmail.com", "pera111@gmail.com",timeTable, new Hospital("test", new Address("Koste Sokice 2", new Location(45, "Srbija", "Novi Sad")), "555-333", "zzzz"), new Room("B126", false, 5, RoomType.EXAMINATION), DocTypeEnum.INFECTOLOGIST);
-            //Doctor doctor4 = new Doctor(new UserID("d1262"), "pera", "pera123", DateTime.Now, "Pera", "Dragic", "Puck", Sex.MALE, DateTime.Now, "12345667", new Address("Bulevar Mihajla Pupina 5", new Location(45, "Srbija", "Novi Sad")), "555-444", "0613021959858", "nikola@gmail.com", "pera111@gmail.com", timeTable, new Hospital("test", new Address("Koste Sokice 2", new Location(45, "Srbija", "Novi Sad")), "555-333", "zzzz"), new Room("B127", false, 5, RoomType.EXAMINATION), DocTypeEnum.DERMATOLOGIST);
-            //Doctor doctor5 = new Doctor(new UserID("d1262"), "pera", "pera123", DateTime.Now, "Pera", "Dragic", "Puck", Sex.MALE, DateTime.Now, "12345667", new Address("Bulevar Mihajla Pupina 5", new Location(45, "Srbija", "Novi Sad")), "555-444", "0613021959858", "nikola@gmail.com", "pera111@gmail.com", timeTable, new Hospital("test", new Address("Koste Sokice 2", new Location(45, "Srbija", "Novi Sad")), "555-333", "zzzz"), new Room("B128", false, 5, RoomType.EXAMINATION), DocTypeEnum.DERMATOLOGIST);
-            //Doctor doctor6 = new Doctor(new UserID("d1262"), "pera", "pera123", DateTime.Now, "Pera", "Dragic", "Puck", Sex.MALE, DateTime.Now, "12345667", new Address("Bulevar Mihajla Pupina 5", new Location(45, "Srbija", "Novi Sad")), "555-444", "0613021959858", "nikola@gmail.com", "pera111@gmail.com", timeTable, new Hospital("test", new Address("Koste Sokice 2", new Location(45, "Srbija", "Novi Sad")), "555-333", "zzzz"), new Room("B129", false, 5, RoomType.EXAMINATION), DocTypeEnum.DERMATOLOGIST);
+            //Doctor doctor = new Doctor(new UserID("d123"), "pera", "pera123", DateTime.Now, "Pera", "Vunic", "Puck", Sex.MALE, DateTime.Now, "12345667", new Address("Bulevar Mihajla Pupina 5", new Location(45, "Srbija", "Novi Sad")), "555-333", "06130959858", "pera@gmail.com", "pera111@gmail.com", timeTable, new Hospital("test", new Address("Bulevar Oslobodjenja 69", new Location(45, "Srbija", "Novi Sad")), "555-333", "zzzz"), new Room("B123",false,5,RoomType.EXAMINATION), DoctorType.CARDIOLOGIST);
+            //Doctor doctor1 = new Doctor(new UserID("d1266"), "pera", "pera123", DateTime.Now, "Nikola", "Dragic", "Puck", Sex.MALE, DateTime.Now, "12345667", new Address("Bulevar Mihajla Pupina 5", new Location(45, "Srbija", "Novi Sad")), "555-444", "0613021959858", "nikola@gmail.com", "pera111@gmail.com", timeTable, new Hospital("test", new Address("Koste Sokice 2", new Location(45, "Srbija", "Novi Sad")), "555-333", "zzzz"), new Room("B124", false, 5, RoomType.EXAMINATION), DoctorType.CARDIOLOGIST);
+            //Doctor doctor2 = new Doctor(new UserID("d1267"), "pera", "pera123", DateTime.Now, "Veljko", "Dragic", "Puck", Sex.MALE, DateTime.Now, "12345667", new Address("Bulevar Mihajla Pupina 5", new Location(45, "Srbija", "Novi Sad")), "555-444", "0613021959858", "nikola@gmail.com", "pera111@gmail.com", timeTable, new Hospital("test", new Address("Koste Sokice 2", new Location(45, "Srbija", "Novi Sad")), "555-333", "zzzz"), new Room("B125", false, 5, RoomType.EXAMINATION), DoctorType.INFECTOLOGIST);
+            //Doctor doctor3 = new Doctor(new UserID("d1262"), "pera", "pera123", DateTime.Now, "Pera", "Dragic", "Puck", Sex.MALE, DateTime.Now, "12345667", new Address("Bulevar Mihajla Pupina 5", new Location(45, "Srbija", "Novi Sad")), "555-444", "0613021959858", "nikola@gmail.com", "pera111@gmail.com",timeTable, new Hospital("test", new Address("Koste Sokice 2", new Location(45, "Srbija", "Novi Sad")), "555-333", "zzzz"), new Room("B126", false, 5, RoomType.EXAMINATION), DoctorType.INFECTOLOGIST);
+            //Doctor doctor4 = new Doctor(new UserID("d1262"), "pera", "pera123", DateTime.Now, "Pera", "Dragic", "Puck", Sex.MALE, DateTime.Now, "12345667", new Address("Bulevar Mihajla Pupina 5", new Location(45, "Srbija", "Novi Sad")), "555-444", "0613021959858", "nikola@gmail.com", "pera111@gmail.com", timeTable, new Hospital("test", new Address("Koste Sokice 2", new Location(45, "Srbija", "Novi Sad")), "555-333", "zzzz"), new Room("B127", false, 5, RoomType.EXAMINATION), DoctorType.DERMATOLOGIST);
+            //Doctor doctor5 = new Doctor(new UserID("d1262"), "pera", "pera123", DateTime.Now, "Pera", "Dragic", "Puck", Sex.MALE, DateTime.Now, "12345667", new Address("Bulevar Mihajla Pupina 5", new Location(45, "Srbija", "Novi Sad")), "555-444", "0613021959858", "nikola@gmail.com", "pera111@gmail.com", timeTable, new Hospital("test", new Address("Koste Sokice 2", new Location(45, "Srbija", "Novi Sad")), "555-333", "zzzz"), new Room("B128", false, 5, RoomType.EXAMINATION), DoctorType.DERMATOLOGIST);
+            //Doctor doctor6 = new Doctor(new UserID("d1262"), "pera", "pera123", DateTime.Now, "Pera", "Dragic", "Puck", Sex.MALE, DateTime.Now, "12345667", new Address("Bulevar Mihajla Pupina 5", new Location(45, "Srbija", "Novi Sad")), "555-444", "0613021959858", "nikola@gmail.com", "pera111@gmail.com", timeTable, new Hospital("test", new Address("Koste Sokice 2", new Location(45, "Srbija", "Novi Sad")), "555-333", "zzzz"), new Room("B129", false, 5, RoomType.EXAMINATION), DoctorType.DERMATOLOGIST);
             //retVal.Add(doctor);
             //retVal.Add(doctor1);
             //retVal.Add(doctor2);
@@ -146,93 +148,74 @@ namespace SIMS.View.ViewPatient
 
         private void FamilyMedicineChecked(object sender, RoutedEventArgs e)
         {
-            Doctors.Clear();
-            IEnumerable<Doctor> allDoctors = getAllDoctors();
+            ClearDoctorList();
+            foreach (Doctor doctor in AppResources.getInstance().doctorController.GetDoctorByType(DoctorType.FAMILYMEDICINE)) 
+                Doctors.Add(doctor);
 
-            foreach(Doctor doctor in allDoctors)
-            {
-                if (doctor.DocTypeEnum == DocTypeEnum.FAMILYMEDICINE)
-                    Doctors.Add(doctor);
-            }
             refreshDoctorList();
-            
+
+        }
+
+        private void ClearDoctorList()
+        {
+            while (Doctors.Count > 0)
+            {
+                Doctors.RemoveAt(Doctors.Count - 1);
+            }
         }
 
         private void CardiologistChecked(object sender, RoutedEventArgs e)
         {
-            Doctors.Clear();
-            IEnumerable<Doctor> allDoctors = getAllDoctors();
-
-            foreach (Doctor doctor in allDoctors)
-            {
-                if (doctor.DocTypeEnum == DocTypeEnum.CARDIOLOGIST)
-                    Doctors.Add(doctor);
-            }
+            //Doctors.Clear();
+            ClearDoctorList();
+            foreach (Doctor doctor in AppResources.getInstance().doctorController.GetDoctorByType(DoctorType.CARDIOLOGIST))
+                Doctors.Add(doctor);
+            
             refreshDoctorList();
         }
 
         private void DermatologistChecked(object sender, RoutedEventArgs e)
         {
-            Doctors.Clear();
-            IEnumerable<Doctor> allDoctors = getAllDoctors();
+            ClearDoctorList();
+            foreach (Doctor doctor in AppResources.getInstance().doctorController.GetDoctorByType(DoctorType.DERMATOLOGIST))
+                Doctors.Add(doctor);
 
-            foreach (Doctor doctor in allDoctors)
-            {
-                if (doctor.DocTypeEnum == DocTypeEnum.DERMATOLOGIST)
-                    Doctors.Add(doctor);
-            }
             refreshDoctorList();
         }
 
         private void InfectologistChecked(object sender, RoutedEventArgs e)
         {
-            Doctors.Clear();
-            IEnumerable<Doctor> allDoctors = getAllDoctors();
+            ClearDoctorList();
+            foreach (Doctor doctor in AppResources.getInstance().doctorController.GetDoctorByType(DoctorType.INFECTOLOGIST))
+                Doctors.Add(doctor);
 
-            foreach (Doctor doctor in allDoctors)
-            {
-                if (doctor.DocTypeEnum == DocTypeEnum.INFECTOLOGIST)
-                    Doctors.Add(doctor);
-            }
             refreshDoctorList();
         }
 
         private void OphtamologistChecked(object sender, RoutedEventArgs e)
         {
-            Doctors.Clear();
-            IEnumerable<Doctor> allDoctors = getAllDoctors();
+            ClearDoctorList();
+            foreach (Doctor doctor in AppResources.getInstance().doctorController.GetDoctorByType(DoctorType.OPHTAMOLOGIST))
+                Doctors.Add(doctor);
 
-            foreach (Doctor doctor in allDoctors)
-            {
-                if (doctor.DocTypeEnum == DocTypeEnum.OPHTAMOLOGIST)
-                    Doctors.Add(doctor);
-            }
             refreshDoctorList();
         }
 
         private void EndocriniologistChecked(object sender, RoutedEventArgs e)
         {
-            Doctors.Clear();
-            IEnumerable<Doctor> allDoctors = getAllDoctors();
+            ClearDoctorList();
+            foreach (Doctor doctor in AppResources.getInstance().doctorController.GetDoctorByType(DoctorType.ENDOCRINIOLOGIST))
+                Doctors.Add(doctor);
 
-            foreach (Doctor doctor in allDoctors)
-            {
-                if (doctor.DocTypeEnum == DocTypeEnum.ENDOCRINIOLOGIST)
-                    Doctors.Add(doctor);
-            }
             refreshDoctorList();
         }
 
         private void GastroenerologistChecked(object sender, RoutedEventArgs e)
         {
-            Doctors.Clear();
-            IEnumerable<Doctor> allDoctors = getAllDoctors();
+            ClearDoctorList();
+            foreach (Doctor doctor in AppResources.getInstance().doctorController.GetDoctorByType(DoctorType.GASTROENEROLOGIST))
+                Doctors.Add(doctor);
 
-            foreach (Doctor doctor in allDoctors)
-            {
-                if (doctor.DocTypeEnum == DocTypeEnum.GASTROENEROLOGIST)
-                    Doctors.Add(doctor);
-            }
             refreshDoctorList();
         }
 

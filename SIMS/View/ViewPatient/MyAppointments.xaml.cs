@@ -37,7 +37,7 @@ namespace SIMS.View.ViewPatient
         private MyAppointmentsRepo myAppointmentsRepo = MyAppointmentsRepo.Instance;
         private DoctorAppointmentsRepo doctorAppointmentsRepo = DoctorAppointmentsRepo.Instance;
 
-        private DocTypeEnum selectedFilterDoctorType;
+        private DoctorType selectedFilterDoctorType;
         private Doctor selectedFilterDoctor;
         private DateTime firstAllowedDate;
         private AppointmentType selectedFilterAppointmentType;
@@ -57,11 +57,11 @@ namespace SIMS.View.ViewPatient
             this.DataContext = this;
             InitializeComponent();
 
-            doctorTypeComboBox.ItemsSource = Enum.GetValues(typeof(DocTypeEnum)).Cast<DocTypeEnum>();
+            doctorTypeComboBox.ItemsSource = Enum.GetValues(typeof(DoctorType)).Cast<DoctorType>();
             appointmentTypeComboBox.ItemsSource = Enum.GetValues(typeof(AppointmentType)).Cast<AppointmentType>();
         }
 
-        public DocTypeEnum SelectedFilterDoctorType { get => selectedFilterDoctorType; set => selectedFilterDoctorType = value; }
+        public DoctorType SelectedFilterDoctorType { get => selectedFilterDoctorType; set => selectedFilterDoctorType = value; }
         public Doctor SelectedFilterDoctor { get => selectedFilterDoctor; set => selectedFilterDoctor = value; }
 
         public ObservableCollection<Doctor> PatientDoctors

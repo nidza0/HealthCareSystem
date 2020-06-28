@@ -44,12 +44,12 @@ namespace SIMS.View.ViewPatient
             List<Room> testList = new List<Room>();
             List<Employee> employeeList = new List<Employee>();
             Address address = new Address("Koste Sokice 3", new Location(22, "SRBIJA", "NOVI SAD"));
-            Doctor doctor1 = new Doctor(new UserID("D123"), "pera", "pera123", DateTime.Now, "Pera", "Vunic", "Puck", Sex.MALE, DateTime.Now, "12345667", address, "555-333", "06130959858", "pera@gmail.com", "pera111@gmail.com", new TimeTable(new Dictionary<WorkingDaysEnum, Util.TimeInterval>()), new Hospital("test", address, "555-333", "zzzz"), new Room(1), DocTypeEnum.CARDIOLOGIST);
+            Doctor doctor1 = new Doctor(new UserID("D123"), "pera", "pera123", DateTime.Now, "Pera", "Vunic", "Puck", Sex.MALE, DateTime.Now, "12345667", address, "555-333", "06130959858", "pera@gmail.com", "pera111@gmail.com", new TimeTable(new Dictionary<WorkingDaysEnum, Util.TimeInterval>()), new Hospital("test", address, "555-333", "zzzz"), new Room(1), DoctorType.CARDIOLOGIST);
             //string retVal = converter.ConvertEntityToCSV(hospital);
             //Console.WriteLine(retVal);
 
-            Doctor doctor2 = new Doctor(new UserID("D123"), "pera", "pera123", DateTime.Now, "Nikola", "Dragic", "Pzzz", Sex.MALE, DateTime.Now, "12345667", address, "555-333", "06130959858", "pera@gmail.com", "pera111@gmail.com", new TimeTable(new Dictionary<WorkingDaysEnum, Util.TimeInterval>()), new Hospital("test", address, "555-333", "zzzz"), new Room(1), DocTypeEnum.CARDIOLOGIST);
-            Doctor doctor3 = new Doctor(new UserID("D123"), "pera", "pera123", DateTime.Now, "Aleksa", "Vunic", "yyyyy", Sex.MALE, DateTime.Now, "12345667", address, "555-333", "06130959858", "pera@gmail.com", "pera111@gmail.com", new TimeTable(new Dictionary<WorkingDaysEnum, Util.TimeInterval>()), new Hospital("test", address, "555-333", "zzzz"), new Room(1), DocTypeEnum.CARDIOLOGIST);
+            Doctor doctor2 = new Doctor(new UserID("D123"), "pera", "pera123", DateTime.Now, "Nikola", "Dragic", "Pzzz", Sex.MALE, DateTime.Now, "12345667", address, "555-333", "06130959858", "pera@gmail.com", "pera111@gmail.com", new TimeTable(new Dictionary<WorkingDaysEnum, Util.TimeInterval>()), new Hospital("test", address, "555-333", "zzzz"), new Room(1), DoctorType.CARDIOLOGIST);
+            Doctor doctor3 = new Doctor(new UserID("D123"), "pera", "pera123", DateTime.Now, "Aleksa", "Vunic", "yyyyy", Sex.MALE, DateTime.Now, "12345667", address, "555-333", "06130959858", "pera@gmail.com", "pera111@gmail.com", new TimeTable(new Dictionary<WorkingDaysEnum, Util.TimeInterval>()), new Hospital("test", address, "555-333", "zzzz"), new Room(1), DoctorType.CARDIOLOGIST);
 
 
             Message message1 = new Message(69, "Cao ja sam Nikola", doctor1, doctor1, DateTime.Now);

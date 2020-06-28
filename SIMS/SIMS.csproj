@@ -36,6 +36,9 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="itextsharp">
+      <HintPath>..\packages\iTextSharp.5.5.13.1\lib\itextsharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -268,6 +271,58 @@
     <Compile Include="Util\TimeInterval.cs" />
     <Compile Include="Util\TimeIterator.cs" />
     <Compile Include="Util\UserValidation.cs" />
+    <Compile Include="View\ViewPatient\ArticlePreview.xaml.cs">
+      <DependentUpon>ArticlePreview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewPatient\BookAnAppointment.xaml.cs">
+      <DependentUpon>BookAnAppointment.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewPatient\DAOclass\PatientSingleTherapy.cs" />
+    <Compile Include="View\ViewPatient\DiagnosisOverview.xaml.cs">
+      <DependentUpon>DiagnosisOverview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewPatient\DiagnosisPreview.xaml.cs">
+      <DependentUpon>DiagnosisPreview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewPatient\EditAnAppointment.xaml.cs">
+      <DependentUpon>EditAnAppointment.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewPatient\Exceptions\RegistrationException.cs" />
+    <Compile Include="View\ViewPatient\FooterPDFEvent.cs" />
+    <Compile Include="View\ViewPatient\HomePage.xaml.cs">
+      <DependentUpon>HomePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewPatient\Login.xaml.cs">
+      <DependentUpon>Login.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewPatient\MakeAnAppointment.xaml.cs">
+      <DependentUpon>MakeAnAppointment.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewPatient\Messages.xaml.cs">
+      <DependentUpon>Messages.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewPatient\MyAppointments.xaml.cs">
+      <DependentUpon>MyAppointments.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewPatient\PDFWaterMarkEvent.cs" />
+    <Compile Include="View\ViewPatient\Registration.xaml.cs">
+      <DependentUpon>Registration.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewPatient\RepoSimulator\doctorAppointmentsRepo.cs" />
+    <Compile Include="View\ViewPatient\RepoSimulator\MyAppointmentsRepo.cs" />
+    <Compile Include="View\ViewPatient\RepoSimulator\TherapyRepo.cs" />
+    <Compile Include="View\ViewPatient\RepoSimulator\UsersRepo.cs" />
+    <Compile Include="View\ViewPatient\TherapyOverview.xaml.cs">
+      <DependentUpon>TherapyOverview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewPatient\tutorial\TutorialEnum.cs" />
+    <Compile Include="View\ViewPatient\tutorial\tutorialPreview.xaml.cs">
+      <DependentUpon>tutorialPreview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewPatient\ValidationRegex.cs" />
+    <Compile Include="View\ViewPatient\VideoTutorial.xaml.cs">
+      <DependentUpon>VideoTutorial.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -297,6 +352,62 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\ViewPatient\ArticlePreview.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\ViewPatient\BookAnAppointment.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\ViewPatient\DiagnosisOverview.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\ViewPatient\DiagnosisPreview.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\ViewPatient\EditAnAppointment.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\ViewPatient\HomePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\ViewPatient\Login.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\ViewPatient\MakeAnAppointment.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\ViewPatient\Messages.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\ViewPatient\MyAppointments.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\ViewPatient\Registration.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\ViewPatient\TherapyOverview.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\ViewPatient\tutorial\tutorialPreview.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\ViewPatient\VideoTutorial.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\DoctorModel\DoctorFeedback.cs" />
@@ -370,13 +481,12 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Include="View\readme.md" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="View\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Files\HospitalManagementFiles\hospitals.txt" />
     <Resource Include="Files\HospitalManagementFiles\inventories.txt" />
@@ -406,6 +516,17 @@
     <Resource Include="Files\UserFiles\patients.txt" />
     <Resource Include="Files\UserFiles\secretaries.txt" />
     <Resource Include="Files\UserFiles\users.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\ViewPatient\New Text Document.txt" />
+    <Resource Include="View\ViewPatient\static\images\test_image.png" />
+    <Content Include="View\ViewPatient\tutorial\videos\exportAppointments.avi" />
+    <Content Include="View\ViewPatient\tutorial\videos\makeAnAppointment.avi" />
+    <Content Include="View\ViewPatient\tutorial\videos\myAppointments.avi" />
+    <Content Include="View\ViewPatient\tutorial\videos\myDiagnosis.avi" />
+    <Content Include="View\ViewPatient\tutorial\videos\myProfile.avi" />
+    <Content Include="View\ViewPatient\tutorial\videos\myTherapies.avi" />
+    <Content Include="View\ViewPatient\tutorial\videos\register.avi" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

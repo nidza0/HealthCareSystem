@@ -47,7 +47,7 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.UsersConverter
             => string.Join(_delimiter,
                 manager.GetId().ToString(),
                 manager.UserName,
-                manager.Password,
+                "",
                 manager.DateCreated.ToString(_dateTimeFormat),
                 manager.Name,
                 manager.Surname,

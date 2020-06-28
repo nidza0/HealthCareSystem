@@ -24,7 +24,7 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.UsersConverter
 
             Patient patient = new Patient(id: new UserID(tokens[0]),
                                             userName: tokens[1],
-                                            password: "" /*tokens[2]*/,
+                                            password:  "",
                                             dateCreated: DateTime.ParseExact(tokens[3], _dateTimeFormat, CultureInfo.InvariantCulture),
                                             name: tokens[4],
                                             surname: tokens[5],
@@ -48,7 +48,7 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.UsersConverter
             => string.Join(_delimiter,
                 patient.GetId().ToString(),
                 patient.UserName,
-                /*patient.Password*/ "",
+                "",
                 patient.DateCreated.ToString(_dateTimeFormat),
                 patient.Name,
                 patient.Surname,

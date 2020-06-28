@@ -18,6 +18,7 @@ using System.Text.RegularExpressions;
 using SIMS.Model.UserModel;
 using SIMS.View.ViewPatient.Exceptions;
 using SIMS.View.ViewPatient.RepoSimulator;
+using SIMS.Service.UsersService;
 
 namespace SIMS.View.ViewPatient
 {
@@ -76,28 +77,20 @@ namespace SIMS.View.ViewPatient
             String password = this.password.Password;
 
             //TODO: Check if username and password valid.
-
-
-            Patient loggedInPatient = null;
-            loggedInPatient = userRepo.login(username, password);
-
-            if(loggedInPatient == null)
+            AppResources appResources = AppResources.getInstance(); 
+            try
             {
-                //ako nismo nasli  user sa tim username i password, obavesriti korisnika
-                MessageBox.Show("User with entered credentials was not found, please try again!");
-            }
-            else
-            {
-                HomePage homePage = new HomePage(loggedInPatient);
+                appResources.userController.Login(username, password);
+                HomePage homePage = new HomePage(appResources.loggedInUser);
                 homePage.WindowState = WindowState.Maximized;
 
                 this.Close();
                 homePage.Show();
             }
-
-
-
-            
+            catch(InvalidLoginException invalidLoginException)
+            {
+                MessageBox.Show(invalidLoginException.Message);
+            }
         }
 
         private void validateInput(object sender, TextChangedEventArgs e)

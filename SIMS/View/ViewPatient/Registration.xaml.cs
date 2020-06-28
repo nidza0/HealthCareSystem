@@ -20,6 +20,8 @@ using SIMS.View.ViewPatient.Exceptions;
 using System.Text.RegularExpressions;
 using SIMS.View.ViewPatient.RepoSimulator;
 using SIMS.Repository.CSVFileRepository.UsersRepository;
+using SIMS.Controller.UsersController;
+using SIMS.Exceptions;
 
 namespace SIMS.View.ViewPatient
 {
@@ -186,52 +188,36 @@ namespace SIMS.View.ViewPatient
 
         private void SubmitButton_Click(object sender, RoutedEventArgs e)
         {
-            //Console.WriteLine(FirstName);
-            //Console.WriteLine(MiddleName);
-            //Console.WriteLine(LastName);
-            //Console.WriteLine(DateOfBirth);
-            //Console.WriteLine(CountryOfOrigin);
-            //Console.WriteLine(Gender);
-            //Console.WriteLine(Uidn);
-            //Console.WriteLine(Address);
-            //Console.WriteLine(Country);
-            //Console.WriteLine(City);
-            //Console.WriteLine(HomePhone);
-            //Console.WriteLine(MobilePhone);
-            //Console.WriteLine(Email);
-            //Console.WriteLine(SecondaryEmail);
-            //Console.WriteLine(EmergencyFirstName);
-            //Console.WriteLine(EmergencyLastName);
-            //Console.WriteLine(EmergencyPhoneNumber);
-            //Console.WriteLine(EmergencyEmail);
+            AppResources appResources = AppResources.getInstance();
+            PatientController patientController = appResources.patientController;
+            UserController userController = appResources.userController;
             if (update)
             {
-                //call controller to update patient profile
-                //UPDATE IN USERSREPO
-                //TODO: UBACI DOKTORE U USERREPO I ONDA NAKACI TAMO KADA ZAKAZUCES APPOINTMENTS
-                //DIAGNOSIS REPO ISTO
-                //THERAPY ISOT
-                try { 
-                    userRepo.updatePatient(new Patient(HomePage.loggedPatient.GetId(), Username, passwordTextBox.Password, DateTime.Now,FirstName,LastName, MiddleName, Gender, DateOfBirth, Uidn, new Address(Address, new Location(Country, City)), HomePhone, MobilePhone, Email, SecondaryEmail, new EmergencyContact(emergencyFirstName, EmergencyLastName, EmergencyEmail, EmergencyPhoneNumber), HomePage.loggedPatient.PatientType, HomePage.loggedPatient.SelectedDoctor));
+                try {
+                    Patient updatedPatient = new Patient(HomePage.loggedPatient.GetId(), Username, passwordTextBox.Password, DateTime.Now, FirstName, LastName, MiddleName, Gender, DateOfBirth, Uidn, new Address(Address, new Location(Country, City)), HomePhone, MobilePhone, Email, SecondaryEmail, new EmergencyContact(emergencyFirstName, EmergencyLastName, EmergencyEmail, EmergencyPhoneNumber), HomePage.loggedPatient.PatientType, HomePage.loggedPatient.SelectedDoctor);
+                    patientController.Update(updatedPatient);
                     MessageBox.Show("Successfully changed profile!");
-                } catch(RegistrationException exc)
+                }catch(InvalidUserException invalidUserException){
+                    MessageBox.Show(invalidUserException.Message);
+                }catch(NotUniqueException notUniqueException)
                 {
-                    MessageBox.Show(exc.Message);
+                    MessageBox.Show(notUniqueException.Message);
                 }
             }
             else
             {
                 //call controller to register patient profile
-                try { 
-                Patient patient = userRepo.register(new Patient(Username, passwordTextBox.Password,FirstName, LastName, MiddleName, Gender, DateOfBirth, Uidn, new Address(Address, new Location(Country, City)), HomePhone, MobilePhone, Email, SecondaryEmail, new EmergencyContact(emergencyFirstName, EmergencyLastName, EmergencyEmail, EmergencyPhoneNumber), PatientType.GENERAL, null));
-
-
-                MessageBox.Show("Account successfully created, you can login now.");
-
-                this.Close();
-                }catch(RegistrationException exc)
+                try {
+                    patientController.Create(new Patient(Username, passwordTextBox.Password, FirstName, LastName, MiddleName, Gender, DateOfBirth, Uidn, new Address(Address, new Location(Country, City)), HomePhone, MobilePhone, Email, SecondaryEmail, new EmergencyContact(emergencyFirstName, EmergencyLastName, EmergencyEmail, EmergencyPhoneNumber), PatientType.GENERAL, null));
+                    MessageBox.Show("Account successfully created, you can login now.");
+                    this.Close();
+                }catch (InvalidUserException invalidUserException)
                 {
-                    MessageBox.Show(exc.Message);
+                    MessageBox.Show(invalidUserException.Message);
+                }
+                catch (NotUniqueException notUniqueException)
+                {
+                    MessageBox.Show(notUniqueException.Message);
                 }
 
 

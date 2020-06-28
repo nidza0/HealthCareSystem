@@ -12,7 +12,7 @@ namespace SIMS.Model.UserModel
     public class Doctor : Employee
     {
         private Room _office;
-        private DoctorType _docTypeEnum;
+        private DoctorType _DoctorType;
 
         public Doctor(  string userName, 
                         string password, 
@@ -35,7 +35,7 @@ namespace SIMS.Model.UserModel
             : base(timeTable, hospital, userName, password, dateCreated, name, surname, middleName, sex, dateOfBirth, uidn, address, homePhone, cellPhone, email1, email2)
         {
             _office = office;
-            _docTypeEnum = doctorType;
+            _DoctorType = doctorType;
         }
 
         public Doctor(string userName,
@@ -58,7 +58,7 @@ namespace SIMS.Model.UserModel
             : base(timeTable, hospital, userName, password, name, surname, middleName, sex, dateOfBirth, uidn, address, homePhone, cellPhone, email1, email2)
         {
             _office = office;
-            _docTypeEnum = doctorType;
+            _DoctorType = doctorType;
         }
 
         public Doctor(  UserID id, 
@@ -83,12 +83,12 @@ namespace SIMS.Model.UserModel
             : base(id, timeTable, hospital, userName, password, dateCreated, name, surname, middleName, sex, dateOfBirth, uidn, address, homePhone, cellPhone, email1, email2)
         {
             _office = office;
-            _docTypeEnum = doctorType;
+            _DoctorType = doctorType;
         }
 
         public Doctor(UserID id) : base(id) { }
 
         public Room Office { get => _office; set => _office = value; }
-        public DoctorType DoctorType { get => _docTypeEnum; }
+        public DoctorType DoctorType { get => _DoctorType; }
     }
 }

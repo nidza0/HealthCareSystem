@@ -8,6 +8,6 @@ namespace SIMS.Service.ValidateServices
 {
     public interface IValidateService<T>
     {
-        public void Validate(T entity);
+        void Validate(T entity);
     }
 }

@@ -208,7 +208,7 @@
                                     <MultiBinding StringFormat="{}{0}  {1} , {2}">
                                         <Binding Path="Doctor.Name" />
                                         <Binding Path="Doctor.Surname"/>
-                                        <Binding Path="Doctor.DocTypeEnum"/>
+                                        <Binding Path="Doctor.DoctorType"/>
                                
                                     </MultiBinding>
                                 </DataGridTextColumn.Binding>
