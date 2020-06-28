@@ -14,33 +14,33 @@ namespace SIMS.Controller.MiscController
     public class MessageController : IController<Message, long>
     {
 
-        public MessageService messageService;
+        private MessageService _messageService;
 
         public MessageController(MessageService messageService)
         {
-            this.messageService = messageService;
+            _messageService = messageService;
         }
 
         public IEnumerable<Message> GetSent(User user)
-            => messageService.GetSent(user);
+            => _messageService.GetSent(user);
 
         public IEnumerable<Message> GetRecieved(User user)
-            => messageService.GetRecieved(user);
+            => _messageService.GetRecieved(user);
 
         public IEnumerable<Message> GetAll()
-            => messageService.GetAll();
+            => _messageService.GetAll();
 
         public Message GetByID(long id)
-            => messageService.GetByID(id);
+            => _messageService.GetByID(id);
 
         public Message Create(Message entity)
-            => messageService.Create(entity);
+            => _messageService.Create(entity);
 
         public void Update(Message entity)
-            => messageService.Update(entity);
+            => _messageService.Update(entity);
 
         public void Delete(Message entity)
-            => messageService.Delete(entity);
+            => _messageService.Delete(entity);
 
     }
 }

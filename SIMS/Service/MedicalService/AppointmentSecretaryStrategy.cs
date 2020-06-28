@@ -24,8 +24,6 @@ namespace SIMS.Service.MedicalService
 
             if (startTime > endTime)
                 throw new AppointmentServiceException("Appointment start time must be before end time!");
-
-
         }
 
         public void CheckType(Appointment appointment)
@@ -33,11 +31,14 @@ namespace SIMS.Service.MedicalService
             AppointmentType appointmentType = appointment.AppointmentType;
             Doctor doctor = appointment.DoctorInAppointment;
             Patient patient = appointment.Patient;
+            Room room = appointment.Room;
 
             if (appointmentType == AppointmentType.operation && (doctor.DoctorType == DoctorType.FAMILYMEDICINE))
                 throw new AppointmentServiceException("Family medicine doctor can not book operation!");
-            else if (appointmentType == AppointmentType.renovation && (doctor != null || patient != null))
-                throw new AppointmentServiceException("Doctor and patient can not be in renovation appointment!");
+            if(appointmentType == AppointmentType.renovation)
+                throw new AppointmentServiceException("Secretary cannot book renovation!");
+            if (doctor == null || patient == null || room == null)
+                throw new AppointmentServiceException("Doctor, patient and room must be set.");
         }
 
         public bool isAppointmentChangeable(Appointment appointment)

@@ -131,6 +131,7 @@ namespace SIMS
 
         // MedicalService
         public AppointmentService appointmentService;
+        public AppointmentRecommendationService appointmentRecommendationService;
         public DiagnosisService diagnosisService;
         public DiseaseService diseaseService;
         public MedicalRecordService medicalRecordService;
@@ -201,7 +202,7 @@ namespace SIMS
             inventoryController = new InventoryController(inventoryService);
 
             // MedicalController
-            appointmentController = new AppointmentController(appointmentService);
+            appointmentController = new AppointmentController(appointmentService, appointmentRecommendationService);
             diseaseController = new DiseaseController(diseaseService);
 
             // MiscController
@@ -251,6 +252,8 @@ namespace SIMS
             patientService = new PatientService(patientRepository);
             secretaryService = new SecretaryService(secretaryRepository);
             userService = new UserService(userRepository);
+
+            appointmentRecommendationService = new AppointmentRecommendationService(appointmentService, doctorService);
         }
 
         private void LoadRepositories()
@@ -346,16 +349,16 @@ namespace SIMS
 
             //ODAVDDE RADITI OSTALE
 
-            doctorStatisticRepository = new DoctorStatisticRepository("dSR", new CSVStream<StatsDoctor>(doctorStatisticsFile, new DoctorStatisticsConverter(",")), new LongSequencer(), doctorRepository);
+            doctorStatisticRepository = new DoctorStatisticRepository(new CSVStream<StatsDoctor>(doctorStatisticsFile, new DoctorStatisticsConverter(",")), new LongSequencer(), doctorRepository);
             // Doc Stats OK
 
-            inventoryStatisticRepository = new InventoryStatisticsRepository("iSR", new CSVStream<StatsInventory>(inventoryStatisticsFile, new InventoryStatisticsConverter(",")), new LongSequencer(), medicineRepository, inventoryItemRepository);
+            inventoryStatisticRepository = new InventoryStatisticsRepository(new CSVStream<StatsInventory>(inventoryStatisticsFile, new InventoryStatisticsConverter(",")), new LongSequencer(), medicineRepository, inventoryItemRepository);
             // InventoryStats OK
 
-            roomStatisticRepository = new RoomStatisticsRepository("rSR", new CSVStream<StatsRoom>(roomStatisticsFile, new RoomStatisticsConverter(",")), new LongSequencer(), roomRepository);
+            roomStatisticRepository = new RoomStatisticsRepository(new CSVStream<StatsRoom>(roomStatisticsFile, new RoomStatisticsConverter(",")), new LongSequencer(), roomRepository);
             // RoomStats OK
 
-            inventoryRepository = new InventoryRepository("iR", new CSVStream<Inventory>(inventoryFile, new InventoryConverter(",", ";")), new LongSequencer(), inventoryItemRepository, medicineRepository);
+            inventoryRepository = new InventoryRepository(new CSVStream<Inventory>(inventoryFile, new InventoryConverter(",", ";")), new LongSequencer(), inventoryItemRepository, medicineRepository);
 
         }
 

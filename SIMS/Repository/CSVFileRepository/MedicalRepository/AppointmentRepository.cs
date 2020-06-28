@@ -69,9 +69,6 @@ namespace SIMS.Repository.CSVFileRepository.MedicalRepository
         public IEnumerable<Appointment> GetCanceledAppointments()
             => GetAllEager().Where(appointment => appointment.Canceled == true);
 
-        public IEnumerable<Appointment> GetCompletedAppointmentsByPatient(Patient patient)
-            => GetPatientAppointments(patient).Where(appointment => isCompleted(appointment));
-
         public IEnumerable<Appointment> GetAppointmentsByRoom(Room room)
             => GetAllEager().Where(appointment => IsRoomIdsEquals(appointment.Room, room));
 
@@ -85,12 +82,6 @@ namespace SIMS.Repository.CSVFileRepository.MedicalRepository
             Bind(appointments);
             return appointments;            
         }
-
-        public IEnumerable<Appointment> GetUpcomingAppointmentsForPatient(Patient patient)
-            => GetPatientAppointments(patient).Where(appointment => isInFuture(appointment));
-
-        public IEnumerable<Appointment> GetUpcomingAppointmentsForDoctor(Doctor doctor)
-            => GetAppointmentsByDoctor(doctor).Where(appointment => isInFuture(appointment));
 
         public Appointment GetEager(long id)
         {
@@ -125,10 +116,6 @@ namespace SIMS.Repository.CSVFileRepository.MedicalRepository
         private Room GetRoomById(IEnumerable<Room> rooms, Room roomId)
             => roomId == null ? null : rooms.SingleOrDefault(r => r.GetId() == roomId.GetId());
 
-        private bool isCompleted(Appointment appointment)
-            => appointment.IsCompleted() && !appointment.Canceled;
-
-        private bool isInFuture(Appointment appointment)
-            => appointment.IsInFuture() && !appointment.Canceled;
+        
     }
 }

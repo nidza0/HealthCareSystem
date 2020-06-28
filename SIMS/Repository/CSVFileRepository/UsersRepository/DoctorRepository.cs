@@ -51,6 +51,12 @@ namespace SIMS.Repository.CSVFileRepository.UsersRepository
                 throw new NotUniqueException(string.Format(NOT_UNIQUE_ERROR, doctor.UserName));
         }
 
+        public new void Update(Doctor doctor)
+        {
+            _userRepository.Update(doctor);
+            base.Update(doctor);
+        }
+
         private bool IsUsernameUnique(string userName)
             => _userRepository.GetByUsername(userName) == null;
 
