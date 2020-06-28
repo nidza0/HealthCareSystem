@@ -304,11 +304,6 @@
     <Compile Include="Util\TimeInterval.cs" />
     <Compile Include="Util\TimeIterator.cs" />
     <Compile Include="Util\UserValidation.cs" />
-    <Compile Include="View\ViewSecretary\DummyController\DummyDoctorController.cs" />
-    <Compile Include="View\ViewSecretary\DummyController\DummyPatientController.cs" />
-    <Compile Include="View\ViewSecretary\FlowDoc.xaml.cs">
-      <DependentUpon>FlowDoc.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\ViewSecretary\FrameManager.cs" />
     <Compile Include="View\ViewSecretary\MainSecretary.xaml.cs">
       <DependentUpon>MainSecretary.xaml</DependentUpon>
@@ -407,10 +402,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="View\ViewSecretary\FlowDoc.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="View\ViewSecretary\MainSecretary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
