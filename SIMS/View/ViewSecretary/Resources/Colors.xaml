@@ -1,0 +1,10 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:SIMS.View.ViewSecretary.Resources">
+    <SolidColorBrush x:Key="UiPrimaryColor" Color="RoyalBlue"></SolidColorBrush>
+    <SolidColorBrush x:Key="UiSecondaryColor" Color="AliceBlue"></SolidColorBrush>
+    <SolidColorBrush x:Key="FontDarkColor" Color="Black"></SolidColorBrush>
+    <SolidColorBrush x:Key="FontLightColor" Color="White"></SolidColorBrush>
+    <SolidColorBrush x:Key="LabelBackground" Color="White"></SolidColorBrush>
+
+</ResourceDictionary>

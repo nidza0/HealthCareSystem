@@ -1,0 +1,40 @@
+﻿<Page x:Class="SIMS.View.ViewSecretary.Pages.ReportPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:sys="clr-namespace:System;assembly=mscorlib"
+      xmlns:local="clr-namespace:SIMS.View.ViewSecretary.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="600" d:DesignWidth="600"
+      Title="ReportPage">
+
+    <DockPanel>
+        <DockPanel DockPanel.Dock="Top" Style="{StaticResource PanelHeader}">
+            <Label DockPanel.Dock="Left" Content="{StaticResource NewReport}" Foreground="{DynamicResource FontLightColor}" Height="auto" Width="auto"></Label>
+            <Button x:Name="btnClose" DockPanel.Dock="Right" Content="X" Width="29" HorizontalAlignment="Right" Style="{StaticResource HeaderCloseButton}" VerticalContentAlignment="Center" Click="btnClose_Click"></Button>
+        </DockPanel>
+        <DockPanel DockPanel.Dock="Bottom" Margin="10">
+            <DockPanel Margin="0 0 0 10" DockPanel.Dock="Top">
+                    <DockPanel DockPanel.Dock="Left">
+                        <WrapPanel DockPanel.Dock="Top" VerticalAlignment="Center">
+                            <StackPanel Orientation="Horizontal" Margin="0 0 16 0">
+                                <Label Content="{StaticResource lblStartDate}"></Label>
+                                <DatePicker x:Name="dateStart" SelectedDate="{x:Static sys:DateTime.Now}" SelectedDateChanged="date_SelectedDateChanged"></DatePicker>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="{StaticResource lblEndDate}"></Label>
+                                <DatePicker x:Name="dateEnd" SelectedDate="{x:Static sys:DateTime.Now}" SelectedDateChanged="date_SelectedDateChanged"></DatePicker>
+                            </StackPanel>
+                        </WrapPanel>
+                        <Label DockPanel.Dock="Bottom" x:Name="errDate" Content="{StaticResource errDateInvalid}" Visibility="Collapsed" Style="{StaticResource errorLabel}" HorizontalAlignment="Center"></Label>
+                    </DockPanel>
+                    <WrapPanel DockPanel.Dock="Right" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button x:Name="btnGenerate" Content="{StaticResource btnGenerate}" HorizontalAlignment="Right" VerticalAlignment="Center" Style="{StaticResource StyleOKButton}" Click="btnGenerate_Click" Margin="0 0 10 0"></Button>
+                        <Button x:Name="btnSave" Content="{StaticResource btnSaveAsPDF}" Style="{StaticResource StyleOrdinaryButton}" HorizontalAlignment="Right" IsEnabled="False" Click="btnSave_Click"></Button>
+                    </WrapPanel>
+                </DockPanel>
+                <WebBrowser x:Name="webBrowser" DockPanel.Dock="Bottom" Visibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto"></WebBrowser>
+        </DockPanel>
+    </DockPanel>
+</Page>

@@ -47,8 +47,7 @@ namespace SIMS.Model.UserModel
             _email1 = email1;
             _email2 = email2;
         }
-
-
+      
         public string FullName
         {
             get

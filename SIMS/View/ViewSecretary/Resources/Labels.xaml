@@ -1,0 +1,150 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                    xmlns:local="clr-namespace:SIMS.View.ViewSecretary.Resources">
+    <sys:String x:Key="CompanyName">Zdravo!</sys:String>
+    <sys:String x:Key="CompanyType">zdravstvena ustanova</sys:String>
+    <sys:String x:Key="NewAppointment">New Appointment</sys:String>
+    <sys:String x:Key="NewPatient">New Patient</sys:String>
+    <sys:String x:Key="Report">Report</sys:String>
+    <sys:String x:Key="Home">Home</sys:String>
+    <sys:String x:Key="Appointments">Appointments</sys:String>
+    <sys:String x:Key="CancelledAppointments">Cancelled Appointments</sys:String>
+    <sys:String x:Key="Doctors">Doctors</sys:String>
+    <sys:String x:Key="Patients">Patients</sys:String>
+    <sys:String x:Key="Profile">Profile</sys:String>
+    <sys:String x:Key="Inbox">Inbox</sys:String>
+    <sys:String x:Key="Settings">Settings</sys:String>
+    <sys:String x:Key="Login">Login</sys:String>
+    <sys:String x:Key="PatientDetails">Patient Details</sys:String>
+    <sys:String x:Key="DoctorDetails">Doctor Details</sys:String>
+    <sys:String x:Key="AppointmentDetails">Appointment Details</sys:String>
+    <sys:String x:Key="PersonalInfoHeader">Personal Information</sys:String>
+    <sys:String x:Key="ContactInfoHeader">Contact Information</sys:String>
+    <sys:String x:Key="AccountInfoHeader">Account</sys:String>
+    <sys:String x:Key="EmergencyContactInfoHeader">Emergency Contact</sys:String>
+    <sys:String x:Key="SelectedDoctorInfoHeader">Selected Doctor</sys:String>
+    <sys:String x:Key="WorkingHours">Working Hours</sys:String>
+    <sys:String x:Key="MyProfile">My Profile</sys:String>
+    <sys:String x:Key="NewReport">New Report</sys:String>
+    <sys:String x:Key="MyFeedback">My Feedback</sys:String>
+
+    <sys:String x:Key="errNoPatients">No patients found</sys:String>
+    <sys:String x:Key="errNoSelectedDoctor">No selected doctor found</sys:String>
+    <sys:String x:Key="errNoAppointments">No appointments found</sys:String>
+    <sys:String x:Key="errNoDoctors">No doctors found</sys:String>
+    <sys:String x:Key="errNoAvailableRooms">No available rooms found</sys:String>
+    <sys:String x:Key="errTimeInvalid">Error: End time before start time</sys:String>
+    <sys:String x:Key="errDateInvalid">Error: End date before start date</sys:String>
+    <sys:String x:Key="errNoAvailableDoctors">No available doctors found</sys:String>
+    <sys:String x:Key="errWrongUsernamePassword">Wrong username or password.</sys:String>
+    <sys:String x:Key="errNoCancelledAppointments">No cancelled appointments found.</sys:String>
+    <sys:String x:Key="errUsername">Username can't be empty</sys:String>
+    <sys:String x:Key="errName">Name can't be empty</sys:String>
+    <sys:String x:Key="errSurname">Surname can't be empty</sys:String>
+    <sys:String x:Key="errUsernameNotUnique">This patient already has an account</sys:String>
+
+    <!-- DateTime Format -->
+    <sys:String x:Key="TimeFormat">HH:mm</sys:String>
+    <sys:String x:Key="DateFormat">dd.MM.yyyy.</sys:String>
+    <sys:String x:Key="timeSeparator"> - </sys:String>
+    <sys:String x:Key="HourMinuteSeparator">:</sys:String>
+    
+    <!-- New Patient Page -->
+    <sys:String x:Key="StandardPatient">Standard</sys:String>
+    <sys:String x:Key="GuestPatient">Guest</sys:String>
+    <sys:String x:Key="lblGeneralPatientInfo">General Patient Info</sys:String>
+    <sys:String x:Key="lblMorePatientInfo">Additional Patient Info</sys:String>
+    <sys:String x:Key="lblEmergencyContactInfo">Emergency Contact Info</sys:String>
+    <sys:String x:Key="lblUsername">Username</sys:String>
+    <sys:String x:Key="lblPassword">Password</sys:String>
+    <sys:String x:Key="lblName">Name</sys:String>
+    <sys:String x:Key="lblMiddleName">Middlename</sys:String>
+    <sys:String x:Key="lblSurname">Surname</sys:String>
+    <sys:String x:Key="lblGender">Gender</sys:String>
+    <sys:String x:Key="radioMale">Male</sys:String>
+    <sys:String x:Key="radioFemale">Female</sys:String>
+    <sys:String x:Key="radioOther">Other</sys:String>
+    <sys:String x:Key="radioGeneral">General</sys:String>
+    <sys:String x:Key="radioGuest">Guest</sys:String>
+    <sys:String x:Key="lblPID">PID</sys:String>
+    <sys:String x:Key="lblDateOfBirth">Date Of Birth</sys:String>
+    <sys:String x:Key="lblCountry">Country</sys:String>
+    <sys:String x:Key="lblCity">City</sys:String>
+    <sys:String x:Key="lblTelephone">Home phone</sys:String>
+    <sys:String x:Key="lblCellPhone">Cell phone</sys:String>
+    <sys:String x:Key="lblPhone">Phone</sys:String>
+    <sys:String x:Key="lblEmail">Email</sys:String>
+    <sys:String x:Key="lblEmail1">Primary Email</sys:String>
+    <sys:String x:Key="lblEmail2">Secondary Email</sys:String>
+    <sys:String x:Key="lblAddress">Address</sys:String>
+    <sys:String x:Key="lblEmergencyName">Emergency Contact's Name</sys:String>
+    <sys:String x:Key="lblEmergencySurname">Emergency Contact's Surname</sys:String>
+    <sys:String x:Key="lblEmergencyTelephone">Emergency Contact's Telephone</sys:String>
+    <sys:String x:Key="lblEmergencyEmail">Emergency Contact's Email</sys:String>
+    <sys:String x:Key="lblInfo">Info</sys:String>
+    <sys:String x:Key="lblDoctorType">Doctor Type</sys:String>
+    <sys:String x:Key="lblDate">Date</sys:String>
+    <sys:String x:Key="lblTime">Time</sys:String>
+    <sys:String x:Key="lblCancelled">Cancelled</sys:String>
+
+    <sys:String x:Key="lblMonday">Monday</sys:String>
+    <sys:String x:Key="lblTuesday">Tuesday</sys:String>
+    <sys:String x:Key="lblWednesday">Wednesday</sys:String>
+    <sys:String x:Key="lblThursday">Thursday</sys:String>
+    <sys:String x:Key="lblFriday">Friday</sys:String>
+    <sys:String x:Key="lblSaturday">Saturday</sys:String>
+    <sys:String x:Key="lblSunday">Sunday</sys:String>
+
+    <!-- New Appointment Page -->
+    <sys:String x:Key="lblPatient">Patient</sys:String>
+    <sys:String x:Key="lblStartTime">Start Time</sys:String>
+    <sys:String x:Key="lblEndTime">End Time</sys:String>
+    <sys:String x:Key="lblDoctor">Doctor</sys:String>
+    <sys:String x:Key="lblRoom">Room</sys:String>
+    <sys:String x:Key="lblAppointmentType">Type</sys:String>
+    <sys:String x:Key="lblRoomType">Type</sys:String>
+
+    <sys:String x:Key="lblSearch">Search</sys:String>
+    <sys:String x:Key="lblDateCreated">Date Created</sys:String>
+    <sys:String x:Key="lblPatientType">Patient Type</sys:String>
+
+    <sys:String x:Key="lblAppointment">Appointment</sys:String>
+    <sys:String x:Key="lblAppointmentDateAndTime">Date and time</sys:String>
+    <sys:String x:Key="lblAppointmentDoctor">Doctor</sys:String>
+    <sys:String x:Key="lblAppointmentPatient">Patient</sys:String>
+    <sys:String x:Key="lblAppointmentRoom">Room</sys:String>
+    <sys:String x:Key="lblSelectedDoctor">Selected Doctor</sys:String>
+    <sys:String x:Key="lblSelectedPatient">Selected Patient</sys:String>
+    <sys:String x:Key="lblSelectedRoom">Selected Room</sys:String>
+    <sys:String x:Key="lblStartDate">Start Date</sys:String>
+    <sys:String x:Key="lblEndDate">End Date</sys:String>
+
+    <sys:String x:Key="lblAppointmentsNow">Appointments happening now</sys:String>
+    <sys:String x:Key="lblDoctorsNow">Doctors at work</sys:String>
+    <sys:String x:Key="lblRoomsNow">Today's appointments</sys:String>
+
+    <sys:String x:Key="btnOK">OK</sys:String>
+    <sys:String x:Key="btnCancel">Cancel</sys:String>
+    <sys:String x:Key="btnCreate">Create</sys:String>
+    <sys:String x:Key="btnSchedule">Schedule</sys:String>
+    <sys:String x:Key="btnLogout">Logout</sys:String>
+    
+    <sys:String x:Key="btnEdit">Edit</sys:String>
+    <sys:String x:Key="btnMessage">Message</sys:String>
+    <sys:String x:Key="btnYesterday">Yesterday</sys:String>
+    <sys:String x:Key="btnTomorrow">Tomorrow</sys:String>
+    <sys:String x:Key="btnGenerate">Generate</sys:String>
+    <sys:String x:Key="btnSaveAsPDF">Save PDF</sys:String>
+    <sys:String x:Key="btnAllRooms">All Rooms</sys:String>
+    <sys:String x:Key="btnReschedule">Reschedule</sys:String>
+    <sys:String x:Key="btnCancelAppointment">Cancel Appointment</sys:String>
+    <sys:String x:Key="btnAppFeedback">Application Feedback</sys:String>
+    <sys:String x:Key="btnDelete">Delete</sys:String>
+    <sys:String x:Key="btnTurnIn">Turn In</sys:String>
+
+
+    <sys:String x:Key="seriesMale">Male</sys:String>
+    <sys:String x:Key="seriesFemale">Female</sys:String>
+    <sys:String x:Key="seriesOther">Other</sys:String>
+</ResourceDictionary>

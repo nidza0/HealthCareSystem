@@ -1,0 +1,91 @@
+﻿<Page x:Class="SIMS.View.ViewSecretary.Pages.MainWindowPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:sys="clr-namespace:System;assembly=mscorlib"
+      xmlns:local="clr-namespace:SIMS.View.ViewSecretary.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="800" d:DesignWidth="1500"
+      Title="MainWindowPage">
+
+    <Page.Resources>
+        <sys:Double x:Key="MenubarWidth">150</sys:Double>
+    </Page.Resources>
+    
+    <DockPanel>
+        <!-- TOP BAR -->
+        <DockPanel DockPanel.Dock="Top" Background="{DynamicResource UiSecondaryColor}" >
+            <!-- TOOLBAR -->
+            <StackPanel DockPanel.Dock="Left" x:Name="pnl_toolbar" Orientation="Horizontal" VerticalAlignment="Center" Margin="10">
+                <StackPanel.Resources>
+                    <Style TargetType="Button">
+                        <Setter Property="Background" Value="Transparent"/>
+                    </Style>
+                </StackPanel.Resources>
+                <StackPanel Orientation="Vertical" Width="140" Margin="0 0 10 0">
+                    <Label x:Name="lbl_companyName" Content="{StaticResource CompanyName}" Padding="0" FontSize="20" HorizontalAlignment="Center" Foreground="{DynamicResource UiPrimaryColor}"></Label>
+                    <Label x:Name="lbl_companyType" Content="{StaticResource CompanyType}" Padding="0" FontSize="12" HorizontalAlignment="Center" Foreground="{DynamicResource UiPrimaryColor}"></Label>
+                </StackPanel>
+                <Button x:Name="btn_newappointment" Content="{StaticResource NewAppointment}" VerticalAlignment="Center" Margin="0 0 10 0" Padding="5" Click="btn_newappointment_Click"></Button>
+                <Button x:Name="btn_newpatient" Content="{StaticResource NewPatient}" VerticalAlignment="Center" Height="auto" Margin="0 0 10 0" Padding="5" Click="btn_newpatient_Click"></Button>
+                <Button x:Name="btn_report" Content="{StaticResource Report}" VerticalAlignment="Center" Height="auto" Margin="0 0 10 0" Padding="5" Visibility="Visible" Click="btn_report_Click"></Button>
+            </StackPanel>
+            <!-- DATE AND TIME PANEL -->
+            <StackPanel DockPanel.Dock="Right" Orientation="Vertical" Margin="10">
+                <TextBlock x:Name="lbl_time" Text="{Binding CurrDateTime, StringFormat={StaticResource TimeFormat}}" HorizontalAlignment="Right" Padding="0" FontSize="20"></TextBlock>
+                <TextBlock x:Name="lbl_date" Text="{Binding CurrDateTime, StringFormat={StaticResource DateFormat}}"  HorizontalAlignment="Right" Padding="0"></TextBlock>
+            </StackPanel>
+        </DockPanel>
+
+        <!-- MAIN PANEL -->
+        <Grid DockPanel.Dock="Bottom">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- SIDEBAR -->
+
+            <DockPanel x:Name="pnl_sidebar" Background="{DynamicResource UiSecondaryColor}" Grid.Column="0">
+                <DockPanel.Resources>
+                    <Style TargetType="Button">
+                        <Setter Property="Background" Value="Transparent"></Setter>
+                        <Setter Property="BorderBrush" Value="Transparent"></Setter>
+                    </Style>
+
+                </DockPanel.Resources>
+
+                <StackPanel DockPanel.Dock="Top">
+                    <Button x:Name="btn_home" Content="{StaticResource Home}" HorizontalAlignment="Stretch" VerticalAlignment="Center" HorizontalContentAlignment="Left" Height="40" VerticalContentAlignment="Center" Padding="10 0 0 0" Click="btn_home_Click"></Button>
+                    <Button x:Name="btn_appointments" Content="{StaticResource Appointments}" HorizontalAlignment="Stretch" VerticalAlignment="Center" HorizontalContentAlignment="Left" Width="auto" Height="40" VerticalContentAlignment="Center" Padding="10 0 0 0" Click="btn_appointments_Click"></Button>
+                    <Button x:Name="btn_cancelledappointments" Content="{StaticResource CancelledAppointments}" HorizontalAlignment="Stretch" VerticalAlignment="Center" HorizontalContentAlignment="Left" Width="auto" Height="40" VerticalContentAlignment="Center" Padding="10 0 0 0" Click="btn_cancelledappointments_Click"></Button>
+                    <Button x:Name="btn_doctors" Content="{StaticResource Doctors}" HorizontalAlignment="Stretch" VerticalAlignment="Center" HorizontalContentAlignment="Left" Width="auto" Height="40" VerticalContentAlignment="Center" Padding="10 0 0 0" Click="btn_doctors_Click"></Button>
+                    <Button x:Name="btn_patients" Content="{StaticResource Patients}" HorizontalAlignment="Stretch" VerticalAlignment="Center" HorizontalContentAlignment="Left" Width="auto" Height="40" VerticalContentAlignment="Center" Padding="10 0 0 0" Click="btn_patients_Click"></Button>
+
+                </StackPanel>
+
+                <StackPanel DockPanel.Dock="Bottom" VerticalAlignment="Bottom">
+                    <Button x:Name="btn_profile" Content="{StaticResource Profile}" HorizontalAlignment="Stretch" VerticalAlignment="Center" HorizontalContentAlignment="Left" Width="auto" Height="40" VerticalContentAlignment="Center" Padding="10 0 0 0" Click="btn_profile_Click"></Button>
+                    <Button x:Name="btn_inbox" Content="{StaticResource Inbox}" HorizontalAlignment="Stretch" VerticalAlignment="Center" HorizontalContentAlignment="Left" Width="auto" Height="40" VerticalContentAlignment="Center" Padding="10 0 0 0" Click="btn_inbox_Click"></Button>
+                    <Button x:Name="btn_settings" Content="{StaticResource Settings}" HorizontalAlignment="Stretch" VerticalAlignment="Center" HorizontalContentAlignment="Left" Width="auto" Height="40" VerticalContentAlignment="Center" Padding="10 0 0 0" Click="btn_settings_Click"></Button>
+                </StackPanel>
+            </DockPanel>
+
+            <Border BorderBrush="{DynamicResource UiPrimaryColor}" BorderThickness="1 1 1 0" Grid.Column="1" MinWidth="100">
+                <Frame x:Name="CentralFrame" NavigationUIVisibility="Hidden" JournalOwnership="OwnsJournal"/>
+            </Border>
+
+            <GridSplitter Grid.Column="2" ResizeDirection="Columns" ShowsPreview="true" Background="{DynamicResource UiPrimaryColor}" Width="2" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
+
+            <Border BorderBrush="{DynamicResource UiPrimaryColor}" BorderThickness="1 1 1 0" Grid.Column="3" MinWidth="100">
+                <Frame x:Name="SideFrame" NavigationUIVisibility="Hidden" JournalOwnership="OwnsJournal"/>
+            </Border>
+        </Grid>
+    </DockPanel>
+</Page>

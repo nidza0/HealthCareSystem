@@ -1,4 +1,4 @@
-﻿1~Prvo pitanje
-2~Drugo pitanje
-3~Treće pitanje
-4~Četvrto pitanje
+﻿1~In your opinion do you find this application user-firendly?
+2~How usable is this application?
+3~How satisfied are you with the appearance of the application?
+4~Overall rating
