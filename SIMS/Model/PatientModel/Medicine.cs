@@ -26,7 +26,7 @@ namespace SIMS.Model.PatientModel
         public Medicine(string name,double strength, MedicineType medicineType,int inStock, int minNumber) : base(name, inStock, minNumber)
         {
             _strength = strength;
-            _medicineType = medicineType;
+            _medicineType = MedicineType;
             _isValid = false;
             _ingredient = new List<Ingredient>();
             _usedFor = new List<Disease>();
@@ -36,7 +36,7 @@ namespace SIMS.Model.PatientModel
         public Medicine(string name, double strength, MedicineType medicineType,bool isValid,List<Disease> usedFor, List<Ingredient> ingredient,int inStock, int minNumber) : base(name, inStock, minNumber)
         {
             _strength = strength;
-            _medicineType = medicineType;
+            _medicineType = MedicineType;
             _isValid = false;
             _ingredient = ingredient;
             _usedFor = usedFor;
@@ -45,8 +45,8 @@ namespace SIMS.Model.PatientModel
         public Medicine(long id, string name, double strength, MedicineType medicineType, bool isValid, List<Disease> usedFor, List<Ingredient> ingredient, int inStock, int minNumber) : base(id,name, inStock, minNumber)
         {
             _strength = strength;
-            _medicineType = medicineType;
-            _isValid = false;
+            _medicineType = MedicineType;
+            _isValid = isValid;
             _ingredient = ingredient;
             _usedFor = usedFor;
         }
