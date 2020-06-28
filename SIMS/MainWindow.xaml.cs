@@ -18,6 +18,8 @@ using SIMS.Repository.CSVFileRepository.Csv.Converter.UsersConverter;
 using SIMS.Repository.CSVFileRepository.Csv.Converter.MiscConverter;
 using System.Windows.Controls;
 using SIMS.Service.UsersService;
+using SIMS.Service.MedicalService;
+using SIMS.Controller.MedicalController;
 
 namespace SIMS
 {
@@ -338,6 +340,25 @@ namespace SIMS
             //testDocStats();
             //testInventoryStats();
             //testRoomStats();
+
+            //AppointmentNotificationSenderTest();
+        }
+
+        private void AppointmentNotificationSenderTest()
+        {
+            AppointmentNotificationSender sender = AppResources.getInstance().appointmentNotificationSender;
+            AppointmentController controller = AppResources.getInstance().appointmentController;
+
+            Appointment app = controller.GetByID(2);
+            Appointment app2 = controller.GetByID(1);
+            
+            sender.SendCreateNotification(app);
+            sender.SendUpdateNotification(app, app2);
+            sender.SendCancelNotification(app);
+
+            var notifications = AppResources.getInstance().notificationController.GetNotificationByUser(new User(new UserID("p1")));
+
+            notifications.Select(n => n.Text).ToList().ForEach(Console.WriteLine);
         }
 
         private void testRoomStats()

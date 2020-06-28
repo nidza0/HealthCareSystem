@@ -10,7 +10,6 @@ using SIMS.Exceptions;
 using SIMS.Model.PatientModel;
 using SIMS.Repository.Abstract.HospitalManagementAbstractRepository;
 using SIMS.Repository.CSVFileRepository.HospitalManagementRepository;
-using SIMS.Service.ValidateServices.ValidateHospitalManagementServices;
 using SIMS.Util;
 
 namespace SIMS.Service.HospitalManagementService

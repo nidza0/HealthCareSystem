@@ -11,6 +11,7 @@ using SIMS.Model.PatientModel;
 using SIMS.Model.UserModel;
 using SIMS.Repository.Abstract.MedicalAbstractRepository;
 using SIMS.Repository.CSVFileRepository.MedicalRepository;
+using SIMS.Service.MiscService;
 using SIMS.Util;
 
 namespace SIMS.Service.MedicalService
@@ -19,15 +20,16 @@ namespace SIMS.Service.MedicalService
     {
         private IAppointmentStrategy _appointmentStrategy;
         private AppointmentRepository _appointmentRepository;
+        private AppointmentNotificationSender _notificationSender;
         private DateTime dayBeforeAutoDelete;
 
         public IAppointmentStrategy AppointmentStrategy { get => _appointmentStrategy; set => _appointmentStrategy = value; }
 
-        public AppointmentService(AppointmentRepository appointmentRepository,IAppointmentStrategy appointmentStrategy)
+        public AppointmentService(AppointmentRepository appointmentRepository,IAppointmentStrategy appointmentStrategy, AppointmentNotificationSender appointmentNotificationSender)
         {
             _appointmentRepository = appointmentRepository;
             _appointmentStrategy = appointmentStrategy;
-
+            _notificationSender = appointmentNotificationSender;
         }
 
         protected void CheckSchedules(Appointment appointment)
@@ -64,7 +66,7 @@ namespace SIMS.Service.MedicalService
             _appointmentStrategy.Validate(appointment);
             appointment.Canceled = true;
             _appointmentRepository.Update(appointment);
-            //SendNotification(appointment.Patient);
+            _notificationSender.SendCancelNotification(appointment);
             return appointment;
         }
 
@@ -122,8 +124,9 @@ namespace SIMS.Service.MedicalService
         public Appointment Create(Appointment entity)
         {
             Validate(entity);
-            _appointmentRepository.Create(entity);
-            return entity;
+            Appointment createdAppointment = _appointmentRepository.Create(entity);
+            _notificationSender.SendCreateNotification(createdAppointment);
+            return createdAppointment;
         }
 
         public void Delete(Appointment entity)
@@ -132,8 +135,10 @@ namespace SIMS.Service.MedicalService
         public void Update(Appointment entity)
         {
             Validate(entity);
-            if (IsAppointmentChangeable(entity)) { 
+            if (IsAppointmentChangeable(entity)) {
+                Appointment oldAppointment = GetByID(entity.Id);
                 _appointmentRepository.Update(entity);
+                _notificationSender.SendUpdateNotification(oldAppointment, entity);
             }
         }
 
