@@ -9,15 +9,15 @@ namespace SIMS.Util
 {
     public interface IPersonValidation
     {
-        bool CheckName(string name);
+        void CheckName(string name);
 
-        bool CheckUidn(string uidn);
+        void CheckUidn(string uidn);
 
-        bool CheckDateOfBirth(DateTime date);
+        void CheckDateOfBirth(DateTime date);
 
-        bool CheckEmail(string email);
+        void CheckEmail(string email);
 
-        bool CheckPhoneNumber(string phoneNumber);
+        void CheckPhoneNumber(string phoneNumber);
 
     }
 }

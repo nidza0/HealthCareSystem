@@ -5,13 +5,14 @@
 
 using System;
 using SIMS.Model.UserModel;
+using System.Globalization;
 
 namespace SIMS.Repository.CSVFileRepository.Csv.Converter.MiscConverter
 {
     public class MessageConverter : ICSVConverter<Message>
     {
-        private readonly string _delimiter = ",";
-        private readonly string _dateTimeFormat = "dd/mm/yyyy HH:mm";
+        private readonly string _delimiter = "~";
+        private readonly string _dateTimeFormat = "dd.MM.yyyy. HH:mm";
 
         public MessageConverter()
         {
@@ -23,10 +24,10 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.MiscConverter
             long tempId = long.Parse(tokens[0]);
             
             return new Message(tempId, 
-                tokens[1], 
-                new User(new UserID(tokens[2])), 
-                new User(new UserID(tokens[3])), 
-                DateTime.Parse(tokens[4]), 
+                tokens[1],
+                tokens[2].Equals("") ? null : new User(new UserID(tokens[2])),
+                tokens[3].Equals("") ? null : new User(new UserID(tokens[3])), 
+                DateTime.ParseExact(tokens[4],_dateTimeFormat,CultureInfo.InvariantCulture), 
                 bool.Parse(tokens[5]));
         }
 
@@ -34,8 +35,8 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.MiscConverter
             => string.Join(_delimiter,
                 entity.GetId(),
                 entity.Text,
-                entity.Recipient.GetId(),
-                entity.Sender.GetId(),
+                entity.Recipient == null ? "" : entity.Recipient.GetId().ToString(),
+                entity.Sender == null ? "" : entity.Sender.GetId().ToString(),
                 entity.Date.ToString(_dateTimeFormat),
                 entity.Opened
                 );

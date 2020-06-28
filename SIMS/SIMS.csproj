@@ -36,9 +36,6 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="itextsharp, Version=5.5.13.1, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
-      <HintPath>..\packages\iTextSharp.5.5.13.1\lib\itextsharp.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -60,12 +57,32 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AppResources.cs" />
+    <Compile Include="Controller\HospitalManagementController\DoctorStatisticsController.cs" />
+    <Compile Include="Controller\HospitalManagementController\InventoryStatisticsController.cs" />
+    <Compile Include="Controller\HospitalManagementController\RoomStatisticsController.cs" />
+    <Compile Include="Controller\UsersController\UserController.cs" />
+    <Compile Include="Exceptions\AppointmentServiceException.cs" />
+    <Compile Include="Exceptions\DiseaseServiceException.cs" />
+    <Compile Include="Exceptions\DoctorServiceException.cs" />
+    <Compile Include="Exceptions\HospitalServiceException.cs" />
+    <Compile Include="Exceptions\InvalidTimeException.cs" />
+    <Compile Include="Exceptions\InvalidUserException.cs" />
+    <Compile Include="Exceptions\InventoryStatisticServiceException.cs" />
+    <Compile Include="Exceptions\MedicalRecordServiceException.cs" />
+    <Compile Include="Exceptions\MedicineServiceException.cs" />
+    <Compile Include="Exceptions\MessageServiceException.cs" />
+    <Compile Include="Exceptions\NotificationServiceException.cs" />
+    <Compile Include="Exceptions\ServiceException.cs" />
+    <Compile Include="Exceptions\TherapyServiceException.cs" />
+    <Compile Include="Model\UserModel\Question.cs" />
     <Compile Include="Repository\Abstract\HospitalManagementAbstractRepository\IDoctorStatisticRepository.cs" />
     <Compile Include="Repository\Abstract\HospitalManagementAbstractRepository\IInventoryStatisticsRepository.cs" />
     <Compile Include="Repository\Abstract\HospitalManagementAbstractRepository\IRoomStatisticsRepository.cs" />
+    <Compile Include="Repository\Abstract\MiscAbstractRepository\IQuestionRepository.cs" />
     <Compile Include="Repository\CSVFileRepository\Csv\Converter\HospitalManagementConverter\DoctorStatisticsConverter.cs" />
     <Compile Include="Repository\CSVFileRepository\Csv\Converter\HospitalManagementConverter\InventoryStatisticsConverter.cs" />
     <Compile Include="Repository\CSVFileRepository\Csv\Converter\HospitalManagementConverter\RoomStatisticsConverter.cs" />
+    <Compile Include="Repository\CSVFileRepository\Csv\Converter\MiscConverter\QuestionConverter.cs" />
     <Compile Include="Repository\CSVFileRepository\HospitalManagementRepository\DoctorStatisticRepository.cs" />
     <Compile Include="Repository\CSVFileRepository\HospitalManagementRepository\InventoryStatisticsRepository.cs" />
     <Compile Include="Repository\CSVFileRepository\HospitalManagementRepository\RoomStatisticsRepository.cs" />
@@ -162,6 +179,7 @@
     <Compile Include="Repository\CSVFileRepository\MiscRepository\LocationRepository.cs" />
     <Compile Include="Repository\CSVFileRepository\MiscRepository\MessageRepository.cs" />
     <Compile Include="Repository\CSVFileRepository\MiscRepository\NotificationRepository.cs" />
+    <Compile Include="Repository\CSVFileRepository\MiscRepository\QuestionRepository.cs" />
     <Compile Include="Repository\CSVFileRepository\UsersRepository\DoctorRepository.cs" />
     <Compile Include="Exceptions\IllegalUserCreationException.cs" />
     <Compile Include="Repository\CSVFileRepository\UsersRepository\ManagerRepository.cs" />
@@ -173,15 +191,20 @@
     <Compile Include="Repository\Sequencer\ComplexSequencer.cs" />
     <Compile Include="Repository\Sequencer\ISequencer.cs" />
     <Compile Include="Repository\Sequencer\LongSequencer.cs" />
+    <Compile Include="Service\HospitalManagementService\DoctorStatisticsService.cs" />
     <Compile Include="Service\HospitalManagementService\HospitalService.cs" />
     <Compile Include="Service\HospitalManagementService\InventoryService.cs" />
+    <Compile Include="Service\HospitalManagementService\InventoryStatisticsService.cs" />
     <Compile Include="Service\HospitalManagementService\MedicineService.cs" />
     <Compile Include="Service\HospitalManagementService\RoomService.cs" />
-    <Compile Include="Service\HospitalManagementService\StatisticsService.cs" />
+    <Compile Include="Exceptions\RoomServiceException.cs" />
+    <Compile Include="Exceptions\RoomStatisticServiceException.cs" />
+    <Compile Include="Service\HospitalManagementService\RoomStatisticsService.cs" />
     <Compile Include="Service\IService.cs" />
     <Compile Include="Service\MedicalService\AppointmentDoctorStrategy.cs" />
     <Compile Include="Service\MedicalService\AppointmentManagerStrategy.cs" />
     <Compile Include="Service\MedicalService\AppointmentPatientStrategy.cs" />
+    <Compile Include="Service\MedicalService\AppointmentRecommendationService.cs" />
     <Compile Include="Service\MedicalService\AppointmentSecretaryStrategy.cs" />
     <Compile Include="Service\MedicalService\AppointmentService.cs" />
     <Compile Include="Service\MedicalService\DiagnosisService.cs" />
@@ -190,16 +213,38 @@
     <Compile Include="Service\MedicalService\MedicalRecordService.cs" />
     <Compile Include="Service\MedicalService\TherapyService.cs" />
     <Compile Include="Service\MiscService\ArticleService.cs" />
+    <Compile Include="Exceptions\ArticleServiceException.cs" />
     <Compile Include="Service\MiscService\DoctorFeedbackService.cs" />
+    <Compile Include="Exceptions\DoctorFeedbackServiceException.cs" />
     <Compile Include="Service\MiscService\FeedbackService.cs" />
+    <Compile Include="Exceptions\FeedbackServiceException.cs" />
     <Compile Include="Service\MiscService\LocationService.cs" />
+    <Compile Include="Exceptions\LocationServiceException.cs" />
     <Compile Include="Service\MiscService\MessageService.cs" />
     <Compile Include="Service\MiscService\NotificationService.cs" />
     <Compile Include="Service\UsersService\DoctorService.cs" />
+    <Compile Include="Exceptions\InvalidLoginException.cs" />
     <Compile Include="Service\UsersService\IUserService.cs" />
     <Compile Include="Service\UsersService\ManagerService.cs" />
     <Compile Include="Service\UsersService\PatientService.cs" />
     <Compile Include="Service\UsersService\SecretaryService.cs" />
+    <Compile Include="Service\UsersService\UserService.cs" />
+    <Compile Include="Service\ValidateServices\IValidateService.cs" />
+    <Compile Include="Service\ValidateServices\ValidateHospitalManagementServices\ValidateDoctorStatistics.cs" />
+    <Compile Include="Service\ValidateServices\ValidateHospitalManagementServices\ValidateHospital.cs" />
+    <Compile Include="Service\ValidateServices\ValidateHospitalManagementServices\ValidateInventoryStatistics.cs" />
+    <Compile Include="Service\ValidateServices\ValidateHospitalManagementServices\ValidateMedicine.cs" />
+    <Compile Include="Service\ValidateServices\ValidateHospitalManagementServices\ValidateRoom.cs" />
+    <Compile Include="Service\ValidateServices\ValidateHospitalManagementServices\ValidateRoomStatistics.cs" />
+    <Compile Include="Service\ValidateServices\ValidateMedicalService\ValidateDisease.cs" />
+    <Compile Include="Service\ValidateServices\ValidateMedicalService\ValidateMedicalRecord.cs" />
+    <Compile Include="Service\ValidateServices\ValidateMedicalService\ValidateTherapy.cs" />
+    <Compile Include="Service\ValidateServices\ValidateMiscService\ValidateArticle.cs" />
+    <Compile Include="Service\ValidateServices\ValidateMiscService\ValidateDoctorFeedback.cs" />
+    <Compile Include="Service\ValidateServices\ValidateMiscService\ValidateFeedback.cs" />
+    <Compile Include="Service\ValidateServices\ValidateMiscService\ValidateLocation.cs" />
+    <Compile Include="Service\ValidateServices\ValidateMiscService\ValidateMessage.cs" />
+    <Compile Include="Service\ValidateServices\ValidateMiscService\ValidateNotification.cs" />
     <Compile Include="Specifications\AndSpecification.cs" />
     <Compile Include="Specifications\CompositeSpecification.cs" />
     <Compile Include="Specifications\Converter\AppointmentSpecificationConverter.cs" />
@@ -211,64 +256,18 @@
     <Compile Include="Specifications\NotSpecification.cs" />
     <Compile Include="Specifications\OrSpecification.cs" />
     <Compile Include="Util\AppointmentFilter.cs" />
+    <Compile Include="Util\AppointmentRecommendationDTO.cs" />
     <Compile Include="Util\DoctorFilter.cs" />
     <Compile Include="Util\IPersonValidation.cs" />
     <Compile Include="Util\IUserValidation.cs" />
     <Compile Include="Util\MedicineFilter.cs" />
+    <Compile Include="Util\RecommendationDTO.cs" />
+    <Compile Include="Util\RecommendationPriority.cs" />
+    <Compile Include="Util\Regexes.cs" />
     <Compile Include="Util\TherapyFilter.cs" />
     <Compile Include="Util\TimeInterval.cs" />
-    <Compile Include="View\ViewPatient\ArticlePreview.xaml.cs">
-      <DependentUpon>ArticlePreview.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\ViewPatient\BookAnAppointment.xaml.cs">
-      <DependentUpon>BookAnAppointment.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\ViewPatient\Exceptions\RegistrationException.cs" />
-    <Compile Include="View\ViewPatient\FooterPDFEvent.cs" />
-    <Compile Include="View\ViewPatient\PDFWaterMarkEvent.cs" />
-    <Compile Include="View\ViewPatient\RepoSimulator\DoctorAppointmentsRepo.cs" />
-    <Compile Include="View\ViewPatient\RepoSimulator\TherapyRepo.cs" />
-    <Compile Include="View\ViewPatient\RepoSimulator\UsersRepo.cs" />
-    <Compile Include="View\ViewPatient\DAOclass\PatientSingleTherapy.cs" />
-    <Compile Include="View\ViewPatient\DiagnosisOverview.xaml.cs">
-      <DependentUpon>DiagnosisOverview.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\ViewPatient\DiagnosisPreview.xaml.cs">
-      <DependentUpon>DiagnosisPreview.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\ViewPatient\EditAnAppointment.xaml.cs">
-      <DependentUpon>EditAnAppointment.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\ViewPatient\HomePage.xaml.cs">
-      <DependentUpon>HomePage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\ViewPatient\Login.xaml.cs">
-      <DependentUpon>Login.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\ViewPatient\MakeAnAppointment.xaml.cs">
-      <DependentUpon>MakeAnAppointment.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\ViewPatient\Messages.xaml.cs">
-      <DependentUpon>Messages.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\ViewPatient\MyAppointments.xaml.cs">
-      <DependentUpon>MyAppointments.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\ViewPatient\Registration.xaml.cs">
-      <DependentUpon>Registration.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\ViewPatient\RepoSimulator\MyAppointmentsRepo.cs" />
-    <Compile Include="View\ViewPatient\TherapyOverview.xaml.cs">
-      <DependentUpon>TherapyOverview.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\ViewPatient\tutorial\TutorialEnum.cs" />
-    <Compile Include="View\ViewPatient\tutorial\tutorialPreview.xaml.cs">
-      <DependentUpon>tutorialPreview.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\ViewPatient\ValidationRegex.cs" />
-    <Compile Include="View\ViewPatient\VideoTutorial.xaml.cs">
-      <DependentUpon>VideoTutorial.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="Util\TimeIterator.cs" />
+    <Compile Include="Util\UserValidation.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -298,66 +297,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="View\ViewPatient\ArticlePreview.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\ViewPatient\BookAnAppointment.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\ViewPatient\DiagnosisOverview.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\ViewPatient\DiagnosisPreview.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\ViewPatient\EditAnAppointment.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\ViewPatient\HomePage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\ViewPatient\Login.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\ViewPatient\MakeAnAppointment.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\ViewPatient\Messages.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\ViewPatient\MyAppointments.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\ViewPatient\Registration.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\ViewPatient\TherapyOverview.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\ViewPatient\tutorial\tutorialPreview.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\ViewPatient\VideoTutorial.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\DoctorModel\DoctorFeedback.cs" />
-    <Compile Include="Model\DoctorModel\DocTypeEnum.cs" />
+    <Compile Include="Model\DoctorModel\DoctorType.cs" />
     <Compile Include="Model\ManagerModel\Inventory.cs" />
     <Compile Include="Model\ManagerModel\InventoryItem.cs" />
     <Compile Include="Model\ManagerModel\Stats.cs" />
@@ -423,7 +366,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -433,30 +375,37 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="View\ViewPatient\static\images\test_image.png" />
+    <Folder Include="View\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="View\ViewPatient\tutorial\videos\exportAppointments.avi">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="View\ViewPatient\tutorial\videos\makeAnAppointment.avi">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="View\ViewPatient\tutorial\videos\myAppointments.avi">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="View\ViewPatient\tutorial\videos\myDiagnosis.avi">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="View\ViewPatient\tutorial\videos\myProfile.avi">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="View\ViewPatient\tutorial\videos\myTherapies.avi">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="View\ViewPatient\tutorial\videos\register.avi">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Resource Include="Files\HospitalManagementFiles\hospitals.txt" />
+    <Resource Include="Files\HospitalManagementFiles\inventories.txt" />
+    <Resource Include="Files\HospitalManagementFiles\inventoryItems.txt" />
+    <Resource Include="Files\HospitalManagementFiles\medicines.txt" />
+    <Resource Include="Files\HospitalManagementFiles\rooms.txt" />
+    <Resource Include="Files\HospitalManagementFiles\timeTables.txt" />
+    <Resource Include="Files\MedicalFiles\allergies.txt" />
+    <Resource Include="Files\MedicalFiles\appointments.txt" />
+    <Resource Include="Files\MedicalFiles\diagnosis.txt" />
+    <Resource Include="Files\MedicalFiles\diseases.txt" />
+    <Resource Include="Files\MedicalFiles\ingredients.txt" />
+    <Resource Include="Files\MedicalFiles\medicalRecords.txt" />
+    <Resource Include="Files\MedicalFiles\prescriptions.txt" />
+    <Resource Include="Files\MedicalFiles\symptoms.txt" />
+    <Resource Include="Files\MedicalFiles\therapies.txt" />
+    <Resource Include="Files\MiscFiles\articles.txt" />
+    <Resource Include="Files\MiscFiles\doctorFeedbacks.txt" />
+    <Resource Include="Files\MiscFiles\doctorQuestions.txt" />
+    <Resource Include="Files\MiscFiles\feedbacks.txt" />
+    <Resource Include="Files\MiscFiles\locations.txt" />
+    <Resource Include="Files\MiscFiles\messages.txt" />
+    <Resource Include="Files\MiscFiles\notifications.txt" />
+    <Resource Include="Files\MiscFiles\questions.txt" />
+    <Resource Include="Files\UserFiles\doctors.txt" />
+    <Resource Include="Files\UserFiles\managers.txt" />
+    <Resource Include="Files\UserFiles\patients.txt" />
+    <Resource Include="Files\UserFiles\secretaries.txt" />
+    <Resource Include="Files\UserFiles\users.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

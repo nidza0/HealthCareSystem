@@ -17,20 +17,26 @@ namespace SIMS.Controller.UsersController
 
         public ManagerService managerService;
 
+
         public ManagerController(ManagerService service)
         {
             managerService = service;
         }
 
-        public Manager Create(Manager manager) => managerService.Create(manager);
+        public Manager Create(Manager manager)
+            => managerService.Create(manager);
 
-        public void Delete(Manager manager) => managerService.Delete(manager);
+        public void Delete(Manager manager)
+            => managerService.Delete(manager);
 
-        public IEnumerable<Manager> GetAll() => managerService.GetAll();
+        public IEnumerable<Manager> GetAll()
+            => managerService.GetAll();
 
-        public Manager GetByID(UserID id) => managerService.GetByID(id);
+        public Manager GetByID(UserID id)
+            => managerService.GetByID(id);
 
-        public Manager Update(Manager manager) => managerService.Update(manager);
+        public void Update(Manager manager)
+            => managerService.Update(manager);
 
     }
 }

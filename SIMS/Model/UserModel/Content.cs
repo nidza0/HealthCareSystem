@@ -20,6 +20,11 @@ namespace SIMS.Model.UserModel
             _text = text;
         }
 
+        public Content(string text)
+        {
+            _text = text;
+        }
+
         public Content(long id, string text, DateTime dateCreated)
         {
             _id = id;
@@ -33,7 +38,7 @@ namespace SIMS.Model.UserModel
         }
 
         public string Text { get { return _text; } }
-        public DateTime Date { get { return _dateCreated; } }
+        public DateTime Date { get => _dateCreated; set => _dateCreated = value; }
 
         public long GetId()
         {
@@ -43,6 +48,18 @@ namespace SIMS.Model.UserModel
         public void SetId(long id)
         {
             _id = id;
+        }
+
+        public override bool Equals(object obj)
+        {
+            var content = obj as Content;
+            return content != null &&
+                   _id == content._id;
+        }
+
+        public override int GetHashCode()
+        {
+            return 1969571243 + _id.GetHashCode();
         }
     }
 }

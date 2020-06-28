@@ -9,12 +9,19 @@ namespace SIMS.Specifications
 {
     public class ExpressionSpecification<T> : CompositeSpecification<T>
     {
-        private Func<T, bool> expression;
+        private Func<T, bool> _expression;
 
         public ExpressionSpecification(Func<T, bool> expression)
         {
-            throw new NotImplementedException();
+            if (expression == null)
+                throw new ArgumentNullException();
+            else
+                _expression = expression;
         }
 
+        public override bool IsSatisfiedBy(T candidate)
+        {
+            return _expression(candidate);
+        }
     }
 }

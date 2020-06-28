@@ -36,7 +36,7 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.HospitalManagementConv
             => new Medicine(long.Parse(v));
 
         public string ConvertEntityToCSV(StatsInventory entity)
-            => string.Join(
+            => string.Join(_delimiter,
                 entity.GetId().ToString(),
                 entity.Usage.ToString(),
                 entity.Medicine.GetId().ToString(),

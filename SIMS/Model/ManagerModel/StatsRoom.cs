@@ -66,9 +66,6 @@ namespace SIMS.Model.ManagerModel
 
         }
 
-
         
-        
-
     }
 }

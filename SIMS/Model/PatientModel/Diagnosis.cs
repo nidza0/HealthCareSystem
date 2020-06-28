@@ -62,7 +62,7 @@ namespace SIMS.Model.PatientModel
         {
             get
             {
-                return Therapies.Where(therapy => therapy.TimeInterval.IsTimeBetween(DateTime.Now));
+                return Therapies.Where(therapy => therapy.TimeInterval.IsDateTimeBetween(DateTime.Now));
             }
         }
 
@@ -70,7 +70,7 @@ namespace SIMS.Model.PatientModel
         {
             get
             {
-                return Therapies.Where(therapy => !therapy.TimeInterval.IsTimeBetween(DateTime.Now));
+                return Therapies.Where(therapy => !therapy.TimeInterval.IsDateTimeBetween(DateTime.Now));
             }
         }
 
@@ -176,5 +176,17 @@ namespace SIMS.Model.PatientModel
         public long GetId() => _id;
 
         public void SetId(long id) => _id = id;
+
+        public override bool Equals(object obj)
+        {
+            var diagnosis = obj as Diagnosis;
+            return diagnosis != null &&
+                   _id == diagnosis._id;
+        }
+
+        public override int GetHashCode()
+        {
+            return 1969571243 + _id.GetHashCode();
+        }
     }
 }

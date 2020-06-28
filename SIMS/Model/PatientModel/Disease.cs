@@ -219,5 +219,10 @@ namespace SIMS.Model.PatientModel
             Disease otherDisease = obj as Disease;
             return _id == otherDisease.GetId();
         }
+
+        public override int GetHashCode()
+        {
+            return 1969571243 + _id.GetHashCode();
+        }
     }
 }

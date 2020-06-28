@@ -11,22 +11,19 @@ namespace SIMS.Specifications
     {
         public ISpecification<T> And(ISpecification<T> other)
         {
-            throw new NotImplementedException();
+            return new AndSpecification<T>(this, other);
         }
 
-        public bool IsSatisfiedBy(T candidate)
-        {
-            throw new NotImplementedException();
-        }
+        public abstract bool IsSatisfiedBy(T candidate);
 
         public ISpecification<T> Not(ISpecification<T> other)
         {
-            throw new NotImplementedException();
+            return new NotSpecification<T>(this, other);
         }
 
         public ISpecification<T> Or(ISpecification<T> other)
         {
-            throw new NotImplementedException();
+            return new OrSpecification<T>(this, other);
         }
     }
 }

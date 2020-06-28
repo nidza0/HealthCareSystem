@@ -31,7 +31,8 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.MedicalConverter
                     GetDummyPatient(tokens[2]),
                     GetDummyRoom(tokens[3]),
                     appointmentType,
-                    GetTimeInterval(SplitStringByDelimiter(tokens[5], _listDelimiter))
+                    GetTimeInterval(SplitStringByDelimiter(tokens[5], _listDelimiter)),
+                    bool.Parse(tokens[6])
                     );
         }
 
@@ -39,11 +40,12 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.MedicalConverter
             => string.Join(
                 _delimiter,
                 entity.GetId(),
-                entity.DoctorInAppointment.GetId(),
-                entity.Patient.GetId(),
-                entity.Room.GetId(),
+                entity.DoctorInAppointment == null ? "" : entity.DoctorInAppointment.GetId().ToString(),
+                entity.Patient == null ? "" : entity.Patient.GetId().ToString(),
+                entity.Room == null ? "" : entity.Room.GetId().ToString(),
                 entity.AppointmentType,
-                transformTimeIntervalToCSV(entity.TimeInterval)
+                transformTimeIntervalToCSV(entity.TimeInterval),
+                entity.Canceled
                 );
         private string transformTimeIntervalToCSV(TimeInterval timeInterval)
             => string.Join(_listDelimiter, timeInterval.StartTime.ToString(_dateTimeFormat), timeInterval.EndTime.ToString(_dateTimeFormat));
@@ -52,13 +54,13 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.MedicalConverter
             => stringToSplit.Split(delimiter.ToCharArray());
 
         private Room GetDummyRoom(string id)
-            => new Room(long.Parse(id));
+            => id.Equals("") ? null : new Room(long.Parse(id));
 
         private Doctor GetDummyDoctor(string id)
-            => new Doctor(new UserID(id));
+            => id.Equals("") ? null : new Doctor(new UserID(id));
 
         private Patient GetDummyPatient(string id)
-            => new Patient(new UserID(id));
+            => id.Equals("") ? null : new Patient(new UserID(id));
 
         private DateTime GetDateTimeFromString(string dateTime)
             => DateTime.ParseExact(dateTime, _dateTimeFormat, null);

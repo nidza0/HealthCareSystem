@@ -13,7 +13,7 @@ namespace SIMS.Repository.Abstract.MiscAbstractRepository
     {
         IEnumerable<Message> GetSent(User user);
 
-        IEnumerable<Message> GetRecieved(User user);
+        IEnumerable<Message> GetReceived(User user);
 
     }
 }

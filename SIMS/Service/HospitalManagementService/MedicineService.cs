@@ -5,64 +5,93 @@
 
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
+using SIMS.Exceptions;
 using SIMS.Model.PatientModel;
 using SIMS.Repository.Abstract.HospitalManagementAbstractRepository;
+using SIMS.Repository.CSVFileRepository.HospitalManagementRepository;
+using SIMS.Service.ValidateServices.ValidateHospitalManagementServices;
+using SIMS.Util;
 
 namespace SIMS.Service.HospitalManagementService
 {
     public class MedicineService : IService<Medicine, long>
     {
-        public IEnumerable<Medicine> GetMedicineForDisease(Disease disease)
+
+        private MedicineRepository _medicineRepository;
+
+        public MedicineService(MedicineRepository medicineRepository)
         {
-            throw new NotImplementedException();
+            _medicineRepository = medicineRepository;
         }
+
+        public IEnumerable<Medicine> GetMedicineForDisease(Disease disease)
+            => _medicineRepository.GetMedicineForDisease(disease);
 
         public IEnumerable<Medicine> GetMedicineByIngredient(Ingredient ingredient)
-        {
-            throw new NotImplementedException();
-        }
+            => _medicineRepository.GetMedicineByIngredient(ingredient);
 
-        public IEnumerable<Medicine> GetMedicineByName(string name)
-        {
-            throw new NotImplementedException();
-        }
+        public Medicine GetMedicineByName(string name)
+            => _medicineRepository.GetMedicineByName(name);
 
         public IEnumerable<Medicine> GetFilteredMedicine(Util.MedicineFilter medicineFilter)
-        {
-            throw new NotImplementedException();
-        }
+            => _medicineRepository.GetFilteredMedicine(medicineFilter);
 
         public IEnumerable<Medicine> GetMedicinePendingApproval()
-        {
-            throw new NotImplementedException();
-        }
+            => _medicineRepository.GetMedicinePendingApproval();
 
         public IEnumerable<Medicine> GetAll()
-        {
-            throw new NotImplementedException();
-        }
+            => _medicineRepository.GetAllEager();
 
         public Medicine GetByID(long id)
-        {
-            throw new NotImplementedException();
-        }
+            => _medicineRepository.GetByID(id);
 
         public Medicine Create(Medicine entity)
         {
-            throw new NotImplementedException();
+            Validate(entity);
+            return _medicineRepository.Create(entity);
         }
 
-        public Medicine Update(Medicine entity)
+        public void Update(Medicine entity)
         {
-            throw new NotImplementedException();
+            Validate(entity);
+            _medicineRepository.Update(entity);
         }
 
         public void Delete(Medicine entity)
+            => _medicineRepository.Delete(entity);
+
+        public void Validate(Medicine entity)
         {
-            throw new NotImplementedException();
+            CheckStrength(entity.Strength);
+            CheckInStock(entity.InStock);
+            CheckMinNumber(entity.MinNumber);
+            CheckName(entity.Name);
         }
 
-        public IMedicineRepository iMedicineRepository;
+        private void CheckName(string name)
+        {
+            if (!Regex.Match(name, Regexes.medicineNamePattern).Success)
+                throw new MedicineServiceException("Name contains illegal characters!");
+        }
+
+        private void CheckMinNumber(int minNumber)
+        {
+            if (minNumber < 0)
+                throw new MedicineServiceException("MinNumber is less than zero!");
+        }
+
+        private void CheckInStock(int inStock)
+        {
+            if (inStock < 0)
+                throw new MedicineServiceException("InStock is less than zero!");
+        }
+
+        private void CheckStrength(double strength)
+        {
+            if (strength < 0)
+                throw new MedicineServiceException("Strength is less than zero!");
+        }
 
     }
 }

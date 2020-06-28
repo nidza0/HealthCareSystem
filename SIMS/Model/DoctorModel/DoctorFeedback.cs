@@ -11,22 +11,15 @@ namespace SIMS.Model.DoctorModel
 {
     public class DoctorFeedback : Feedback
     {
-        private Doctor _recepient;
+        private Doctor _doctor;
 
-        public DoctorFeedback(User user, string comment, List<Rating> rating, Doctor recepient) : base(user, comment, rating) => _recepient = recepient;
-        public DoctorFeedback(long id, User user, string comment, List<Rating> rating, Doctor recepient) : base(id, user, comment, rating) => _recepient = recepient;
+        public DoctorFeedback(User user, string comment, Dictionary<Question, Rating> rating, Doctor doctor) : base(user, comment, rating) => _doctor = doctor;
+        public DoctorFeedback(long id, User user, string comment, Dictionary<Question, Rating> rating, Doctor doctor) : base(id, user, comment, rating) => _doctor = doctor;
 
         public DoctorFeedback(long id) : base(id)
         {
         }
 
-        public Doctor Recepient
-        {
-            get { return _recepient; }
-            set { _recepient = value; }
-        }
-
-        
-
+        public Doctor Doctor { get => _doctor; set => _doctor = value; }
     }
 }

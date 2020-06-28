@@ -9,8 +9,19 @@ namespace SIMS.Specifications
 {
     public class AndSpecification<T> : CompositeSpecification<T>
     {
-        private ISpecification<T> leftSpecification;
-        private ISpecification<T> rightSpecification;
+        private ISpecification<T> _leftSpecification;
+        private ISpecification<T> _rightSpecification;
 
+
+        public AndSpecification(CompositeSpecification<T> compositeSpecification, ISpecification<T> other)
+        {
+            _leftSpecification = compositeSpecification;
+            _rightSpecification = other;
+        }
+
+        public override bool IsSatisfiedBy(T candidate)
+        {
+            return _leftSpecification.IsSatisfiedBy(candidate) && _rightSpecification.IsSatisfiedBy(candidate);
+        }
     }
 }

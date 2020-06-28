@@ -5,91 +5,55 @@
 
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using SIMS.Model.UserModel;
 using SIMS.Repository.Abstract.UsersAbstractRepository;
+using SIMS.Repository.CSVFileRepository.UsersRepository;
+using SIMS.Exceptions;
+using SIMS.Util;
 
 namespace SIMS.Service.UsersService
 {
-    public class PatientService : Util.IUserValidation, IService<Patient, UserID>, IUserService<Patient>
+    public class PatientService : IService<Patient, UserID>
     {
-        public IEnumerable<Patient> GetPatientByType(PatientType patientType)
+        PatientRepository _patientRepository;
+        UserValidation _userValidation;
+
+        public PatientService(PatientRepository patientRepository)
         {
-            throw new NotImplementedException();
+            _patientRepository = patientRepository;
+            _userValidation = new UserValidation();
         }
+
+
+        public IEnumerable<Patient> GetPatientByType(PatientType patientType)
+            => _patientRepository.GetPatientByType(patientType);
 
         public IEnumerable<Patient> GetPatientByDoctor(Doctor doctor)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool CheckUsername(string username)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool CheckPassword(string password)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool CheckName(string name)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool CheckUidn(string uidn)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool CheckDateOfBirth(DateTime date)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool CheckEmail(string email)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool CheckPhoneNumber(string phoneNumber)
-        {
-            throw new NotImplementedException();
-        }
+            => _patientRepository.GetPatientByDoctor(doctor);
 
         public IEnumerable<Patient> GetAll()
-        {
-            throw new NotImplementedException();
-        }
+            => _patientRepository.GetAllEager();
 
         public Patient GetByID(UserID id)
-        {
-            throw new NotImplementedException();
-        }
+            => _patientRepository.GetByID(id);
 
         public Patient Create(Patient entity)
         {
-            throw new NotImplementedException();
-        }
-
-        public Patient Update(Patient entity)
-        {
-            throw new NotImplementedException();
+            Validate(entity);
+            return _patientRepository.Create(entity);
         }
 
         public void Delete(Patient entity)
-        {
-            throw new NotImplementedException();
-        }
+            => _patientRepository.Delete(entity);
 
         public void Validate(Patient user)
-        {
-            throw new NotImplementedException();
-        }
+            => _userValidation.Validate(user);
 
-        public void Login(User user)
+        public void Update(Patient entity)
         {
-            throw new NotImplementedException();
+            Validate(entity);
+            _patientRepository.Update(entity);
         }
 
         public IPatientRepository iPatientRepository;

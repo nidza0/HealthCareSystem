@@ -55,18 +55,22 @@ namespace SIMS.Repository.CSVFileRepository.UsersRepository
         private void Bind(IEnumerable<Patient> patients)
         {
             var doctors = _doctorRepository.GetAllEager();
-            patients.ToList().ForEach(patient => patient.SelectedDoctor = doctors.SingleOrDefault(doctor => doctor.GetId().Equals(patient.SelectedDoctor.GetId())));
+            patients.ToList().ForEach(patient => patient.SelectedDoctor = GetDoctorByID(patient.SelectedDoctor, doctors));
         }
 
         public Patient GetEager(UserID id)
         {
             var patient = GetByID(id);
-            patient.SelectedDoctor = _doctorRepository.GetEager(patient.SelectedDoctor.GetId());
+            var doctors = _doctorRepository.GetAllEager();
+            patient.SelectedDoctor = GetDoctorByID(patient.SelectedDoctor, doctors);
             return patient;
         }
 
+        private Doctor GetDoctorByID(Doctor doctorId, IEnumerable<Doctor> doctors)
+            => doctorId == null ? null : doctors.SingleOrDefault(d => d.GetId().Equals(doctorId.GetId()));
+
         public IEnumerable<Patient> GetPatientByDoctor(Doctor doctor)
-            => GetAll().Where(patient => patient.SelectedDoctor.GetId().Equals(doctor.GetId()));
+            => GetAll().Where(patient => IsDoctorIdEqualsDoctor(patient.SelectedDoctor, doctor));
         
 
         public IEnumerable<Patient> GetPatientByType(PatientType patientType)
@@ -74,9 +78,14 @@ namespace SIMS.Repository.CSVFileRepository.UsersRepository
             var doctors = _doctorRepository.GetAllEager();
             var patients = GetAll().Where(patient => patient.PatientType == patientType);
 
-            patients.ToList().ForEach(patient => patient.SelectedDoctor = doctors.SingleOrDefault(doctor => doctor.GetId().Equals(patient.SelectedDoctor.GetId())));
+            patients.ToList().ForEach(patient => patient.SelectedDoctor = GetDoctorByID(patient.SelectedDoctor, doctors));
 
             return patients;
         }
+
+        private bool IsDoctorIdEqualsDoctor(Doctor doctorId, Doctor doctor)
+            => doctorId == null ? false : doctorId.GetId().Equals(doctor.GetId());
+
+        
     }
 }
