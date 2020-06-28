@@ -34,19 +34,15 @@ namespace SIMS.Service.HospitalManagementService
 
         public IEnumerable<Room> GetAvailableRoomsByDate(TimeInterval timeInterval)
         {
+            var appointments = _appointmentRepository.GetAppointmentsByTime(timeInterval);
+            var allRooms = GetAll().ToList();
 
-            List<Room> retVal = new List<Room>();
-
-            foreach(Room room in GetAll()) {
-                IEnumerable<Appointment> appointmentsForRoom = _appointmentRepository.GetAppointmentsByTime(timeInterval).Where(app => 
-                app.Room.GetId() == room.GetId());
-
-                if(appointmentsForRoom.Count() == 0)
-                {
-                    retVal.Add(room);
-                }
+            foreach(Appointment appointment in appointments) {
+                Room appointmentRoom = appointment.Room;
+                if(appointmentRoom != null)
+                    allRooms.Remove(allRooms.First(r => r.GetId() == appointmentRoom.GetId()));
             }
-            return retVal;
+            return allRooms;
         }
 
         public void DivideRooms(Room initialRoom, String newNumber)

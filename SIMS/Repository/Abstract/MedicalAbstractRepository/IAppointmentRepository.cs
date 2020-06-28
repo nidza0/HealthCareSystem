@@ -21,15 +21,9 @@ namespace SIMS.Repository.Abstract.MedicalAbstractRepository
 
         IEnumerable<Appointment> GetCanceledAppointments();
 
-        IEnumerable<Appointment> GetCompletedAppointmentsByPatient(Patient patient);
-
         IEnumerable<Appointment> GetAppointmentsByRoom(Room room);
 
         IEnumerable<Appointment> GetFilteredAppointment(AppointmentFilter appointmentFilter);
-
-        IEnumerable<Appointment> GetUpcomingAppointmentsForPatient(Patient patient);
-
-        IEnumerable<Appointment> GetUpcomingAppointmentsForDoctor(Doctor doctor);
 
     }
 }

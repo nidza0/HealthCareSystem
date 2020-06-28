@@ -22,9 +22,10 @@ namespace SIMS.Repository.CSVFileRepository.HospitalManagementRepository
 {
     public class InventoryRepository : CSVRepository<Inventory, long>, IInventoryRepository, IEagerCSVRepository<Inventory, long>
     {
+        private const string ENTITY_NAME = "Inventory Repository";
         private IInventoryItemRepository _inventoryItemRepository;
         private IMedicineRepository _medicineRepository;
-        public InventoryRepository(string entityName, ICSVStream<Inventory> stream, ISequencer<long> sequencer, IInventoryItemRepository inventoryItemRepository, IMedicineRepository medicineRepository) : base(entityName, stream, sequencer, new LongIdGeneratorStrategy<Inventory>())
+        public InventoryRepository(ICSVStream<Inventory> stream, ISequencer<long> sequencer, IInventoryItemRepository inventoryItemRepository, IMedicineRepository medicineRepository) : base(ENTITY_NAME, stream, sequencer, new LongIdGeneratorStrategy<Inventory>())
         {
             _inventoryItemRepository = inventoryItemRepository;
             _medicineRepository = medicineRepository;

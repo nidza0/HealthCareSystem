@@ -16,8 +16,9 @@ namespace SIMS.Repository.CSVFileRepository.HospitalManagementRepository
 {
     public class DoctorStatisticRepository : CSVRepository<StatsDoctor, long>, IDoctorStatisticRepository, IEagerCSVRepository<StatsDoctor, long>
     {
+        private const string ENTITY_NAME = "Doctor Statistics Repository";
         private IDoctorRepository _doctorRepository;
-        public DoctorStatisticRepository(string entityName, ICSVStream<StatsDoctor> stream, ISequencer<long> sequencer, IDoctorRepository doctorRepository) : base(entityName, stream, sequencer, new LongIdGeneratorStrategy<StatsDoctor>())
+        public DoctorStatisticRepository(ICSVStream<StatsDoctor> stream, ISequencer<long> sequencer, IDoctorRepository doctorRepository) : base(ENTITY_NAME, stream, sequencer, new LongIdGeneratorStrategy<StatsDoctor>())
         {
             _doctorRepository = doctorRepository;
         }

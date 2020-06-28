@@ -86,7 +86,7 @@ namespace SIMS.Service.UsersService
             => _doctorRepository.GetAllEager();
 
         public Doctor GetByID(UserID id)
-            => _doctorRepository.GetByID(id);
+            => _doctorRepository.GetEager(id);
 
         public Doctor Create(Doctor entity)
         {
