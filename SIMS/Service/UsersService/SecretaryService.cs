@@ -5,83 +5,48 @@
 
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using SIMS.Model.UserModel;
 using SIMS.Repository.Abstract.UsersAbstractRepository;
+using SIMS.Repository.CSVFileRepository.UsersRepository;
+using SIMS.Exceptions;
+using SIMS.Util;
 
 namespace SIMS.Service.UsersService
 {
-    public class SecretaryService : Util.IUserValidation, IService<Secretary, UserID>, IUserService<Secretary>
+    public class SecretaryService : IService<Secretary, UserID>
     {
-        public ISecretaryRepository iSecretaryRepository;
+        SecretaryRepository _secretaryRepository;
+        UserValidation _userValidation;
 
-        public bool CheckDateOfBirth(DateTime date)
+        public SecretaryService(SecretaryRepository secretaryRepository)
         {
-            throw new NotImplementedException();
-        }
-
-        public bool CheckEmail(string email)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool CheckName(string name)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool CheckPassword(string password)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool CheckPhoneNumber(string phoneNumber)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool CheckUidn(string uidn)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool CheckUsername(string username)
-        {
-            throw new NotImplementedException();
+            _secretaryRepository = secretaryRepository;
+            _userValidation = new UserValidation();
         }
 
         public Secretary Create(Secretary entity)
         {
-            throw new NotImplementedException();
+            Validate(entity);
+            return _secretaryRepository.Create(entity);
         }
 
         public void Delete(Secretary entity)
-        {
-            throw new NotImplementedException();
-        }
+            => _secretaryRepository.Delete(entity);
 
         public IEnumerable<Secretary> GetAll()
-        {
-            throw new NotImplementedException();
-        }
+            => _secretaryRepository.GetAllEager();
 
         public Secretary GetByID(UserID id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Login(User user)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Secretary Update(Secretary entity)
-        {
-            throw new NotImplementedException();
-        }
+            => _secretaryRepository.GetByID(id);
 
         public void Validate(Secretary user)
+            => _userValidation.Validate(user);
+
+        public void Update(Secretary entity)
         {
-            throw new NotImplementedException();
+            Validate(entity);
+            _secretaryRepository.Update(entity);
         }
     }
 }

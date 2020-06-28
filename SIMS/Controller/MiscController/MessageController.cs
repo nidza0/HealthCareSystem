@@ -13,42 +13,34 @@ namespace SIMS.Controller.MiscController
 {
     public class MessageController : IController<Message, long>
     {
-        public IEnumerable<Message> GetSent(User user)
+
+        private MessageService _messageService;
+
+        public MessageController(MessageService messageService)
         {
-            throw new NotImplementedException();
+            _messageService = messageService;
         }
+
+        public IEnumerable<Message> GetSent(User user)
+            => _messageService.GetSent(user);
 
         public IEnumerable<Message> GetRecieved(User user)
-        {
-            throw new NotImplementedException();
-        }
+            => _messageService.GetRecieved(user);
 
         public IEnumerable<Message> GetAll()
-        {
-            throw new NotImplementedException();
-        }
+            => _messageService.GetAll();
 
         public Message GetByID(long id)
-        {
-            throw new NotImplementedException();
-        }
+            => _messageService.GetByID(id);
 
         public Message Create(Message entity)
-        {
-            throw new NotImplementedException();
-        }
+            => _messageService.Create(entity);
 
-        public Message Update(Message entity)
-        {
-            throw new NotImplementedException();
-        }
+        public void Update(Message entity)
+            => _messageService.Update(entity);
 
         public void Delete(Message entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public MessageService messageService;
+            => _messageService.Delete(entity);
 
     }
 }

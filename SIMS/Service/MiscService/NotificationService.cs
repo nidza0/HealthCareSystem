@@ -5,44 +5,54 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using SIMS.Exceptions;
 using SIMS.Model.UserModel;
 using SIMS.Repository.Abstract.MiscAbstractRepository;
+using SIMS.Repository.CSVFileRepository.MiscRepository;
 
 namespace SIMS.Service.MiscService
 {
     public class NotificationService : IService<Notification, long>
     {
-        public IEnumerable<Notification> GetNotificationByUser(User user)
+
+        private NotificationRepository _notificationRepository;
+
+        public NotificationService(NotificationRepository notificationRepository)
         {
-            throw new NotImplementedException();
+            _notificationRepository = notificationRepository;
         }
+
+        public IEnumerable<Notification> GetNotificationByUser(User user)
+            => _notificationRepository.GetNotificationByUser(user);
 
         public IEnumerable<Notification> GetAll()
-        {
-            throw new NotImplementedException();
-        }
+            => _notificationRepository.GetAllEager();
 
         public Notification GetByID(long id)
-        {
-            throw new NotImplementedException();
-        }
+            => GetAll().SingleOrDefault(notification => notification.GetId() == id);
 
         public Notification Create(Notification entity)
         {
-            throw new NotImplementedException();
+            Validate(entity);
+            return _notificationRepository.Create(entity);
         }
 
-        public Notification Update(Notification entity)
+        public void Update(Notification entity)
         {
-            throw new NotImplementedException();
+            Validate(entity);
+            _notificationRepository.Update(entity);
         }
 
         public void Delete(Notification entity)
+            => _notificationRepository.Delete(entity);
+
+        public void Validate(Notification entity)
         {
-            throw new NotImplementedException();
+            if (entity.Recipient == null)
+            {
+                throw new NotificationServiceException("NotificationService - Recipient is not set!");
+            }
         }
-
-        public INotificationRepository iNotificationRepository;
-
     }
 }

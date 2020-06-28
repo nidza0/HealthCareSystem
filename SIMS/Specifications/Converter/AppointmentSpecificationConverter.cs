@@ -19,9 +19,9 @@ namespace SIMS.Specifications.Converter
         {
             _filter = filter;
         }
-        private ISpecification<Appointment> GetSpecificationByDoctorType(DocTypeEnum type)
+        private ISpecification<Appointment> GetSpecificationByDoctorType(DoctorType type)
         {
-            return new ExpressionSpecification<Appointment>(o => o.DoctorInAppointment == null ? false : o.DoctorInAppointment.DocTypeEnum == type);
+            return new ExpressionSpecification<Appointment>(o => o.DoctorInAppointment == null ? false : o.DoctorInAppointment.DoctorType == type);
         }
 
         private ISpecification<Appointment> GetSpecificationByDoctor(Doctor doctor)
@@ -55,7 +55,7 @@ namespace SIMS.Specifications.Converter
                 specification = specification.And(GetSpecificationByDoctor(_filter.Doctor));
             }
 
-            if(_filter.DoctorType != DocTypeEnum.UNDEFINED)
+            if(_filter.DoctorType != DoctorType.UNDEFINED)
                 specification = specification.And(GetSpecificationByDoctorType(_filter.DoctorType));
 
             return specification;

@@ -15,9 +15,9 @@ namespace SIMS.Model.ManagerModel
         private Doctor _doctor;
 
 
-        public double NumberOfAppointments {get {return _numberOfAppointments ;} set { }}
+        public double NumberOfAppointments {get {return _numberOfAppointments ;} set { _numberOfAppointments = value; }}
 
-        public string AvgAppointmentTime { get { return _avgAppointmentTime; } set { } }
+        public string AvgAppointmentTime { get { return _avgAppointmentTime; } set { _avgAppointmentTime = value; } }
 
         public Doctor Doctor { get { return _doctor; } set { } }
 

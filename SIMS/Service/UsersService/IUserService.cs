@@ -10,9 +10,9 @@ namespace SIMS.Service.UsersService
 {
     public interface IUserService<T>
     {
-        void Validate(T user);
+        //void Validate(T user);
 
-        void Login(User user);
+        void Login(string username, string password);
 
     }
 }

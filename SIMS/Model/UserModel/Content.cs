@@ -49,5 +49,17 @@ namespace SIMS.Model.UserModel
         {
             _id = id;
         }
+
+        public override bool Equals(object obj)
+        {
+            var content = obj as Content;
+            return content != null &&
+                   _id == content._id;
+        }
+
+        public override int GetHashCode()
+        {
+            return 1969571243 + _id.GetHashCode();
+        }
     }
 }

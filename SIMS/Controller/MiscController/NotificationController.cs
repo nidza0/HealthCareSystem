@@ -13,37 +13,31 @@ namespace SIMS.Controller.MiscController
 {
     public class NotificationController : IController<Notification, long>
     {
-        public IEnumerable<Notification> GetNotificationByUser(User user)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Notification> GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Notification GetByID(long id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Notification Create(Notification entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Notification Update(Notification entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Delete(Notification entity)
-        {
-            throw new NotImplementedException();
-        }
 
         public NotificationService notificationService;
+
+        public NotificationController(NotificationService notificationService)
+        {
+            this.notificationService = notificationService;
+        }
+
+        public IEnumerable<Notification> GetNotificationByUser(User user)
+            => notificationService.GetNotificationByUser(user);
+
+        public IEnumerable<Notification> GetAll()
+            => notificationService.GetAll();
+
+        public Notification GetByID(long id)
+            => notificationService.GetByID(id);
+
+        public Notification Create(Notification entity)
+            => notificationService.Create(entity);
+
+        public void Update(Notification entity)
+            => notificationService.Update(entity);
+
+        public void Delete(Notification entity)
+            => notificationService.Delete(entity);
 
     }
 }

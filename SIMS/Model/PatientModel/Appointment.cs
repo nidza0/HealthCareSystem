@@ -73,5 +73,17 @@ namespace SIMS.Model.PatientModel
 
         public bool IsInFuture()
             => TimeInterval.StartTime >= DateTime.Now;
+
+        public override bool Equals(object obj)
+        {
+            var appointment = obj as Appointment;
+            return appointment != null &&
+                   _id == appointment._id;
+        }
+
+        public override int GetHashCode()
+        {
+            return 1969571243 + _id.GetHashCode();
+        }
     }
 }

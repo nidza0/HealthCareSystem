@@ -5,144 +5,154 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using SIMS.Exceptions;
 using SIMS.Model.PatientModel;
 using SIMS.Model.UserModel;
 using SIMS.Repository.Abstract.MedicalAbstractRepository;
+using SIMS.Repository.CSVFileRepository.MedicalRepository;
+using SIMS.Service.MiscService;
 using SIMS.Util;
 
 namespace SIMS.Service.MedicalService
 {
     public class AppointmentService : IService<Appointment, long>
     {
-        private DateTime daysBeforeAutoDelete;
+        private IAppointmentStrategy _appointmentStrategy;
+        private AppointmentRepository _appointmentRepository;
+        private AppointmentNotificationSender _notificationSender;
+        private DateTime dayBeforeAutoDelete;
 
-        protected void validate(Appointment appointment)
-        {
-            throw new NotImplementedException();
-        }
+        public IAppointmentStrategy AppointmentStrategy { get => _appointmentStrategy; set => _appointmentStrategy = value; }
 
-        protected void checkDateTimeValid(Appointment appointment)
+        public AppointmentService(AppointmentRepository appointmentRepository,IAppointmentStrategy appointmentStrategy, AppointmentNotificationSender appointmentNotificationSender)
         {
-            throw new NotImplementedException();
+            _appointmentRepository = appointmentRepository;
+            _appointmentStrategy = appointmentStrategy;
+            _notificationSender = appointmentNotificationSender;
         }
 
         protected void CheckSchedules(Appointment appointment)
         {
-            throw new NotImplementedException();
+            if (!CheckDoctorSchedule(appointment))
+                throw new AppointmentServiceException("Appointment clashes with doctor appointments!");
+
+            if (!CheckPatientSchedule(appointment))
+                throw new AppointmentServiceException("Appointment clashes with patient appointments!");
+
+            if (!CheckRoomSchedules(appointment))
+                throw new AppointmentServiceException("Appointment clashes with room appointments!");
         }
 
         protected bool CheckDoctorSchedule(Appointment appointment)
-        {
-            throw new NotImplementedException();
-        }
+            => _appointmentRepository.GetAppointmentsByDoctor(appointment.DoctorInAppointment)
+                .Where(app => app.TimeInterval.IsOverlappingWith(appointment.TimeInterval)).Count() <= 0;
 
         protected bool CheckPatientSchedule(Appointment appointment)
-        {
-            throw new NotImplementedException();
-        }
+            => _appointmentRepository.GetPatientAppointments(appointment.Patient)
+                .Where(app => app.TimeInterval.IsOverlappingWith(appointment.TimeInterval)).Count() <= 0;
 
         protected bool CheckRoomSchedules(Appointment appointment)
-        {
-            throw new NotImplementedException();
-        }
+            => _appointmentRepository.GetAppointmentsByRoom(appointment.Room)
+                .Where(app => app.TimeInterval.IsOverlappingWith(appointment.TimeInterval)).Count() <= 0;
 
-        protected bool CheckType(Appointment appointment)
-        {
-            throw new NotImplementedException();
-        }
+
+        protected void CheckType(Appointment appointment)
+            => _appointmentStrategy.CheckType(appointment);
 
         public Appointment CancelAppointment(Appointment appointment)
         {
-            throw new NotImplementedException();
+            // TODO: Proveri da li moze da se otkaze appointment
+            _appointmentStrategy.Validate(appointment);
+            appointment.Canceled = true;
+            _appointmentRepository.Update(appointment);
+            _notificationSender.SendCancelNotification(appointment);
+            return appointment;
         }
 
         public IEnumerable<Appointment> GetPatientAppointments(Patient patient)
-        {
-            throw new NotImplementedException();
-        }
+            => _appointmentRepository.GetPatientAppointments(patient);
 
-        public IEnumerable<Appointment> GetAppointmentsByTime(Util.TimeInterval timeInterval)
-        {
-            throw new NotImplementedException();
-        }
+        public IEnumerable<Appointment> GetAppointmentsByTime(TimeInterval timeInterval)
+            => _appointmentRepository.GetAppointmentsByTime(timeInterval);
 
         public IEnumerable<Appointment> GetAppointmentsByDoctor(Doctor doctor)
-        {
-            throw new NotImplementedException();
-        }
+            => _appointmentRepository.GetAppointmentsByDoctor(doctor);
 
         public IEnumerable<Appointment> GetCanceledAppointments()
-        {
-            throw new NotImplementedException();
-        }
+            => _appointmentRepository.GetCanceledAppointments();
 
         public IEnumerable<Appointment> GetCompletedAppointmentsByPatient(Patient patient)
-        {
-            throw new NotImplementedException();
-        }
+            => GetPatientAppointments(patient).Where(appointment => IsCompleted(appointment));
 
         public IEnumerable<Appointment> GetAppointmentsByRoom(Room room)
-        {
-            throw new NotImplementedException();
-        }
+            => _appointmentRepository.GetAppointmentsByRoom(room);
 
         public IEnumerable<Appointment> GetFilteredAppointment(AppointmentFilter appointmentFilter)
-        {
-            throw new NotImplementedException();
-        }
+            => _appointmentRepository.GetFilteredAppointment(appointmentFilter);
 
         public IEnumerable<Appointment> GetUpcomingAppointmentsForPatient(Patient patient)
-        {
-            throw new NotImplementedException();
-        }
+            => _appointmentRepository.GetPatientAppointments(patient).Where(appointment => IsInFuture(appointment));
 
-        public IEnumerable<Appointment> GetRecentDoctorsForPatient(Patient patient)
-        {
-            throw new NotImplementedException();
-        }
+        public IEnumerable<Doctor> GetRecentDoctorsForPatient(Patient patient)
+            => GetPatientAppointments(patient).Select(app => app.DoctorInAppointment);
 
         public IEnumerable<Appointment> GetUpcomingAppointmentsForDoctor(Doctor doctor)
-        {
-            throw new NotImplementedException();
-        }
+            => GetAppointmentsByDoctor(doctor).Where(appointment => IsInFuture(appointment));
 
-        public IEnumerable<Appointment> IsAppointmentChangeable(Appointment appointment)
-        {
-            throw new NotImplementedException();
-        }
+        public bool IsAppointmentChangeable(Appointment appointment)
+            => _appointmentStrategy.isAppointmentChangeable(appointment);
 
         public void AutoDeleteCanceledAppointments()
         {
-            throw new NotImplementedException();
+            //Method that goes through all appointments that are far in the past to free the memory.
+            IEnumerable<Appointment> cancelledAppointments = GetCanceledAppointments();
+
+            foreach(Appointment appointment in cancelledAppointments)
+            {
+                if (appointment.TimeInterval.StartTime < dayBeforeAutoDelete)
+                    _appointmentRepository.Delete(appointment);
+            }
         }
 
         public IEnumerable<Appointment> GetAll()
-        {
-            throw new NotImplementedException();
-        }
+            => _appointmentRepository.GetAllEager();
 
         public Appointment GetByID(long id)
-        {
-            throw new NotImplementedException();
-        }
+            => _appointmentRepository.GetEager(id);
 
         public Appointment Create(Appointment entity)
         {
-            throw new NotImplementedException();
-        }
-
-        public Appointment Update(Appointment entity)
-        {
-            throw new NotImplementedException();
+            Validate(entity);
+            Appointment createdAppointment = _appointmentRepository.Create(entity);
+            _notificationSender.SendCreateNotification(createdAppointment);
+            return createdAppointment;
         }
 
         public void Delete(Appointment entity)
+            => _appointmentRepository.Delete(entity);
+
+        public void Update(Appointment entity)
         {
-            throw new NotImplementedException();
+            Validate(entity);
+            if (IsAppointmentChangeable(entity)) {
+                Appointment oldAppointment = GetByID(entity.Id);
+                _appointmentRepository.Update(entity);
+                _notificationSender.SendUpdateNotification(oldAppointment, entity);
+            }
         }
 
-        public IAppointmentStrategy iAppointmentStrategy;
-        public IAppointmentRepository iAppointmentRepository;
+        public void Validate(Appointment entity)
+        {
+            _appointmentStrategy.Validate(entity);
+            CheckSchedules(entity);
+        }
+
+        private bool IsCompleted(Appointment appointment)
+            => appointment.IsCompleted() && !appointment.Canceled;
+
+        private bool IsInFuture(Appointment appointment)
+            => appointment.IsInFuture() && !appointment.Canceled;
 
     }
 }

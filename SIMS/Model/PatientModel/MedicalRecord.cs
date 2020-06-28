@@ -187,6 +187,18 @@ namespace SIMS.Model.PatientModel
         public void SetId(long id)
             => _id = id;
 
+        public override bool Equals(object obj)
+        {
+            var record = obj as MedicalRecord;
+            return record != null &&
+                   _id == record._id;
+        }
+
+        public override int GetHashCode()
+        {
+            return 1969571243 + _id.GetHashCode();
+        }
+
 
         /// <summary>
         /// Property for BloodType

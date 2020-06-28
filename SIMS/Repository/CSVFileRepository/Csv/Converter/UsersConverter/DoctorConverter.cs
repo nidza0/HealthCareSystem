@@ -41,7 +41,7 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.UsersConverter
                                     timeTable: tokens[18].Equals("") ? null : new TimeTable(long.Parse(tokens[18])),
                                     hospital: tokens[19].Equals("") ? null : new Hospital(long.Parse(tokens[19])),
                                     office: tokens[20].Equals("") ? null : new Room(long.Parse(tokens[20])),
-                                    doctorType: (DocTypeEnum)Enum.Parse(typeof(DocTypeEnum), tokens[21]));
+                                    doctorType: (DoctorType)Enum.Parse(typeof(DoctorType), tokens[21]));
 
             return doc;
         }
@@ -69,6 +69,6 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.UsersConverter
                 doctor.TimeTable == null ? "" : doctor.TimeTable.GetId().ToString(),
                 doctor.Hospital == null ? "" : doctor.Hospital.GetId().ToString(),
                 doctor.Office == null ? "" : doctor.Office.GetId().ToString(),
-                doctor.DocTypeEnum);
+                doctor.DoctorType);
     }
 }

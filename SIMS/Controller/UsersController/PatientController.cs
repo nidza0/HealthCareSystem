@@ -15,89 +15,60 @@ namespace SIMS.Controller.UsersController
 {
     public class PatientController : IController<Patient, UserID>
     {
-        public PatientService patientService;
-        public MedicalRecordService medicalRecordService;
-        public TherapyService therapyService;
-        public DiagnosisService diagnosisService;
+        private PatientService _patientService;
+        private MedicalRecordService _medicalRecordService;
+        private TherapyService _therapyService;
+        private DiagnosisService _diagnosisService;
 
         public PatientController(PatientService patientService, MedicalRecordService medicalRecordService, TherapyService therapyService, DiagnosisService diagnosisService)
         {
-            this.patientService = patientService;
-            this.medicalRecordService = medicalRecordService;
-            this.therapyService = therapyService;
-            this.diagnosisService = diagnosisService;
+            _patientService = patientService;
+            _medicalRecordService = medicalRecordService;
+            _therapyService = therapyService;
+            _diagnosisService = diagnosisService;
         }
 
-        public IEnumerable<MedicalRecord> GetMedicalRecordByPatient(Patient patient)
-        {
-            throw new NotImplementedException();
-        }
+        public MedicalRecord GetMedicalRecordByPatient(Patient patient)
+            => _medicalRecordService.GetPatientMedicalRecord(patient);
 
         public IEnumerable<Patient> GetPatientByType(PatientType patientType)
-        {
-            throw new NotImplementedException();
-        }
+            => _patientService.GetPatientByType(patientType);
 
-        public IEnumerable<Patient> GetPatientByDoctor(Doctor doctor) => patientService.GetPatientByDoctor(doctor);
+        public IEnumerable<Patient> GetPatientByDoctor(Doctor doctor) 
+            => _patientService.GetPatientByDoctor(doctor);
 
         public IEnumerable<Diagnosis> GetAllDiagnosisForPatient(Patient patient)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Diagnosis> GetActiveDiagnosisForPatient(Patient patient)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Diagnosis> GetInactiveDiagnosisForPatient(Patient patient)
-        {
-            throw new NotImplementedException();
-        }
+            => _diagnosisService.GetAllDiagnosisForPatient(patient);
 
         public IEnumerable<Therapy> GetFilteredTherapy(Util.TherapyFilter therapyFilter)
-        {
-            throw new NotImplementedException();
-        }
+            => _therapyService.GetFilteredTherapy(therapyFilter);
 
         public IEnumerable<Therapy> GetActiveTherapyForPatient(Patient patient)
-        {
-            throw new NotImplementedException();
-        }
+            => _therapyService.GetActiveTherapyForPatient(patient);
 
         public Diagnosis AddDiagnosis(Patient patient, Diagnosis diagnosis)
-        {
-            throw new NotImplementedException();
-        }
+            => _medicalRecordService.AddDiagnosis(patient, diagnosis);
 
         public IEnumerable<Allergy> GetPatientAllergies(Patient patient)
-        {
-            throw new NotImplementedException();
-        }
+            => _medicalRecordService.GetPatientAllergies(patient);
 
         public IEnumerable<Patient> GetAll()
-        {
-            throw new NotImplementedException();
-        }
+            => _patientService.GetAll();
 
         public Patient GetByID(UserID id)
-        {
-            throw new NotImplementedException();
-        }
+            => _patientService.GetByID(id);
 
         public Patient Create(Patient entity)
-        {
-            throw new NotImplementedException();
-        }
+            => _patientService.Create(entity);
 
-        public Patient Update(Patient entity)
-        {
-            throw new NotImplementedException();
-        }
+        public void Update(Patient entity)
+            => _patientService.Update(entity);
 
         public void Delete(Patient entity)
-        {
-            throw new NotImplementedException();
-        }
+            => _patientService.Delete(entity);
+
+        public Prescription GivePrescription(Therapy therapy, Prescription prescription)
+            => _therapyService.SetPerscription(therapy, prescription);
+        
     }
 }

@@ -29,9 +29,9 @@ namespace SIMS.Specifications.Converter
             return new ExpressionSpecification<Doctor>(o => o.Surname.Equals(surname));
         }
 
-        private ISpecification<Doctor> GetSpecificationByType(DocTypeEnum type)
+        private ISpecification<Doctor> GetSpecificationByType(DoctorType type)
         {
-            return new ExpressionSpecification<Doctor>(o => o.DocTypeEnum == type);
+            return new ExpressionSpecification<Doctor>(o => o.DoctorType == type);
         }
 
         public ISpecification<Doctor> GetSpecification()
@@ -49,7 +49,7 @@ namespace SIMS.Specifications.Converter
                 specification = specification.And(GetSpecificationBySurname(_filter.Surname));
             }
 
-            if(_filter.Type != DocTypeEnum.UNDEFINED)
+            if(_filter.Type != DoctorType.UNDEFINED)
             {
                 specification = specification.And(GetSpecificationByType(_filter.Type));
             }

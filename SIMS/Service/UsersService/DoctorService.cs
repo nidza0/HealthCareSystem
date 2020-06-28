@@ -4,106 +4,124 @@
 // Purpose: Definition of Class DoctorService
 
 using System;
+using System.CodeDom;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
+using SIMS.Exceptions;
 using SIMS.Model.DoctorModel;
+using SIMS.Model.PatientModel;
 using SIMS.Model.UserModel;
 using SIMS.Repository.Abstract.UsersAbstractRepository;
+using SIMS.Repository.CSVFileRepository.UsersRepository;
+using SIMS.Service.MedicalService;
+using SIMS.Util;
 
 namespace SIMS.Service.UsersService
 {
-    public class DoctorService : Util.IUserValidation, IService<Doctor, UserID>, IUserService<Doctor>
+    public class DoctorService : IService<Doctor, UserID>
     {
+        private UserRepository _userRepository;
+        private DoctorRepository _doctorRepository;
+        private UserValidation _userValidation;
+        private AppointmentService _appointmentService;
+
+        public DoctorService(DoctorRepository doctorRepository,UserRepository userRepository, AppointmentService appointmentService)
+        {
+            _doctorRepository = doctorRepository;
+            _appointmentService = appointmentService;
+            _userValidation = new UserValidation();
+            _userRepository = userRepository;
+        }
+
         public IEnumerable<Doctor> GetActiveDoctors()
         {
-            throw new NotImplementedException();
+            var doctors = _doctorRepository.GetAllEager();
+            TimeInterval time = new TimeInterval(DateTime.Now, DateTime.Now.AddMinutes(10));  // Note (Gergo) : Gets doctors who are going to be at work in the next 10 minutes
+            return GetWorkingDoctors(doctors, time);
         }
 
-        public IEnumerable<Doctor> GetDoctorByType(DocTypeEnum doctorType)
+        private IEnumerable<Doctor> GetWorkingDoctors(IEnumerable<Doctor> doctors, TimeInterval time)
         {
-            throw new NotImplementedException();
+            List<Doctor> workingDoctors = new List<Doctor>();
+
+            WorkingDaysEnum dayOfWeek = GetDayOfWeek(time.StartTime.DayOfWeek);
+
+            foreach (Doctor d in doctors)
+            {
+                if (d.TimeTable.WorkingHours[dayOfWeek].IsTimeBetween(time))
+                    workingDoctors.Add(d);
+            }
+
+            return workingDoctors;
         }
 
-        public IEnumerable<Doctor> GetAvailableDoctorsByTime(Util.TimeInterval timeInterval)
+        public IEnumerable<Doctor> GetDoctorByType(DoctorType doctorType)
+            => _doctorRepository.GetDoctorByType(doctorType);
+
+        public IEnumerable<Doctor> GetAvailableDoctorsByTime(TimeInterval timeInterval)
         {
-            throw new NotImplementedException();
+            var appointments = _appointmentService.GetAppointmentsByTime(timeInterval).Where(ap => !ap.Canceled);
+            var doctors = _doctorRepository.GetAllEager();
+
+            RemoveUnavailableDoctors(doctors, appointments);
+            return GetWorkingDoctors(doctors, timeInterval);
+        }
+
+        private void RemoveUnavailableDoctors(IEnumerable<Doctor> doctors, IEnumerable<Appointment> appointments)
+        {
+            foreach (Appointment a in appointments)
+            {
+                if (a.DoctorInAppointment != null)
+                {
+                    doctors = doctors.Where(d => !d.GetId().Equals(a.DoctorInAppointment.GetId()));
+                }
+            }
         }
 
         public IEnumerable<Doctor> GetFilteredDoctors(Util.DoctorFilter filter)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool CheckUsername(string username)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool CheckPassword(string password)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool CheckName(string name)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool CheckUidn(string uidn)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool CheckDateOfBirth(DateTime date)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool CheckEmail(string email)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool CheckPhoneNumber(string phoneNumber)
-        {
-            throw new NotImplementedException();
-        }
+            => _doctorRepository.GetFilteredDoctors(filter);
 
         public IEnumerable<Doctor> GetAll()
-        {
-            throw new NotImplementedException();
-        }
+            => _doctorRepository.GetAllEager();
 
         public Doctor GetByID(UserID id)
-        {
-            throw new NotImplementedException();
-        }
+            => _doctorRepository.GetEager(id);
 
         public Doctor Create(Doctor entity)
         {
-            throw new NotImplementedException();
-        }
-
-        public Doctor Update(Doctor entity)
-        {
-            throw new NotImplementedException();
+            Validate(entity);
+            return _doctorRepository.Create(entity);
         }
 
         public void Delete(Doctor entity)
-        {
-            throw new NotImplementedException();
-        }
-
+            => _doctorRepository.Delete(entity);
+        
         public void Validate(Doctor user)
+            => _userValidation.Validate(user);
+
+        public void Update(Doctor entity)
+            => _doctorRepository.Update(entity);
+
+        private WorkingDaysEnum GetDayOfWeek(DayOfWeek day)
         {
-            throw new NotImplementedException();
+           switch(day)
+           {
+                case DayOfWeek.Monday:
+                    return WorkingDaysEnum.MONDAY;
+                case DayOfWeek.Tuesday:
+                    return WorkingDaysEnum.TUESDAY;
+                case DayOfWeek.Wednesday:
+                    return WorkingDaysEnum.WEDNESDAY;
+                case DayOfWeek.Thursday:
+                    return WorkingDaysEnum.THURSDAY;
+                case DayOfWeek.Friday:
+                    return WorkingDaysEnum.FRIDAY;
+                case DayOfWeek.Saturday:
+                    return WorkingDaysEnum.SATURDAY;
+                default:
+                    return WorkingDaysEnum.SUNDAY;
+           };
         }
-
-        public void Login(User user)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IDoctorRepository iDoctorRepository;
-
     }
 }

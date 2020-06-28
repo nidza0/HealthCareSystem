@@ -46,7 +46,7 @@ namespace SIMS.Model.PatientModel
         {
             _strength = strength;
             _medicineType = MedicineType;
-            _isValid = false;
+            _isValid = isValid;
             _ingredient = ingredient;
             _usedFor = usedFor;
         }

@@ -5,60 +5,85 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using SIMS.Exceptions;
 using SIMS.Model.DoctorModel;
 using SIMS.Model.UserModel;
 using SIMS.Repository.Abstract.MiscAbstractRepository;
+using SIMS.Repository.CSVFileRepository.MiscRepository;
 
 namespace SIMS.Service.MiscService
 {
     public class DoctorFeedbackService : IService<DoctorFeedback, long>
     {
-        public IEnumerable<DoctorFeedback> GetByDoctor(Doctor doctor)
+
+        private DoctorFeedbackRepository _doctorFeedbackRepository;
+
+        public DoctorFeedbackService(DoctorFeedbackRepository doctorFeedbackRepository)
         {
-            throw new NotImplementedException();
+            _doctorFeedbackRepository = doctorFeedbackRepository;
         }
+
+        public IEnumerable<DoctorFeedback> GetByDoctor(Doctor doctor)
+            => _doctorFeedbackRepository.GetByDoctor(doctor);
 
         public double GetAverageRatingByDoctor(Doctor doctor)
         {
-            throw new NotImplementedException();
+            IEnumerable<DoctorFeedback> allFeedback = GetByDoctor(doctor);
+            double sum = 0;
+            int counter = 0;
+            
+            foreach(DoctorFeedback feedback in allFeedback)
+            {
+                int starsSum = 0;
+                int counter1 = 0;
+
+                foreach (Rating rating in feedback.Rating.Values)
+                {
+                    starsSum += rating.Stars;
+                    counter1++;
+                }
+                sum += starsSum;
+                counter += counter1;
+            }
+
+            return sum / counter;
+
         }
 
         public void Validate(DoctorFeedback doctorFeedback)
         {
-            throw new NotImplementedException();
+            if (doctorFeedback.Doctor == null)
+            {
+                throw new DoctorFeedbackServiceException("DoctorFeedbackService - Doctor is null!");
+            }
         }
 
         public DoctorFeedback GetByPatientDoctor(Patient patient, Doctor doctor)
-        {
-            throw new NotImplementedException();
-        }
+            => _doctorFeedbackRepository.GetByPatientDoctor(patient, doctor);
 
         public IEnumerable<DoctorFeedback> GetAll()
-        {
-            throw new NotImplementedException();
-        }
+            => _doctorFeedbackRepository.GetAllEager();
 
         public DoctorFeedback GetByID(long id)
-        {
-            throw new NotImplementedException();
-        }
+            => GetAll().SingleOrDefault(df => df.GetId() == id);
 
         public DoctorFeedback Create(DoctorFeedback entity)
         {
-            throw new NotImplementedException();
+            Validate(entity);
+            return _doctorFeedbackRepository.Create(entity);
         }
 
-        public DoctorFeedback Update(DoctorFeedback entity)
+        public void Update(DoctorFeedback entity)
         {
-            throw new NotImplementedException();
+            Validate(entity);
+            _doctorFeedbackRepository.Update(entity);
         }
 
         public void Delete(DoctorFeedback entity)
-        {
-            throw new NotImplementedException();
-        }
+            => _doctorFeedbackRepository.Delete(entity);
 
-        public IDoctorFeedbackRepository iDoctorFeedbackRepository;
 
     }
 }

@@ -12,16 +12,16 @@ namespace SIMS.Util
     {
         private string _name;
         private string _surname;
-        private DocTypeEnum _type;
+        private DoctorType _type;
 
-        public DoctorFilter(string name, string surname, DocTypeEnum type)
+        public DoctorFilter(string name, string surname, DoctorType type)
         {
             _name = name;
             _surname = surname;
             _type = type;
         }
 
-        public DocTypeEnum Type { get => _type; set => _type = value; }
+        public DoctorType Type { get => _type; set => _type = value; }
         public string Surname { get => _surname; set => _surname = value; }
         public string Name { get => _name; set => _name = value; }
     }

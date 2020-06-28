@@ -7,7 +7,7 @@ using System;
 
 namespace SIMS.Model.DoctorModel
 {
-    public enum DocTypeEnum
+    public enum DoctorType
     {
         UNDEFINED,
         FAMILYMEDICINE,

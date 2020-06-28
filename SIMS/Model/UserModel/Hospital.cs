@@ -215,6 +215,18 @@ namespace SIMS.Model.UserModel
         public void SetId(long id)
             => _id = id;
 
+        public override bool Equals(object obj)
+        {
+            var hospital = obj as Hospital;
+            return hospital != null &&
+                   _id == hospital._id;
+        }
+
+        public override int GetHashCode()
+        {
+            return 1969571243 + _id.GetHashCode();
+        }
+
         //Properties
         public string Name { get => _name; set => _name = value; }
 

@@ -47,6 +47,17 @@ namespace SIMS.Model.UserModel
             _email1 = email1;
             _email2 = email2;
         }
+      
+        public string FullName
+        {
+            get
+            {
+                if (_middleName.Equals(""))
+                    return _name + " " + _surname;
+                else
+                    return _name + " " + _middleName + " " + _surname;
+            }
+        }
 
         public string Uidn { get => _uidn; set => _uidn = value; }
         public string Name { get => _name; set => _name = value; }
@@ -59,16 +70,5 @@ namespace SIMS.Model.UserModel
         public string Email2 { get => _email2; set => _email2 = value; }
         public Address Address { get => _address; set => _address = value; }
         public Sex Sex { get => _sex; set => _sex = value; }
-        public string FullName
-        {
-            get
-            {
-                if (_middleName.Equals(""))
-                    return _name + " " + _surname;
-                else
-                    return _name + " " + _middleName + " " + _surname;
-            }
-        }
-
     }
 }

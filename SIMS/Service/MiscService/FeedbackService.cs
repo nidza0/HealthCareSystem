@@ -5,38 +5,63 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using SIMS.Exceptions;
 using SIMS.Model.UserModel;
 using SIMS.Repository.Abstract.MiscAbstractRepository;
+using SIMS.Repository.CSVFileRepository.MiscRepository;
 
 namespace SIMS.Service.MiscService
 {
     public class FeedbackService : IService<Feedback, long>
     {
-        public IFeedbackRepository iFeedbackRepository;
+        private FeedbackRepository _feedbackRepository;
+        private QuestionRepository _questionRepository;
+
+        public FeedbackService(FeedbackRepository feedbackRepository, QuestionRepository questionRepository)
+        {
+            _feedbackRepository = feedbackRepository;
+            _questionRepository = questionRepository;
+        }
 
         public Feedback Create(Feedback entity)
         {
-            throw new NotImplementedException();
+            Validate(entity);
+            return _feedbackRepository.Create(entity);
         }
 
         public void Delete(Feedback entity)
-        {
-            throw new NotImplementedException();
-        }
+            => _feedbackRepository.Delete(entity);
+
+        public IEnumerable<Question> GetQuestions()
+            => _questionRepository.GetAll();
+
+        public Feedback GetByUser(User user)
+            => _feedbackRepository.GetAllEager().FirstOrDefault(f => f.User.Equals(user));
 
         public IEnumerable<Feedback> GetAll()
-        {
-            throw new NotImplementedException();
-        }
+            => _feedbackRepository.GetAllEager();
 
         public Feedback GetByID(long id)
+            => _feedbackRepository.GetEager(id);
+
+        public void Update(Feedback entity)
         {
-            throw new NotImplementedException();
+            Validate(entity);
+            _feedbackRepository.Update(entity);
         }
 
-        public Feedback Update(Feedback entity)
+        public void Validate(Feedback entity)
         {
-            throw new NotImplementedException();
+            if (entity.User == null)
+            {
+                throw new FeedbackServiceException("User is null!");
+            }
+
+            if (entity.Rating == null)
+            {
+                throw new FeedbackServiceException("Feedback is empty!");
+            }
         }
     }
 }

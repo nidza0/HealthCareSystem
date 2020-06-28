@@ -31,7 +31,7 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.HospitalManagementConv
         }
 
         public string ConvertEntityToCSV(StatsRoom entity)
-            => string.Join(
+            => string.Join(_delimiter,
                 entity.GetId().ToString(),
                 entity.Usage.ToString(),
                 entity.TimeOccupied.ToString(),

@@ -65,6 +65,8 @@ namespace SIMS.Model.UserModel
             return Code == otherId.Code && Number == otherId.Number;
         }
 
+
+
         public UserID increment()
         {
             _number++;
@@ -81,6 +83,11 @@ namespace SIMS.Model.UserModel
                 case 's': return UserType.SECRETARY;
                 default: throw new InvalidUserIdException(this.ToString());
             }
+        }
+
+        public override int GetHashCode()
+        {
+            return 999769 * _code.GetHashCode() + _number.GetHashCode();
         }
     }
 }

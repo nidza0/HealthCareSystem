@@ -5,54 +5,60 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
+
+using System.Xml;
+
+using SIMS.Exceptions;
+
 using SIMS.Model.UserModel;
 using SIMS.Repository.Abstract.MiscAbstractRepository;
+using SIMS.Repository.CSVFileRepository.MiscRepository;
 
 namespace SIMS.Service.MiscService
 {
     public class ArticleService : IService<Article, long>
     {
-        protected void CheckEditingPermission(Article article, Employee employee)
+
+        private ArticleRepository _articleRepository;
+
+        public ArticleService(ArticleRepository articleRepository)
         {
-            throw new NotImplementedException();
+            _articleRepository = articleRepository;
         }
 
         public IEnumerable<Article> GetArticleByAuthor(Employee author)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void ValidateArticle(Article article)
-        {
-            throw new NotImplementedException();
-        }
+            => _articleRepository.GetArticleByAuthor(author);
 
         public IEnumerable<Article> GetAll()
-        {
-            throw new NotImplementedException();
-        }
+            => _articleRepository.GetAllEager();
 
         public Article GetByID(long id)
-        {
-            throw new NotImplementedException();
-        }
+            => GetAll().SingleOrDefault(article => article.GetId() == id);
 
         public Article Create(Article entity)
         {
-            throw new NotImplementedException();
+            Validate(entity);
+            return _articleRepository.Create(entity);
         }
 
-        public Article Update(Article entity)
+
+        public void Update(Article entity)
         {
-            throw new NotImplementedException();
+            Validate(entity);
+            _articleRepository.Update(entity);
         }
 
         public void Delete(Article entity)
+            => _articleRepository.Delete(entity);
+
+        public void Validate(Article entity)
         {
-            throw new NotImplementedException();
+
+            if (entity.Author == null)
+            {
+                throw new ArticleServiceException("Author is not set!");
+            }
         }
-
-        public IArticleRepository iArticleRepository;
-
     }
 }

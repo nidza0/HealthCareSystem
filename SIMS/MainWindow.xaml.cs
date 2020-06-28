@@ -16,6 +16,10 @@ using SIMS.Repository.CSVFileRepository.HospitalManagementRepository;
 using SIMS.Util;
 using SIMS.Repository.CSVFileRepository.Csv.Converter.UsersConverter;
 using SIMS.Repository.CSVFileRepository.Csv.Converter.MiscConverter;
+using System.Windows.Controls;
+using SIMS.Service.UsersService;
+using SIMS.Service.MedicalService;
+using SIMS.Controller.MedicalController;
 
 namespace SIMS
 {
@@ -325,7 +329,275 @@ namespace SIMS
             //QuestionRepoTest();
             //FeedbackTest();
             //HospitalRepoTest();
-            DateTimeTest();
+            //DateTimeTest();
+            //SymptomRepoTest();
+            //IngredientRepoTest();
+            //DiseaseMedicineRepoTest();
+
+            //PrescriptionRepoTest();
+            //AllergyRepoTest();
+
+            //testDocStats();
+            //testInventoryStats();
+            //testRoomStats();
+
+            //AppointmentNotificationSenderTest();
+        }
+
+        private void AppointmentNotificationSenderTest()
+        {
+            AppointmentNotificationSender sender = AppResources.getInstance().appointmentNotificationSender;
+            AppointmentController controller = AppResources.getInstance().appointmentController;
+
+            Appointment app = controller.GetByID(2);
+            Appointment app2 = controller.GetByID(1);
+            
+            sender.SendCreateNotification(app);
+            sender.SendUpdateNotification(app, app2);
+            sender.SendCancelNotification(app);
+
+            var notifications = AppResources.getInstance().notificationController.GetNotificationByUser(new User(new UserID("p1")));
+
+            notifications.Select(n => n.Text).ToList().ForEach(Console.WriteLine);
+        }
+
+        private void testRoomStats()
+        {
+            RoomStatisticsRepository rsr = AppResources.getInstance().roomStatisticRepository;
+            var room = AppResources.getInstance().roomRepository.GetAll().ToList()[0];
+
+            //var temp = new StatsRoom(100, 50, 15, room);
+            //var created = rsr.Create(temp);
+            var temp = rsr.GetAllEager().ToList()[0];
+
+            temp.AvgAppointmentTime = 100;
+            rsr.Update(temp);
+
+            rsr.Delete(temp);
+
+            Console.WriteLine(temp);
+        }
+
+        private void testDocStats()
+        {
+            Address address = new Address("koste sokice 3", new Location(22, "Srbija", "Novi Sad"));
+            Doctor doctor = new Doctor(new UserID("D123"), "pera", "pera123", DateTime.Now, "Pera", "Vunic", "Puck", Sex.MALE, DateTime.Now, "12345667", address, "555-333", "06130959858", "pera@gmail.com", "pera111@gmail.com", new TimeTable(new Dictionary<WorkingDaysEnum, Util.TimeInterval>()), new Hospital("test", address, "555-333", "zzzz"), new Room(1), DoctorType.CARDIOLOGIST);
+            DoctorStatisticRepository dsr = AppResources.getInstance().doctorStatisticRepository;
+
+            //StatsDoctor temp = new StatsDoctor(111, 15, "15 minutes", doctor);
+            //dsr.Create(temp);
+            var AllStats = dsr.GetAllEager();
+            StatsDoctor temp = AllStats.ToList()[0];
+
+            temp.NumberOfAppointments = 20;
+            temp.AvgAppointmentTime = "20 minutes";
+            dsr.Update(temp);
+            dsr.Delete(temp);
+            Console.WriteLine(AllStats);
+        }
+
+        private void testInventoryStats()
+        {
+            InventoryStatisticsRepository isr = AppResources.getInstance().inventoryStatisticRepository;
+            var AllStats = isr.GetAllEager();
+            Medicine medicine1 = AppResources.getInstance().medicineRepository.GetAllEager().ToList()[0];
+            var iir = AppResources.getInstance().inventoryItemRepository;
+            iir.Create(new InventoryItem("Papir", 5, 1, new Room(5)));
+            InventoryItem ii1 = iir.GetAllEager().ToList()[0];
+
+
+            StatsInventory temp = new StatsInventory(50, medicine1, ii1);
+            //isr.Create(temp);
+            var temp1 = AllStats.ToList()[0];
+            temp.Usage = 100;
+
+            isr.Update(temp1);
+
+            var updated = isr.GetAllEager().ToList()[0];
+
+            Console.WriteLine(updated);
+        }
+
+        private void AllergyRepoTest()
+        {
+            AllergyRepository allergyRepository = AppResources.getInstance().allergyRepository;
+            SymptomRepository symptomRepository = AppResources.getInstance().symptomRepository;
+            IngredientRepository ingredientRepository = AppResources.getInstance().ingredientRepository;
+
+            Ingredient ingredient1 = ingredientRepository.Create(new Ingredient("Koka"));
+            Ingredient ingredient2 = ingredientRepository.Create(new Ingredient("Amphetamine"));
+            Ingredient ingredient3 = ingredientRepository.Create(new Ingredient("Lavanda"));
+
+            Symptom symptom1 = symptomRepository.Create(new Symptom("Simptom 1", "Opis 1 simptoma"));
+            Symptom symptom2 = symptomRepository.Create(new Symptom("Simptom 2", "Opis 2 simptoma"));
+            Symptom symptom3 = symptomRepository.Create(new Symptom("Simptom 3", "Opis 3 simptoma"));
+
+            List<Symptom> symptomList1 = new List<Symptom>();
+            List<Symptom> symptomList2 = new List<Symptom>();
+            List<Symptom> symptomList3 = new List<Symptom>();
+
+
+            symptomList2.Add(symptom1);
+            symptomList2.Add(symptom2);
+
+            symptomList3.Add(symptom1);
+            symptomList3.Add(symptom2);
+            symptomList3.Add(symptom3);
+
+
+
+            Allergy allergy1 = allergyRepository.Create(new Allergy("Alergija 1", ingredient1, symptomList1));
+            Allergy allergy2 = allergyRepository.Create(new Allergy("Alergija 2", ingredient2, symptomList2));
+            Allergy allergy3 = allergyRepository.Create(new Allergy("Alergija 3", ingredient3, symptomList3));
+
+
+            allergy1.Name = "TEST ALLERGY";
+
+            allergyRepository.Update(allergy1);
+
+            Allergy temp = allergyRepository.GetByID(1);
+
+            Console.WriteLine(temp.Name);
+
+
+        }
+
+        private void PrescriptionRepoTest()
+        {
+            PrescriptionRepository prescriptionRepository = AppResources.getInstance().prescriptionRepository;
+            Dictionary<Medicine, TherapyDose> medicine = new Dictionary<Medicine, TherapyDose>();
+            Dictionary<TherapyTime, double> dosage1 = new Dictionary<TherapyTime, double>();
+            dosage1.Add(TherapyTime.Afternoon, 7);
+            dosage1.Add(TherapyTime.BeforeBed, 3);
+            dosage1.Add(TherapyTime.WhenIWakeUp, 2);
+            Medicine test1 = new Medicine(75);
+            medicine.Add(test1, new TherapyDose(dosage1));
+
+            Dictionary<TherapyTime, double> dosage2 = new Dictionary<TherapyTime, double>();
+            dosage2.Add(TherapyTime.AsNeeded, 1);
+            dosage2.Add(TherapyTime.BeforeBed, 2);
+            dosage2.Add(TherapyTime.Afternoon, 6);
+            Medicine test2 = new Medicine(54);
+            medicine.Add(test2, new TherapyDose(dosage2));
+
+            Dictionary<TherapyTime, double> dosage3 = new Dictionary<TherapyTime, double>();
+            dosage3.Add(TherapyTime.AsNeeded, 9);
+            dosage3.Add(TherapyTime.Evening, 5);
+            dosage3.Add(TherapyTime.BeforeBed, 3);
+            medicine.Add(new Medicine(23), new TherapyDose(dosage3));
+
+            Prescription p = new Prescription(PrescriptionStatus.ACTIVE, new Doctor(new UserID("d78")), medicine);
+            Prescription p1 = new Prescription(PrescriptionStatus.ACTIVE, new Doctor(new UserID("d65")), medicine);
+
+            p = prescriptionRepository.Create(p);
+            p1 = prescriptionRepository.Create(p1);
+
+            p.Medicine.Remove(test2);
+
+            //A p1-u cemo da promenimo dosage da se uzima i as needed
+            TherapyDose newTherapy = p1.Medicine[test1];
+            newTherapy.Dosage.Add(TherapyTime.AsNeeded, 555);
+            p1.Medicine.Remove(test1);
+            p1.Medicine.Add(test1, newTherapy);
+
+            prescriptionRepository.Update(p1);
+            prescriptionRepository.Update(p);
+
+
+
+
+
+        }
+
+        private void DiseaseMedicineRepoTest()
+        {
+            SymptomRepository symptomRepository = AppResources.getInstance().symptomRepository;
+            DiseaseRepository diseaseRepository = AppResources.getInstance().diseaseRepository;
+            MedicineRepository medicineRepository = AppResources.getInstance().medicineRepository;
+
+            Symptom symptom1 = symptomRepository.Create(new Symptom("Bol u vratu", "Jak bol u prednjem delu vrata"));
+            Symptom symptom2 = symptomRepository.Create(new Symptom("bol u uvetu", "Jak bol u srednjem uvetu"));
+            List<Symptom> symptomList = new List<Symptom>();
+            symptomList.Add(symptom1);
+            symptomList.Add(symptom2);
+
+
+            Medicine medicine1 = medicineRepository.Create(new Medicine("Oljaprofen", 10000, MedicineType.PILL, 5, 7));
+            Medicine medicine2 = medicineRepository.Create(new Medicine("Zetaprofen", 1200, MedicineType.LIQUID, 5, 7));
+            Disease disease = new Disease("Hashimoto's disease", "Bolest stitne zlezde", true, new DiseaseType(false, true, "teska boles'"), symptomList);
+            Disease disease1 = new Disease("Tumor", "Bolest glave", true, new DiseaseType(false, true, "teska boles'"), symptomList);
+
+            disease = diseaseRepository.Create(disease);
+            disease1 = diseaseRepository.Create(disease1);
+
+            disease.AdministratedFor.Add(medicine1);
+            medicine1.UsedFor.Add(disease);
+            disease.AdministratedFor.Add(medicine2);
+            medicine2.UsedFor.Add(disease);
+
+            medicineRepository.Update(medicine1);
+            medicineRepository.Update(medicine2);
+
+            diseaseRepository.Update(disease);
+
+
+
+        }
+
+
+        private void IngredientRepoTest()
+        {
+            IngredientRepository ingredientRepository = AppResources.getInstance().ingredientRepository;
+            Ingredient ingredient1 = new Ingredient("Koka");
+            Ingredient ingredient2 = new Ingredient("Amphetamine");
+            Ingredient ingredient3 = new Ingredient("Lavanda");
+            ingredientRepository.Create(ingredient1);
+            ingredientRepository.Create(ingredient2);
+            ingredientRepository.Create(ingredient3);
+
+            Ingredient test1 = ingredientRepository.GetByID(1);
+            Ingredient test2 = ingredientRepository.GetByID(2);
+            Ingredient test3 = ingredientRepository.GetByID(3);
+
+            Console.WriteLine(test1.Id + test1.Name);
+            Console.WriteLine(test2.Id + test2.Name);
+            Console.WriteLine(test3.Id + test3.Name);
+
+            ingredientRepository.Delete(test1);
+            ingredientRepository.Delete(test2);
+        }
+
+        private void SymptomRepoTest()
+        {
+            SymptomRepository symptomRepository = AppResources.getInstance().symptomRepository;
+            Symptom symptom1 = new Symptom("Simptom 1", "Opis 1 simptoma");
+            Symptom symptom2 = new Symptom("Simptom 2", "Opis 2 simptoma");
+            Symptom symptom3 = new Symptom("Simptom 3", "Opis 3 simptoma");
+
+            symptomRepository.Create(symptom1);
+            symptomRepository.Create(symptom2);
+            symptomRepository.Create(symptom3);
+
+
+            Symptom test1 = symptomRepository.GetByID(1);
+            Symptom test2 = symptomRepository.GetByID(2);
+            Symptom test3 = symptomRepository.GetByID(3);
+            Symptom test4 = symptomRepository.GetByID(4);
+
+            Console.WriteLine(test1.GetId() + " " + test1.Name + " " + test1.ShortDescription);
+            Console.WriteLine(test2.GetId() + " " + test2.Name + " " + test2.ShortDescription);
+            Console.WriteLine(test3.GetId() + " " + test3.Name + " " + test3.ShortDescription);
+
+            if(test4 == null)
+            {
+                Console.WriteLine("Test 4 je null, nije pronadjen sa tim ID-om!");
+            }
+
+            symptomRepository.Delete(test1);
+            symptomRepository.Delete(test2);
+            symptomRepository.Delete(test3);
+
+            symptomRepository.Create(symptom1);
         }
 
         private void DateTimeTest()
@@ -656,7 +928,7 @@ namespace SIMS
 
             res.appointmentRepository.GetAllEager();
 
-            AppointmentFilter filter = new AppointmentFilter(res.doctorRepository.GetByID(new UserID("d1")), DocTypeEnum.UNDEFINED, null, AppointmentType.checkup);
+            AppointmentFilter filter = new AppointmentFilter(res.doctorRepository.GetByID(new UserID("d1")), DoctorType.UNDEFINED, null, AppointmentType.checkup);
             res.appointmentRepository.GetFilteredAppointment(filter);
 
         }
@@ -709,67 +981,67 @@ namespace SIMS
         {
             AppResources res = AppResources.getInstance();
 
-            Doctor d1 = new Doctor("drstrange", "VVVVV", "Stephen", "Strange", "Doctor", Sex.MALE, DateTime.Now, "4578457854", null, "0081747474", "", "drstrange@marvel.com", "stephen.strange@marvel.com", null, null, null, DocTypeEnum.SURGEON);
-            Doctor d2 = new Doctor("p.kon", "", "Predrag", "Kon", "", Sex.MALE, DateTime.Now, "113543545488", null, "0118754786", "", "dr.kon@zdrav.gov.rs", "", null, null, null, DocTypeEnum.INFECTOLOGIST);
-            Doctor d3 = new Doctor("darija", "", "Darija", "Kisic", "", Sex.FEMALE, DateTime.Now, "251812065115", null, "0118798449", "", "darija.kk@gmail.com", "", null, null, null, DocTypeEnum.INFECTOLOGIST);
-            Doctor d4 = new Doctor("doktorr", "", "OKurrr", "Kisic", "", Sex.FEMALE, DateTime.Now, "251812065115", null, "0118798449", "", "darija.kk@gmail.com", "", null, null, null, DocTypeEnum.INFECTOLOGIST);
+            Doctor d1 = new Doctor("drstrange", "VVVVV", "Stephen", "Strange", "Doctor", Sex.MALE, DateTime.Now, "4578457854", null, "0081747474", "", "drstrange@marvel.com", "stephen.strange@marvel.com", null, null, null, DoctorType.SURGEON);
+            Doctor d2 = new Doctor("p.kon", "", "Predrag", "Kon", "", Sex.MALE, DateTime.Now, "113543545488", null, "0118754786", "", "dr.kon@zdrav.gov.rs", "", null, null, null, DoctorType.INFECTOLOGIST);
+            Doctor d3 = new Doctor("darija", "", "Darija", "Kisic", "", Sex.FEMALE, DateTime.Now, "251812065115", null, "0118798449", "", "darija.kk@gmail.com", "", null, null, null, DoctorType.INFECTOLOGIST);
+            Doctor d4 = new Doctor("doktorr", "", "OKurrr", "Kisic", "", Sex.FEMALE, DateTime.Now, "251812065115", null, "0118798449", "", "darija.kk@gmail.com", "", null, null, null, DoctorType.INFECTOLOGIST);
 
             //res.doctorRepository.Create(d1);
             //res.doctorRepository.Create(d2);
             //res.doctorRepository.Create(d3);
             //res.doctorRepository.Create(d4);
             
-            IEnumerable<Doctor> docs = res.doctorRepository.GetDoctorByType(DocTypeEnum.CARDIOLOGIST);
+            IEnumerable<Doctor> docs = res.doctorRepository.GetDoctorByType(DoctorType.CARDIOLOGIST);
             Console.WriteLine("ByType(CARDIOLOGIST): " + (docs.ToList().Count == 0));
 
-            IEnumerable<Doctor> docs2 = res.doctorRepository.GetDoctorByType(DocTypeEnum.INFECTOLOGIST);
+            IEnumerable<Doctor> docs2 = res.doctorRepository.GetDoctorByType(DoctorType.INFECTOLOGIST);
             foreach(Doctor doc in docs2)
             {
-                Console.WriteLine(doc.Name + " " + doc.Surname + " " + doc.DocTypeEnum);
+                Console.WriteLine(doc.Name + " " + doc.Surname + " " + doc.DoctorType);
             }
 
 
             Console.WriteLine("Doctor Filter");
 
-            DoctorFilter filter1 = new DoctorFilter("Stephen", null, DocTypeEnum.UNDEFINED);
+            DoctorFilter filter1 = new DoctorFilter("Stephen", null, DoctorType.UNDEFINED);
             Console.WriteLine("Only Stephen");
             IEnumerable<Doctor> filtered1 = res.doctorRepository.GetFilteredDoctors(filter1);
             foreach (Doctor doc in filtered1)
             {
-                Console.WriteLine(doc.Name + " " + doc.Surname + " " + doc.DocTypeEnum);
+                Console.WriteLine(doc.Name + " " + doc.Surname + " " + doc.DoctorType);
             }
 
-            DoctorFilter filter2 = new DoctorFilter("", null, DocTypeEnum.INFECTOLOGIST);
+            DoctorFilter filter2 = new DoctorFilter("", null, DoctorType.INFECTOLOGIST);
             Console.WriteLine("Only infectologists");
             IEnumerable<Doctor> filtered2 = res.doctorRepository.GetFilteredDoctors(filter2);
             foreach (Doctor doc in filtered2)
             {
-                Console.WriteLine(doc.Name + " " + doc.Surname + " " + doc.DocTypeEnum);
+                Console.WriteLine(doc.Name + " " + doc.Surname + " " + doc.DoctorType);
             }
 
-            DoctorFilter filter3 = new DoctorFilter("", "Kisic", DocTypeEnum.INFECTOLOGIST);
+            DoctorFilter filter3 = new DoctorFilter("", "Kisic", DoctorType.INFECTOLOGIST);
             Console.WriteLine("Only Kisic Infectologist");
             IEnumerable<Doctor> filtered3 = res.doctorRepository.GetFilteredDoctors(filter3);
             foreach (Doctor doc in filtered3)
             {
-                Console.WriteLine(doc.Name + " " + doc.Surname + " " + doc.DocTypeEnum);
+                Console.WriteLine(doc.Name + " " + doc.Surname + " " + doc.DoctorType);
             }
 
-            DoctorFilter filter4 = new DoctorFilter("Predrag", "Kon", DocTypeEnum.INFECTOLOGIST);
+            DoctorFilter filter4 = new DoctorFilter("Predrag", "Kon", DoctorType.INFECTOLOGIST);
             Console.WriteLine("Only Predrag Kon");
             IEnumerable<Doctor> filtered4 = res.doctorRepository.GetFilteredDoctors(filter4);
             foreach (Doctor doc in filtered4)
             {
-                Console.WriteLine(doc.Name + " " + doc.Surname + " " + doc.DocTypeEnum);
+                Console.WriteLine(doc.Name + " " + doc.Surname + " " + doc.DoctorType);
             }
 
-            DoctorFilter filter5 = new DoctorFilter("Predrag", "Kon", DocTypeEnum.DERMATOLOGIST);
+            DoctorFilter filter5 = new DoctorFilter("Predrag", "Kon", DoctorType.DERMATOLOGIST);
             Console.WriteLine("Empty");
             IEnumerable<Doctor> filtered5 = res.doctorRepository.GetFilteredDoctors(filter5);
             Console.WriteLine(filtered5.Count() == 0);
             foreach (Doctor doc in filtered5)
             {
-                Console.WriteLine(doc.Name + " " + doc.Surname + " " + doc.DocTypeEnum);
+                Console.WriteLine(doc.Name + " " + doc.Surname + " " + doc.DoctorType);
             }
 
             filtered4.ToList()[0].TimeTable = res.timeTableRepository.GetByID(1);
