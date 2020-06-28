@@ -22,10 +22,13 @@ namespace SIMS.View.ViewManager
     /// </summary>
     public partial class MedicineLowStock : Page
     {
+        private AppResources appResources;
+
         public MedicineLowStock()
         {
             InitializeComponent();
-        
+
+            appResources = AppResources.getInstance();
             InventoryDataGrid.ItemsSource = initializeList();
         }
 
@@ -72,7 +75,7 @@ namespace SIMS.View.ViewManager
     {
         ObservableCollection<Medicine> retVal = new ObservableCollection<Medicine>();
 
-        foreach (Medicine med in Login.medicines)
+        foreach (Medicine med in appResources.medicineController.GetAll())
         {
             if (med.InStock <= med.MinNumber * 1.2 && med.IsValid == true)
                 retVal.Add(med);

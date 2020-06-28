@@ -22,9 +22,13 @@ namespace SIMS.View.ViewManager
     /// </summary>
     public partial class InventoryLowStock : Page
     {
+        private AppResources appResources;
+
         public InventoryLowStock()
         {
             InitializeComponent();
+
+            appResources = AppResources.getInstance();
 
             InventoryDataGrid.ItemsSource = initializeList();
         }
@@ -66,7 +70,7 @@ namespace SIMS.View.ViewManager
         {
             ObservableCollection<InventoryItem> retVal = new ObservableCollection<InventoryItem>();
 
-            foreach(InventoryItem item in Login.items)
+            foreach(InventoryItem item in appResources.inventoryController.GetInventoryItems())
             {
                 if (item.InStock <= item.MinNumber * 1.2)
                     retVal.Add(item);

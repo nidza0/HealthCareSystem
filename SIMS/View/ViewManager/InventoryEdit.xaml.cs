@@ -1,5 +1,6 @@
 ﻿using SIMS.Model.ManagerModel;
 using SIMS.Model.UserModel;
+using SIMS.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,10 @@ namespace SIMS.View.ViewManager
         private bool MinInput =false;
 
         private InventoryItem editedItem;
+        private AppResources appResources;
+
+
+
         public InventoryEdit(InventoryItem item)
         {
             InitializeComponent();
@@ -36,10 +41,13 @@ namespace SIMS.View.ViewManager
 
             nameInput.Text = item.Name;
             inStockInput.Text = item.InStock.ToString();
+            appResources = AppResources.getInstance();
             minInput.Text = item.MinNumber.ToString();
             initCombo();
 
             editedItem = item;
+
+            
         }
 
         private void nameInput_LostFocus(object sender, RoutedEventArgs e)
@@ -59,9 +67,9 @@ namespace SIMS.View.ViewManager
 
         private void initCombo()
         {
-            foreach (Room room in Login.rooms)
+            foreach (Room room in appResources.roomController.GetAll())
             {
-                roomCombo.Items.Add(room.GetId());
+                roomCombo.Items.Add(room.RoomNumber);
             }
             roomCombo.SelectedIndex = 0;
         }
@@ -101,7 +109,7 @@ namespace SIMS.View.ViewManager
 
         private bool verifyName(String name)
         {
-            if (!Regex.Match(name, "^[0-9 a-zA-Z]*$").Success)
+            if (!Regex.Match(name, Regexes.nameRegex).Success)
                 return true;
             return false;
         }
@@ -126,17 +134,9 @@ namespace SIMS.View.ViewManager
             editedItem.Name = nameInput.Text;
             editedItem.InStock = int.Parse(inStockInput.Text);
             editedItem.MinNumber = int.Parse(minInput.Text);
-            editedItem.Room = Login.rooms[roomCombo.SelectedIndex];
+            editedItem.Room = appResources.roomController.GetRoomByName(roomCombo.SelectedItem.ToString());
 
-            foreach(InventoryItem item in Login.items)
-            {
-                if(editedItem.Equals(item))
-                {
-                    Login.items.Remove(item);
-                    Login.items.Add(editedItem);
-                    break;
-                }
-            }
+            appResources.inventoryItemRepository.Update(editedItem);
 
             NavigationService.Navigate(new InventoryOverviewPage());
         }

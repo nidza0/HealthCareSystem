@@ -27,6 +27,8 @@ namespace SIMS.View.ViewManager
         private bool MinInput = false;
         private bool snaga = false;
 
+        private AppResources appResources;
+
         private static int id = 2;
 
         private Medicine editedMedicine;
@@ -35,15 +37,17 @@ namespace SIMS.View.ViewManager
         {
             InitializeComponent();
 
+            appResources = AppResources.getInstance();
+      
             initCombo();
-
 
             nameInput.Text = med.Name;
             weightInput.Text = med.Strength.ToString();
             minInput.Text = med.MinNumber.ToString();
             inStockInput.Text = med.InStock.ToString();
 
-            editedMedicine = med;
+            editedMedicine = appResources.medicineController.GetByID(med.GetId());
+
         }
         private void nameInput_LostFocus(object sender, RoutedEventArgs e)
         {
@@ -168,15 +172,7 @@ namespace SIMS.View.ViewManager
             editedMedicine.MedicineType = medType;
             editedMedicine.Strength = double.Parse(weightInput.Text);
 
-            foreach (Medicine med in Login.medicines)
-            {
-                if (editedMedicine.Equals(med))
-                {
-                    Login.medicines.Remove(med);
-                    Login.medicines.Add(editedMedicine);
-                    break;
-                }
-            }
+            appResources.medicineController.Update(editedMedicine);
 
             NavigationService.Navigate(new MedicineOverviewPage());
         }
@@ -197,7 +193,7 @@ namespace SIMS.View.ViewManager
 
         private bool verifyDouble(String number)
         {
-            if (!Regex.Match(number, "^[1-9][0-9]*\\.[0-9]*$").Success)
+            if (!Regex.Match(number, "^[1-9][0-9]*$").Success)
                 return true;
             return false;
         }

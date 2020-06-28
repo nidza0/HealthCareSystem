@@ -26,12 +26,18 @@ namespace SIMS.Repository.CSVFileRepository.Csv.Converter.HospitalManagementConv
             List<Ingredient> dummyIngredient = (tokens[6] == "") ? new List<Ingredient>() : GetDummyIngredient(SplitStringByDelimiter(tokens[6], _listDelimiter));
             MedicineType medicineType = (MedicineType)Enum.Parse(typeof(MedicineType), tokens[3]); //Casting string to Enum.
 
+            bool isValid;
+            if (tokens[4].Equals("True"))
+                isValid = true;
+            else
+                isValid = false;
+
             return new Medicine(
                 long.Parse(tokens[0]),
                 tokens[1],
                 double.Parse(tokens[2]),
                 medicineType,
-                bool.Parse(tokens[4]),
+                isValid,
                 dummyDisease,
                 dummyIngredient,
                 int.Parse(tokens[7]),

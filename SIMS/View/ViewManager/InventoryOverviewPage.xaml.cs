@@ -21,11 +21,15 @@ namespace SIMS.View.ViewManager
     /// </summary>
     public partial class InventoryOverviewPage : Page
     {
+        private AppResources appResources;
+
         public InventoryOverviewPage()
         {
             InitializeComponent();
 
-            InventoryDataGrid.ItemsSource = Login.items;
+            appResources = AppResources.getInstance();
+
+            InventoryDataGrid.ItemsSource = appResources.inventoryController.GetInventoryItems();
         }
 
         private void InventoryDataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)

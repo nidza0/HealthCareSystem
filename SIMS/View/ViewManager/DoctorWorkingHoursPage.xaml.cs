@@ -24,11 +24,15 @@ namespace SIMS.View.ViewManager
     {
         private Doctor sDoc;
 
+        private AppResources appResources;
+
         public DoctorWorkingHoursPage(Doctor doc)
         {
             InitializeComponent();
-            sDoc = doc;
+            appResources = AppResources.getInstance();
+            sDoc = appResources.doctorController.GetByID(doc.GetId());
             initCombo(doc);
+            
             
         }
 
@@ -84,222 +88,246 @@ namespace SIMS.View.ViewManager
 
         private void initFirst(Doctor doc)
         {
-            TimeTable timeTable = doc.TimeTable;
-
-            TimeInterval pon = timeTable.WorkingHours[WorkingDaysEnum.MONDAY];
-            TimeInterval uto = timeTable.WorkingHours[WorkingDaysEnum.TUESDAY];
-            TimeInterval sre = timeTable.WorkingHours[WorkingDaysEnum.WEDNESDAY];
-            TimeInterval cet = timeTable.WorkingHours[WorkingDaysEnum.THURSDAY];
-            TimeInterval pet = timeTable.WorkingHours[WorkingDaysEnum.FRIDAY];
-            TimeInterval sub = timeTable.WorkingHours[WorkingDaysEnum.SATURDAY];
-            TimeInterval ned = timeTable.WorkingHours[WorkingDaysEnum.SUNDAY];
-
-            String ponBeg = pon.StartTime.Hour.ToString() + ":" + pon.StartTime.Minute.ToString();
-            if (pon.StartTime.Minute == 0)
-                ponBeg += "0";
-
-
-            //Ponedeljak
-            int iter = 0;
-            foreach (String vreme in ponOd.Items)
+            if(appResources.doctorController.GetByID(doc.GetId()).TimeTable == null)
             {
-                if (ponBeg.Equals(vreme))
-                {
-                    ponOd.SelectedIndex = iter;
-                }
-                iter++;
+                Dictionary<WorkingDaysEnum, Util.TimeInterval> dict = new Dictionary<WorkingDaysEnum, Util.TimeInterval>();
+                dict[0] = new Util.TimeInterval(new DateTime(1, 1, 1, 8, 0, 0), new DateTime(1, 1, 1, 16, 0, 0));
+                dict[WorkingDaysEnum.TUESDAY] = new Util.TimeInterval(new DateTime(1, 1, 1, 8, 0, 0), new DateTime(1, 1, 1, 16, 0, 0));
+                dict[WorkingDaysEnum.WEDNESDAY] = new Util.TimeInterval(new DateTime(1, 1, 1, 8, 0, 0), new DateTime(1, 1, 1, 16, 0, 0));
+                dict[WorkingDaysEnum.THURSDAY] = new Util.TimeInterval(new DateTime(1, 1, 1, 8, 0, 0), new DateTime(1, 1, 1, 16, 0, 0));
+                dict[WorkingDaysEnum.FRIDAY] = new Util.TimeInterval(new DateTime(1, 1, 1, 8, 0, 0), new DateTime(1, 1, 1, 16, 0, 0));
+                dict[WorkingDaysEnum.SATURDAY] = new Util.TimeInterval(new DateTime(1, 1, 1, 8, 0, 0), new DateTime(1, 1, 1, 8, 0, 0));
+                dict[WorkingDaysEnum.SUNDAY] = new Util.TimeInterval(new DateTime(1, 1, 1, 8, 0, 0), new DateTime(1, 1, 1, 8, 0, 0));
+
+                TimeTable timeTable = new TimeTable(dict);
+
+                appResources.timeTableRepository.Create(timeTable);
+                doc.TimeTable = appResources.timeTableRepository.GetByID(timeTable.GetId());
+                appResources.doctorController.Update(doc);
             }
 
-            String ponEnd = pon.EndTime.Hour.ToString() + ":" + pon.EndTime.Minute.ToString();
-            if (pon.EndTime.Minute == 0)
-                ponEnd += "0";
-
-
-            Console.WriteLine(ponEnd);
-
-            iter = 0;
-            foreach (String vreme in ponDo.Items)
+            if(doc.TimeTable!=null)
             {
-                if (ponEnd.Equals(vreme))
+                TimeTable timeTable = appResources.timeTableRepository.GetByID(doc.TimeTable.GetId());
+
+                Console.WriteLine(timeTable+"---");
+
+                TimeInterval pon = doc.TimeTable.WorkingHours[WorkingDaysEnum.MONDAY];
+                TimeInterval uto = doc.TimeTable.WorkingHours[WorkingDaysEnum.TUESDAY];
+                TimeInterval sre = doc.TimeTable.WorkingHours[WorkingDaysEnum.WEDNESDAY];
+                TimeInterval cet = doc.TimeTable.WorkingHours[WorkingDaysEnum.THURSDAY];
+                TimeInterval pet = doc.TimeTable.WorkingHours[WorkingDaysEnum.FRIDAY];
+                TimeInterval sub = doc.TimeTable.WorkingHours[WorkingDaysEnum.SATURDAY];
+                TimeInterval ned = doc.TimeTable.WorkingHours[WorkingDaysEnum.SUNDAY];
+
+                String ponBeg = pon.StartTime.Hour.ToString() + ":" + pon.StartTime.Minute.ToString();
+                if (pon.StartTime.Minute == 0)
+                    ponBeg += "0";
+
+
+                //Ponedeljak
+                int iter = 0;
+                foreach (String vreme in ponOd.Items)
                 {
-                    ponDo.SelectedIndex = iter;
+                    if (ponBeg.Equals(vreme))
+                    {
+                        ponOd.SelectedIndex = iter;
+                    }
+                    iter++;
                 }
-                iter++;
+
+                String ponEnd = pon.EndTime.Hour.ToString() + ":" + pon.EndTime.Minute.ToString();
+                if (pon.EndTime.Minute == 0)
+                    ponEnd += "0";
+
+
+                Console.WriteLine(ponEnd);
+
+                iter = 0;
+                foreach (String vreme in ponDo.Items)
+                {
+                    if (ponEnd.Equals(vreme))
+                    {
+                        ponDo.SelectedIndex = iter;
+                    }
+                    iter++;
+                }
+
+                //utorak
+                String utoBeg = uto.StartTime.Hour.ToString() + ":" + uto.StartTime.Minute.ToString();
+                if (uto.StartTime.Minute == 0)
+                    utoBeg += "0";
+
+                iter = 0;
+                foreach (String vreme in utoOd.Items)
+                {
+                    if (utoBeg.Equals(vreme))
+                    {
+                        utoOd.SelectedIndex = iter;
+                    }
+                    iter++;
+                }
+
+                String utoEnd = uto.EndTime.Hour.ToString() + ":" + uto.EndTime.Minute.ToString();
+                if (uto.EndTime.Minute == 0)
+                    utoEnd += "0";
+
+                iter = 0;
+                foreach (String vreme in utoDo.Items)
+                {
+                    if (utoEnd.Equals(vreme))
+                    {
+                        utoDo.SelectedIndex = iter;
+                    }
+                    iter++;
+                }
+
+                //sreda
+                String sreBeg = sre.StartTime.Hour.ToString() + ":" + sre.StartTime.Minute.ToString();
+                if (sre.StartTime.Minute == 0)
+                    sreBeg += "0";
+
+                iter = 0;
+                foreach (String vreme in sreOd.Items)
+                {
+                    if (sreBeg.Equals(vreme))
+                    {
+                        sreOd.SelectedIndex = iter;
+                    }
+                    iter++;
+                }
+
+                String sreEnd = sre.EndTime.Hour.ToString() + ":" + sre.EndTime.Minute.ToString();
+                if (sre.EndTime.Minute == 0)
+                    sreEnd += "0";
+
+                iter = 0;
+                foreach (String vreme in sreDo.Items)
+                {
+                    if (sreEnd.Equals(vreme))
+                    {
+                        sreDo.SelectedIndex = iter;
+                    }
+                    iter++;
+                }
+
+                //cetvrtak
+                String cetBeg = cet.StartTime.Hour.ToString() + ":" + cet.StartTime.Minute.ToString();
+                if (cet.StartTime.Minute == 0)
+                    cetBeg += "0";
+
+                iter = 0;
+                foreach (String vreme in cetOd.Items)
+                {
+                    if (cetBeg.Equals(vreme))
+                    {
+                        cetOd.SelectedIndex = iter;
+                    }
+                    iter++;
+                }
+
+                String cetEnd = cet.EndTime.Hour.ToString() + ":" + cet.EndTime.Minute.ToString();
+                if (cet.EndTime.Minute == 0)
+                    cetEnd += "0";
+
+                iter = 0;
+                foreach (String vreme in cetDo.Items)
+                {
+                    if (cetEnd.Equals(vreme))
+                    {
+                        cetDo.SelectedIndex = iter;
+                    }
+                    iter++;
+                }
+
+                //petak
+                String petBeg = pet.StartTime.Hour.ToString() + ":" + pet.StartTime.Minute.ToString();
+                if (pet.StartTime.Minute == 0)
+                    petBeg += "0";
+
+                iter = 0;
+                foreach (String vreme in petOd.Items)
+                {
+                    if (petBeg.Equals(vreme))
+                    {
+                        petOd.SelectedIndex = iter;
+                    }
+                    iter++;
+                }
+
+                String petEnd = pet.EndTime.Hour.ToString() + ":" + pet.EndTime.Minute.ToString();
+                if (pet.EndTime.Minute == 0)
+                    petEnd += "0";
+
+                iter = 0;
+                foreach (String vreme in petDo.Items)
+                {
+                    if (petEnd.Equals(vreme))
+                    {
+                        petDo.SelectedIndex = iter;
+                    }
+                    iter++;
+                }
+
+                //subota
+                String subBeg = sub.StartTime.Hour.ToString() + ":" + sub.StartTime.Minute.ToString();
+                if (sub.StartTime.Minute == 0)
+                    subBeg += "0";
+
+                iter = 0;
+                foreach (String vreme in subOd.Items)
+                {
+                    if (subBeg.Equals(vreme))
+                    {
+                        subOd.SelectedIndex = iter;
+                    }
+                    iter++;
+                }
+
+                String subEnd = sub.EndTime.Hour.ToString() + ":" + sub.EndTime.Minute.ToString();
+                if (sub.EndTime.Minute == 0)
+                    subEnd += "0";
+
+                iter = 0;
+                foreach (String vreme in subDo.Items)
+                {
+                    if (subEnd.Equals(vreme))
+                    {
+                        subDo.SelectedIndex = iter;
+                    }
+                    iter++;
+                }
+
+                //nedelja
+                String nedBeg = ned.StartTime.Hour.ToString() + ":" + ned.StartTime.Minute.ToString();
+                if (ned.StartTime.Minute == 0)
+                    nedBeg += "0";
+
+                iter = 0;
+                foreach (String vreme in nedOd.Items)
+                {
+                    if (nedBeg.Equals(vreme))
+                    {
+                        nedOd.SelectedIndex = iter;
+                    }
+                    iter++;
+                }
+
+                String nedEnd = ned.EndTime.Hour.ToString() + ":" + ned.EndTime.Minute.ToString();
+                if (ned.EndTime.Minute == 0)
+                    nedEnd += "0";
+
+                iter = 0;
+                foreach (String vreme in nedDo.Items)
+                {
+                    if (nedEnd.Equals(vreme))
+                    {
+                        nedDo.SelectedIndex = iter;
+                    }
+                    iter++;
+                }
             }
             
-            //utorak
-            String utoBeg = uto.StartTime.Hour.ToString() + ":" + uto.StartTime.Minute.ToString();
-            if (uto.StartTime.Minute == 0)
-                utoBeg += "0";
-
-            iter = 0;
-            foreach (String vreme in utoOd.Items)
-            {
-                if (utoBeg.Equals(vreme))
-                {
-                    utoOd.SelectedIndex = iter;
-                }
-                iter++;
-            }
-
-            String utoEnd = uto.EndTime.Hour.ToString() + ":" + uto.EndTime.Minute.ToString();
-            if (uto.EndTime.Minute == 0)
-                utoEnd += "0";
-
-            iter = 0;
-            foreach (String vreme in utoDo.Items)
-            {
-                if (utoEnd.Equals(vreme))
-                {
-                    utoDo.SelectedIndex = iter;
-                }
-                iter++;
-            }
-
-            //sreda
-            String sreBeg = sre.StartTime.Hour.ToString() + ":" + sre.StartTime.Minute.ToString();
-            if (sre.StartTime.Minute == 0)
-                sreBeg += "0";
-
-            iter = 0;
-            foreach (String vreme in sreOd.Items)
-            {
-                if (sreBeg.Equals(vreme))
-                {
-                    sreOd.SelectedIndex = iter;
-                }
-                iter++;
-            }
-
-            String sreEnd = sre.EndTime.Hour.ToString() + ":" + sre.EndTime.Minute.ToString();
-            if (sre.EndTime.Minute == 0)
-                sreEnd += "0";
-
-            iter = 0;
-            foreach (String vreme in sreDo.Items)
-            {
-                if (sreEnd.Equals(vreme))
-                {
-                    sreDo.SelectedIndex = iter;
-                }
-                iter++;
-            }
-
-            //cetvrtak
-            String cetBeg = cet.StartTime.Hour.ToString() + ":" + cet.StartTime.Minute.ToString();
-            if (cet.StartTime.Minute == 0)
-                cetBeg += "0";
-
-            iter = 0;
-            foreach (String vreme in cetOd.Items)
-            {
-                if (cetBeg.Equals(vreme))
-                {
-                    cetOd.SelectedIndex = iter;
-                }
-                iter++;
-            }
-
-            String cetEnd = cet.EndTime.Hour.ToString() + ":" + cet.EndTime.Minute.ToString();
-            if (cet.EndTime.Minute == 0)
-                cetEnd += "0";
-
-            iter = 0;
-            foreach (String vreme in cetDo.Items)
-            {
-                if (cetEnd.Equals(vreme))
-                {
-                    cetDo.SelectedIndex = iter;
-                }
-                iter++;
-            }
-
-            //petak
-            String petBeg = pet.StartTime.Hour.ToString() + ":" + pet.StartTime.Minute.ToString();
-            if (pet.StartTime.Minute == 0)
-                petBeg += "0";
-
-            iter = 0;
-            foreach (String vreme in petOd.Items)
-            {
-                if (petBeg.Equals(vreme))
-                {
-                    petOd.SelectedIndex = iter;
-                }
-                iter++;
-            }
-
-            String petEnd = pet.EndTime.Hour.ToString() + ":" + pet.EndTime.Minute.ToString();
-            if (pet.EndTime.Minute == 0)
-                petEnd += "0";
-
-            iter = 0;
-            foreach (String vreme in petDo.Items)
-            {
-                if (petEnd.Equals(vreme))
-                {
-                    petDo.SelectedIndex = iter;
-                }
-                iter++;
-            }
-
-            //subota
-            String subBeg = sub.StartTime.Hour.ToString() + ":" + sub.StartTime.Minute.ToString();
-            if (sub.StartTime.Minute == 0)
-                subBeg += "0";
-
-            iter = 0;
-            foreach (String vreme in subOd.Items)
-            {
-                if (subBeg.Equals(vreme))
-                {
-                    subOd.SelectedIndex = iter;
-                }
-                iter++;
-            }
-
-            String subEnd = sub.EndTime.Hour.ToString() + ":" + sub.EndTime.Minute.ToString();
-            if (sub.EndTime.Minute == 0)
-                subEnd += "0";
-
-            iter = 0;
-            foreach (String vreme in subDo.Items)
-            {
-                if (subEnd.Equals(vreme))
-                {
-                    subDo.SelectedIndex = iter;
-                }
-                iter++;
-            }
-
-            //nedelja
-            String nedBeg = ned.StartTime.Hour.ToString() + ":" + ned.StartTime.Minute.ToString();
-            if (ned.StartTime.Minute == 0)
-                nedBeg += "0";
-
-            iter = 0;
-            foreach (String vreme in nedOd.Items)
-            {
-                if (nedBeg.Equals(vreme))
-                {
-                    nedOd.SelectedIndex = iter;
-                }
-                iter++;
-            }
-
-            String nedEnd = ned.EndTime.Hour.ToString() + ":" + ned.EndTime.Minute.ToString();
-            if (ned.EndTime.Minute == 0)
-                nedEnd += "0";
-
-            iter = 0;
-            foreach (String vreme in nedDo.Items)
-            {
-                if (nedEnd.Equals(vreme))
-                {
-                    nedDo.SelectedIndex = iter;
-                }
-                iter++;
-            }
         }
 
         private void cancelButton_Click(object sender, RoutedEventArgs e)
@@ -328,18 +356,12 @@ namespace SIMS.View.ViewManager
             newDict[WorkingDaysEnum.SATURDAY] = newSat;
             newDict[WorkingDaysEnum.SUNDAY] = newSun;
 
-
+            Doctor doctor = appResources.doctorController.GetByID(sDoc.GetId());
+            TimeTable current = appResources.timeTableRepository.GetByID(doctor.TimeTable.GetId());
             TimeTable newTime = new TimeTable(newDict);
+            newTime.SetId(doctor.TimeTable.GetId());
 
-            int iter = 0;
-            foreach(Doctor doc in Login.doctors)
-            {
-                if(doc.Equals(sDoc))
-                {
-                    Login.doctors[iter].TimeTable = newTime;
-                }
-                iter++;
-            }
+            appResources.timeTableRepository.Update(newTime); 
 
             NavigationService.Navigate(new DoctorDetailPage(sDoc));
         }

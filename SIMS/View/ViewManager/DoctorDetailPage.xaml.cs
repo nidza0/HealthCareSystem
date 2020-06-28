@@ -36,14 +36,14 @@ namespace SIMS.View.ViewManager
             telefonLabel.Content = doc.CellPhone;
             titulaLabel.Content = doc.Sex;
             datumLabel.Content = doc.DateOfBirth.ToString();
-            roomLabel.Content = doc.Office.GetId();
+            //roomLabel.Content = doc.Office.GetId();
             NameLabel.Content = doc.FullName;
-            radnovremeLabel.Content = generateTime(doc);
+            //radnovremeLabel.Content = generateTime(doc);
 
             sDoc = doc;
         }
 
-        private String generateTime(Doctor doc)
+        /*private String generateTime(Doctor doc)
         {
             DateTime now = DateTime.Now;
 
@@ -76,7 +76,7 @@ namespace SIMS.View.ViewManager
                     break;
             }
 
-            String startHour = doc.TimeTable.WorkingHours[day].StartTime.Hour.ToString();
+            /*String startHour = doc.TimeTable.WorkingHours[day].StartTime.Hour.ToString();
             String startMinute = doc.TimeTable.WorkingHours[day].StartTime.Minute.ToString();
             if (doc.TimeTable.WorkingHours[day].StartTime.Minute == 0)
                 startMinute += "0";
@@ -86,9 +86,9 @@ namespace SIMS.View.ViewManager
                 endMinute += "0";
 
             String retVal =startHour+ ":" + startMinute + " - " + endHour + ":" + endMinute;
-
+            
             return retVal;
-        }
+        }*/
 
         //Menu buttons
         private void MenuSmene_Click(object sender, RoutedEventArgs e)

@@ -25,51 +25,21 @@ namespace SIMS.View.ViewManager
     /// </summary>
     public partial class Login : Page
     {
-        Dummies.DummyDoctors dummy = new Dummies.DummyDoctors();
 
-        public static ObservableCollection<Doctor> doctors;
-        public static ObservableCollection<InventoryItem> items;
-        public static ObservableCollection<Room> rooms;
-        public static ObservableCollection<Medicine> medicines;
-        public static ObservableCollection<Appointment> appointments;
-
-
-        public static int iter = 3;
+        private AppResources appResources;
 
         public Login()
         {
             InitializeComponent();
+            appResources = AppResources.getInstance();
 
-            doctors = new ObservableCollection<Doctor>();
-
-            foreach (Doctor doc in Dummies.DummyDoctors.doctorsList)
-                doctors.Add(doc);
-
-            items = new ObservableCollection<InventoryItem>();
-
-            foreach (InventoryItem item in Dummies.DummyDoctors.itemsList)
-                items.Add(item);
-
-            rooms = new ObservableCollection<Room>();
-
-            foreach (Room room in Dummies.DummyDoctors.roomsList)
-                rooms.Add(room);
-
-            medicines = new ObservableCollection<Medicine>();
-
-            foreach (Medicine med in Dummies.DummyDoctors.medicineList)
-                medicines.Add(med);
-
-            appointments = new ObservableCollection<Appointment>();
-
-            foreach (Appointment app in Dummies.DummyDoctors.appointmentsList)
-                appointments.Add(app);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if(UserInput.Text.Equals("zorz") && PassInput.Password.Equals("zorz123"))
+            if(isManager())
             {
+                appResources.userController.Login(UserInput.Text, PassInput.Password);
                 NavigationService.Navigate(new Uri("../View/ViewManager/ManagerMainPage.xaml", UriKind.Relative));
             }
             else
@@ -79,6 +49,18 @@ namespace SIMS.View.ViewManager
             }
 
             
+        }
+
+        private bool isManager()
+        {
+            foreach(User user in appResources.userController.GetAll())
+            {
+                if(user.UserName.Equals(UserInput.Text) && user.Password.Equals(PassInput.Password) && user.GetId().ToString().StartsWith("m"))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         private void UserInput_GotFocus(object sender, RoutedEventArgs e)

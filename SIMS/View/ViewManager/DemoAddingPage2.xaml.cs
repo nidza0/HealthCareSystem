@@ -46,13 +46,14 @@ namespace SIMS.View.ViewManager
         String Jmbg;
         String Addressa;
 
+        private AppResources appResources;
 
         public DemoAddingPage2(String name, String surname, String middlename, Sex sex, DateTime birth, String jmbg, String addressString)
         {
             InitializeComponent();
 
             finishButton.IsEnabled = false;
-
+            appResources = AppResources.getInstance();
             initCombo();
 
             Function();
@@ -114,7 +115,7 @@ namespace SIMS.View.ViewManager
             docTypeCombo.Items.Add("Gastroenterolog");
             docTypeCombo.SelectedIndex = 1;
 
-            foreach (Room room in Login.rooms)
+            foreach (Room room in appResources.roomController.GetAll())
             {
                 roomCombo.Items.Add(room.GetId());
             }
@@ -207,13 +208,13 @@ namespace SIMS.View.ViewManager
         {
             String[] tokens = Addressa.Split('/');
             Address address = new Address(tokens[0], new Location(tokens[2], tokens[1]));
-            DocTypeEnum doctype = (DocTypeEnum)docTypeCombo.SelectedIndex;
+            DoctorType doctype = (DoctorType)docTypeCombo.SelectedIndex;
 
-            UserID userID = new UserID("D" + Login.iter.ToString());
-            Login.iter++;
-            Doctor doc = new Doctor(userID, username, password, created, Name, Surname, MiddleName, Sex, Birth, Jmbg, address, homePhone.Text, cellPhone.Text, email1Input.Text, email2Input.Text, timeTable, null, new Room(Login.rooms[roomCombo.SelectedIndex].GetId()), doctype);
+            Doctor doc = new Doctor(username, password, created, Name, Surname, MiddleName, Sex, Birth, Jmbg, address, homePhone.Text, cellPhone.Text, email1Input.Text, email2Input.Text, timeTable, null, /*appResources.roomController.GetRoomByName(roomCombo.SelectedItem.ToString())*/ new Room(293) , doctype);
 
-            Login.doctors.Add(doc);
+            appResources.doctorController.Create(doc);
+
+            
 
             NavigationService.Navigate(new DoctorsOverviewPage());
 

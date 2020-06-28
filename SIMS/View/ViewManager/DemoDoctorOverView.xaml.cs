@@ -30,7 +30,7 @@ namespace SIMS.View.ViewManager
 
             ObservableCollection<Doctor> docs = new ObservableCollection<Doctor>();
 
-            Doctor doc = new Doctor(new UserID("D123"),"username", "passwd", DateTime.Now, "Petar", "Petrovic", "Petar", Sex.MALE, new DateTime(1980, 5, 15), "idn", new Address("Ulica", new Location("Vojvodina", "Novi Sad")), null, null, null, null, null, null, null, Model.DoctorModel.DocTypeEnum.GASTROENEROLOGIST);
+            Doctor doc = new Doctor(new UserID("D123"),"username", "passwd", DateTime.Now, "Petar", "Petrovic", "Petar", Sex.MALE, new DateTime(1980, 5, 15), "idn", new Address("Ulica", new Location("Vojvodina", "Novi Sad")), null, null, null, null, null, null, null, Model.DoctorModel.DoctorType.GASTROENEROLOGIST);
 
             docs.Add(doc);
 

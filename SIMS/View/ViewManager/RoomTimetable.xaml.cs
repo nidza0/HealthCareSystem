@@ -23,23 +23,28 @@ namespace SIMS.View.ViewManager
     /// </summary>
     public partial class RoomTimetable : Page
     {
+        private AppResources appResources;
+
         public RoomTimetable(Room room)
         {
             InitializeComponent();
 
-            RoomsDataGrid.ItemsSource = initList(room);
+            appResources = AppResources.getInstance();
+            room = appResources.roomController.GetByID(room.GetId());
+
+
+            if(appResources.appointmentController.GetAppointmentsByRoom(room) != null)
+                RoomsDataGrid.ItemsSource = initAppointments(room);
         }
 
-        private ObservableCollection<Appointment> initList(Room room)
+        private ObservableCollection<Appointment> initAppointments(Room room)
         {
             ObservableCollection<Appointment> retVal = new ObservableCollection<Appointment>();
 
-            foreach(Appointment app in Login.appointments)
+            foreach(Appointment app in appResources.appointmentController.GetAppointmentsByRoom(room))
             {
-                if(room.Equals(app.Room) && isInFuture(app))
-                {
+                if (DateTime.Compare(DateTime.Now, app.TimeInterval.StartTime)<0)
                     retVal.Add(app);
-                }
             }
 
             return retVal;

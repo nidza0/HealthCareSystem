@@ -21,11 +21,13 @@ namespace SIMS.View.ViewManager
     /// </summary>
     public partial class RoomsOverviewPage : Page
     {
+        private AppResources appResources;
+
         public RoomsOverviewPage()
         {
             InitializeComponent();
-
-            RoomsDataGrid.ItemsSource = Login.rooms;
+            appResources = AppResources.getInstance();
+            RoomsDataGrid.ItemsSource = appResources.roomController.GetAll();
         }
 
         private void RoomsDataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)

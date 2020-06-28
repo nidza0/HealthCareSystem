@@ -1,4 +1,5 @@
 ﻿using SIMS.Model.UserModel;
+using SIMS.Util;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -22,12 +23,18 @@ namespace SIMS.View.ViewManager
     /// </summary>
     public partial class ShiftsOverviewPage : Page
     {
+
+        private AppResources appResources;
+
+
         public ShiftsOverviewPage()
         {
             InitializeComponent();
-
+            appResources = AppResources.getInstance();
             PresentPanel.Visibility = Visibility.Visible;
             AbsentPanel.Visibility = Visibility.Hidden;
+
+
 
             PresentDataGrid.ItemsSource = findOnJob();
             AbsentDataGrid.ItemsSource = findOffJob();
@@ -37,9 +44,9 @@ namespace SIMS.View.ViewManager
         {
             ObservableCollection<Doctor> docs = new ObservableCollection<Doctor>();
 
-            foreach(Doctor doc in Login.doctors)
+            foreach(Doctor doc in appResources.doctorController.GetAll())
             {
-                if(isOnJob(doc))
+                if(isOnJob(doc) && appResources.userController.GetByID(doc.GetId()).Deleted == false)
                 {
                     docs.Add(doc);
                     
@@ -52,9 +59,9 @@ namespace SIMS.View.ViewManager
         {
             ObservableCollection<Doctor> docs = new ObservableCollection<Doctor>();
 
-            foreach (Doctor doc in Login.doctors)
+            foreach (Doctor doc in appResources.doctorController.GetAll())
             {
-                if (!isOnJob(doc))
+                if (!isOnJob(doc) && appResources.userController.GetByID(doc.GetId()).Deleted == false)
                 {
                     docs.Add(doc);
 
@@ -66,6 +73,7 @@ namespace SIMS.View.ViewManager
         private bool isOnJob(Doctor doc)
         {
             DateTime now = DateTime.Now;
+            doc = appResources.doctorController.GetByID(doc.GetId());
 
             WorkingDaysEnum wde = WorkingDaysEnum.MONDAY;
 
@@ -94,14 +102,13 @@ namespace SIMS.View.ViewManager
                     break;
             }
 
-            TimeTable radnaNedelja = doc.TimeTable;
-            Util.TimeInterval radnoVreme = radnaNedelja.WorkingHours[wde];
+            TimeInterval radnaNedelja = appResources.timeTableRepository.GetByID(doc.TimeTable.GetId()).WorkingHours[wde];
 
-            if (radnoVreme.StartTime.Hour < now.Hour && radnoVreme.EndTime.Hour > now.Hour)
+            if (radnaNedelja.StartTime.Hour < now.Hour && radnaNedelja.EndTime.Hour > now.Hour)
                 return true;
-            else if (radnoVreme.StartTime.Hour == now.Hour && radnoVreme.StartTime.Minute < now.Minute)
+            else if (radnaNedelja.StartTime.Hour == now.Hour && radnaNedelja.StartTime.Minute < now.Minute)
                 return true;
-            else if (radnoVreme.EndTime.Hour == now.Hour && radnoVreme.EndTime.Minute > now.Minute)
+            else if (radnaNedelja.EndTime.Hour == now.Hour && radnaNedelja.EndTime.Minute > now.Minute)
                 return true;
 
             return false;

@@ -275,7 +275,6 @@
     <Compile Include="Util\TimeInterval.cs" />
     <Compile Include="Util\TimeIterator.cs" />
     <Compile Include="Util\UserValidation.cs" />
-    <Compile Include="View\Dummies\DummyDoctors.cs" />
     <Compile Include="View\ViewManager\DemoAddingPage2.xaml.cs">
       <DependentUpon>DemoAddingPage2.xaml</DependentUpon>
     </Compile>
@@ -372,7 +371,6 @@
     <Compile Include="View\ViewManager\ShiftsOverviewPage.xaml.cs">
       <DependentUpon>ShiftsOverviewPage.xaml</DependentUpon>
     </Compile>
-
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

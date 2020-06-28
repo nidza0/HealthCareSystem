@@ -1,2 +1,5 @@
-﻿1,Oljaprofen,10000,PILL,False,1,,5,7
-2,Zetaprofen,1200,PILL,False,1,,5,7
+﻿1,Oljaprofen,100,PILL,False,1,,5,7
+3,Zetaprofen,1200,PILL,False,1,,5,10
+4,Xanax,130,PILL,True,,,10,15
+5,Panadol,125,PILL,True,,,10,2
+6,Fervex,100,PILL,False,,,100,152

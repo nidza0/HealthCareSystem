@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SIMS.Controller.UsersController;
+using SIMS.Model.UserModel;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -21,16 +23,29 @@ namespace SIMS.View.ViewManager
     /// </summary>
     public partial class DoctorsOverviewPage : Page
     {
-        ObservableCollection<Model.UserModel.Doctor> doctors;
 
+        private AppResources app;
         public DoctorsOverviewPage()
         {
             InitializeComponent();
 
-           
-            ListDataGrid.ItemsSource = Login.doctors;
+            app = AppResources.getInstance();
+
+            ListDataGrid.ItemsSource = initDocts();
         }
 
+
+        private ObservableCollection<Doctor> initDocts()
+        {
+            ObservableCollection<Doctor> retVal = new ObservableCollection<Doctor>();
+            foreach(Doctor doc in app.doctorController.GetAll())
+            {
+                if (app.userController.GetByID(doc.GetId()).Deleted == false)
+                    retVal.Add(doc);
+            }
+
+            return retVal;
+        }
         private void ListDataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
             if (!(e.PropertyName.Equals("Uidn") || e.PropertyName.Equals("Name") || e.PropertyName.Equals("Surname") || e.PropertyName.Equals("DocTypeEnum")))

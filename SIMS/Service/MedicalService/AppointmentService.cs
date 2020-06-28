@@ -139,7 +139,7 @@ namespace SIMS.Service.MedicalService
 
         public void Validate(Appointment entity)
         {
-            _appointmentStrategy.Validate(entity);
+            //_appointmentStrategy.Validate(entity);
             CheckSchedules(entity);
         }
 

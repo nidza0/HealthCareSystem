@@ -31,11 +31,15 @@ namespace SIMS.View.ViewManager
         private DateTime end;
 
         Room sRoom;
+
+        private AppResources appResources;
         public RoomRenovationPage(Room room)
         {
             InitializeComponent();
-            sRoom = room;
 
+            appResources = AppResources.getInstance();
+
+            sRoom = appResources.roomController.GetByID(room.GetId());
             initCombos();
 
             reserveButton.IsEnabled = false;
@@ -63,16 +67,17 @@ namespace SIMS.View.ViewManager
 
         private void backButton_Click(object sender, RoutedEventArgs e)
         {
-
+            if (NavigationService.CanGoBack)
+                NavigationService.GoBack();
         }
 
         private void reserveButton_Click(object sender, RoutedEventArgs e)
         {
             if(proveriVreme())
             {
-                Appointment appointment = new Appointment(420, null, null, sRoom, AppointmentType.renovation, new Util.TimeInterval(start,end));
+                
+                appResources.appointmentController.Create(new Appointment(appResources.doctorController.GetByID(new UserID("d0")), appResources.patientController.GetByID(new UserID("p0")), sRoom, AppointmentType.renovation, new Util.TimeInterval(start, end)));
                 Console.WriteLine("uspesno rezervisano");
-                Login.appointments.Add(appointment);
 
                 NavigationService.Navigate(new RoomTimetable(sRoom));
             }

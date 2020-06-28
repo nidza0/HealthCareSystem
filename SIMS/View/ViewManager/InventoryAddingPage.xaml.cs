@@ -1,5 +1,6 @@
 ﻿using SIMS.Model.ManagerModel;
 using SIMS.Model.UserModel;
+using SIMS.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,10 +30,12 @@ namespace SIMS.View.ViewManager
 
         private static long id = 1;
 
+        private AppResources appResources;
+
         public InventoryAddingPage()
         {
             InitializeComponent();
-
+            appResources = AppResources.getInstance();
             dodajButton.IsEnabled = false;
 
             initCombo();
@@ -55,9 +58,9 @@ namespace SIMS.View.ViewManager
 
         private void initCombo()
         {
-            foreach (Room room in Login.rooms)
+            foreach (Room room in appResources.roomController.GetAll())
             {
-                roomCombo.Items.Add(room.GetId());
+                roomCombo.Items.Add(room.RoomNumber);
             }
             roomCombo.SelectedIndex = 0;
         }
@@ -97,7 +100,7 @@ namespace SIMS.View.ViewManager
 
         private bool verifyName(String name)
         {
-            if (!Regex.Match(name, "^[0-9 a-zA-Z]*$").Success)
+            if (!Regex.Match(name, Regexes.nameRegex).Success)
                 return true;
             return false;
         }
@@ -119,10 +122,10 @@ namespace SIMS.View.ViewManager
 
         private void dodajButton_Click(object sender, RoutedEventArgs e)
         {
-            InventoryItem item = new InventoryItem(id, nameInput.Text, int.Parse(inStockInput.Text), int.Parse(minInput.Text), Login.rooms[roomCombo.SelectedIndex]);
+            InventoryItem item = new InventoryItem(id, nameInput.Text, int.Parse(inStockInput.Text), int.Parse(minInput.Text), appResources.roomController.GetRoomByName(roomCombo.SelectedItem.ToString()));
             id++;
 
-            Login.items.Add(item);
+            appResources.inventoryItemRepository.Create(item);
 
             NavigationService.Navigate(new InventoryOverviewPage());
         }

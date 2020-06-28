@@ -1,5 +1,6 @@
 ﻿using SIMS.Model.DoctorModel;
 using SIMS.Model.UserModel;
+using SIMS.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,29 +44,21 @@ namespace SIMS.View.ViewManager
         String Jmbg;
         String Addressa;
 
+        private AppResources appResources;
 
         public DoctorAddingPage2(String name, String surname, String middlename, Sex sex, DateTime birth, String jmbg, String addressString)
         {
             InitializeComponent();
 
             finishButton.IsEnabled = false;
-
+            appResources = AppResources.getInstance();
             initCombo();
 
             username = name + " " + surname;
             password = name + surname + "123";
             created = DateTime.Now;
 
-            dict = new Dictionary<WorkingDaysEnum, Util.TimeInterval>();
-            dict[0] = new Util.TimeInterval(new DateTime(1, 1, 1, 8, 0, 0), new DateTime(1, 1, 1, 16, 0, 0));
-            dict[WorkingDaysEnum.TUESDAY] = new Util.TimeInterval(new DateTime(1, 1, 1, 8, 0, 0), new DateTime(1, 1, 1, 16, 0, 0));
-            dict[WorkingDaysEnum.WEDNESDAY] = new Util.TimeInterval(new DateTime(1, 1, 1, 8, 0, 0), new DateTime(1, 1, 1, 16, 0, 0));
-            dict[WorkingDaysEnum.THURSDAY] = new Util.TimeInterval(new DateTime(1, 1, 1, 8, 0, 0), new DateTime(1, 1, 1, 19, 0, 0));
-            dict[WorkingDaysEnum.FRIDAY] = new Util.TimeInterval(new DateTime(1, 1, 1, 8, 0, 0), new DateTime(1, 1, 1, 16, 0, 0));
-            dict[WorkingDaysEnum.SATURDAY] = new Util.TimeInterval(new DateTime(1, 1, 1, 8, 0, 0), new DateTime(1, 1, 1, 8, 0, 0));
-            dict[WorkingDaysEnum.SUNDAY] = new Util.TimeInterval(new DateTime(1, 1, 1, 8, 0, 0), new DateTime(1, 1, 1, 16, 0, 0));
-
-            timeTable = new TimeTable(dict);
+            
             Name = name;
             Surname = surname;
             MiddleName = middlename;
@@ -87,9 +80,9 @@ namespace SIMS.View.ViewManager
             docTypeCombo.Items.Add("Gastroenterolog");
             docTypeCombo.SelectedIndex = 1;
 
-            foreach(Room room in Login.rooms)
+            foreach(Room room in appResources.roomController.GetAll())
             {
-                roomCombo.Items.Add(room.GetId());
+                roomCombo.Items.Add(room.RoomNumber);
             }
             roomCombo.SelectedIndex = 0;
         }
@@ -126,7 +119,7 @@ namespace SIMS.View.ViewManager
 
         private bool verifyPhone(String phone)
         {
-            if (!Regex.Match(phone, "^[+]?[0-9]*$").Success || string.IsNullOrWhiteSpace(phone))
+            if (!Regex.Match(phone, Regexes.phoneRegex).Success || string.IsNullOrWhiteSpace(phone))
                 return true;
             return false;
         }
@@ -163,7 +156,7 @@ namespace SIMS.View.ViewManager
 
         private bool verifyMail(String phone)
         {
-            if (!Regex.Match(phone, "^[A-Za-z0-9._]+@[a-z]+\\.[a-z]+$").Success || string.IsNullOrWhiteSpace(phone))
+            if (!Regex.Match(phone, Regexes.emailRegex).Success || string.IsNullOrWhiteSpace(phone))
                 return true;
             return false;
         }
@@ -180,13 +173,26 @@ namespace SIMS.View.ViewManager
         {
             String[] tokens = Addressa.Split('/');
             Address address = new Address(tokens[0],new Location(tokens[2],tokens[1]));
-            DocTypeEnum doctype =(DocTypeEnum) docTypeCombo.SelectedIndex;
+            DoctorType doctype =(DoctorType) docTypeCombo.SelectedIndex;
 
-            UserID userID = new UserID("D" + Login.iter.ToString());
-            Login.iter++;
-            Doctor doc = new Doctor(userID,username, password, created, Name, Surname, MiddleName, Sex, Birth, Jmbg, address, homePhone.Text, cellPhone.Text, email1Input.Text, email2Input.Text, timeTable, null, new Room(Login.rooms[roomCombo.SelectedIndex].GetId()), doctype);
+            dict = new Dictionary<WorkingDaysEnum, Util.TimeInterval>();
+            dict[WorkingDaysEnum.MONDAY] = new Util.TimeInterval(new DateTime(1, 1, 1, 8, 0, 0), new DateTime(1, 1, 1, 16, 0, 0));
+            dict[WorkingDaysEnum.TUESDAY] = new Util.TimeInterval(new DateTime(1, 1, 1, 8, 0, 0), new DateTime(1, 1, 1, 16, 0, 0));
+            dict[WorkingDaysEnum.WEDNESDAY] = new Util.TimeInterval(new DateTime(1, 1, 1, 8, 0, 0), new DateTime(1, 1, 1, 16, 0, 0));
+            dict[WorkingDaysEnum.THURSDAY] = new Util.TimeInterval(new DateTime(1, 1, 1, 8, 0, 0), new DateTime(1, 1, 1, 16, 0, 0));
+            dict[WorkingDaysEnum.FRIDAY] = new Util.TimeInterval(new DateTime(1, 1, 1, 8, 0, 0), new DateTime(1, 1, 1, 16, 0, 0));
+            dict[WorkingDaysEnum.SATURDAY] = new Util.TimeInterval(new DateTime(1, 1, 1, 8, 0, 0), new DateTime(1, 1, 1, 8, 0, 0));
+            dict[WorkingDaysEnum.SUNDAY] = new Util.TimeInterval(new DateTime(1, 1, 1, 8, 0, 0), new DateTime(1, 1, 1, 8, 0, 0));
 
-            Login.doctors.Add(doc);
+            timeTable = new TimeTable(dict);
+
+            Console.WriteLine(timeTable.WorkingHours[WorkingDaysEnum.MONDAY]);
+            timeTable = appResources.timeTableRepository.Create(timeTable);
+
+            Doctor doc = new Doctor(username, password, created, Name, Surname, MiddleName, Sex, Birth, Jmbg, address, homePhone.Text, cellPhone.Text, email1Input.Text, email2Input.Text, timeTable, null, appResources.roomController.GetRoomByName(roomCombo.SelectedItem.ToString()), doctype);
+
+
+            appResources.doctorController.Create(doc);
 
             NavigationService.Navigate(new DoctorsOverviewPage());
 

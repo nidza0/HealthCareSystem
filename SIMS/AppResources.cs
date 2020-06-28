@@ -201,7 +201,9 @@ namespace SIMS
             inventoryController = new InventoryController(inventoryService);
 
             // MedicalController
-            appointmentController = new AppointmentController(appointmentService);
+            AppointmentRecommendationService appointmentRecommendationService = new AppointmentRecommendationService(appointmentService, doctorService);
+
+            appointmentController = new AppointmentController(appointmentService,appointmentRecommendationService);
             diseaseController = new DiseaseController(diseaseService);
 
             // MiscController

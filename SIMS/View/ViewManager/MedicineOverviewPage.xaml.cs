@@ -22,9 +22,14 @@ namespace SIMS.View.ViewManager
     /// </summary>
     public partial class MedicineOverviewPage : Page
     {
+
+        private AppResources appResources;
+
         public MedicineOverviewPage()
         {
             InitializeComponent();
+
+            appResources = AppResources.getInstance();
 
             ValidatedMedicinePanel.Visibility = Visibility.Visible;
             NonValidatedMedicinePanel.Visibility = Visibility.Hidden;
@@ -113,10 +118,10 @@ namespace SIMS.View.ViewManager
         {
             ObservableCollection<Medicine> retval = new ObservableCollection<Medicine>();
 
-            foreach(Medicine med in Login.medicines)
+            foreach (Medicine med in appResources.medicineController.GetAll())
             {
-                if (med.IsValid == true)
-                    retval.Add(med);
+                if (appResources.medicineController.GetByID(med.GetId()).IsValid == true)
+                    retval.Add(appResources.medicineController.GetByID(med.GetId()));
             }
 
             return retval;
@@ -126,10 +131,10 @@ namespace SIMS.View.ViewManager
         {
             ObservableCollection<Medicine> retval = new ObservableCollection<Medicine>();
 
-            foreach (Medicine med in Login.medicines)
+            foreach (Medicine med in appResources.medicineController.GetAll())
             {
-                if (med.IsValid == false)
-                    retval.Add(med);
+                if (appResources.medicineController.GetByID(med.GetId()).IsValid == false)
+                    retval.Add(appResources.medicineController.GetByID(med.GetId()));
             }
 
             return retval;

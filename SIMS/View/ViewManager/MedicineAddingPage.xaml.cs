@@ -1,5 +1,6 @@
 ﻿using SIMS.Model.ManagerModel;
 using SIMS.Model.PatientModel;
+using SIMS.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,12 +31,14 @@ namespace SIMS.View.ViewManager
 
         private static int id = 2;
 
+        private AppResources appResources;
+
         public MedicineAddingPage()
         {
             InitializeComponent();
 
             initCombo();
-
+            appResources = AppResources.getInstance();
             dodajButton.IsEnabled = false;
         }
         private void nameInput_LostFocus(object sender, RoutedEventArgs e)
@@ -103,14 +106,14 @@ namespace SIMS.View.ViewManager
 
             private bool verifyName(String name)
         {
-            if (!Regex.Match(name, "^[0-9 a-zA-Z]*$").Success)
+            if (!Regex.Match(name, Regexes.nameRegex).Success)
                 return true;
             return false;
         }
 
         private bool verifyNumber(String number)
         {
-            if (!Regex.Match(number, "^[1-9][0-9]*$").Success)
+            if (!Regex.Match(number, "[1-9][0-9]*").Success)
                 return true;
             return false;
         }
@@ -159,10 +162,8 @@ namespace SIMS.View.ViewManager
             }
 
             Medicine med = new Medicine(id, nameInput.Text, double.Parse(weightInput.Text), medType , false, new List<Disease>(), new List<Ingredient>(),int.Parse(inStockInput.Text),int.Parse(minInput.Text));
-
-            id++;
-            med.IsValid = true;
-            Login.medicines.Add(med);
+            med.IsValid = false;
+            appResources.medicineController.Create(med);
 
             NavigationService.Navigate(new MedicineOverviewPage());
         }
@@ -183,11 +184,9 @@ namespace SIMS.View.ViewManager
 
         private bool verifyDouble(String number)
         {
-            if (!Regex.Match(number, "^[1-9][0-9]*\\.[0-9]*$").Success)
+            if (!Regex.Match(number, "^[1-9][0-9]*$").Success)
                 return true;
             return false;
         }
-
-       
     }
 }

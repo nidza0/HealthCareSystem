@@ -1,5 +1,6 @@
 ﻿using SIMS.Model.DoctorModel;
 using SIMS.Model.UserModel;
+using SIMS.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -100,7 +101,7 @@ namespace SIMS.View.ViewManager
 
         private bool verifyName(string name)
         {
-            if (!Regex.Match(name, "^[A-Z][a-zA-Z]*$").Success)
+            if (!Regex.Match(name, Regexes.nameRegex).Success)
                 return true;
             return false;
         }
@@ -122,7 +123,7 @@ namespace SIMS.View.ViewManager
 
         private void jmbgInput_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (!Regex.Match(jmbgInput.Text, "^[0-9]{13}$").Success)
+            if (!Regex.Match(jmbgInput.Text, Regexes.uidnRegex).Success)
             {
                 jmbgInput.Background = Brushes.PaleVioletRed;
                 jmbg = false;
