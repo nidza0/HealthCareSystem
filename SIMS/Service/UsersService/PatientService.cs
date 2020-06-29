@@ -9,6 +9,8 @@ using System.Text.RegularExpressions;
 using SIMS.Model.UserModel;
 using SIMS.Repository.Abstract.UsersAbstractRepository;
 using SIMS.Repository.CSVFileRepository.UsersRepository;
+using SIMS.Repository.CSVFileRepository.MedicalRepository;
+using SIMS.Model.PatientModel;
 using SIMS.Exceptions;
 using SIMS.Util;
 
@@ -17,11 +19,13 @@ namespace SIMS.Service.UsersService
     public class PatientService : IService<Patient, UserID>
     {
         PatientRepository _patientRepository;
+        MedicalRecordRepository _medicalRecordRepository;
         UserValidation _userValidation;
 
-        public PatientService(PatientRepository patientRepository)
+        public PatientService(PatientRepository patientRepository, MedicalRecordRepository medicalRecordRepository)
         {
             _patientRepository = patientRepository;
+            _medicalRecordRepository = medicalRecordRepository;
             _userValidation = new UserValidation();
         }
 
@@ -41,7 +45,11 @@ namespace SIMS.Service.UsersService
         public Patient Create(Patient entity)
         {
             Validate(entity);
-            return _patientRepository.Create(entity);
+            Patient patient = _patientRepository.Create(entity);
+            _medicalRecordRepository.Create(new MedicalRecord(patient));
+
+            return patient;
+
         }
 
         public void Delete(Patient entity)
@@ -56,7 +64,6 @@ namespace SIMS.Service.UsersService
             _patientRepository.Update(entity);
         }
 
-        public IPatientRepository iPatientRepository;
-
+        public UserValidation UserValidation { get => _userValidation; set => _userValidation = value; }
     }
 }

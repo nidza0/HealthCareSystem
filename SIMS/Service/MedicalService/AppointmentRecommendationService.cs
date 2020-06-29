@@ -116,39 +116,46 @@ namespace SIMS.Service.MedicalService
             for (int i = 0; i < takenAppointments.Count(); i++)
             {
                 Appointment takenAp = takenAppointments[i];
-                FillFreeAppointmentsUntilTaken(freeAppointments, timeIterator, takenAp);
+                freeAppointments.AddRange(GetFreeAppointmentsUntilTaken(timeIterator, takenAp, appointmentsDay.Doctor));
 
                 // skip taken appointment
                 timeIterator.SkipInterval(takenAp.TimeInterval);
 
                 // if taken appointment is the last one for given day, fill the rest of the time with free appointments
                 if (i == takenAppointments.Count() - 1) //last one
-                    FillFreeAppointmentsRestOfTheDay(freeAppointments, timeIterator);
+                    freeAppointments.AddRange(GetFreeAppointmentsRestOfTheDay(timeIterator, appointmentsDay.Doctor));
             }
 
             // if no taken appointments exist for given day, fill the list with free appointments for that day
             if (takenAppointments.Count() == 0)
-                FillFreeAppointmentsRestOfTheDay(freeAppointments, timeIterator);
+                freeAppointments.AddRange(GetFreeAppointmentsRestOfTheDay(timeIterator, appointmentsDay.Doctor));
 
             return freeAppointments;
         }
 
-        private void FillFreeAppointmentsRestOfTheDay(List<Appointment> freeAppointments, TimeIterator timeIterator)
+        private List<Appointment> GetFreeAppointmentsRestOfTheDay(TimeIterator timeIterator, Doctor doctor)
         {
+            List<Appointment> freeAppointments = new List<Appointment>();
             while (timeIterator.HasNext())
             {
-                AddFreeAppointment(freeAppointments, timeIterator);
+                freeAppointments.Add(GetFreeAppointment(timeIterator, doctor));
                 timeIterator.Next();
             }
+
+            return freeAppointments;
         }
 
-        private void FillFreeAppointmentsUntilTaken(List<Appointment> freeAppointments, TimeIterator timeIterator, Appointment takenAp)
+        private List<Appointment> GetFreeAppointmentsUntilTaken(TimeIterator timeIterator, Appointment takenAp, Doctor doctor)
         {
+            List<Appointment> freeAppointments = new List<Appointment>();
+
             while (!takenAp.TimeInterval.IsOverlappingWith(timeIterator.GetCurrentTimeFrame()))
             {
-                AddFreeAppointment(freeAppointments, timeIterator);
+                freeAppointments.Add(GetFreeAppointment(timeIterator, doctor));
                 timeIterator.Next();
             }
+
+            return freeAppointments;
         }
 
         private TimeIterator GetTimeIterator(TimeInterval time, TimeInterval shift)
@@ -161,9 +168,9 @@ namespace SIMS.Service.MedicalService
             return new TimeIterator(_duration, new TimeInterval(start, end));
         }
 
-        private void AddFreeAppointment(List<Appointment> freeAppointments, TimeIterator timeIt)
+        private Appointment GetFreeAppointment(TimeIterator timeIt, Doctor doctor)
         {
-            freeAppointments.Add(new Appointment(null, null, null, AppointmentType.checkup, timeIt.GetCurrentTimeFrame()));
+            return new Appointment(doctor, null, null, AppointmentType.checkup, timeIt.GetCurrentTimeFrame());
         }
 
         private List<RecommendationDTO> GetTakenAppointmentsInfo(Doctor doctor, TimeInterval time)
@@ -181,7 +188,7 @@ namespace SIMS.Service.MedicalService
                 startTime.AddDays(1);
                 if (shift == null)
                     continue;
-                takenAppointments.Add(new RecommendationDTO(shift, allTakenAppointments.Where(ap => shift.IsDateTimeBetween(ap.TimeInterval)).ToList()));
+                takenAppointments.Add(new RecommendationDTO(doctor, shift, allTakenAppointments.Where(ap => shift.IsDateTimeBetween(ap.TimeInterval)).ToList()));
             }
 
             return takenAppointments;

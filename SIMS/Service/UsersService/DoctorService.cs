@@ -49,8 +49,9 @@ namespace SIMS.Service.UsersService
 
             foreach (Doctor d in doctors)
             {
-                if (d.TimeTable.WorkingHours[dayOfWeek].IsTimeBetween(time))
-                    workingDoctors.Add(d);
+                if(d.TimeTable.WorkingHours.ContainsKey(dayOfWeek))
+                    if (d.TimeTable.WorkingHours[dayOfWeek].IsTimeBetween(time))
+                        workingDoctors.Add(d);
             }
 
             return workingDoctors;
@@ -86,7 +87,7 @@ namespace SIMS.Service.UsersService
             => _doctorRepository.GetAllEager();
 
         public Doctor GetByID(UserID id)
-            => _doctorRepository.GetByID(id);
+            => _doctorRepository.GetEager(id);
 
         public Doctor Create(Doctor entity)
         {

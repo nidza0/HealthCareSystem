@@ -14,33 +14,33 @@ namespace SIMS.Controller.MiscController
     public class LocationController : IController<Location, long>
     {
 
-        public LocationService locationService;
+        private LocationService _locationService;
 
         public LocationController(LocationService locationService)
         {
-            this.locationService = locationService;
+            _locationService = locationService;
         }
 
         public IEnumerable<Location> GetLocationByCountry(string country)
-            => locationService.GetLocationByCountry(country);
+            => _locationService.GetLocationByCountry(country);
 
         public IEnumerable<string> GetAllCountries()
-            => locationService.GetAllCountries();
+            => _locationService.GetAllCountries();
 
         public IEnumerable<Location> GetAll()
-            => locationService.GetAll();
+            => _locationService.GetAll();
 
         public Location GetByID(long id)
-            => locationService.GetByID(id);
+            => _locationService.GetByID(id);
 
         public Location Create(Location entity)
-            => locationService.Create(entity);
+            => _locationService.Create(entity);
 
         public void Update(Location entity)
-            => locationService.Update(entity);
+            => _locationService.Update(entity);
 
         public void Delete(Location entity)
-            => locationService.Delete(entity);
+            => _locationService.Delete(entity);
 
     }
 }

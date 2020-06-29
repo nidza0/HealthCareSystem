@@ -12,7 +12,6 @@ using SIMS.Model.DoctorModel;
 using SIMS.Model.UserModel;
 using SIMS.Repository.Abstract.MiscAbstractRepository;
 using SIMS.Repository.CSVFileRepository.MiscRepository;
-using SIMS.Service.ValidateServices.ValidateMiscService;
 
 namespace SIMS.Service.MiscService
 {

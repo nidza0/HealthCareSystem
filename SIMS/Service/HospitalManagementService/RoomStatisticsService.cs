@@ -1,6 +1,5 @@
 ﻿using SIMS.Model.ManagerModel;
 using SIMS.Repository.CSVFileRepository.HospitalManagementRepository;
-using SIMS.Service.ValidateServices.ValidateHospitalManagementServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;

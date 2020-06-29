@@ -14,8 +14,7 @@ namespace SIMS.Service.MiscService
 {
     public class MessageService : IService<Message, long>
     {
-        MessageRepository _messageRepository;
-
+        private MessageRepository _messageRepository;
 
         public MessageService(MessageRepository messageRepository)
         {

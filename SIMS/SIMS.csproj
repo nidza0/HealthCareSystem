@@ -62,6 +62,7 @@
     <Compile Include="Controller\HospitalManagementController\DoctorStatisticsController.cs" />
     <Compile Include="Controller\HospitalManagementController\InventoryStatisticsController.cs" />
     <Compile Include="Controller\HospitalManagementController\RoomStatisticsController.cs" />
+    <Compile Include="Controller\MiscController\FeedbackController.cs" />
     <Compile Include="Controller\UsersController\UserController.cs" />
     <Compile Include="Exceptions\AppointmentServiceException.cs" />
     <Compile Include="Exceptions\DiseaseServiceException.cs" />
@@ -205,6 +206,7 @@
     <Compile Include="Service\IService.cs" />
     <Compile Include="Service\MedicalService\AppointmentDoctorStrategy.cs" />
     <Compile Include="Service\MedicalService\AppointmentManagerStrategy.cs" />
+    <Compile Include="Service\MedicalService\AppointmentNotificationSender.cs" />
     <Compile Include="Service\MedicalService\AppointmentPatientStrategy.cs" />
     <Compile Include="Service\MedicalService\AppointmentRecommendationService.cs" />
     <Compile Include="Service\MedicalService\AppointmentSecretaryStrategy.cs" />
@@ -231,22 +233,6 @@
     <Compile Include="Service\UsersService\PatientService.cs" />
     <Compile Include="Service\UsersService\SecretaryService.cs" />
     <Compile Include="Service\UsersService\UserService.cs" />
-    <Compile Include="Service\ValidateServices\IValidateService.cs" />
-    <Compile Include="Service\ValidateServices\ValidateHospitalManagementServices\ValidateDoctorStatistics.cs" />
-    <Compile Include="Service\ValidateServices\ValidateHospitalManagementServices\ValidateHospital.cs" />
-    <Compile Include="Service\ValidateServices\ValidateHospitalManagementServices\ValidateInventoryStatistics.cs" />
-    <Compile Include="Service\ValidateServices\ValidateHospitalManagementServices\ValidateMedicine.cs" />
-    <Compile Include="Service\ValidateServices\ValidateHospitalManagementServices\ValidateRoom.cs" />
-    <Compile Include="Service\ValidateServices\ValidateHospitalManagementServices\ValidateRoomStatistics.cs" />
-    <Compile Include="Service\ValidateServices\ValidateMedicalService\ValidateDisease.cs" />
-    <Compile Include="Service\ValidateServices\ValidateMedicalService\ValidateMedicalRecord.cs" />
-    <Compile Include="Service\ValidateServices\ValidateMedicalService\ValidateTherapy.cs" />
-    <Compile Include="Service\ValidateServices\ValidateMiscService\ValidateArticle.cs" />
-    <Compile Include="Service\ValidateServices\ValidateMiscService\ValidateDoctorFeedback.cs" />
-    <Compile Include="Service\ValidateServices\ValidateMiscService\ValidateFeedback.cs" />
-    <Compile Include="Service\ValidateServices\ValidateMiscService\ValidateLocation.cs" />
-    <Compile Include="Service\ValidateServices\ValidateMiscService\ValidateMessage.cs" />
-    <Compile Include="Service\ValidateServices\ValidateMiscService\ValidateNotification.cs" />
     <Compile Include="Specifications\AndSpecification.cs" />
     <Compile Include="Specifications\CompositeSpecification.cs" />
     <Compile Include="Specifications\Converter\AppointmentSpecificationConverter.cs" />
@@ -266,6 +252,7 @@
     <Compile Include="Util\RecommendationDTO.cs" />
     <Compile Include="Util\RecommendationPriority.cs" />
     <Compile Include="Util\Regexes.cs" />
+    <Compile Include="Util\SecretaryPatientValidation.cs" />
     <Compile Include="Util\TherapyFilter.cs" />
     <Compile Include="Util\TimeInterval.cs" />
     <Compile Include="View\ViewDoctor\Appointments\AppointmentView.xaml.cs">

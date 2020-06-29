@@ -11,6 +11,7 @@ using SIMS.Model.PatientModel;
 using SIMS.Model.UserModel;
 using SIMS.Repository.Abstract.MedicalAbstractRepository;
 using SIMS.Repository.CSVFileRepository.MedicalRepository;
+using SIMS.Service.MiscService;
 using SIMS.Util;
 
 namespace SIMS.Service.MedicalService
@@ -19,15 +20,16 @@ namespace SIMS.Service.MedicalService
     {
         private IAppointmentStrategy _appointmentStrategy;
         private AppointmentRepository _appointmentRepository;
+        private AppointmentNotificationSender _notificationSender;
         private DateTime dayBeforeAutoDelete;
 
         public IAppointmentStrategy AppointmentStrategy { get => _appointmentStrategy; set => _appointmentStrategy = value; }
 
-        public AppointmentService(AppointmentRepository appointmentRepository,IAppointmentStrategy appointmentStrategy)
+        public AppointmentService(AppointmentRepository appointmentRepository,IAppointmentStrategy appointmentStrategy, AppointmentNotificationSender appointmentNotificationSender)
         {
             _appointmentRepository = appointmentRepository;
             _appointmentStrategy = appointmentStrategy;
-
+            _notificationSender = appointmentNotificationSender;
         }
 
         protected void CheckSchedules(Appointment appointment)
@@ -61,10 +63,10 @@ namespace SIMS.Service.MedicalService
         public Appointment CancelAppointment(Appointment appointment)
         {
             // TODO: Proveri da li moze da se otkaze appointment
-            Validate(appointment);
+            _appointmentStrategy.Validate(appointment);
             appointment.Canceled = true;
             _appointmentRepository.Update(appointment);
-            
+            _notificationSender.SendCancelNotification(appointment);
             return appointment;
         }
 
@@ -78,10 +80,10 @@ namespace SIMS.Service.MedicalService
             => _appointmentRepository.GetAppointmentsByDoctor(doctor);
 
         public IEnumerable<Appointment> GetCanceledAppointments()
-            => _appointmentRepository.GetAllEager().Where(app => app.Canceled == true);
+            => _appointmentRepository.GetCanceledAppointments();
 
         public IEnumerable<Appointment> GetCompletedAppointmentsByPatient(Patient patient)
-            => _appointmentRepository.GetAllEager().Where(app => app.Canceled == false && app.TimeInterval.EndTime.CompareTo(DateTime.Now) < 0);
+            => GetPatientAppointments(patient).Where(appointment => IsCompleted(appointment));
 
         public IEnumerable<Appointment> GetAppointmentsByRoom(Room room)
             => _appointmentRepository.GetAppointmentsByRoom(room);
@@ -90,13 +92,13 @@ namespace SIMS.Service.MedicalService
             => _appointmentRepository.GetFilteredAppointment(appointmentFilter);
 
         public IEnumerable<Appointment> GetUpcomingAppointmentsForPatient(Patient patient)
-            => _appointmentRepository.GetUpcomingAppointmentsForPatient(patient);
+            => _appointmentRepository.GetPatientAppointments(patient).Where(appointment => IsInFuture(appointment));
 
         public IEnumerable<Doctor> GetRecentDoctorsForPatient(Patient patient)
-            => _appointmentRepository.GetPatientAppointments(patient).Select(app => app.DoctorInAppointment);
+            => GetPatientAppointments(patient).Select(app => app.DoctorInAppointment);
 
         public IEnumerable<Appointment> GetUpcomingAppointmentsForDoctor(Doctor doctor)
-            => _appointmentRepository.GetUpcomingAppointmentsForDoctor(doctor);
+            => GetAppointmentsByDoctor(doctor).Where(appointment => IsInFuture(appointment));
 
         public bool IsAppointmentChangeable(Appointment appointment)
             => _appointmentStrategy.isAppointmentChangeable(appointment);
@@ -104,9 +106,9 @@ namespace SIMS.Service.MedicalService
         public void AutoDeleteCanceledAppointments()
         {
             //Method that goes through all appointments that are far in the past to free the memory.
-            IEnumerable<Appointment> allAppointments = GetAll();
+            IEnumerable<Appointment> cancelledAppointments = GetCanceledAppointments();
 
-            foreach(Appointment appointment in allAppointments)
+            foreach(Appointment appointment in cancelledAppointments)
             {
                 if (appointment.TimeInterval.StartTime < dayBeforeAutoDelete)
                     _appointmentRepository.Delete(appointment);
@@ -122,8 +124,9 @@ namespace SIMS.Service.MedicalService
         public Appointment Create(Appointment entity)
         {
             Validate(entity);
-            _appointmentRepository.Create(entity);
-            return entity;
+            Appointment createdAppointment = _appointmentRepository.Create(entity);
+            _notificationSender.SendCreateNotification(createdAppointment);
+            return createdAppointment;
         }
 
         public void Delete(Appointment entity)
@@ -132,8 +135,10 @@ namespace SIMS.Service.MedicalService
         public void Update(Appointment entity)
         {
             Validate(entity);
-            if (this.IsAppointmentChangeable(entity)) { 
+            if (IsAppointmentChangeable(entity)) {
+                Appointment oldAppointment = GetByID(entity.Id);
                 _appointmentRepository.Update(entity);
+                _notificationSender.SendUpdateNotification(oldAppointment, entity);
             }
         }
 
@@ -142,6 +147,12 @@ namespace SIMS.Service.MedicalService
             _appointmentStrategy.Validate(entity);
             CheckSchedules(entity);
         }
+
+        private bool IsCompleted(Appointment appointment)
+            => appointment.IsCompleted() && !appointment.Canceled;
+
+        private bool IsInFuture(Appointment appointment)
+            => appointment.IsInFuture() && !appointment.Canceled;
 
     }
 }

@@ -19,10 +19,14 @@ using SIMS.Service.HospitalManagementService;
 using SIMS.Service.MedicalService;
 using SIMS.Service.MiscService;
 using SIMS.Service.UsersService;
+
 using SIMS.Controller.HospitalManagementController;
 using SIMS.Controller.MedicalController;
 using SIMS.Controller.MiscController;
 using SIMS.Controller.UsersController;
+
+using SIMS.Service.HospitalManagementService;
+using SIMS.Util;
 
 
 namespace SIMS
@@ -135,6 +139,7 @@ namespace SIMS
 
         // MedicalService
         public AppointmentService appointmentService;
+        public AppointmentRecommendationService appointmentRecommendationService;
         public DiagnosisService diagnosisService;
         public DiseaseService diseaseService;
         public MedicalRecordService medicalRecordService;
@@ -148,6 +153,7 @@ namespace SIMS
         public LocationService locationService;
         public MessageService messageService;
         public NotificationService notificationService;
+        public AppointmentNotificationSender appointmentNotificationSender;
 
         // UsersService
         public DoctorService doctorService;
@@ -174,7 +180,7 @@ namespace SIMS
         // MiscController
         public ArticleController articleController;
         public DoctorFeedBackController doctorFeedbackController;
-
+        public FeedbackController feedbackController;
         public LocationController locationController;
         public MessageController messageController;
         public NotificationController notificationController;
@@ -211,6 +217,7 @@ namespace SIMS
             // MiscController
             articleController = new ArticleController(articleService);
             doctorFeedbackController = new DoctorFeedBackController(doctorFeedbackService);
+            feedbackController = new FeedbackController(feedbackService);
             locationController = new LocationController(locationService);
             messageController = new MessageController(messageService);
             notificationController = new NotificationController(notificationService);
@@ -240,7 +247,6 @@ namespace SIMS
             medicineService = new MedicineService(medicineRepository);
 
             // MedicineService
-            appointmentService = new AppointmentService(appointmentRepository, appointmentStrategy);
             diagnosisService = new DiagnosisService(diagnosisRepository);
             diseaseService = new DiseaseService(diseaseRepository);
             medicalRecordService = new MedicalRecordService(medicalRecordRepository);
@@ -249,17 +255,22 @@ namespace SIMS
             // MiscService
             articleService = new ArticleService(articleRepository);
             doctorFeedbackService = new DoctorFeedbackService(doctorFeedbackRepository);
-            feedbackService = new FeedbackService(feedbackRepository);
+
+            feedbackService = new FeedbackService(feedbackRepository, questionRepository);
             locationService = new LocationService(locationRepository);
             messageService = new MessageService(messageRepository);
             notificationService = new NotificationService(notificationRepository);
+            appointmentNotificationSender = new AppointmentNotificationSender(notificationService);
+            appointmentService = new AppointmentService(appointmentRepository, appointmentStrategy, appointmentNotificationSender);
 
             // UsersService
             doctorService = new DoctorService(doctorRepository, userRepository, appointmentService);
             managerService = new ManagerService(managerRepository);
-            patientService = new PatientService(patientRepository);
+            patientService = new PatientService(patientRepository,medicalRecordRepository);
             secretaryService = new SecretaryService(secretaryRepository);
             userService = new UserService(userRepository);
+
+            appointmentRecommendationService = new AppointmentRecommendationService(appointmentService, doctorService);
         }
 
         private void LoadRepositories()
@@ -357,18 +368,22 @@ namespace SIMS
 
             //ODAVDDE RADITI OSTALE
 
+
             inventoryRepository = new InventoryRepository("inventoryRepository", new CSVStream<Inventory>(inventoryFile, new InventoryConverter(",", ";")), new LongSequencer(), inventoryItemRepository, medicineRepository);
 
             doctorStatisticRepository = new DoctorStatisticRepository("dSR", new CSVStream<StatsDoctor>(doctorStatisticsFile, new DoctorStatisticsConverter(",")), new LongSequencer(), doctorRepository);
+
+//            doctorStatisticRepository = new DoctorStatisticRepository(new CSVStream<StatsDoctor>(doctorStatisticsFile, new DoctorStatisticsConverter(",")), new LongSequencer(), doctorRepository);
+
             // Doc Stats OK
 
-            inventoryStatisticRepository = new InventoryStatisticsRepository("iSR", new CSVStream<StatsInventory>(inventoryStatisticsFile, new InventoryStatisticsConverter(",")), new LongSequencer(), medicineRepository, inventoryItemRepository);
+            inventoryStatisticRepository = new InventoryStatisticsRepository(new CSVStream<StatsInventory>(inventoryStatisticsFile, new InventoryStatisticsConverter(",")), new LongSequencer(), medicineRepository, inventoryItemRepository);
             // InventoryStats OK
 
-            roomStatisticRepository = new RoomStatisticsRepository("rSR", new CSVStream<StatsRoom>(roomStatisticsFile, new RoomStatisticsConverter(",")), new LongSequencer(), roomRepository);
+            roomStatisticRepository = new RoomStatisticsRepository(new CSVStream<StatsRoom>(roomStatisticsFile, new RoomStatisticsConverter(",")), new LongSequencer(), roomRepository);
             // RoomStats OK
 
-            inventoryRepository = new InventoryRepository("iR", new CSVStream<Inventory>(inventoryFile, new InventoryConverter(",", ";")), new LongSequencer(), inventoryItemRepository, medicineRepository);
+ //           inventoryRepository = new InventoryRepository(new CSVStream<Inventory>(inventoryFile, new InventoryConverter(",", ";")), new LongSequencer(), inventoryItemRepository, medicineRepository);
 
 
             #region service initialization
@@ -485,6 +500,7 @@ namespace SIMS
             //TODO: Ovde se mogu ucitati strategy pattern i slicne specificne stvari za sekretara
             // Ucitava se prilikom login-a
             appointmentService.AppointmentStrategy = new AppointmentSecretaryStrategy();
+            patientService.UserValidation = new SecretaryPatientValidation();
         }
     }
 }
