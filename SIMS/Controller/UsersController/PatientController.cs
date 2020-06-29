@@ -68,10 +68,10 @@ namespace SIMS.Controller.UsersController
             => _patientService.Delete(entity);
 
         public Prescription GivePrescription(Therapy therapy, Prescription prescription)
-            => therapyService.SetPerscription(therapy, prescription);
+            => _therapyService.SetPerscription(therapy, prescription);
 
         public Therapy AddTherapy(Therapy therapy)
-            => therapyService.Create(therapy);
+            => _therapyService.Create(therapy);
 
         
     }

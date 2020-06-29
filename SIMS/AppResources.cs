@@ -144,7 +144,7 @@ namespace SIMS
         public DiseaseService diseaseService;
         public MedicalRecordService medicalRecordService;
         public TherapyService therapyService;
-        public AppointmentRecommendationService appointmentRecommendationService;
+
 
         // MiscService
         public ArticleService articleService;
@@ -369,11 +369,11 @@ namespace SIMS
             //ODAVDDE RADITI OSTALE
 
 
-            inventoryRepository = new InventoryRepository("inventoryRepository", new CSVStream<Inventory>(inventoryFile, new InventoryConverter(",", ";")), new LongSequencer(), inventoryItemRepository, medicineRepository);
+//            inventoryRepository = new InventoryRepository("inventoryRepository", new CSVStream<Inventory>(inventoryFile, new InventoryConverter(",", ";")), new LongSequencer(), inventoryItemRepository, medicineRepository);
 
-            doctorStatisticRepository = new DoctorStatisticRepository("dSR", new CSVStream<StatsDoctor>(doctorStatisticsFile, new DoctorStatisticsConverter(",")), new LongSequencer(), doctorRepository);
+            //doctorStatisticRepository = new DoctorStatisticRepository("dSR", new CSVStream<StatsDoctor>(doctorStatisticsFile, new DoctorStatisticsConverter(",")), new LongSequencer(), doctorRepository);
 
-//            doctorStatisticRepository = new DoctorStatisticRepository(new CSVStream<StatsDoctor>(doctorStatisticsFile, new DoctorStatisticsConverter(",")), new LongSequencer(), doctorRepository);
+            doctorStatisticRepository = new DoctorStatisticRepository(new CSVStream<StatsDoctor>(doctorStatisticsFile, new DoctorStatisticsConverter(",")), new LongSequencer(), doctorRepository);
 
             // Doc Stats OK
 
@@ -383,7 +383,7 @@ namespace SIMS
             roomStatisticRepository = new RoomStatisticsRepository(new CSVStream<StatsRoom>(roomStatisticsFile, new RoomStatisticsConverter(",")), new LongSequencer(), roomRepository);
             // RoomStats OK
 
- //           inventoryRepository = new InventoryRepository(new CSVStream<Inventory>(inventoryFile, new InventoryConverter(",", ";")), new LongSequencer(), inventoryItemRepository, medicineRepository);
+            inventoryRepository = new InventoryRepository(new CSVStream<Inventory>(inventoryFile, new InventoryConverter(",", ";")), new LongSequencer(), inventoryItemRepository, medicineRepository);
 
 
             #region service initialization
@@ -397,7 +397,7 @@ namespace SIMS
             medicineService = new MedicineService(medicineRepository);
 
             // MedicineService
-            appointmentService = new AppointmentService(appointmentRepository, appointmentStrategy);
+            appointmentService = new AppointmentService(appointmentRepository, appointmentStrategy, appointmentNotificationSender);
             diagnosisService = new DiagnosisService(diagnosisRepository);
             diseaseService = new DiseaseService(diseaseRepository);
             medicalRecordService = new MedicalRecordService(medicalRecordRepository);
@@ -406,7 +406,7 @@ namespace SIMS
             // MiscService
             articleService = new ArticleService(articleRepository);
             doctorFeedbackService = new DoctorFeedbackService(doctorFeedbackRepository);
-            feedbackService = new FeedbackService(feedbackRepository);
+            feedbackService = new FeedbackService(feedbackRepository, questionRepository);
             locationService = new LocationService(locationRepository);
             messageService = new MessageService(messageRepository);
             notificationService = new NotificationService(notificationRepository);
@@ -414,7 +414,7 @@ namespace SIMS
             // UsersService
             doctorService = new DoctorService(doctorRepository, userRepository, appointmentService);
             managerService = new ManagerService(managerRepository);
-            patientService = new PatientService(patientRepository);
+            patientService = new PatientService(patientRepository, medicalRecordRepository);
             secretaryService = new SecretaryService(secretaryRepository);
             #endregion
 
